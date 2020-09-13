@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+mpd &
+remaps &		# run the remaps script, switching caps/esc and more; check it for more info
+setbg &			# set the background with the `setbg` script
+xcompmgr &		# xcompmgr for transparency
+dunst &			# dunst for notifications
+xset r rate 300 50 &	# Speed xrate up
+unclutter &		# Remove mouse when idle
+syncthing -no-browser &
+export BROWSER="/home/davide/Packages/ungoogled-chromium_83.0.4103.97-1.1_linux/chrome-wrapper"
+
+timeOnPc start
+xbacklight -set 20
+libinput-gestures-setup start
+sudo rfkill block wlan bluetooth
+sudo tlp bat
+[ -e /etc/hosts ] || sudo cp /etc/hosts.b /etc/hosts
+notify-send -i /home/davide/.config/Icons/UserImg.png "<Welcome>" "Today is a great day to suck...less"

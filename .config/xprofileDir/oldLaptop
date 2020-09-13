@@ -1,0 +1,16 @@
+#!/bin/sh
+
+remaps &		# run the remaps script, switching caps/esc and more; check it for more info
+setbg &			# set the background with the `setbg` script
+xcompmgr &		# xcompmgr for transparency
+dunst &			# dunst for notifications
+sxhkd -m 1 &		# Bind keys with sxhkd
+xset r rate 300 50 &	# Speed xrate up
+unclutter &		# Remove mouse when idle
+
+timeOnPc start
+libinput-gestures-setup start
+sudo rfkill block wlan
+sudo tlp bat
+[ -e /etc/hosts ] || sudo cp hosts.b hosts
+notify-send -i /home/davide/.config/Icons/UserImg.png "<Welcome>" "Today is a great day to suck...less"

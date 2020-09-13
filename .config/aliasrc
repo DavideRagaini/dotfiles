@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# Override GNU defaults
+alias \
+	bc="bc -l" \
+	cp="cp -iv" \
+	df="df -h" \
+	du="du -h" \
+	free="free -h" \
+	history="fc -rl 0 | fzf" \
+	ka="killall" \
+	mkd="mkdir -pv" \
+	mv="mv -iv" \
+	rm="rm -vI"
+
+# Colorize commands
+alias \
+	ccat="highlight --out-format=ansi" \
+	diff="diff --color=auto" \
+	grep="grep --color=auto" \
+	la="ls -la -hFHhN --color=auto --group-directories-first" \
+	ls="ls -hN --color=auto --group-directories-first"
+
+# Abbreviations
+alias \
+	bc="bc -l" \
+	c.="cd .." \
+	e="$EDITOR" \
+	f="$FILE" \
+	q="exit" \
+	s="sudo" \
+	sdn="sudo shutdown -h now" \
+	spawn="setsid st &" \
+	t="task" \
+	trem="transmission-remote" \
+	tw="timew" \
+	v="$EDITOR" \
+	x="sxiv -ft *" \
+	yt="youtube-dl --add-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	z="zathura"
+
+# git
+alias \
+	g="git" \
+	ga="git add"\
+	gc="git commit -m"\
+	gd="git pull" \
+	gs="git status"\
+	gu="git push" \
+	gua="git remote | xargs -L1 git push --all"
+
+# xbps
+alias \
+	xgot="xbps-query -l | fzf" \
+	xi="sudo xbps-install" \
+	xq="xbps-query -Rs" \
+	xr="sudo xbps-remove -R" \
+	xu="sudo xbps-install -Su"
+
+# youtube-dl
+alias \
+	YT="youtube-viewer" \
+	dlm="youtube-dl --add-metadata -ic --extract-audio --audio-format mp3 --audio-quality 0" \
+	dlv="youtube-dl -ic --add-metadata" \
+	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
+	yta="yt -x -f bestaudio/best"
+
+# Miscellaneous
+alias \
+	cleanupdates="sudo vkpurge rm all; xr -Ooy" \
+	dwmrefresh="kill -HUP $(pidof -s dwm)" \
+	ffmpeg="ffmpeg -hide_banner" \
+	magit="nvim -c MagitOnly" \
+	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
+	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" 
+
+# command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+gcl () { git clone https://github.com/"$1".git ;}
+sxq() { xbps-query -Rs "$1" | fzf;}
+sxi() { xbps-query -Rs "$1" | fzf | cut -d' ' -f2 | xargs -r -I % sudo xbps-install -Sy %;}
+cvf() { find "$HOME/.config" | fzf | xargs -r -I % "$EDITOR" % ;}
+scf() { find "$HOME/.local/bin/" | fzf | xargs -r -I % "$EDITOR" % ;}
+fmpv() { find "$HOME/.cache/mpv" | fzf | xargs -r -I % "$EDITOR" % ;}
+of() { fzf | xargs -r -I % opener % ;}
+fl() { fzf | xargs -r -I % lf % ;}
+vf() { fzf | xargs -r -I % "$EDITOR" % ;}

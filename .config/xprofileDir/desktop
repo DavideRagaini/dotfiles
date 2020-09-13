@@ -1,0 +1,23 @@
+#!/bin/sh
+
+export BROWSER="/home/davide/Storage/Projects/ungoogled-chromium_83.0.4103.97-1.1_linux/chrome-wrapper"
+export DEPLOY_DEVICE="desktop"
+export GDK_DPI_SCALE=1.5
+
+mpd &
+remaps &		# run the remaps script, switching caps/esc and more; check it for more info
+setbg &			# set the background with the `setbg` script
+xcompmgr &		# xcompmgr for transparency
+dunst &			# dunst for notifications
+xset r rate 300 50 &	# Speed xrate up
+unclutter &		# Remove mouse when idle
+syncthing -no-browser &
+
+sh ~/.config/screenlayout/Desktop/main.sh
+timeOnPc start
+sudo tlp bat
+
+[ -e /etc/hosts ] || sudo ln -s /etc/hosts.b /etc/hosts
+notify-send -i "$HOME/.config/Icons/splash.png" "<Welcome>" "Today is a great day to suck"
+echo "\a" > /dev/tty5	# beep
+# echo -en "\a" > /dev/tty5	# beep
