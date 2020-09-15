@@ -1,13 +1,14 @@
 # You can add comments to these files with #
 u   $HOME/Universitá
 p   $HOME/Projects
-dv  ${XDG_CONFIG_HOME:-$HOME/.config}/void
+# dv  ${XDG_CONFIG_HOME:-$HOME/.config}/void
 S   $HOME/Storage
 sd	/mnt/sd
 usb	/mnt/usb
 mt	/mnt/tmp
-wm	${XDG_CONFIG_HOME:-$HOME/.config}/dwm
-sb	${XDG_CONFIG_HOME:-$HOME/.config}/dwmblocks
+dot	$HOME/.local/src/dotfiles
+wm	$HOME/.local/src/dwm
+sb	$HOME/.local/src/dwmblocks
 cdv	${XDG_CONFIG_HOME:-$HOME/.config}/nvim
 
 cac ${XDG_CACHE_HOME:-$HOME/.cache}
