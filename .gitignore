@@ -29,6 +29,7 @@
 .config/nvim/vimspector-config/*
 .config/profile
 .config/sxhkd/sxhkdrc
+.config/task/freecinc_.*
 .config/timewarrior/data
 .config/timewarrior/extensions
 .config/transmission/blocklists
