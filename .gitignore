@@ -29,6 +29,7 @@
 .config/nvim/vimspector-config/*
 .config/profile
 .config/sxhkd/sxhkdrc
+.config/task/freecinc_*
 .config/timewarrior/data
 .config/timewarrior/extensions
 .config/transmission/blocklists
@@ -52,8 +53,6 @@
 .config/zsh/.zshenv
 .config/zsh/.zshenv.zwc
 .config/zsh/.zshenv.zwc.old
-.config/zsh/.zshrc
-.config/zsh/.zshrc.def
 .config/zsh/.zshrc.zwc
 .config/zsh/.zshrc.zwc.old
 .config/zzz/onresume

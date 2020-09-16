@@ -33,8 +33,6 @@ settings:
   content.notifications:
     https://1337x.to: false
     https://www.reddit.com: false
-  downloads.location.directory:
-    global: /home/davide/Downloads
   editor.command:
     global:
       - nvim
@@ -47,4 +45,4 @@ settings:
   statusbar.show:
     global: always
   zoom.default:
-    global: "200"
+    global: "100"
