@@ -36,6 +36,7 @@ alias \
 	tw="timew" \
 	v="$EDITOR" \
 	x="sxiv -ft *" \
+	y="straw-viewer"
 	yt="youtube-dl --add-metadata -i" \
 	yta="yt -x -f bestaudio/best" \
 	z="zathura"
