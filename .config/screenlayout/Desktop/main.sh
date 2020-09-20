@@ -9,6 +9,4 @@ xrdb -remove ~/.config/Xresources
 
 pkill -RTMIN+12 dwmblocks
 
-
-
-# xwallpaper --center ~/.config/Icons/wallpaper2.png
+setbg

@@ -2,8 +2,11 @@
 .config/dunst/dunstrc
 .config/git/credentials
 .config/mpd/!mpd.conf
+.config/mpd/database
 .config/mpd/log
+.config/mpd/lyrics
 .config/mpd/pid
+.config/mpd/playlists
 .config/mpd/state
 .config/mpv/watch_later
 .config/ncmpcpp/error.log
@@ -16,7 +19,9 @@
 .config/nvim/session/
 .config/nvim/tags*
 .config/nvim/vimspector-config/*
+.config/ranger/__pycache__
 !.config/timewarrior/timewarrior.cfg
+.config/timewarrior/data
 !.config/transmission/settings.json
 !.config/transmission-daemon/settings.json
 !.config/zsh/.zshrc
