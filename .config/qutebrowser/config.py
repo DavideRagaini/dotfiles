@@ -17,3 +17,7 @@ c.url.searchengines = {
     "y": "https://www.youtube.com/results?search_query={}",
     "aw": "https://wiki.archlinux.org/?search={}",
 }
+
+import dracula
+
+dracula.blood(c, {"spacing": {"vertical": 6, "horizontal": 8}})

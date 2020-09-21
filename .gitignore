@@ -19,6 +19,7 @@
 .config/nvim/session/
 .config/nvim/tags*
 .config/nvim/vimspector-config/*
+.config/qutebrowser/__pycache__
 .config/ranger/__pycache__
 !.config/timewarrior/timewarrior.cfg
 .config/timewarrior/data
