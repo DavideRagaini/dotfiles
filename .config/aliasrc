@@ -17,9 +17,7 @@ alias \
 alias \
 	ccat="highlight --out-format=ansi" \
 	diff="diff --color=auto" \
-	grep="grep --color=auto" \
-	la="ls -la -hFHhN --color=auto --group-directories-first" \
-	ls="ls -hN --color=auto --group-directories-first"
+	grep="grep --color=auto"
 
 # Abbreviations
 alias \
