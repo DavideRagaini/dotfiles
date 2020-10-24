@@ -29,6 +29,10 @@
 .config/transmission/torrents
 .config/transmission/resume
 !.config/transmission-daemon/settings.json
+.config/transmission-daemon/stats.json
+.config/transmission-daemon/dht.dat
+.config/transmission-daemon/torrents
+.config/transmission-daemon/resume
 !.config/zsh/.zshrc
 .config/zzz/onresume
 .config/zzz/onsuspend
