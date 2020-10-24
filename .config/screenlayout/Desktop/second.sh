@@ -1,8 +1,8 @@
 #!/bin/sh
 
-xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off
+xrandr --output DVI-D-0 --primary --mode 1920x1080 --output HDMI-0 --off
 
-xrdb ~/.config/Xresources
+# xrdb ~/.config/Xresources
 
 # out=$( pactl list short sinks | grep hdmi | awk '{print $1}')
 # pacmd set-default-sink $out || notify-send "Failed setting default sink"
@@ -12,5 +12,5 @@ xrdb ~/.config/Xresources
 
 setbg
 # xwallpaper --output DVI-D-0 --maximize ~/.config/Icons/wallpaper2.png
-sleep 3 &&
-kill -HUP "$(pidof -s dwm)"
+# sleep 3 &&
+# kill -HUP "$(pidof -s dwm)"

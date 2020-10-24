@@ -24,6 +24,10 @@
 !.config/timewarrior/timewarrior.cfg
 .config/timewarrior/data
 !.config/transmission/settings.json
+.config/transmission/stats.json
+.config/transmission/dht.dat
+.config/transmission/torrents
+.config/transmission/resume
 !.config/transmission-daemon/settings.json
 !.config/zsh/.zshrc
 .config/zzz/onresume
