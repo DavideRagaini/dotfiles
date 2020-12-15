@@ -1,7 +1,7 @@
 #!/bin/sh
 
-xrandr --output DVI-D-0 --primary --mode 1920x1080 --output HDMI-0 --off
-
+# export GDK_DPI_SCALE=1
+xrandr --output DVI-D-0 --primary --mode 1920x1080 --scale 2 --output HDMI-0 --off
 # xrdb ~/.config/Xresources
 
 # out=$( pactl list short sinks | grep hdmi | awk '{print $1}')

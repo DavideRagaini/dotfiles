@@ -32,6 +32,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCL_f53ZEJxp8TtlOkHwMV9Q "~J
 
 "---LINUX---"
 # https://github.com/void-linux/void-packages/commits/master.atom
+https://raw.githubusercontent.com/ungoogled-software/ungoogled-chromium-binaries/master/feed.xml
 https://github.com/void-linux/xbps/commits/master.atom
 https://voidlinux.org/atom.xml
 https://www.archlinux.org/feeds/news/ "Arch news"
