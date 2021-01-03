@@ -340,9 +340,9 @@ user_interface = alternative
 #
 ## Available values: artist, album_artist, date, genre, composer, performer.
 ##
-media_library_primary_tag = album_artist
+media_library_primary_tag = artist
 #
-media_library_albums_split_by_date = no
+media_library_albums_split_by_date = yes
 #
 ## Available values: wrapped, normal.
 ##
@@ -424,9 +424,9 @@ startup_screen = media_library
 #
 #ask_before_clearing_playlists = yes
 #
-#clock_display_seconds = no
+clock_display_seconds = yes
 #
-display_volume_level = no
+display_volume_level = yes
 #
 display_bitrate = yes
 #
@@ -513,11 +513,11 @@ use_console_editor = yes
 ## progressbar_elapsed_color, player_state_color, statusbar_time_color,
 ## alternative_ui_separator_color.
 ##
-## Note: due to technical limitations of older ncurses version, if 256 colors
+## Note: due to technicalyes of older ncurses version, if 256 colors
 ## are used there is a possibility that you'll be able to use only colors with
 ## transparent background.
 #
-#colors_enabled = yes
+colors_enabled = yes
 #
 empty_tag_color = magenta
 #
@@ -525,7 +525,7 @@ empty_tag_color = magenta
 #
 #volume_color = default
 #
-#state_line_color = default
+state_line_color = yellow
 #
 #state_flags_color = default:b
 #
@@ -543,7 +543,7 @@ statusbar_color = red
 #
 statusbar_time_color = cyan:b
 #
-#player_state_color = default:b
+player_state_color = yellow:b
 #
 #alternative_ui_separator_color = black:b
 #
