@@ -1,6 +1,5 @@
 #!/bin/sh
 
-i3lock -e -f -c 1d2021 -i ~/.config/Icons/lockscreen.png
-xset dpms force off
-timeOnPc suspend
+# i3lock -eft -c 1d2021 -i ~/.config/lockscreen
+lock && timeOnPc suspend
 
