@@ -114,14 +114,6 @@ if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
 fi
 source ${ZIM_HOME}/init.zsh
 
-# SORIN THEME
-_prompt_sorin_vimode() {
-  case ${KEYMAP} in
-    vicmd) print -n ' %B%F{2}❮%F{3}❮%F{1}❮%b' ;;
-    *) print -n ' %B%F{1}❯%F{3}❯%F{2}❯%b' ;;
-  esac
-}
-
 zle-keymap-select() {
   zle reset-prompt
   zle -R
@@ -154,8 +146,9 @@ if (( ${+functions[git-info]} )); then
 fi
 
 # Define prompts.
-PS1='%{$fg_bold[blue]%}%* %{$reset_color%}${SSH_TTY:+"%F{9}%n%F{7}@%F{3}%m "}%B%F{6}%~%b%(!. %B%F{1}#%b.)$(_prompt_sorin_vimode)%f '
-RPS1='${VIRTUAL_ENV:+"%F{3}(${VIRTUAL_ENV:t})"}%(?:: %F{1}✘ %?)${VIM:+" %B%F{6}V%b"}${(e)git_info[status]}%f'
+PROMPT=$'%{\e[1;31m%}┌─[%{\e[1;34m%}%B%{%n%}%{\e[1;33m%}@%{\e[1;36m%}%m%b%{\e[1;31m%}]─%b%{\e[0;31m%}%B[%b%{\e[1;35m%}%~%{\e[1;31m%}%B]%b%{\e[0m%} 
+%{\e[1;31m%}└──╼%{\e[1;35m%}%B❯%{\e[1;34m%}❯%{\e[1;90m%}❯%{\e[0m%}%b'
+RPROMPT=$'${VIRTUAL_ENV:+"%F{3}(${VIRTUAL_ENV:t})"}%(?:: %F{1}✘ %?)${VIM:+" %B%F{6}V%b"}${(e)git_info[status]}%f %{\e[1;31m%}[%{\e[1;33m%}%*%{\e[1;31m%}] %b%{\e[1;31m%}%B[%b%{\e[1;35m%}%!%{\e[1;31m%}%B]%b%{\e[0m%}'
 SPROMPT='Correct %F{1}%R%f to %F{2}%r%f [nyae]? '
 
 # 16 Terminal Colors
