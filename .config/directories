@@ -1,7 +1,5 @@
-# You can add comments to these files with #
 u   $HOME/Universitá
 p   $HOME/Projects
-# dv  ${XDG_CONFIG_HOME:-$HOME/.config}/void
 S   $HOME/Storage
 sd	/mnt/sd
 usb	/mnt/usb
@@ -10,7 +8,6 @@ dot	$HOME/.local/src/dotfiles
 wm	$HOME/.local/src/dwm
 sb	$HOME/.local/src/dwmblocks
 cdv	${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-
 cac ${XDG_CACHE_HOME:-$HOME/.cache}
 cf  ${XDG_CONFIG_HOME:-$HOME/.config}
 D   ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
@@ -23,4 +20,3 @@ pp  ${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}
 sc  $HOME/.local/bin
 src $HOME/.local/src
 vv  ${XDG_VIDEOS_DIR:-$HOME/Storage/Videos}
-
