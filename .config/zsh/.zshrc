@@ -146,7 +146,8 @@ if (( ${+functions[git-info]} )); then
 fi
 
 # Define prompts.
-PROMPT=$'%{\e[1;31m%}┌─❮%{\e[1;34m%}%B%{%n%}%{\e[1;33m%}@%{\e[1;36m%}%m%b%{\e[1;31m%}❯-%b%{\e[0;31m%}%B❮%b%{\e[1;35m%}%~%{\e[1;31m%}%B❯%b%{\e[0m%} 
+#Dopo l'angolo ❮%{\e[1;34m%}%B%{%n%}%{\e[1;33m%}@%{\e[1;36m%}%m%b%{\e[1;31m%}❯-%b%{\e[0;31m%}
+PROMPT=$'%{\e[1;31m%}┌─%B❮%b%{\e[1;35m%}%~%{\e[1;31m%}%B❯%b%{\e[0m%} 
 %{\e[1;31m%}└──╼%{\e[1;35m%}%B❯%{\e[1;34m%}❯%{\e[1;90m%}❯%{\e[0m%}%b '
 RPROMPT=$'${VIRTUAL_ENV:+"%F{3}(${VIRTUAL_ENV:t})"}%(?:: %F{1}✘ %?)${VIM:+" %B%F{6}V%b"}${(e)git_info[status]}%f %{\e[1;31m%}❮%{\e[1;33m%}%*%{\e[1;31m%}❯-❮%b%{\e[1;35m%}%!%{\e[1;31m%}%B❯%b%{\e[0m%}'
 SPROMPT='Correct %F{1}%R%f to %F{2}%r%f [nyae]? '
