@@ -1,24 +1,24 @@
 font:
+  size: 9.0
   offset:
     x: 0
     y: 0
   glyph_offset:
     x: 0
     y: 0
-window:
-  padding:
-    x: 2
-    y: 2
-  size: 14
   normal:
     family: Iosevka
     style: Regular
   bold:
     family: Iosevka
-    style: bold
+    style: Bold
   italic:
     family: Iosevka
-    style: italic
+    style: Italic
+window:
+  padding:
+    x: 2
+    y: 2
 
     scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -50,7 +50,7 @@ key_bindings:
 
 background_opacity: 0.80
 
-# # Colors (Dracula)
+# Colors (Dracula)
 colors:
   primary:
     background: "#282a36"
