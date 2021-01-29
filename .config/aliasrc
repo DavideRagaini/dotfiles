@@ -46,14 +46,14 @@ alias \
 	z="zathura"
 
 # git
-# alias \
-	# g="git" \
-	# ga="git add"\
-	# gc="git commit -m"\
-	# gd="git pull" \
-	# gcl='git clone https://github.com/"$1".git ' \
-	# gs="git status"\
-	# gu="git push" \
+alias \
+	g="git" \
+	ga="git add"\
+	gc="git commit -m"\
+	gd="git pull" \
+	gcl='git clone https://github.com/"$1".git ' \
+	gs="git status"\
+	gu="git push"
 	# gua="git remote | xargs -L1 git push --all"
 
 # xbps-install & upgrade
