@@ -36,6 +36,7 @@ export QT_QPA_PLATFORMTHEME="gtk2"	# Have QT use gtk2 theme.
 export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
 export TASKDATA="$XDG_DATA_HOME/task"
 export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
+# export TERM="screen-256color"
 export TERMINFO="$XDG_DATA_HOME/terminfo"
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
 export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"

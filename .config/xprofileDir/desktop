@@ -18,12 +18,13 @@ sudo runsv /var/service/chronyd &
 sudo runsv /var/service/socklog-unix &
 sudo runsv /var/service/nanoklogd &
 sudo runsv /var/service/sshd &
+sudo runsv /var/service/dcron &
 
-sh ~/.config/screenlayout/Desktop/second.sh
+sh ~/.config/screenlayout/Desktop/main.sh
 timeOnPc start
 # sudo tlp bat
 
-[ -e /etc/hosts ] || sudo ln -s /etc/hosts.b /etc/hosts
+blacklist on
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/Art/Redge-hp.jpg" "<Welcome>" "Today is a great day to suck"
 echo "\a" > /dev/tty5	# beep
 # echo -en "\a" > /dev/tty5	# beep

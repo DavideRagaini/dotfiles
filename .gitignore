@@ -37,3 +37,6 @@
 !.config/zsh/.zshrc
 .config/zzz/onresume
 .config/zzz/onsuspend
+.config/newsboat/urls
+.config/tmux/plugins/
+.config/via/
