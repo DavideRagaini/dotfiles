@@ -7,6 +7,8 @@
 # Zsh configuration
 # -----------------
 
+eval "$(zoxide init zsh)"
+
 #
 # History
 #

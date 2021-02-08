@@ -43,7 +43,8 @@ alias \
 	v="$EDITOR" \
 	vf='vim -o `fzf`' \
 	x="sxiv -ft *" \
-	z="zathura"
+	zat="zathura"
+	# z="zoxide"
 
 # git
 alias \
@@ -89,6 +90,7 @@ alias \
 	dwmrefresh="kill -HUP $(pidof -s dwm)" \
 	ffmpeg="ffmpeg -hide_banner" \
 	magit="nvim -c MagitOnly" \
+	wiki="nvim -c VimwikiIndex" \
 	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" 
 	# tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" 

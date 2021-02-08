@@ -14,17 +14,18 @@ unclutter &		# Remove mouse when idle
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/Xresources &	# Uncomment to use Xresources colors/settings on startup
 numlockx &
 syncthing -no-browser &
+redshift -l 43.5942:13.5034 &
 sudo runsv /var/service/chronyd &
 sudo runsv /var/service/socklog-unix &
 sudo runsv /var/service/nanoklogd &
 sudo runsv /var/service/sshd &
-sudo runsv /var/service/dcron &
+# sudo runsv /var/service/dcron &
 
-sh ~/.config/screenlayout/Desktop/main.sh
+sh ~/.config/screenlayout/Desktop/second.sh
 timeOnPc start
 # sudo tlp bat
 
+xautolock -time 20 -notify 60 -notifier "notify-send -u critical 'System will be locked' '1 minute left'" -locker 'doas zzz' &
 blacklist on
-notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/Art/Redge-hp.jpg" "<Welcome>" "Today is a great day to suck"
+notify-send -i "$(${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/Art/Redge-hp.jpg)" "<Welcome>" "Today is a great day to suck"
 echo "\a" > /dev/tty5	# beep
-# echo -en "\a" > /dev/tty5	# beep
