@@ -1,11 +1,11 @@
 #!/bin/sh
 
-export BROWSER="uchromium"
-export GDK_DPI_SCALE=1.5
+export BROWSER="librewolf"
+# export GDK_DPI_SCALE=1.5
 
 mpd &
 remaps &		# run the remaps script, switching caps/esc and more; check it for more info
-# setbg &			# set the background with the `setbg` script
+setbg &			# set the background with the `setbg` script
 # picom &
 # xcompmgr &		# xcompmgr for transparency
 dunst &			# dunst for notifications

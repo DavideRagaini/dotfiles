@@ -1,8 +1,8 @@
 #!/bin/sh
 
-export GDK_DPI_SCALE=1.5
+# export GDK_DPI_SCALE=1.5
 xrandr --output HDMI-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal --output DVI-D-0 --off
-xrdb -remove ~/.config/Xresources
+# xrdb -remove ~/.config/Xresources
 
 # out=$( pactl list short sinks | grep 'analog-stereo' | awk '{print $1}')
 # pacmd set-default-sink $out || notify-send "Failed setting default sink"
