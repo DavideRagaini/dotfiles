@@ -1,1 +1,1 @@
-.config/X11/profile
+dot-config/X11/profile
