@@ -160,7 +160,7 @@ ex=:\
 *.zip=📦:\
 "
 # Start graphical server on user's current tty if not already running.
-#	[[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx
+	[[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.local/bin/ttymaps.kmap 2>/dev/null
