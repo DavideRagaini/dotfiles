@@ -1,1 +1,1 @@
-.profile
+.config/X11/zprofile
