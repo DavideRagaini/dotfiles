@@ -6,7 +6,6 @@ export READER="zathura"
 export TERMINAL="st"
 
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
-# export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -160,7 +159,8 @@ ex=:\
 *.zip=📦:\
 "
 # Start graphical server on user's current tty if not already running.
-	[[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx
+	# [[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx 
+	[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.local/bin/ttymaps.kmap 2>/dev/null

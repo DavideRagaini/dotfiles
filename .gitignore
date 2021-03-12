@@ -22,6 +22,7 @@ dot-config/nvim/tags*
 dot-config/nvim/vimspector-config/*
 dot-config/qutebrowser/__pycache__
 dot-config/ranger/__pycache__
+dot-config/ranger/shortcuts.conf
 dot-config/shell/shortcutrc
 dot-config/shell/zshnameddirrc
 dot-config/X11/xresources

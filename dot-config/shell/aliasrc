@@ -44,7 +44,6 @@ alias \
 	vf='vim -o `fzf`' \
 	x="sxiv -ft *" \
 	zat="zathura"
-	# z="zoxide"
 
 # git
 alias \
@@ -91,8 +90,9 @@ alias \
 	ffmpeg="ffmpeg -hide_banner" \
 	magit="nvim -c MagitOnly" \
 	wiki="nvim -c VimwikiIndex" \
-	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
-	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" 
-	# tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" 
+	# mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" 
+
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
 
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
