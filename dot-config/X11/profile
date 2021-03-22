@@ -6,6 +6,7 @@ export READER="zathura"
 export TERMINAL="st"
 
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
+export PATH="$PATH:$HOME/.emacs.d/bin"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -17,7 +18,7 @@ export XDG_PICTURES_DIR="$HOME/Storage/Pictures"
 export XDG_RUNTIME_DIR="$HOME/.cache"
 export XDG_VIDEOS_DIR="$HOME/Storage/Videos"
 
-export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java"
+# export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java"
 #export ALSA_CONFIG_PATH="$XDG_CONFIG_HOME/alsa/asoundrc"
 export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
 export CUDA_CACHE_PATH="$XDG_CONFIG_HOME/nv"
@@ -29,6 +30,7 @@ export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export LESSHISTFILE="-"
 export MESA_LOADER_DRIVER_OVERRIDE="i965"
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export OCTAVE_HISTFILE="$XDG_CACHE_HOME/octave-hsts"
 export OCTAVE_SITE_INITFILE="$XDG_CONFIG_HOME/octave/octaverc"
 export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
@@ -159,7 +161,7 @@ ex=:\
 *.zip=📦:\
 "
 # Start graphical server on user's current tty if not already running.
-	# [[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx 
+	# [[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx
 	[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
 # Switch escape and caps if tty:

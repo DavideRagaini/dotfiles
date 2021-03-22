@@ -1,14 +1,17 @@
 set shell dash
 set shellopts '-eu'
 set ifs "\n"
-set scrolloff 10
+set scrolloff 5
 # set color256
-set icons
+# set icons
 set period 1
-set hidden
-set number
+# set hidden
+# set number
 set relativenumber
-set previewer ~/.config/lf/scope
+set drawbox
+# set previewer ~/.config/lf/scope
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner
 
 # Vars that depend on environmental variables
 $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
@@ -30,7 +33,12 @@ cmd open ${{
     esac
 }}
 
-cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
+cmd mkdir %{{
+    IFS=" "
+    mkdir -p -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+# cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 cmd delete ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
@@ -63,34 +71,177 @@ cmd copyto ${{
 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
+cmd broot_jump ${{
+    f=$(mktemp)
+    res="$(broot --outcmd $f && cat $f | sed 's/cd //')"
+    rm -f "$f"
+    if [ -f "$ref" ]; then
+       cmd="select"
+    elif [ -d "$res" ]; then
+       cmd="cd"
+    fi
+    lf -remote "send $id $cmd \"$res\""
+
+}}
+
+# cmd fzf_jump ${{
+#     res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+#     if [ -d "$res" ]; then
+#         cmd="cd"
+#     else
+#         cmd="select"
+#     fi
+#     lf -remote "send $id $cmd \"$res\""
+# }}
+
+cmd zle-cd %printf 'cd %q && zle reset-prompt\n' "$PWD" >&$ZLE_FIFO
+
+cmd zle-insert-relative %{{
+    for f in $fx; do
+        printf 'LBUFFER+="${LBUFFER:+ }${(q)$(realpath %q --relative-to=$PWD)}"\n' "$f" >&$ZLE_FIFO
+    done
+}}
+
+cmd zle-insert-absolute %{{
+    for f in $fx; do
+        printf 'LBUFFER+="${LBUFFER:+ }%q"\n' "$f" >&$ZLE_FIFO
+    done
+}}
+
+cmd zle-init :{{
+    map . zle-cd
+    map x zle-insert-relative
+    map X zle-insert-absolute
+}}
+
+&[[ -n "$ZLE_FIFO" ]] && lf -remote "send $id zle-init"
+
+cmd paste &{{
+    set -- $(lf -remote load)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy)
+            rsync -av --ignore-existing --progress -- "$@" . |
+            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+            while IFS= read -r line; do
+                lf -remote "send $id echo $line"
+            done
+            ;;
+        move) mv -n -- "$@" .;;
+    esac
+    lf -remote "send load"
+    lf -remote "send clear"
+}}
+
+cmd recol &{{
+    w=$(tput cols)
+    if [ $w -le 80 ]; then
+        lf -remote "send $id set ratios 1:2"
+    elif [ $w -le 160 ]; then
+        lf -remote "send $id set ratios 1:2:3"
+    else
+        lf -remote "send $id set ratios 1:2:3:5"
+    fi
+}}
+
+
+# y (select for copy) and P to paste soft-link
+# d (select for cut) and P to paste hard-link
+cmd link %{{
+    set -- $(lf -remote load)
+    mode="$1"
+    shift
+    if [ "$#" -lt 1 ]; then
+        lf -remote "send $id echo no files to link"
+        exit 0
+    fi
+    case "$mode" in
+        # symbolically copy mode is indicating a soft link
+        copy) ln -sr -t . -- "$@";;
+        # while a move mode is indicating a hard link
+        move) ln -t . -- "$@";;
+    esac
+}}
+
+cmd yank-dirname $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
+cmd yank-path $printf '%s' "$fx" | xclip -i -selection clipboard
+cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
+cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | rev | head -c-1 | xclip -i -selection clipboard
+
+cmd open-with %"$@" $fx
+
+# cmd on-cd &{{
+#     # '&' commands run silently in background (which is what we want here),
+#     # but are not connected to stdout.
+#     # To make sure our escape sequence still reaches stdout we pipe it to /dev/tty
+#     printf "\033]0; $(pwd | sed "s|$HOME|~|") - lf\007" > /dev/tty
+#     # printf "\033]0; $PWD\007" > /dev/tty
+# }}
+
+# also run at startup
+# on-cd
+
+# cmd paste $cp-p --lf-paste $id
+
 # Bindings
+map ow push :open-with<space>
+map Yp yank-path
+map Yb yank-basename
+map Yd yank-dirname
+map Ybe yank-basename-without-extension
+map P :link
+map <c-f> :broot_jump
+# map <c-f> $lf -remote "send $id select '$(fzf)'"
+# map <c-f> $vi $(fzf)
 map c $vl $f
-map <c-f> $lf -remote "send $id select '$(fzf)'"
-map J $lf -remote "send $id cd $(cut -d'	' -f2 ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
-map gh
-map g top
+
+map J $lf -remote "send $id cd \"$(cut -d'	' -f2 ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)\""
+map gg top
 map D delete
 map C copyto
 map M moveto
 map <c-n> push :mkdir<space>
 map <c-r> reload
 map <enter> shell
-map x $$f
-map X !$f
-map o &mimeopen $f
-map O $mimeopen --ask $f
+# map x $$f
+# map X !$f
+# map o &mimeopen $f
+# map O $mimeopen --ask "$f"
 
-map A rename # at the very end
+# map A rename # at the very end
 # map c push A<c-u> # new rename
 map I push A<c-a> # at the very beginning
-map i push A<a-b><a-b><a-f> # before extention
-map a push A<a-b> # after extention
+# map i push A<a-b><a-b><a-f> # before extention
+map R push A<a-b> # after extention
 map b $vidir
 map <c-b> $setbg $f
 
 map <c-e> down
 map <c-y> up
 map V push :!nvim<space>
-map O $mimeopen --ask "$f"
-map - $img_preview $f
-map + :video_preview
+# map - $img_preview $f
+# map + :video_preview
+
+# map gh $cd ~/
+# map gU $cd ~/Universitá
+# map gP $cd $HOME/Projects
+# map gS $cd $HOME/Storage
+# map gsd $cd /mnt/sd
+# map gusb $cd /mnt/usb
+# map gmt $cd /mnt/tmp
+# map gdot $cd $HOME/.local/src/dotfiles
+# map gwm $cd $HOME/.local/src/dwm
+# map gsb $cd $HOME/.local/src/dwmblocks
+# map gcac $cd ${XDG_CACHE_HOME:-$HOME/.cache}
+# map gcf $cd ${XDG_CONFIG_HOME:-$HOME/.config}
+# map gD $cd ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
+# map gd $cd ${XDG_DOCUMENTS_DIR:-$HOME/Documents}
+# map gdt $cd ${XDG_DATA_HOME:-$HOME/.local/share}
+# map gh $cd $HOME
+# map gM $cd ${XDG_MUSIC_DIR:-$HOME/Music}
+# map gmn $cd /mnt
+# map gpp $cd ${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}
+# map gsc $cd $HOME/.local/bin
+# map gsrc $cd $HOME/.local/src
+# map gvv $cd ${XDG_VIDEOS_DIR:-$HOME/Storage/Videos}

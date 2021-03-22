@@ -18,6 +18,7 @@ sudo runsv /var/service/chronyd &
 sudo runsv /var/service/socklog-unix &
 sudo runsv /var/service/nanoklogd &
 sudo runsv /var/service/sshd &
+sudo runsv /var/service/NetworkManager &
 # sudo runsv /var/service/dcron &
 
 sh ~/.config/screenlayout/Desktop/second.sh
@@ -26,5 +27,5 @@ timeOnPc start
 
 xautolock -time 20 -notify 180 -notifier "notify-send -u critical -t 60000 'System will be locked' '1 minute left'" -locker 'doas zzz' &
 blacklist on
-notify-send -i "$(${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/Art/Redge-hp.jpg)" "<Welcome>" "Today is a great day to suck"
+notify-send -i "$(${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg)" "<Welcome>" "Today is a great day to suck"
 # echo "\a" > /dev/tty5	# beep
