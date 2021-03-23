@@ -35,7 +35,7 @@ alias \
 	c.="cd .." \
 	cvf='br |  xargs -r -I % "$EDITOR" %' \
 	e="$EDITOR" \
-	f="$FILE" \
+	f="lfcd" \
 	q="exit" \
 	s="doas" \
 	scf='br "$HOME/.local/bin/" | xargs -r -I % "$EDITOR" %' \

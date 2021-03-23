@@ -10,6 +10,7 @@ set period 1
 set relativenumber
 set drawbox
 set previewer ~/.config/lf/scope
+source ~/.config/lf/shortcuts
 
 # Vars that depend on environmental variables
 $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
@@ -82,15 +83,15 @@ cmd broot_jump ${{
 
 }}
 
-# cmd fzf_jump ${{
-#     res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
-#     if [ -d "$res" ]; then
-#         cmd="cd"
-#     else
-#         cmd="select"
-#     fi
-#     lf -remote "send $id $cmd \"$res\""
-# }}
+cmd fzf_jump ${{
+    res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    if [ -d "$res" ]; then
+        cmd="cd"
+    else
+        cmd="select"
+    fi
+    lf -remote "send $id $cmd \"$res\""
+}}
 
 cmd zle-cd %printf 'cd %q && zle reset-prompt\n' "$PWD" >&$ZLE_FIFO
 
@@ -183,7 +184,7 @@ cmd open-with %"$@" $fx
 # cmd paste $cp-p --lf-paste $id
 
 # Bindings
-map ow push :open-with<space>
+map o push :open-with<space>
 map Yp yank-path
 map Yb yank-basename
 map Yd yank-dirname
@@ -194,7 +195,9 @@ map <c-f> :broot_jump
 # map <c-f> $vi $(fzf)
 map c $vl $f
 
-map J $lf -remote "send $id cd $(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
+# map J jump_shortcuts
+map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcuts | sed 's/^.*cd //g' | fzf)"
+map <c-j> fzf_jump
 map gg top
 map D delete
 map C copyto
@@ -220,26 +223,3 @@ map <c-y> up
 map V push :!nvim<space>
 # map - $img_preview $f
 # map + :video_preview
-
-# map gh $cd ~/
-# map gU $cd ~/Universitá
-# map gP $cd $HOME/Projects
-# map gS $cd $HOME/Storage
-# map gsd $cd /mnt/sd
-# map gusb $cd /mnt/usb
-# map gmt $cd /mnt/tmp
-# map gdot $cd $HOME/.local/src/dotfiles
-# map gwm $cd $HOME/.local/src/dwm
-# map gsb $cd $HOME/.local/src/dwmblocks
-# map gcac $cd ${XDG_CACHE_HOME:-$HOME/.cache}
-# map gcf $cd ${XDG_CONFIG_HOME:-$HOME/.config}
-# map gD $cd ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
-# map gd $cd ${XDG_DOCUMENTS_DIR:-$HOME/Documents}
-# map gdt $cd ${XDG_DATA_HOME:-$HOME/.local/share}
-# map gh $cd $HOME
-# map gM $cd ${XDG_MUSIC_DIR:-$HOME/Music}
-# map gmn $cd /mnt
-# map gpp $cd ${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}
-# map gsc $cd $HOME/.local/bin
-# map gsrc $cd $HOME/.local/src
-# map gvv $cd ${XDG_VIDEOS_DIR:-$HOME/Storage/Videos}
