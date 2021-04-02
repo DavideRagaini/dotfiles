@@ -11,7 +11,8 @@ config.bind(",t", ':hint links spawn transadd "{hint-url}"')
 config.bind(",i", ':hint links spawn getpic "{hint-url}"')
 
 c.url.searchengines = {
-    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "DEFAULT": "https://searx.nevrlands.de/search?q={}",
+    "dg": "https://duckduckgo.com/?q={}",
     "g": "https://www.google.com/search?q={}",
     "w": "https://en.wikipedia.org/?search={}",
     "y": "https://www.youtube.com/results?search_query={}",

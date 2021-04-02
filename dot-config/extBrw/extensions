@@ -1,14 +1,30 @@
-Channel Blocker
-Chromium Web Store
+   # Active
+ClearURLs
 Dark Reader
-Decentraleyes
 HTTPS Everywhere
 Keepa
-New Tab Redirect
+LocalCDN
+New Tab Suspender
 Privacy Badger
-Tampermonkey
-The Great Suspender
-uBlock Origin
-uMatrix
+SponsorBlock YT
+Universal Bypass
 Video Speed Controller
 Vimium
+Violentmonkey
+uBlock Origin
+uMatrix
+
+   # Disabled
+Channel Blocker
+Simple mass downloader
+
+
+   # Removed
+Decentraleyes
+Ghostery
+New Tab Redirect
+Tampermonkey
+
+   # Chromium
+Chromium Web Store
+The Great Suspender

@@ -6,7 +6,6 @@ set scrolloff 5
 set icons
 set period 1
 # set hidden
-# set number
 set relativenumber
 set drawbox
 set previewer ~/.config/lf/scope
@@ -37,7 +36,6 @@ cmd mkdir %{{
     mkdir -p -- "$*"
     lf -remote "send $id select \"$*\""
 }}
-# cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 cmd delete ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
@@ -170,56 +168,37 @@ cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | r
 
 cmd open-with %"$@" $fx
 
-# cmd on-cd &{{
-#     # '&' commands run silently in background (which is what we want here),
-#     # but are not connected to stdout.
-#     # To make sure our escape sequence still reaches stdout we pipe it to /dev/tty
-#     printf "\033]0; $(pwd | sed "s|$HOME|~|") - lf\007" > /dev/tty
-#     # printf "\033]0; $PWD\007" > /dev/tty
-# }}
-
-# also run at startup
-# on-cd
-
 # cmd paste $cp-p --lf-paste $id
 
 # Bindings
-map o push :open-with<space>
-map Yp yank-path
-map Yb yank-basename
-map Yd yank-dirname
-map Ybe yank-basename-without-extension
-map P :link
+map <c-b> $setbg $f
+map <c-e> down
 map <c-f> :broot_jump
-# map <c-f> $lf -remote "send $id select '$(fzf)'"
-# map <c-f> $vi $(fzf)
-map c $vl $f
-
-# map J jump_shortcuts
-map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcuts | sed 's/^.*cd //g' | fzf)"
 map <c-j> fzf_jump
-map gg top
-map D delete
-map C copyto
-map M moveto
 map <c-n> push :mkdir<space>
 map <c-r> reload
-map <enter> shell
-# map x $$f
-# map X !$f
-# map o &mimeopen $f
-# map O $mimeopen --ask "$f"
-
-# map A rename # at the very end
-# map c push A<c-u> # new rename
-map I push A<c-a> # at the very beginning
-# map i push A<a-b><a-b><a-f> # before extention
-map R push A<a-b> # after extention
-map b $vidir
-map <c-b> $setbg $f
-
-map <c-e> down
 map <c-y> up
+map <enter> shell
+map C copyto
+map D delete
+map I push A<c-a> # at the very beginning
+map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcuts | sed 's/^.*cd //g' | fzf)"
+map M moveto
+map P :link
+map R push A<a-b> # after extention
 map V push :!nvim<space>
-# map - $img_preview $f
-# map + :video_preview
+map Yb yank-basename
+map Ybe yank-basename-without-extension
+map Yd yank-dirname
+map Yp yank-path
+map b $vidir
+map c $vl $f
+map gg top
+map o push :open-with<space>
+# map A rename # at the very end
+# map O $mimeopen --ask "$f"
+# map X !$f
+# map c push A<c-u> # new rename
+# map i push A<a-b><a-b><a-f> # before extention
+# map o &mimeopen $f
+# map x $$f
