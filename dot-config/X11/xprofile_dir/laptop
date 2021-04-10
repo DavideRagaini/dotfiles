@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export BROWSER="uchromium"
+export BROWSER="librewolf"
 
 mpd &
 remaps &		# run the remaps script, switching caps/esc and more; check it for more info
@@ -9,15 +9,17 @@ setbg &			# set the background with the `setbg` script
 dunst &			# dunst for notifications
 xset r rate 300 50 &	# Speed xrate up
 unclutter &		# Remove mouse when idle
-# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/Xresources &	# Uncomment to use Xresources colors/settings on startup
+# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &	# Uncomment to use Xresources colors/settings on startup
 # xautolock -time 5 -notify 60 -notifier notifylock  -locker lock &
 # syncthing -no-browser &
 
+numlockx &
+redshift -l 43.5943:12.5034
 timeOnPc start
 xbacklight -set 20
 libinput-gestures-setup start
 wifi off
 bluetooth off
 sudo tlp bat
-[ -e /etc/hosts ] || sudo cp /etc/hosts.b /etc/hosts
+blacklist on
 notify-send -i /home/davide/Storage/Pictures/UserImg.jpg "<Welcome>" "Today is a great day to suck...less"

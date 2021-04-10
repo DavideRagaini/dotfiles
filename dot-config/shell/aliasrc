@@ -29,9 +29,9 @@ alias \
 	# fl='fzf +i | xargs -r -I % lf %' \
 	# of='fzf | xargs -r -I % opener %'  \
 	# sudo="doas" \
+	# lfu="lf-ueberzug" \
 alias \
 	2f="tmux split -h lf; lf" \
-	lfu="lf-ueberzug" \
 	c.="cd .." \
 	cvf='br |  xargs -r -I % "$EDITOR" %' \
 	e="$EDITOR" \
@@ -91,8 +91,8 @@ alias \
 	cleanupdates="doas vkpurge rm all; xr -Ooy" \
 	dwmrefresh="kill -HUP $(pidof -s dwm)" \
 	ffmpeg="ffmpeg -hide_banner" \
-	magit="nvim -c MagitOnly" \
-	wiki="nvim -c VimwikiIndex" \
+	# magit="nvim -c MagitOnly" \
+	# wiki="nvim -c VimwikiIndex" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
 
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"

@@ -1,14 +1,16 @@
 config.load_autoconfig()
 
-config.bind(",w", ':hint links spawn winmpv play "{hint-url}"')
 config.bind(",a", ':hint links spawn mpv "{hint-url}"')
-config.bind(",q", ':hint links spawn winmpv queue "{hint-url}"')
 config.bind(",da", ':hint links spawn dy audio "{hint-url}"')
-config.bind(",dv", ':hint links spawn dy video "{hint-url}"')
 config.bind(",dba", ':hint links spawn dy bestaudio "{hint-url}"')
 config.bind(",dbv", ':hint links spawn dy bestvideo "{hint-url}"')
-config.bind(",t", ':hint links spawn transadd "{hint-url}"')
+config.bind(",dv", ':hint links spawn dy video "{hint-url}"')
+config.bind(",e", ':hint links spawn dmpv enqueue "{hint-url}"')
 config.bind(",i", ':hint links spawn getpic "{hint-url}"')
+config.bind(",p", ':hint links spawn dmpv enqueue&play "{hint-url}"')
+config.bind(",q", ':hint links spawn dmpv queue "{hint-url}"')
+config.bind(",t", ':hint links spawn transadd "{hint-url}"')
+config.bind(",w", ':hint links spawn winmpv play "{hint-url}"')
 
 c.url.searchengines = {
     "DEFAULT": "https://searx.nevrlands.de/search?q={}",
