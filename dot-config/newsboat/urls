@@ -17,20 +17,21 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCBa659QWEk1AI4Tg--mrJ2A "~T
 https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg "~Two Minute Papers"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC6mIxFTvXkWQVEHPsEdflzQ "~GreatScott"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCj1VqrHhDte54oLgPG4xpuQ "~Stuff Made Here"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q "~Kurzgesagt – In a Nutshell"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q "~Kurzgesagt – In a Nutshell"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA "~Computerphile"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A "~Numberphile"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCIILaFpcS6ZSIIYqSjNYgGA "~Annaliside"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCIILaFpcS6ZSIIYqSjNYgGA "~Annaliside"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC8VkNBOwvsTlFjoSnNSMmxw "~Smarter Every Day 2"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCvBqzzvUBLCs8Y7Axb-jZew "~Sixty Symbols"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCyE9-Zvq3xxWGS5Okf-TWwg "~Random Physics"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCyD1TlHPTq-H9dvQC3tr0zw "~ZooSparkle"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCmHoLDhqgvDaXWm8w1ZJzZw "~Angelo Greco"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCHRTziAevLPgAE9Y5VhSs5g "~link4universe"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCHRTziAevLPgAE9Y5VhSs5g "~link4universe"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCJphwa8Wsgzsm1zJS4sm-mA "~Dario Bressanini"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC8IKIlUPgPZ_NA1jKbsMfXw "~Scienza in Cucina"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCL_f53ZEJxp8TtlOkHwMV9Q "~Jordan B Peterson"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCSr_y4ax0ZOf4MNrVnZEH5A "~Mavrus"
+# https://twitchrss.appspot.com/vod/enkk "~enkk"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCSHZKyawb77ixDdsGog4iWA "~Lex Fridman"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCzQUP1qoWDoEbmsQxvdjxgQ "~PowerfulJRE"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCafxR2HWJRmMfSdyZXvZMTw "~LOOK MUM NO COMPUTER"
@@ -38,24 +39,24 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCSr_y4ax0ZOf4MNrVnZEH5A "~M
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg "~Big Think"
 
 "---LINUX---"
+https://dyn.keepa.com/v2/user/rss/?feed=3s870pff177ohgninibgq9g0jpbu9n5r
 # https://github.com/void-linux/void-packages/commits/master.atom
-https://raw.githubusercontent.com/ungoogled-software/ungoogled-chromium-binaries/master/feed.xml
-https://github.com/void-linux/xbps/commits/master.atom
+# https://raw.githubusercontent.com/ungoogled-software/ungoogled-chromium-binaries/master/feed.xml
+# https://github.com/void-linux/xbps/commits/master.atom
 https://voidlinux.org/atom.xml
 https://www.archlinux.org/feeds/news/ "Arch news"
-https://suckless.org/atom.xml
+# https://suckless.org/atom.xml
 https://github.com/LukeSmithxyz/voidrice/commits/master.atom "~voidrice"
-https://github.com/msjche/.local-bin-scripts/commits/master.atom "~msjche scripts"
+# https://github.com/msjche/.local-bin-scripts/commits/master.atom "~msjche scripts"
 
-"---Le SCIENZE---"
-https://www.lescienze.it/rss/all/rss2.0.xml "~All - Le Scienze"
-https://www.lescienze.it/rss/lanci/rss2.0.xml "~Lanci - Le Scienze"
+# "---Le SCIENZE---"
+# https://www.lescienze.it/rss/all/rss2.0.xml "~All - Le Scienze"
+# https://www.lescienze.it/rss/lanci/rss2.0.xml "~Lanci - Le Scienze"
 
-"---VARI---"
+# "---VARI---"
 #http://lukesmith.xyz/rss.xml
 # https://thenextweb.com/feed/
-https://rss.nixnet.services/?action=display&bridge=WikiLeaks&category=-Leaks-&format=Atom
-https://dyn.keepa.com/v2/user/rss/?feed=3s870pff177ohgninibgq9g0jpbu9n5r
+# https://rss.nixnet.services/?action=display&bridge=WikiLeaks&category=-Leaks-&format=Atom
 # http://feeds.feedburner.com/HighScalability?format=xml
 # http://feeds.nature.com/nature/rss/current?format=xml
 # https://blog.codinghorror.com/rss/

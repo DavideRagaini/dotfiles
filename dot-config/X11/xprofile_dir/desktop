@@ -14,11 +14,12 @@ xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &	# Uncomment to use Xreso
 numlockx &
 syncthing -no-browser &
 redshift -l 43.5942:13.5034 &
-sudo runsv /var/service/chronyd &
-sudo runsv /var/service/socklog-unix &
-sudo runsv /var/service/nanoklogd &
-sudo runsv /var/service/sshd &
-sudo runsv /var/service/NetworkManager &
+doas runsv /var/service/chronyd &
+doas runsv /var/service/socklog-unix &
+doas runsv /var/service/nanoklogd &
+doas runsv /var/service/sshd &
+doas runsv /var/service/NetworkManager &
+doas intel-undervolt apply
 # sudo runsv /var/service/dcron &
 
 sh ~/.config/screenlayout/Desktop/second.sh

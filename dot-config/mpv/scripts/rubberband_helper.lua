@@ -11,7 +11,7 @@
 -- (default threshold is 3x, based on my personal preference)
 local mp = require 'mp'
 
-local threshold = 3
+local threshold = 3.1
 local scaletempo_af = {{name='scaletempo', enabled=true, params={speed="tempo"}}}
 local rubberband_af = {{name='rubberband', enabled=true, params={channels="together"}}}
 

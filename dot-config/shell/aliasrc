@@ -29,7 +29,6 @@ alias \
 	# fl='fzf +i | xargs -r -I % lf %' \
 	# of='fzf | xargs -r -I % opener %'  \
 	# sudo="doas" \
-	# lfu="lf-ueberzug" \
 alias \
 	2f="tmux split -h lf; lf" \
 	c.="cd .." \
