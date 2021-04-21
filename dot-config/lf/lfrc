@@ -21,7 +21,7 @@ cmd open ${{
     case $(file --mime-type $f -b) in
 	text/html)
 		if [ -n "$DISPLAY" ]; then
-		    librewolf -- "$@"
+		    $BROWSER -- "$@"
 		else
 		    lynx "$@"
 		fi && exit ;;
