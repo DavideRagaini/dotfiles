@@ -19,6 +19,12 @@ source ~/.config/lf/shortcuts
 # cmds/functions
 cmd open ${{
     case $(file --mime-type $f -b) in
+	text/html)
+		if [ -n "$DISPLAY" ]; then
+		    librewolf -- "$@"
+		else
+		    lynx "$@"
+		fi && exit ;;
         text/*) $EDITOR $fx;;
 	image/vnd.djvu|application/pdf|application/octet-stream) setsid zathura $fx >/dev/null 2>&1 & ;;
 	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
@@ -28,8 +34,8 @@ cmd open ${{
 	video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
 	application/json) $EDITOR $fx ;;
 	application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
-        *) notify-send "No Mime Type set" ;;
-        # *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+        # *) notify-send "No Mime Type set" ;;
+        *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
     esac
 }}
 
@@ -115,6 +121,30 @@ cmd zle-init :{{
 
 &[[ -n "$ZLE_FIFO" ]] && lf -remote "send $id zle-init"
 
+cmd async_paste &{{
+    set -- $(lf -remote load)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy) cp -rn -- "$@" .;;
+        move) mv -n -- "$@" .;;
+    esac
+    lf -remote "send load"
+    lf -remote "send clear"
+}}
+
+cmd backup_paste %{{
+    set -- $(lf -remote load)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy) cp -r --backup=numbered -- "$@" .;;
+        move) mv --backup=numbered -- "$@" .;;
+    esac
+    lf -remote "send load"
+    lf -remote "send clear"
+}}
+
 cmd paste &{{
     set -- $(lf -remote load)
     mode="$1"
@@ -186,7 +216,7 @@ map D delete
 map I push A<c-a> # at the very beginning
 map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcuts | sed 's/^.*cd //g' | fzf)"
 map M moveto
-map P :link
+map Pp :link
 map R push A<a-b> # after extention
 map V push :!nvim<space>
 map Yb yank-basename
@@ -197,6 +227,8 @@ map b $vidir
 map c $vl $f
 map gg top
 map o push :open-with<space>
+map Pa async_paste
+map Pb backup_paste
 # map A rename # at the very end
 # map O $mimeopen --ask "$f"
 # map X !$f
