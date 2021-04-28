@@ -22,4 +22,5 @@ wifi off
 bluetooth off
 sudo tlp bat
 blacklist on
+doas intel-undervolt apply
 notify-send -i /home/davide/Storage/Pictures/UserImg.jpg "<Welcome>" "Today is a great day to suck...less"
