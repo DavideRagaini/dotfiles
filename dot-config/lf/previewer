@@ -25,15 +25,15 @@ case "$(basename "$file" | tr '[:upper:]' '[:lower:]')" in
 	# lynx -dump "$1"
 	# exit 0
 	;;
- *.djvu|*.djv)
+*.djvu|*.djv)
 	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.tiff"
 	ddjvu -format=tiff -quality=90 -page=1 "$file" "$thumbnail"
 	preview "$thumbnail" "$@"
 	;;
- *.docx|*.odt|*.epub)
- 	pandoc -s -t plain -- "$file" | head -n 100
- 	exit 0
- 	;;
+*.docx|*.odt|*.epub)
+	pandoc -s -t plain -- "$file" | head -n 100
+	exit 0
+	;;
 *.pdf)
 	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
 	gs -o "$thumbnail" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null

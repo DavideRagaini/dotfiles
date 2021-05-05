@@ -42,7 +42,7 @@ alias \
 	t="task" \
 	tw="timew" \
 	v="$EDITOR" \
-	vf='vim -o `br`' \
+	vf='vim -o `fzf`' \
 	x="sxiv -ft *" \
 	zat="zathura"
 
@@ -90,8 +90,6 @@ alias \
 	cleanupdates="doas vkpurge rm all; xr -Ooy" \
 	dwmrefresh="kill -HUP $(pidof -s dwm)" \
 	ffmpeg="ffmpeg -hide_banner" \
-	# magit="nvim -c MagitOnly" \
-	# wiki="nvim -c VimwikiIndex" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
 
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"
