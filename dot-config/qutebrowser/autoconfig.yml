@@ -41,7 +41,7 @@ settings:
     global: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
       Gecko) Chrome/88.0.4324.104 Safari/537.36
   content.javascript.can_access_clipboard:
-    global: true
+    global: false
   content.javascript.enabled:
     '*://*.github.com/*': true
     '*://github.com/*': true
@@ -58,13 +58,6 @@ settings:
     global: false
   content.webrtc_ip_handling_policy:
     global: default-public-interface-only
-  editor.command:
-    global:
-    - nvim
-    - -f
-    - '{file}'
-    - -c
-    - normal {line}G{column0}l
   scrolling.smooth:
     global: true
   statusbar.show:

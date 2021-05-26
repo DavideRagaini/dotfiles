@@ -1,14 +1,14 @@
 font:
-  size: 9.0
+  size: 11.0
   offset:
     x: 1
-    y: 5
+    y: 1
   glyph_offset:
     x: 0
     y: 0
   normal:
     family: Iosevka
-    style: Medium
+    style: Regular
   bold:
     family: Iosevka
     style: Bold
@@ -19,6 +19,9 @@ window:
   padding:
     x: 2
     y: 2
+  dimensions:
+    columns: 150
+    lines: 40
 
     scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -48,7 +51,7 @@ key_bindings:
   - { key: Minus, mods: Control, action: DecreaseFontSize }
   - { key: N, mods: Control|Alt, action: SpawnNewInstance }
 
-background_opacity: 0.80
+background_opacity: 0.88
 
 # Colors (Dracula)
 colors:

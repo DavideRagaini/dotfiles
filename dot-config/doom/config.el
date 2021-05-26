@@ -54,8 +54,9 @@
 ;; they are implemented.
 
 (setq scroll-margin 3)
-;; (global-visual-line-mode t)
-;; (blink-cursor-mode 1)
+(global-visual-line-mode t)
+(blink-cursor-mode 1)
+(global-whitespace-mode 1)
 
 (use-package org
   ;; :pin org
@@ -68,10 +69,10 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
 
-  (setq org-agenda-files
-        '("~/Org/Tasks.org"
-          "~/Org/Habits.org"
-          "~/Org/Birthdays.org"))
+  ;; (setq org-agenda-files
+        ;; '("~/Org/Tasks.org"
+          ;; "~/Org/Habits.org"
+          ;; "~/Org/Birthdays.org"))
 
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit)
@@ -148,39 +149,9 @@
              (org-agenda-files org-agenda-files)))
       (todo "CANC"
             ((org-agenda-overriding-header "Cancelled Projects")
-             (org-agenda-files org-agenda-files)))))))
+             (org-agenda-files org-agenda-files))))))))
 
-  (setq org-capture-templates
-    `(("t" "Tasks / Projects")
-      ("tt" "Task" entry (file+olp "~/Projects/Code/emacs-from-scratch/OrgFiles/Tasks.org" "Inbox")
-           "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-
-      ("j" "Journal Entries")
-      ("jj" "Journal" entry
-           (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
-           "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-           ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
-           :clock-in :clock-resume
-           :empty-lines 1)
-      ("jm" "Meeting" entry
-           (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
-           "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-           :clock-in :clock-resume
-           :empty-lines 1)
-
-      ("w" "Workflows")
-      ("we" "Checking Email" entry (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
-           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-
-      ("m" "Metrics Capture")
-      ("mw" "Weight" table-line (file+headline "~/Projects/Code/emacs-from-scratch/OrgFiles/Metrics.org" "Weight")
-       "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t))))
-
-(setq browse-url-browser-function 'browse-url-generic
-          browse-url-generic-program "/home/davide/.local/bin/miscellaneous/librewolf")
-          ;; browse-url-generic-args '("-n"))
-
-(use-package! org-bullets
+(use-package org-bullets-mode
   :hook (org-mode . org-bullets-mode)
   :config
   (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))

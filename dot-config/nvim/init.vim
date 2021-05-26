@@ -1,4 +1,4 @@
-source $HOME/.config/nvim/shortcuts.vim
+" source $HOME/.config/nvim/shortcuts.vim
 
 let mapleader =","
 
@@ -10,60 +10,50 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-Plug 'tpope/vim-surround'
-Plug 'preservim/nerdtree'
-Plug 'junegunn/goyo.vim'
-" Plug 'jreybert/vimagit'
-" Plug 'lukesmithxyz/vimling'
-" Plug 'vimwiki/vimwiki'
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-commentary'
-" Plug 'ap/vim-css-color'
+	Plug 'tpope/vim-surround'
+	Plug 'preservim/nerdtree'
+	Plug 'junegunn/goyo.vim'
+	Plug 'bling/vim-airline'
+	Plug 'tpope/vim-commentary'
 call plug#end()
 
-set relativenumber
-set scrolloff=10
-set list
-set listchars=tab:→\ ,nbsp:␣,trail:•,precedes:«,extends:»,eol:¬ ",space:·eol:¶
 set title
 set bg=dark
 set go=a
 set mouse=a
-set nohlsearch
 set clipboard+=unnamedplus
-set noshowmode
-set noruler
+" set noshowmode
 set laststatus=0
-set noshowcmd
-
-let g:PathToSessions = "~/.config/nvim/sessions/"
-let g:tex_flavor = 'latex'
-
-if has('persistent_undo')                   "check if your vim version supports
-  set undodir=$HOME/.cache/nvim/undodir     "directory where the undo files will be stored
-  set undofile                              "turn on the feature
-  set undolevels=1000                       " How many undos
-  set undoreload=10000
-endif
+" set noshowcmd
+set hidden
+set ruler
+set smartindent
+set autoindent
+set laststatus=2
+set cursorline
+set mouse=a
+set nocompatible
+set encoding=utf-8
+set list
+set listchars=tab:→\ ,nbsp:␣,trail:•,precedes:«,extends:»,eol:¬ ",space:·eol:¶
+set scrolloff=3
+set number
 
 syntax enable
-set hidden                              " Required to keep multiple buffers open multiple buffers
-set ruler              			            " Show the cursor position all the time
-set smartindent                         " Makes indenting smart
-set autoindent                          " Good auto indent
-set laststatus=2                        " Always display the status line
-set cursorline                          " Enable highlighting of the current line
-set splitbelow                          " Horizontal splits will automatically be below
-set splitright                          " Vertical splits will automatically be to the right
-set mouse=a                             " Enable your mouse
+filetype plugin on
 
-" Some basics:
-	nnoremap c "_c
-	set nocompatible
-	filetype plugin on
-	syntax on
-	set encoding=utf-8
-	set number relativenumber
+nnoremap c "_c
+inoremap ,x <Esc>bce
+
+let g:syntastic_auto_jump = 0
+let g:PathToSessions = "~/.cache/nvim/sessions/"
+let g:tex_flavor = 'latex'
+
+set undodir=$HOME/.cache/nvim/undodir
+set undofile
+set undolevels=1000
+set undoreload=10000
+
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
@@ -80,23 +70,12 @@ set mouse=a                             " Enable your mouse
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    if has('nvim')
-        let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
-    else
-        let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
-    endif
+	if has('nvim')
+		let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
+	else
+		let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
+	endif
 
-inoremap ,x <Esc>bce
-nnoremap S :%s//g<Left><Left>
-
-
-
-" vimling:
-	" nm <leader><leader>d :call ToggleDeadKeys()<CR>
-	" imap <leader><leader>d <esc>:call ToggleDeadKeys()<CR>a
-	" nm <leader><leader>i :call ToggleIPA()<CR>
-	" imap <leader><leader>i <esc>:call ToggleIPA()<CR>a
-	" nm <leader><leader>q :call ToggleProse()<CR>
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
@@ -114,9 +93,6 @@ nnoremap S :%s//g<Left><Left>
 	" map <leader>b :vsp<space>$BIB<CR>
 	" map <leader>r :vsp<space>$REFER<CR>
 
-" Replace all is aliased to S.
-	nnoremap S :%s//g<Left><Left>
-
 " Compile document, be it groff/LaTeX/markdown/etc.
 	map <leader>c :w! \| !compiler "<c-r>%"<CR>
 
@@ -127,24 +103,22 @@ nnoremap S :%s//g<Left><Left>
 	autocmd VimLeave *.tex !texclear %
 
 " Ensure files are read as what I want:
-	" let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-	" map <leader>v :VimwikiIndex
-	" let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
-	" autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mo,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
 
 " Save file as sudo on files that require root permission
 	cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" Enable Goyo by default for mutt writing
-	" autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
-	" autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
-	" autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
-	" autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
+function! <SID>StripTrailingWhitespaces()
+	let l = line(".")
+	let c = col(".")
+	%s/\s\+$//e
+	call cursor(l, c)
+endfun
 
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
-	autocmd BufWritePre * %s/\s\+$//e
+	" autocmd BufWritePre * %s/\s\+$//e
+	autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 	autocmd BufWritePre * %s/\n\+\%$//e
 	autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
@@ -153,29 +127,27 @@ nnoremap S :%s//g<Left><Left>
 " Run xrdb whenever Xdefaults or Xresources are updated.
 	autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 	autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
-" Recompile dwmblocks on config edit.
-	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
 
 " Turns off highlighting on the bits of code that are changed, so the line that is changed is highlighted but the actual text that has changed stands out on the line and is readable.
 if &diff
-    highlight! link DiffText MatchParen
+	highlight! link DiffText MatchParen
 endif
 
 " Function for toggling the bottom statusbar:
 let s:hidden_all = 1
 function! ToggleHiddenAll()
-    if s:hidden_all  == 0
-        let s:hidden_all = 1
-        set noshowmode
-        set noruler
-        set laststatus=0
-        set noshowcmd
-    else
-        let s:hidden_all = 0
-        set showmode
-        set ruler
-        set laststatus=2
-        set showcmd
-    endif
+	if s:hidden_all  == 0
+		let s:hidden_all = 1
+		set noshowmode
+		set noruler
+		set laststatus=0
+		set noshowcmd
+	else
+		let s:hidden_all = 0
+		set showmode
+		set ruler
+		set laststatus=2
+		set showcmd
+	endif
 endfunction
 nnoremap <leader>h :call ToggleHiddenAll()<CR>m
