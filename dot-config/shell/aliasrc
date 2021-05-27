@@ -7,6 +7,7 @@ alias \
 	df="df -h" \
 	du="du -h" \
 	free="free -h" \
+	gotop="gotop -sa --mbps" \
 	history="fc -rl 0 | fzf" \
 	ka="killall" \
 	mkd="mkdir -pv" \
