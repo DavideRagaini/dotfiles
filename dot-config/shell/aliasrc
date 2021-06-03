@@ -22,24 +22,16 @@ alias \
 	grep="grep --color=auto"
 
 # Abbreviations
-	# bc="bc -l" \
-	# sdn="doas shutdown -h now" \
 	# spawn="setsid st &" \
 	# trem="transmission-remote" \
-	# fmpv='find "$HOME/.config/mpv" | fzf | xargs -r -I % "$EDITOR" %' \
-	# fl='fzf +i | xargs -r -I % lf %' \
-	# of='fzf | xargs -r -I % opener %'  \
 	# sudo="doas" \
 alias \
 	2f="tmux split -h lf; lf" \
 	c.="cd .." \
-	cvf='br |  xargs -r -I % "$EDITOR" %' \
 	e="$EDITOR" \
 	f="lfcd" \
 	q="exit" \
 	s="doas" \
-	scf='br "$HOME/.local/bin/" | xargs -r -I % "$EDITOR" %' \
-	srf='br "$HOME/.local/src/" | xargs -r -I % "$EDITOR" %' \
 	t="task" \
 	tw="timew" \
 	v="$EDITOR" \
