@@ -19,6 +19,8 @@ alias \
 alias \
 	ccat="highlight --out-format=ansi" \
 	diff="diff --color=auto" \
+	l='exa -l' \
+	la='exa -la' \
 	grep="grep --color=auto"
 
 # Abbreviations
@@ -35,9 +37,15 @@ alias \
 	t="task" \
 	tw="timew" \
 	v="$EDITOR" \
-	vf='vim -o `fzf`' \
 	x="sxiv -ft *" \
 	zat="zathura"
+
+# fuzzy find
+alias \
+	vf='vim -o `fzf`' \
+	vfc='find "$HOME/.config" | fzf | xargs -r -I % "$EDITOR" %'
+	vfd='find "$HOME/.local/src/dotfiles" | fzf | xargs -r -I % "$EDITOR" %'
+	vfs='find "$HOME/.local/bin" | fzf | xargs -r -I % "$EDITOR" %'
 
 # git
 alias \
