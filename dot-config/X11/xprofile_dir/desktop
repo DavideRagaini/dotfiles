@@ -13,7 +13,7 @@ unclutter &		# Remove mouse when idle
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &	# Uncomment to use Xresources colors/settings on startup
 numlockx &
 syncthing -no-browser &
-redshift -l 43.5942:13.5034 &
+redshift -c ${XDG_CONFIG_HOME:-$HOME/.config}/redshift/redshift.conf &
 doas runsv /var/service/chronyd &
 doas runsv /var/service/socklog-unix &
 doas runsv /var/service/nanoklogd &
@@ -24,6 +24,7 @@ doas intel-undervolt apply
 
 sh ~/.config/screenlayout/Desktop/second.sh
 timeOnPc start
+python -m http.server --directory $HOME/.local/src/startpage/ &
 # sudo tlp bat
 
 xautolock -time 20 -notify 180 -notifier "notify-send -u critical -t 60000 'System will be locked' '1 minute left'" -locker 'doas zzz' &

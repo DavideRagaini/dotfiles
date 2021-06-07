@@ -1,11 +1,4 @@
 font:
-  size: 11.0
-  offset:
-    x: 1
-    y: 1
-  glyph_offset:
-    x: 0
-    y: 0
   normal:
     family: Iosevka
     style: Regular
@@ -15,6 +8,14 @@ font:
   italic:
     family: Iosevka
     style: Italic
+  size: 11.0
+  offset:
+    x: 1
+    y: 1
+  glyph_offset:
+    x: 0
+    y: 0
+
 window:
   padding:
     x: 2
@@ -23,16 +24,10 @@ window:
     columns: 150
     lines: 40
 
-    scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
+scrolling:
   history: 10000
-
-  # Number of lines the viewport will move for every line scrolled when
-  # scrollback is enabled (history > 0).
   multiplier: 10
 
-# If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
 selection:

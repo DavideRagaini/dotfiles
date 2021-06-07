@@ -21,21 +21,15 @@ cmd open ${{
     case $(file --mime-type $f -b) in
 	audio/*) mpv --audio-display=no $f ;;
 	application/json) $EDITOR $fx ;;
-	application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
 	image/vnd.djvu|application/pdf|application/octet-stream) setsid zathura $fx >/dev/null 2>&1 & ;;
 	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
 	image/svg+xml) display -- $f ;;
-	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select ;;
-	text/html)
-		if [ -n "$DISPLAY" ]; then
-		    $BROWSER -- "$@"
-		else
-		    lynx "$@"
-		fi && exit ;;
-        text/*) $EDITOR $fx;;
+	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
+	text/html) $BROWSER $f ;;
+        text/*) $EDITOR $fx ;;
 	video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
-        # *) notify-send "No Mime Type set" ;;
-        *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+        # *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+        *) notify-send "No Mime Type set" ;;
     esac
 }}
 

@@ -1,0 +1,20 @@
+#main-window[chromehidden*="toolbar"] #nav-bar {
+  visibility: collapse;
+}
+
+ #navigator-toolbox {
+   position: relative;
+   height: 35px;
+   margin-bottom: 0px;
+   opacity: 1;
+   overflow: auto;
+
+ }
+
+ #navigator-toolbox:hover {
+   height: auto;
+   margin-bottom: 0px;
+   opacity: 1;
+   overflow: show;
+
+ }
