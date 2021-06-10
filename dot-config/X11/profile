@@ -53,8 +53,6 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc"
 export XAUTHORITY="$XDG_CONFIG_HOME/Xauthority"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export ZZZ_RESUME="$XDG_CONFIG_HOME/zzz/onresume"
-export ZZZ_SUSPEND="$XDG_CONFIG_HOME/zzz/onsuspend"
 export _JAVA_AWT_WM_NONREPARENTING=1	# Java doesn't understand tiling windows
 
 # less/man colors

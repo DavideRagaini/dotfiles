@@ -4,13 +4,32 @@
 #tabbrowser-tabs .tabbrowser-tab .tab-close-button { display:none !important; }
 
 #TabsToolbar, .tabbrowser-tab {
-  height: 35px !important;
-  font-size: 11px;
+  max-height: 35px !important;
+  /* font-size: 11px; */
   background-color: transparent !important;
 }
 
+/* :root:not([customizing]) #TabsToolbar{ */
+/*   background-color: #2F0B3A; */
+/* } */
+
+/* :root:not([customizing]) #navigator-toolbox { */
+/*   background-color: #2F0B3A !important; */
+/* } */
+
+/* Hide window controls on fullscreen */
+#window-controls { display: none; }
+
+/* Change color of normal tabs */
+
+/* tab:not([selected="true"]) { */
+/*   background-color: #2F0B3A !important; */
+/*   color: #cc00cc !important; */
+/*   /\* border: none; *\/ */
+/* } */
+
 /* tab font */
-tab { font-family: 'Jetbrains Mono', monospace; border: none; }
+tab { font-family: 'Iosevka Mono', monospace; border: none; }
 
 /* safari style tab width */
 .tabbrowser-tab[fadein]{ max-width: 100vw !important; border: none }
@@ -146,8 +165,8 @@ toolbox:focus-within > #nav-bar {
   margin-right: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  font-family: 'Jetbrains Mono', monospace;
-  font-size: 11px;
+  font-family: 'Iosevka Mono', monospace;
+  /* font-size: 11px; */
 }
 
 #urlbar {
@@ -220,15 +239,34 @@ toolbox:focus-within > #nav-bar {
   min-height: 0 !important;
 }
 
-/* AGENT_SHEET */
-#main-window #navigator-toolbox #TabsToolbar:not(:-moz-lwtheme){
-  background: #285577 !important;
+/* /\* Tab: selected colors *\/ */
+/* #tabbrowser-tabs .tabbrowser-tab[selected] .tab-content { */
+/*   background: #571dc2 !important; */
+/*   color: #FF00FF !important; */
+/*   border: none !important; */
+/* } */
+
+/* /\* Tab: hovered colors *\/ */
+/* #tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content { */
+/*   background: #571dc2 !important; */
+/*   color: #FF00FF !important; */
+/* } */
+
+/* remove white margin around active tabs */
+#tabbrowser-tabs:not([movingtab]) > #tabbrowser-arrowscrollbox > .tabbrowser-tab[beforeselected-visible]::after, #tabbrowser-tabs[movingtab] > #tabbrowser-arrowscrollbox > .tabbrowser-tab[visuallyselected]::before,
+.tabbrowser-tab[visuallyselected]::after {
+  border: none !important;
 }
 
+/* AGENT_SHEET */
+/* #main-window #navigator-toolbox #TabsToolbar:not(:-moz-lwtheme){ */
+/*   background: #285577 !important; */
+/* } */
+
 /* hide favicons */
-.tabbrowser-tab .tab-icon-image {
-  display: none !important;
-}
+/* .tabbrowser-tab .tab-icon-image { */
+/*   display: none !important; */
+/* } */
 
 /* show favicon if tab is pinned */
 .tabbrowser-tab[pinned] .tab-icon-image {
