@@ -1,7 +1,14 @@
-bind v hint -W exclaim_quiet mpv
-set searchurls.aw https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
+" General Settings
+set allowautofocus false
+set smoothscroll true
+set theme shydactyl
+set newtab http://localhost:8000
+
+set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
 set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s
 set searchurls.g https://www.google.com/search?q=%s
 set searchurls.y https://www.youtube.com/results?search_query=%s
 set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
+
+" bind v hint -W exclaim_quiet mpv
 " vim: set filetype=vim:

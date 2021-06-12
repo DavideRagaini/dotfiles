@@ -14,7 +14,7 @@ config.bind(",w", ':hint links spawn winmpv play "{hint-url}"')
 
 c.url.searchengines = {
     "DEFAULT": "https://searx.nevrlands.de/search?q={}",
-    "dg": "https://duckduckgo.com/?q={}",
+    "d": "https://duckduckgo.com/?q={}",
     "g": "https://www.google.com/search?q={}",
     "w": "https://en.wikipedia.org/?search={}",
     "y": "https://www.youtube.com/results?search_query={}",
