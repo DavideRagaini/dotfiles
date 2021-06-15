@@ -80,7 +80,7 @@ settings:
   tabs.show:
     global: switching
   tabs.show_switching_delay:
-    global: 1000
+    global: 10000
   url.default_page:
     global: file:///home/davide/.local/src/startpage/index.html
   url.searchengines:

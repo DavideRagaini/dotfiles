@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-dracula)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -58,6 +58,21 @@
 (blink-cursor-mode 1)
 (global-whitespace-mode 1)
 
+(use-package counsel
+  :bind (("C-M-j" . 'counsel-switch-buffer)))
+         ;; :map minibuffer-local-map
+         ;; ("C-r" . 'counsel-minibuffer-history)))
+
+;; ORG ENHANEMENT
+(setq org-hide-emphasis-markers t)
+(custom-set-faces
+    '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
+    '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
+    '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
+    '(org-level-4 ((t (:inherit outline-4 :height 1.2))))
+    '(org-level-5 ((t (:inherit outline-5 :height 1.1))))
+)
+
 (use-package org
   ;; :pin org
   :commands (org-capture org-agenda)
@@ -79,8 +94,21 @@
   (setq org-habit-graph-column 60)
 
   (setq org-todo-keywords
-    '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-      (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
+    '((sequence "TODO(t)"
+                "NEXT(n)"
+                "|"
+                "DONE(d!)")
+
+      (sequence "BACKLOG(b)"
+                "PLAN(p)"
+                "READY(r)"
+                "ACTIVE(a)"
+                "REVIEW(v)"
+                "WAIT(w@/!)"
+                "HOLD(h)"
+                "|"
+                "COMPLETED(c)"
+                "CANC(k@)")))
 
   (setq org-refile-targets
     '(("Archive.org" :maxlevel . 1)
@@ -109,7 +137,8 @@
      ((agenda "" ((org-deadline-warning-days 7)))
       (todo "NEXT"
         ((org-agenda-overriding-header "Next Tasks")))
-      (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+      (tags-todo "agenda/ACTIVE"
+        ((org-agenda-overriding-header "Active Projects")))))
 
     ("n" "Next Tasks"
      ((todo "NEXT"
@@ -150,13 +179,3 @@
       (todo "CANC"
             ((org-agenda-overriding-header "Cancelled Projects")
              (org-agenda-files org-agenda-files))))))))
-
-(use-package org-bullets-mode
-  :hook (org-mode . org-bullets-mode)
-  :config
-  (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
-
-(use-package counsel
-  :bind (("C-M-j" . 'counsel-switch-buffer)))
-         ;; :map minibuffer-local-map
-         ;; ("C-r" . 'counsel-minibuffer-history)))

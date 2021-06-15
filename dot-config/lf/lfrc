@@ -79,19 +79,6 @@ cmd copyto ${{
 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
-cmd broot_jump ${{
-    f=$(mktemp)
-    res="$(broot --outcmd $f && cat $f | sed 's/cd //')"
-    rm -f "$f"
-    if [ -f "$ref" ]; then
-       cmd="select"
-    elif [ -d "$res" ]; then
-       cmd="cd"
-    fi
-    lf -remote "send $id $cmd \"$res\""
-
-}}
-
 cmd fzf_jump ${{
     res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
     if [ -d "$res" ]; then
@@ -149,7 +136,7 @@ cmd backup_paste %{{
 }}
 
 cmd paste &{{
-    set -- $(lf -remote load)
+    set -- $(cat ~/.local/share/lf/files)
     mode="$1"
     shift
     case "$mode" in
@@ -162,7 +149,7 @@ cmd paste &{{
             ;;
         move) mv -n -- "$@" .;;
     esac
-    lf -remote "send load"
+    rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
 
@@ -208,8 +195,7 @@ cmd open-with %"$@" $fx
 # Bindings
 map <c-b> $setbg $f
 map <c-e> down
-map <c-f> :broot_jump
-map <c-j> fzf_jump
+map <c-f> fzf_jump
 map <c-n> push :mkdir<space>
 map <c-r> reload
 map <c-y> up
