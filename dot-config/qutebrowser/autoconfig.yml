@@ -43,7 +43,7 @@ settings:
   content.webrtc_ip_handling_policy:
     global: default-public-interface-only
   downloads.location.suggestion:
-    global: both
+    global: path
   downloads.position:
     global: bottom
   downloads.remove_finished:

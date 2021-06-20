@@ -46,7 +46,7 @@ case "$(basename "$file" | tr '[:upper:]' '[:lower:]')" in
 		;;
 	*.gif)
 		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
-		gm convert "$file[0]" "$thumbnail"
+		gm convert "${file[0]}" "$thumbnail"
 		preview "$thumbnail" "$@"
 		;;
 esac

@@ -8,20 +8,21 @@ alias \
 	du="du -h" \
 	free="free -h" \
 	gotop="gotop -sa --mbps" \
-	history="fc -rl 0 | fzf" \
 	ka="killall" \
 	mkd="mkdir -pv" \
 	mv="mv -iv" \
 	rm="rm -vI"
-	# unxz="unxz -v"
+# unxz="unxz -v"
 
 # Colorize commands
 alias \
 	ccat="highlight --out-format=ansi" \
 	diff="diff --color=auto" \
+	egrep='egrep --color=auto' \
+	fgrep='fgrep --color=auto' \
+	grep="grep --color=auto" \
 	l='exa -l' \
 	la='exa -la' \
-	grep="grep --color=auto"
 
 # Abbreviations
 	# spawn="setsid st &" \
@@ -30,45 +31,58 @@ alias \
 alias \
 	2f="tmux split -h lf; lf" \
 	c.="cd .." \
-	e="$EDITOR" \
+	e="\$EDITOR" \
 	f="lfcd" \
 	q="exit" \
 	s="doas" \
+	smi="doas make install" \
 	t="task" \
 	tw="timew" \
-	v="$EDITOR" \
+	v="\$EDITOR" \
 	x="sxiv -ft *" \
 	zat="zathura"
 
 # fuzzy find
 alias \
 	vf='vim -o `fzf`' \
-	vfc='find "$HOME/.config" | fzf | xargs -r -I % "$EDITOR" %'
-	vfd='find "$HOME/.local/src/dotfiles" | fzf | xargs -r -I % "$EDITOR" %'
-	vfs='find "$HOME/.local/bin" | fzf | xargs -r -I % "$EDITOR" %'
+	vfc='find "$HOME/.config" | fzf | xargs -r -I % "$EDITOR" %' \
+	vfd="find \$HOME/.local/src/dotfiles | fzf | xargs -r -I % \$EDITOR %" \
+	vfs="find \$HOME/.local/bin | fzf | xargs -r -I % \$EDITOR %"
 
 # git
+# gua="git remote | xargs -L1 git push --all"
 alias \
 	g="git" \
-	ga="git add"\
-	gc="git commit -m"\
+	ga="git add" \
+	gc="git commit -m" \
 	gd="git pull" \
-	gcl='git clone https://github.com/"$1".git ' \
-	gs="git status"\
-	gu="git push"
-	# gua="git remote | xargs -L1 git push --all"
+	gs="git status" \
+	gu="git push" \
+	scommitf="fzf --multi --ansi --preview='head -20 {+}' &&
+		git log --oneline |
+		fzf --multi --preview --ansi 'git show {+1}'"
+
+gcl() {
+	git clone "$(xclip -selection clipboard -o)"
+}
 
 # xbps-install & upgrade
 alias \
 	xi="doas xbps-install -S" \
-	xu="doas xbps-install -Su" \
-	sxi='xbps-query -Rs "$1" | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -S %'
+	xu="doas xbps-install -Su"
+
+sxi() {
+	xbps-query -Rs $1 | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -S %
+}
 
 # xbps-query
 alias \
 	xq="xbps-query -Rs" \
-	sxq='xbps-query -Rs "$1" | fzf' \
 	xgot="xbps-query -l | fzf"
+
+sxq() {
+	xbps-query -Rs $1 | fzf
+}
 
 # xbps-remove
 alias \
@@ -89,10 +103,11 @@ alias \
 	# mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 alias \
 	cleanupdates="doas vkpurge rm all; xr -Ooy" \
-	dwmrefresh="kill -HUP $(pidof -s dwm)" \
+	dwmrefresh="kill -HUP \$(pidof -s dwm)" \
 	ffmpeg="ffmpeg -hide_banner" \
-	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
+	ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
+	zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
-[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+[ -f "$XINITRC" ] && alias startx="startx \$XINITRC"
 
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
