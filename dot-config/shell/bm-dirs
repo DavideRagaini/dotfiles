@@ -13,7 +13,7 @@ dt	${XDG_DATA_HOME:-$HOME/.local/share}
 h	$HOME
 mn	/mnt
 mt	/mnt/tmp
-org	$HOME/.local/src/Org
+org	$HOME/Org
 pp	${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}
 sb	$HOME/.local/src/dwmblocks
 sc	$HOME/.local/bin

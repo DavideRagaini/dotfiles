@@ -5,8 +5,8 @@ export FILE="lf"
 export READER="zathura"
 export TERMINAL="st"
 
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
-export PATH="$PATH:$HOME/.emacs.d/bin"
+# export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
+# export PATH="$PATH:$HOME/.emacs.d/bin"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
