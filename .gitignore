@@ -23,6 +23,7 @@ dot-config/nvim/session/
 dot-config/nvim/tags*
 dot-config/nvim/vimspector-config/*
 dot-config/qutebrowser/__pycache__
+dot-config/qutebrowser/qsettings
 dot-config/ranger/__pycache__
 dot-config/ranger/shortcuts.conf
 dot-config/shell/shortcutrc

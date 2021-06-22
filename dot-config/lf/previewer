@@ -21,10 +21,7 @@ case "$(basename "$file" | tr '[:upper:]' '[:lower:]')" in
 	*.torrent) transmission-show "$1" ;;
 	*.o) nm "$1" | less ;;
 	*.htm|*.html|*.xhtml)
-		html2text "$file" | head -n 100
-		# lynx -dump "$1"
-		# exit 0
-		;;
+		html2text "$file" | head -n 100 ;;
 	*.djvu|*.djv)
 		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.tiff"
 		ddjvu -format=tiff -quality=90 -page=1 "$file" "$thumbnail"

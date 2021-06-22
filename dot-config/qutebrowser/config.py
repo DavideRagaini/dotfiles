@@ -3,10 +3,10 @@ import dracula
 config.load_autoconfig()
 dracula.blood(c, {"spacing": {"vertical": 6, "horizontal": 8}})
 
-config.bind(",a", ':hint links spawn dmpv aplay "{hint-url}"')
-config.bind(",e", ':hint links spawn dmpv enqueue "{hint-url}"')
-config.bind(",p", ':hint links spawn dmpv enqueue&play "{hint-url}"')
-config.bind(",t", ':hint links spawn transadd "{hint-url}"')
+config.bind(",a", ":hint links spawn dmpv aplay '{hint-url}'")
+config.bind(",e", ":hint links spawn dmpv enqueue '{hint-url}'")
+config.bind(",p", ":hint links spawn dmpv eplay '{hint-url}'")
+config.bind(",t", ":hint links spawn transadd '{hint-url}'")
 
 c.url.searchengines = {
     "DEFAULT": "https://searx.nevrlands.de/search?q={}",

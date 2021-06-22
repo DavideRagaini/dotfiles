@@ -32,7 +32,7 @@ draw_bold_text_with_bright_colors: true
 
 selection:
   semantic_escape_chars: ',│`|:"'' ()[]{}<>'
-  save_to_clipboard: true
+  save_to_clipboard: false
 
 live_config_reload: true
 

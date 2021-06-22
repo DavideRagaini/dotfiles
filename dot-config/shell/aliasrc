@@ -44,7 +44,6 @@ alias \
 
 # fuzzy find
 alias \
-	vf='vim -o `fzf`' \
 	vfc='find "$HOME/.config" | fzf | xargs -r -I % "$EDITOR" %' \
 	vfd="find \$HOME/.local/src/dotfiles | fzf | xargs -r -I % \$EDITOR %" \
 	vfs="find \$HOME/.local/bin | fzf | xargs -r -I % \$EDITOR %"

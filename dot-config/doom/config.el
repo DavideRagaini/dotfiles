@@ -91,6 +91,7 @@
 (setq org-agenda-files
       '("~/Org/Tasks.org"
         "~/Org/Habits.org"
+        "~/Org/Uni.org"
         "~/Org/Birthdays.org"))
 
   (setq org-agenda-start-with-log-mode t)

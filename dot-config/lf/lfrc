@@ -20,6 +20,7 @@ source ~/.config/lf/shortcuts
 cmd open ${{
     case $(file --mime-type $f -b) in
 	audio/*) mpv --audio-display=no $f ;;
+	application/epub+zip) ebook-viewer $f &;;
 	application/json) $EDITOR $fx ;;
 	image/vnd.djvu|application/pdf|application/octet-stream) setsid zathura $fx >/dev/null 2>&1 & ;;
 	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
