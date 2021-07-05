@@ -27,10 +27,10 @@ cmd open ${{
 	image/svg+xml) display -- $f ;;
 	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
 	text/html) $BROWSER $f ;;
-        text/*) $EDITOR $fx ;;
+    text/*) $EDITOR $fx ;;
 	video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
-        # *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
-        *) notify-send "No Mime Type set" ;;
+    # *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+    *) notify-send "No Mime Type set" ;;
     esac
 }}
 
@@ -164,7 +164,6 @@ cmd recol &{{
         lf -remote "send $id set ratios 1:2:3:5"
     fi
 }}
-
 
 # y (select for copy) and P to paste soft-link
 # d (select for cut) and P to paste hard-link

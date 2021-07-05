@@ -1,73 +1,77 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 preview() {
 	cat <<-EOF | paste -sd '' >"$LF_UEBERZUG_TEMPDIR/fifo"
-	{
-	"action": "add", "identifier": "lf-preview",
-	"path": "$1", "x": $4, "y": $5, "width": $2, "height": $3,
-	"scaler": "contain"
-	}
+		{
+		"action": "add", "identifier": "lf-preview",
+		"path": "$1", "x": $4, "y": $5, "width": $2, "height": $3,
+		"scaler": "contain"
+		}
 	EOF
 }
 
 ~/.config/lf/cleaner # clean active preview
 
-file="$1"; shift
+file="$1"
+shift
 case "$(basename "$file" | tr '[:upper:]' '[:lower:]')" in
-	*.tar*) tar tf "$file" ;;
-	*.zip) unzip -l "$file" ;;
-	*.rar) unrar l "$file" ;;
-	*.7z) 7z l "$file" ;;
-	*.torrent) transmission-show "$1" ;;
-	*.o) nm "$1" | less ;;
-	*.htm|*.html|*.xhtml)
-		html2text "$file" | head -n 100 ;;
-	*.djvu|*.djv)
-		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.tiff"
-		ddjvu -format=tiff -quality=90 -page=1 "$file" "$thumbnail"
-		preview "$thumbnail" "$@"
-		;;
-	*.docx|*.odt|*.epub)
-		pandoc -s -t plain -- "$file" | head -n 100
-		exit 0
-		;;
-	*.pdf)
-		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
-		gs -o "$thumbnail" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
-		preview "$thumbnail" "$@"
-		;;
-	*.svg)
-		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
-		gm convert "$file" "$thumbnail"
-		preview "$thumbnail" "$@"
-		;;
-	*.gif)
-		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
-		gm convert "${file[0]}" "$thumbnail"
-		preview "$thumbnail" "$@"
-		;;
+*.tar*) tar tf "$file" ;;
+*.zip) unzip -l "$file" ;;
+*.rar) unrar l "$file" ;;
+*.7z) 7z l "$file" ;;
+*.torrent) transmission-show "$1" ;;
+*.o) nm "$1" | less ;;
+*.htm | *.html | *.xhtml)
+	html2text "$file" | head -n 100
+	;;
+*.djvu | *.djv)
+	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.tiff"
+	ddjvu -format=tiff -quality=90 -page=1 "$file" "$thumbnail"
+	preview "$thumbnail" "$@"
+	;;
+*.docx | *.odt | *.epub)
+	pandoc -s -t plain -- "$file" | head -n 100
+	exit 0
+	;;
+*.pdf)
+	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
+	gs -o "$thumbnail" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
+	preview "$thumbnail" "$@"
+	;;
+*.svg)
+	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
+	gm convert "$file" "$thumbnail"
+	preview "$thumbnail" "$@"
+	;;
+*.gif)
+	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
+	gm convert "${file[0]}" "$thumbnail"
+	preview "$thumbnail" "$@"
+	;;
 esac
 
 case "$(file -Lb --mime-type -- "$file")" in
-	application/json)
-		highlight -q -O ansi -- "$file" || cat -- "$file"
-		exit 0
-		;;
-	audio/*)
-		mediainfo "$file" ;;
-	image/*)
-		preview "$file" "$@" ;;
-	text/*)
-		highlight -q -O ansi -- "$file" || cat -- "$file"
-		#pygmentize -f terminal -- "$file" || cat -- "$file"
-		# source-highlight -q --outlang-def=esc.outlang --style-file=esc.style -i "$file" || cat -- "$file"
-		exit 0
-		;;
-	video/*)
-		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
-		ffmpeg -y -i "$file" -vframes 1 "$thumbnail"
-		preview "$thumbnail" "$@"
-		;;
+application/json)
+	highlight -q -O ansi -- "$file" || cat -- "$file"
+	exit 0
+	;;
+audio/*)
+	mediainfo "$file"
+	;;
+image/*)
+	preview "$file" "$@"
+	;;
+text/*)
+	highlight -q -O ansi -- "$file" || cat -- "$file"
+	#pygmentize -f terminal -- "$file" || cat -- "$file"
+	# source-highlight -q --outlang-def=esc.outlang --style-file=esc.style -i "$file" || cat -- "$file"
+	exit 0
+	;;
+video/*)
+	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
+	ffmpeg -y -i "$file" -vframes 1 "$thumbnail"
+	preview "$thumbnail" "$@"
+	;;
 esac
 
 return 127 # nonzero retcode required for lf previews to reload

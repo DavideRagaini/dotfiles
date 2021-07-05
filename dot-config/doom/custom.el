@@ -4,6 +4,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(flycheck-checker-error-threshold 500)
+ '(org-agenda-files
+   '("~/Org/Tasks.org" "~/Org/Workout.org" "~/Org/Learn/Learn.org" "~/Org/Birthdays.org"))
  '(whitespace-style
    '(face trailing tabs spaces newline empty indentation::tab indentation::space indentation big-indent space-after-tab::tab space-after-tab::space space-after-tab space-before-tab::tab space-before-tab::space space-before-tab space-mark tab-mark newline-mark)))
 (custom-set-faces
@@ -11,5 +13,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.2))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.1))))
+ '(org-level-6 ((t (:inherit outline-6 :height 1.1))))
+ '(org-level-7 ((t (:inherit outline-7 :height 1.1))))
+ '(org-level-8 ((t (:inherit outline-8 :height 1.1)))))
 (put 'customize-variable 'disabled nil)

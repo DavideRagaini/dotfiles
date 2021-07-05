@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! ox-epub)
+(package! activity-watch-mode)

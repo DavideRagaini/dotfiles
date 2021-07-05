@@ -35,7 +35,8 @@ macro , open-in-browser
 macro t set browser "qndl"; open-in-browser ; set browser linkhandler
 # macro d set browser "ts youtube-dl --add-metadata -xic -f bestaudio/best"; open-in-browser ; set browser linkhandler
 macro a set browser "setsid -f dmpv aplay"; open-in-browser ; set browser linkhandler
-macro e set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkhandler
+macro e set browser "setsid -f dmpv enqueue"; open-in-browser ; set browser linkhandler
+macro p set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkhandler
 # macro w set browser "lynx"; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
 macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler

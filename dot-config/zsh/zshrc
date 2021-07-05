@@ -37,7 +37,7 @@ zsh_add_file "zsh-prompt"
 [ -f "$HOME/.config/shell/aliasrc" ] && source "$HOME/.config/shell/aliasrc"
 
 # Plugins
-zsh_add_plugin "anatolykopyl/doas-zsh-plugin"
+zsh_add_plugin "Aloxaf/fzf-tab"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "joshskidmore/zsh-fzf-history-search"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
@@ -47,8 +47,9 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 # Key-bindings
 bindkey -s '^o' 'lfcd^M'
 bindkey -s '^f' 'zi^M'
+bindkey -s '^v' 'vf^M'
 # bindkey -s '^s' 'ncdu^M'
-bindkey -s '^v' 'nvim $(fzf)^M'
+# bindkey -s '^v' 'nvim $(fzf)^M'
 # bindkey -s '^v' 'nvim\n'
 bindkey '^[[P' delete-char
 bindkey "^p" up-line-or-beginning-search # Up

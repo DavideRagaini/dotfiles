@@ -21,6 +21,8 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-font (font-spec :family "Inconsolata Nerd Font Mono" :size 16)
+      doom-variable-pitch-font (font-spec :family "sans" :size 17))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -57,9 +59,11 @@
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (global-whitespace-mode 1)
+(setq browse-url-generic-program (executable-find "qutebrowser"))
+(global-activity-watch-mode 1)
 
- (set-frame-parameter (selected-frame) 'alpha '(90 . 80))
- (add-to-list 'default-frame-alist '(alpha . (90 . 80)))
+ (set-frame-parameter (selected-frame) 'alpha '(90))
+ (add-to-list 'default-frame-alist '(alpha . (90)))
 
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)))
@@ -90,8 +94,8 @@
 
 (setq org-agenda-files
       '("~/Org/Tasks.org"
-        "~/Org/Habits.org"
-        "~/Org/Uni.org"
+        "~/Org/Workout.org"
+        "~/Org/Learn/Learn.org"
         "~/Org/Birthdays.org"))
 
   (setq org-agenda-start-with-log-mode t)
@@ -190,26 +194,27 @@
 
 (setq org-capture-templates
   `(("t" "Tasks / Projects")
-    ("tt" "Task" entry (file+olp "~/Org/Tasks.org" "Inbox")
-         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-    ("ts" "Clocked Entry Subtask" entry (clock)
-         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-
+     ("tt" "Task" entry (file+olp "~/Org/Tasks.org" "Inbox")
+          "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+     ("ts" "Clocked Entry Subtask" entry (clock)
+          "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
     ("j" "Journal Entries")
     ("jj" "Journal" entry
-         (file+olp+datetree "~/Org/Journal.org")
-         "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-         :clock-in :clock-resume
-         :empty-lines 1)
+     (file+olp+datetree "~/Org/Journal.org")
+     "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+     :clock-in :clock-resume :empty-lines 1)
     ("jm" "Meeting" entry
-         (file+olp+datetree "~/Org/Journal.org")
-         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-         :clock-in :clock-resume
-         :empty-lines 1)
-
+     (file+olp+datetree "~/Org/Journal.org")
+     "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+     :clock-in :clock-resume
+     :empty-lines 1)
     ("m" "Metrics Capture")
-    ("mw" "Weight" table-line (file+headline "~/Org/Metrics.org" "Weight")
-     "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+    ("mw" "Weight" table-line
+     (file+headline "~/Org/Metrics.org" "Weight")
+     "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
+    ("r" "Add Reading Checkitem" checkitem
+     (file+headline "~/Org/Read.org" "New")
+         "+ [ ] %?" :kill-buffer t)))
 
 (setq org-refile-targets
   '(("Archive.org" :maxlevel . 1)

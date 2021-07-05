@@ -1,8 +1,6 @@
 # Function to source files if they exist
 function zsh_add_file() {
-    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
-}
-
+    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1" }
 function zsh_add_plugin() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
     if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
@@ -33,7 +31,7 @@ function zsh_add_completion() {
 # Use lf to switch directories and bind it to ctrl-o
 lfcd () {
     tmp="$(mktemp)"
-   lf -last-dir-path="$tmp" "$@"
+   fu -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp"
@@ -44,12 +42,11 @@ lfcd () {
         fi
     fi
 }
-bindkey -s '^o' 'lfcd\n'  # zsh
 
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
-vf() {
-  IFS=$'\n' out=("$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
+vf () {
+  IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e --preview 'head -n 20 {}')")
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
@@ -69,3 +66,51 @@ vg() {
      nvim $file +$line
   fi
 }
+
+doas-command-line() {
+    [[ -z $BUFFER ]] && LBUFFER="$(fc -ln -1)"
+    if [[ $BUFFER == doas\ * ]]; then
+        if [[ ${#LBUFFER} -le 4 ]]; then
+            RBUFFER="${BUFFER#doas }"
+            LBUFFER=""
+        else
+            LBUFFER="${LBUFFER#doas }"
+        fi
+    else
+        LBUFFER="doas $LBUFFER"
+    fi
+}
+zle -N doas-command-line
+
+bindkey -M emacs '^s' doas-command-line
+bindkey -M vicmd '^s' doas-command-line
+bindkey -M viins '^s' doas-command-line
+
+_zlf() {
+    emulate -L zsh
+    local d=$(mktemp -d) || return 1
+    {
+        mkfifo -m 600 $d/fifo || return 1
+        tmux split -bf zsh -c "exec {ZLE_FIFO}>$d/fifo; export ZLE_FIFO; exec lf" || return 1
+        local fd
+        exec {fd}<$d/fifo
+        zle -Fw $fd _zlf_handler
+    } always {
+        rm -rf $d
+    }
+}
+zle -N _zlf
+bindkey '\ek' _zlf
+
+_zlf_handler() {
+    emulate -L zsh
+    local line
+    if ! read -r line <&$1; then
+        zle -F $1
+        exec {1}<&-
+        return 1
+    fi
+    eval $line
+    zle -R
+}
+zle -N _zlf_handler
