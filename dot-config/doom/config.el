@@ -94,7 +94,6 @@
 
 (setq org-agenda-files
       '("~/Org/Tasks.org"
-        "~/Org/Workout.org"
         "~/Org/Learn/Learn.org"
         "~/Org/Birthdays.org"))
 
@@ -137,10 +136,10 @@
      ("@errand" . ?E)
      ("@home" . ?H)
      ("@work" . ?W)
-     ("agenda" . ?a)
      ("planning" . ?p)
-     ("publish" . ?P)
      ("batch" . ?b)
+     ("fix" . ?f)
+     ("improve" . ?m)
      ("note" . ?n)
      ("idea" . ?i)))
 

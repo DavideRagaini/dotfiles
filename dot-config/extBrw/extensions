@@ -1,4 +1,6 @@
    # Active
+ActivityWatch Web Watcher
+AutoFullscreen
 ClearURLs
 Dark Reader
 HTTPS Everywhere
@@ -8,11 +10,11 @@ New Tab Suspender
 Privacy Badger
 SponsorBlock YT
 Tridactyl
+uBlock Origin
+uMatrix
 Universal Bypass
 Video Speed Controller
 Violentmonkey
-uBlock Origin
-uMatrix
 
    # Disabled
 Channel Blocker

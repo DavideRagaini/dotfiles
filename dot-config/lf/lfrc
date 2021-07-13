@@ -122,6 +122,7 @@ cmd async_paste &{{
     esac
     lf -remote "send load"
     lf -remote "send clear"
+    notify-send "async done "
 }}
 
 cmd backup_paste %{{
@@ -134,6 +135,7 @@ cmd backup_paste %{{
     esac
     lf -remote "send load"
     lf -remote "send clear"
+    notify-send "Backup Done "
 }}
 
 cmd paste &{{
@@ -152,6 +154,7 @@ cmd paste &{{
     esac
     rm ~/.local/share/lf/files
     lf -remote "send clear"
+    notify-send "rsync done "
 }}
 
 cmd recol &{{

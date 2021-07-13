@@ -48,6 +48,7 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 bindkey -s '^o' 'lfcd^M'
 bindkey -s '^f' 'zi^M'
 bindkey -s '^v' 'vf^M'
+bindkey -s '^b' '"$(xclip -selection clipboard -o)"'
 # bindkey -s '^s' 'ncdu^M'
 # bindkey -s '^v' 'nvim $(fzf)^M'
 # bindkey -s '^v' 'nvim\n'
