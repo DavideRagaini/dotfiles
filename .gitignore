@@ -10,6 +10,8 @@ dot-config/mpd/playlists
 dot-config/mpd/state
 dot-config/mpv/last
 dot-config/mpv/playlists
+dot-config/mpv/scripts/sponsorblock_shared/sponsorblock.db
+dot-config/mpv/scripts/sponsorblock_shared/sponsorblock.txt
 dot-config/mpv/watch_later
 dot-config/ncmpcpp/error.log
 dot-config/nvim/.netrwhist

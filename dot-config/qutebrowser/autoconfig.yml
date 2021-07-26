@@ -75,10 +75,12 @@ settings:
     global: false
   statusbar.show:
     global: in-mode
+  tabs.last_close:
+    global: default-page
   tabs.position:
-    global: top
+    global: bottom
   tabs.show:
-    global: switching
+    global: always
   tabs.show_switching_delay:
     global: 10000
   url.default_page:
