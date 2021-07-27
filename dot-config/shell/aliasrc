@@ -2,110 +2,110 @@
 
 # Override GNU defaults
 alias \
-	bc="bc -l" \
-	cp="cp -iv" \
-	df="df -h" \
-	du="du -h" \
-	free="free -h" \
-	gotop="gotop -sa --mbps" \
-	ka="killall" \
-	mkd="mkdir -pv" \
-	mv="mv -iv" \
-	rm="rm -vI"
+    bc="bc -l" \
+    cp="cp -iv" \
+    df="df -h" \
+    du="du -h" \
+    free="free -h" \
+    gotop="gotop -sa --mbps" \
+    ka="killall" \
+    mkd="mkdir -pv" \
+    mv="mv -iv" \
+    rm="rm -vI"
 # unxz="unxz -v"
 
 # Colorize commands
 alias \
-	ccat="highlight --out-format=ansi" \
-	diff="diff --color=auto" \
-	egrep='egrep --color=auto' \
-	fgrep='fgrep --color=auto' \
-	grep="grep --color=auto" \
-	l='exa -l' \
-	la='exa -la' \
+    ccat="highlight --out-format=ansi" \
+    diff="diff --color=auto" \
+    egrep='egrep --color=auto' \
+    fgrep='fgrep --color=auto' \
+    grep="grep --color=auto" \
+    l='exa -l' \
+    la='exa -la'
 
 # Abbreviations
-	# spawn="setsid st &" \
-	# trem="transmission-remote" \
-	# sudo="doas" \
 alias \
-	2f="tmux split -h lf; lf" \
-	c.="cd .." \
-	e="\$EDITOR" \
-	f="lfcd" \
-	q="exit" \
-	s="doas" \
-	smi="doas make install" \
-	t="task" \
-	tw="timew" \
-	v="\$EDITOR" \
-	x="sxiv -ft *" \
-	zat="zathura"
+    2f="tmux split -h lf; lf" \
+    c.="cd .." \
+    e="\$EDITOR" \
+    f="lfcd" \
+    q="exit" \
+    s="doas" \
+    smi="doas make install" \
+    t="task" \
+    tw="timew" \
+    v="\$EDITOR" \
+    x="sxiv -ft *" \
+    zat="zathura"
+# spawn="setsid st &" \
+# trem="transmission-remote" \
+# sudo="doas" \
 
 # fuzzy find
 alias \
-	vfc='find "$HOME/.config" | fzf | xargs -r -I % "$EDITOR" %' \
-	vfd="find \$HOME/.local/src/dotfiles | fzf | xargs -r -I % \$EDITOR %" \
-	vfs="find \$HOME/.local/bin | fzf | xargs -r -I % \$EDITOR %"
+    vfc="find \$HOME/.config/ -maxdepth 1 | fzf | xargs -r -I % \$EDITOR %" \
+    vfd="find \$HOME/.local/src/dotfiles/ | fzf | xargs -r -I % \$EDITOR %" \
+    vfs="find \$HOME/.local/bin/ | fzf | xargs -r -I % \$EDITOR %"
 
 # git
-# gua="git remote | xargs -L1 git push --all"
 alias \
-	g="git" \
-	ga="git add" \
-	gc="git commit -m" \
-	gd="git pull" \
-	gs="git status" \
-	gu="git push" \
-	scommitf="fzf --multi --ansi --preview='head -20 {+}' &&
+    g="git" \
+    ga="git add" \
+    gc="git commit -m" \
+    gd="git pull" \
+    gs="git status" \
+    gu="git push" \
+    scommitf="fzf --multi --ansi --preview='head -20 {+}' &&
 		git log --oneline |
 		fzf --multi --preview --ansi 'git show {+1}'"
+# gua="git remote | xargs -L1 git push --all"
 
 gcl() {
-	git clone "$(xclip -selection clipboard -o)"
+    git clone "$(xclip -selection clipboard -o)"
 }
 
 # xbps-install & upgrade
 alias \
-	xi="doas xbps-install -S" \
-	xu="doas xbps-install -Su"
+    xi="doas xbps-install -S" \
+    xu="doas xbps-install -Su"
 
 sxi() {
-	xbps-query -Rs $1 | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -S %
+    xbps-query -Rs $1 | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -S %
 }
 
 # xbps-query
 alias \
-	xq="xbps-query -Rs" \
-	xgot="xbps-query -l | fzf"
+    xq="xbps-query -Rs" \
+    xgot="xbps-query -l | fzf"
 
 sxq() {
-	xbps-query -Rs $1 | fzf
+    xbps-query -Rs $1 | fzf
 }
 
 # xbps-remove
 alias \
-	xr="doas xbps-remove -R" \
-	sxr='xbps-query -l | fzf | xargs -r -I % doas xbps-remove -R %'
+    xr="doas xbps-remove -R" \
+    sxr='xbps-query -l | fzf | xargs -r -I % doas xbps-remove -R %'
 
 # youtube
 # alias \
-	# y="straw-viewer"
-	# yt="youtube-dl --add-metadata -i" \
-	# yta="yt -x -f bestaudio/best" \
-	# dlm="youtube-dl --add-metadata -ic --extract-audio --audio-format mp3 --audio-quality 0" \
-	# dlv="youtube-dl -ic --add-metadata" \
-	# yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
-	# yta="yt -x -f bestaudio/best"
+# y="straw-viewer"
+# yt="youtube-dl --add-metadata -i" \
+# yta="yt -x -f bestaudio/best" \
+# dlm="youtube-dl --add-metadata -ic --extract-audio --audio-format mp3 --audio-quality 0" \
+# dlv="youtube-dl -ic --add-metadata" \
+# yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
+# yta="yt -x -f bestaudio/best"
 
 # Miscellaneous
-	# mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 alias \
-	cleanupdates="doas vkpurge rm all; xr -Ooy" \
-	dwmrefresh="kill -HUP \$(pidof -s dwm)" \
-	ffmpeg="ffmpeg -hide_banner" \
-	ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
-	zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+    cleanupdates="doas vkpurge rm all; xr -Ooy" \
+    dwmrefresh="kill -HUP \$(pidof -s dwm)" \
+    ffmpeg="ffmpeg -hide_banner" \
+    ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
+    zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+# mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 
 [ -f "$XINITRC" ] && alias startx="startx \$XINITRC"
 

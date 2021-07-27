@@ -1,0 +1,72 @@
+diff --git config.h config.h
+index ec4ff6e..063a247 100644
+--- config.h
++++ config.h
+@@ -1,30 +1,21 @@
+ //Modify this file to change what commands output to your statusbar, and recompile using the make command.
+ static const Block blocks[] = {
+ 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
+-	/* {"⌨", "sb-kbselect", 0, 30}, */
+-	{"", "cat /tmp/recordingicon 2>/dev/null",	0,	9},
+-	{"",	"sb-tasks",	10,	26},
+ 	{"",	"sb-music",	0,	11},
+-	{"",	"sb-pacpackages",	0,	8},
+-	{"",	"sb-news",		0,	6},
+-	/* {"",	"sb-price lbc \"LBRY Token\" 📚",			9000,	22}, */
+-	/* {"",	"sb-price bat \"Basic Attention Token\" 🦁",	9000,	20}, */
+-	/* {"",	"sb-price link \"Chainlink\" 🔗",			300,	25}, */
+-	/* {"",	"sb-price xmr \"Monero\" 🔒",			9000,	24}, */
+-	/* {"",	"sb-price eth Ethereum 🍸",	9000,	23}, */
+-	/* {"",	"sb-price btc Bitcoin 💰",				9000,	21}, */
+-	{"",	"sb-torrent",	20,	7},
+-	/* {"",	"sb-memory",	10,	14}, */
+-	/* {"",	"sb-cpu",		10,	18}, */
+-	/* {"",	"sb-moonphase",	18000,	17}, */
+-	{"",	"sb-forecast",	18000,	5},
+-	{"",	"sb-mailbox",	180,	12},
+-	{"",	"sb-nettraf",	1,	16},
+-	{"",	"sb-volume",	0,	10},
+-	{"",	"sb-battery",	5,	3},
+-	{"",	"sb-clock",	60,	1},
+-	{"",	"sb-internet",	5,	4},
+-	{"",	"sb-help-icon",	0,	15},
++	{"",	"sb-spt",	0,	12},
++	{"",	"sb-cpu",	10,	0},
++	{"",	"sb-memory",	30,	0},
++	{"",	"sb-internet",	180,	16},
++	{"",	"[ \"$(rfkill | awk '/hci0/ {print $4}')\" = \"unblocked\" ] && printf \"\"",	0,	7},
++	{"",	"sb-volume-p",	0,	10},
++	{"",	"printf \"[%s]\" \"$(xbacklight | cut -d. -f1)\"",	0,	6},
++	{"",	"[ \"$(sudo tlp-stat -s | awk '/Mode/ {print $3}')\" = \"AC\" ] && printf \"\"",	0,	6},
++	{"",	"sb-battery",	60,	0},
++	/* {"",	"acpi | awk '{sub(\",\",\" \",$4); print $4$5}'",	60,	12}, */
++	/* {"",	"sensors | awk '/Package id 0:/ {sub(\".0\",\"\",$4); sub(\"+\",\"\",$4); print $4}'",	60,	0}, */
++	/* {"ﯓ",	"uptime | awk 'sub(\",\",\"\",$3) {print $3}'",	300,	0}, */
++	{"",	"sb-date",	0,	0},
++	{"",	"sb-clock",	60,	0},
+ };
+ 
+ //Sets delimiter between status commands. NULL character ('\0') means no delimiter.
+@@ -34,3 +25,4 @@ static char *delim = " ";
+ // vim with the following line in your vimrc/init.vim:
+ 
+ // autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
++
+diff --git dwmblocks.c dwmblocks.c
+index 0969ed7..14c79cc 100644
+--- dwmblocks.c
++++ dwmblocks.c
+@@ -7,7 +7,7 @@
+ #include <errno.h>
+ #include <X11/Xlib.h>
+ #define LENGTH(X) (sizeof(X) / sizeof (X[0]))
+-#define CMDLENGTH		50
++#define CMDLENGTH		100
+ 
+ typedef struct {
+ 	char* icon;
+@@ -292,3 +292,4 @@ int main(int argc, char** argv)
+ 	signal(SIGINT, termhandler);
+ 	statusloop();
+ }
++
