@@ -80,7 +80,7 @@ settings:
   tabs.position:
     global: bottom
   tabs.show:
-    global: always
+    global: multiple
   tabs.show_switching_delay:
     global: 10000
   url.default_page:

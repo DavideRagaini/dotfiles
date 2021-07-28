@@ -34,22 +34,20 @@ index ec4ff6e..063a247 100644
 +	{"",	"sb-cpu",	10,	0},
 +	{"",	"sb-memory",	30,	0},
 +	{"",	"sb-internet",	180,	16},
-+	{"",	"[ \"$(rfkill | awk '/hci0/ {print $4}')\" = \"unblocked\" ] && printf \"\"",	0,	7},
++	{"",	"[ \"$(bluetooth | awk '{print $3}')\" = \"on\" ] && printf \"[]\"",	0,	7},
 +	{"",	"sb-volume-p",	0,	10},
 +	{"",	"printf \"[%s]\" \"$(xbacklight | cut -d. -f1)\"",	0,	6},
 +	{"",	"[ \"$(sudo tlp-stat -s | awk '/Mode/ {print $3}')\" = \"AC\" ] && printf \"\"",	0,	6},
 +	{"",	"sb-battery",	60,	0},
-+	/* {"",	"acpi | awk '{sub(\",\",\" \",$4); print $4$5}'",	60,	12}, */
 +	/* {"",	"sensors | awk '/Package id 0:/ {sub(\".0\",\"\",$4); sub(\"+\",\"\",$4); print $4}'",	60,	0}, */
-+	/* {"ﯓ",	"uptime | awk 'sub(\",\",\"\",$3) {print $3}'",	300,	0}, */
 +	{"",	"sb-date",	0,	0},
 +	{"",	"sb-clock",	60,	0},
  };
- 
+
  //Sets delimiter between status commands. NULL character ('\0') means no delimiter.
 @@ -34,3 +25,4 @@ static char *delim = " ";
  // vim with the following line in your vimrc/init.vim:
- 
+
  // autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
 +
 diff --git dwmblocks.c dwmblocks.c
@@ -62,7 +60,7 @@ index 0969ed7..14c79cc 100644
  #define LENGTH(X) (sizeof(X) / sizeof (X[0]))
 -#define CMDLENGTH		50
 +#define CMDLENGTH		100
- 
+
  typedef struct {
  	char* icon;
 @@ -292,3 +292,4 @@ int main(int argc, char** argv)
