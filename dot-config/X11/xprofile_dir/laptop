@@ -2,25 +2,25 @@
 
 export BROWSER="librewolf"
 
-mpd &
-remaps & # run the remaps script, switching caps/esc and more; check it for more info
-setbg &  # set the background with the `setbg` script
-# xcompmgr &         # xcompmgr for transparency
-dunst &              # dunst for notifications
-xset r rate 300 50 & # Speed xrate up
-unclutter &          # Remove mouse when idle
-# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &	# Uncomment to use Xresources colors/settings on startup
+# mpd &
+remaps &
+setbg &
+# xcompmgr &
+dunst &
+# xset r rate 300 50 &
+unclutter &
+# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
 # xautolock -time 5 -notify 60 -notifier notifylock  -locker lock &
 # syncthing -no-browser &
 
 numlockx &
 redshift -l 43.5943:12.5034 -t 5700:3600 -g 0.8 -m randr &
-timeOnPc start
-xbacklight -set 20
+timeOnPc start &
+xbacklight -set 20 &
 libinput-gestures-setup start &
-wifi off
-bluetooth off
-sudo tlp bat &
-blacklist on
+# wifi off &
+bluetooth off &
+doas tlp bat &
+blacklist on &
 doas intel-undervolt apply &
-notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "<Welcome>"
+notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»"

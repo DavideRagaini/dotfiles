@@ -37,7 +37,8 @@ alias \
     tw="timew" \
     v="\$EDITOR" \
     x="sxiv -ft *" \
-    zat="zathura"
+    xclip="xclip -selection clipboard" \
+    zt="zathura"
 # spawn="setsid st &" \
 # trem="transmission-remote" \
 # sudo="doas" \
@@ -71,12 +72,12 @@ alias \
     xu="doas xbps-install -Su"
 
 sxi() {
-    xbps-query -Rs $1 | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -S %
+    xbps-query -Rs $1 | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -Sy %
 }
 
 # xbps-query
 alias \
-    xq="xbps-query -Rs" \
+    xq="xbps-query" \
     xgot="xbps-query -l | fzf"
 
 sxq() {

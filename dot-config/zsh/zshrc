@@ -45,20 +45,22 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Key-bindings
-bindkey -s '^o' 'lfcd^M'
-bindkey -s '^f' 'zi^M'
-bindkey -s '^v' 'vf^M'
-bindkey -s '^b' '"$(xclip -selection clipboard -o)"'
-# bindkey -s '^s' 'ncdu^M'
-# bindkey -s '^v' 'nvim $(fzf)^M'
-# bindkey -s '^v' 'nvim\n'
-bindkey '^[[P' delete-char
-bindkey "^p" up-line-or-beginning-search # Up
-bindkey "^n" down-line-or-beginning-search # Down
-bindkey "^k" up-line-or-beginning-search # Up
 bindkey "^j" down-line-or-beginning-search # Down
-bindkey -r "^u"
+bindkey "^k" up-line-or-beginning-search # Up
+bindkey "^n" down-line-or-beginning-search # Down
+bindkey "^p" up-line-or-beginning-search # Up
+bindkey '^[[P' delete-char
+bindkey -M emacs '^s' doas-command-line
+bindkey -M vicmd '^s' doas-command-line
+bindkey -M viins '^s' doas-command-line
 bindkey -r "^d"
+bindkey -r "^u"
+bindkey -s '^b' '"$(xclip -o)"'
+bindkey -s '^o' 'lfcd^M'
+# bindkey -s '^v' 'nvim $(fzf)^M'
+bindkey -s '^v' 'vf^M'
+bindkey -s '^z' 'zi^M'
+bindkey -v '^?' backward-delete-char
 
 # FZF
 # [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh

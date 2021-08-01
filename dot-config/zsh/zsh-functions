@@ -46,7 +46,7 @@ lfcd () {
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
 vf () {
-  IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e --preview 'head -n 20 {}')")
+  IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e --preview 'highlight -q -O ansi --line-range=1-20 {}')")
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
@@ -54,7 +54,6 @@ vf () {
   fi
 }
 
-# fuzzy grep open via ag with line number
 vg() {
   local file
   local line
@@ -81,10 +80,6 @@ doas-command-line() {
     fi
 }
 zle -N doas-command-line
-
-bindkey -M emacs '^s' doas-command-line
-bindkey -M vicmd '^s' doas-command-line
-bindkey -M viins '^s' doas-command-line
 
 _zlf() {
     emulate -L zsh
