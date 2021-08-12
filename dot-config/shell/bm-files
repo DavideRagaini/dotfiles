@@ -11,5 +11,5 @@ cft	${XDG_CONFIG_HOME:-$HOME/.config}/task/taskrc
 cftm	${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf
 cfx	${XDG_CONFIG_HOME:-$HOME/.config}/X11/xprofile
 cfxi	${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc
-cfz	$ZDOTDIR/.zshrc
+cfz	$ZDOTDIR/zshrc
 cqm	${XDG_CONFIG_HOME:-$HOME/.config}/mpv/queue
