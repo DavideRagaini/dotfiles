@@ -1,4 +1,5 @@
 #!/bin/sh
+
 setopt HIST_IGNORE_ALL_DUPS
 HISTFILE="$XDG_DATA_HOME"/zsh/history
 HISTSIZE=1000000
@@ -6,7 +7,6 @@ SAVEHIST=1000000
 # export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 # export MANPAGER='nvim +Man!'
 export MANWIDTH=999
-export FZF_DEFAULT_OPTS="--layout=reverse --info=inline --height=80% --multi --preview-window=:hidden --preview '([[ -f {} ]] && (highlight -q -O ansi --line-range=1-25 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | head -n 25)) || echo {} 2> /dev/null | head -25' --prompt='∼ ' --pointer='▶' --marker='✓' --bind '?:toggle-preview' --bind 'ctrl-a:select-all' --bind 'ctrl-y:execute-silent(echo {+} | xclip -selection clipboard -i)' --bind 'ctrl-e:execute(echo {+} | xargs -o vim)' --bind 'ctrl-v:execute(exec {+} | less)'" # --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
 # export PATH=$HOME/.cargo/bin:$PATH
 # export PATH=$HOME/.local/share/go/bin:$PATH
 # export GOPATH=$HOME/.local/share/go

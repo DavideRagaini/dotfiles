@@ -24,6 +24,7 @@ export AWT_TOOLKIT="MToolkit wmname LG3D" #May have to install wmname
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CUDA_CACHE_PATH="$XDG_CONFIG_HOME/nv"
 # export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
+export FZF_DEFAULT_OPTS="--layout=reverse --info=inline --height=80% --multi --preview-window=:hidden --preview '([[ -f {} ]] && (highlight -q -O ansi --line-range=1-25 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | head -n 25)) || echo {} 2> /dev/null | head -25' --prompt='∼ ' --pointer='▶' --marker='✓' --bind '?:toggle-preview' --bind 'ctrl-a:select-all' --bind 'ctrl-y:execute-silent(echo {+} | xclip -selection clipboard -i)' --bind 'ctrl-e:execute(echo {+} | xargs -o vim)' --bind 'ctrl-v:execute(exec {+} | less)'" # --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
 # export GDK_DPI_SCALE=1.5
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
@@ -40,7 +41,6 @@ export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 # export QT_STYLE_OVERRIDE="gtk3"
 # export QT_SCALE_FACTOR=1.5
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
 export TASKDATA="$XDG_DATA_HOME/task"
 export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
 # export TERM="screen-256color"
@@ -59,8 +59,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # Java doesn't understand tiling windows
 
 # less/man colors
 # export DICS="/usr/share/stardict/dic/"
-export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
-export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 export LESS=-R
 export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
 export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
