@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 preview() {
 	cat <<-EOF | paste -sd '' >"$LF_UEBERZUG_TEMPDIR/fifo"
@@ -52,7 +52,7 @@ esac
 
 case "$(file -Lb --mime-type -- "$file")" in
 application/json)
-	highlight -q -O ansi -- "$file" || cat -- "$file"
+	highlight -qO ansi --line-range=1-50 -- "$file" | tr -d ' ' || cat -- "$file"
 	exit 0
 	;;
 audio/*)
@@ -62,7 +62,7 @@ image/*)
 	preview "$file" "$@"
 	;;
 text/*)
-	highlight -q -O ansi -- "$file" || cat -- "$file"
+	highlight -qO ansi --line-range=1-50 -- "$file" || cat -- "$file"
 	#pygmentize -f terminal -- "$file" || cat -- "$file"
 	# source-highlight -q --outlang-def=esc.outlang --style-file=esc.style -i "$file" || cat -- "$file"
 	exit 0
