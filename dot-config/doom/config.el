@@ -21,8 +21,8 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Inconsolata Nerd Font Mono" :size 16)
-      doom-variable-pitch-font (font-spec :family "sans" :size 17))
+(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 14)
+      Doom-variable-pitch-font (font-spec :family "sans" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -55,15 +55,15 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq scroll-margin 3)
+(setq scroll-margin 5)
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (global-whitespace-mode 1)
 (setq browse-url-generic-program (executable-find "qutebrowser"))
 (global-activity-watch-mode 1)
 
- (set-frame-parameter (selected-frame) 'alpha '(90))
- (add-to-list 'default-frame-alist '(alpha . (90)))
+ ;; (set-frame-parameter (selected-frame) 'alpha '(90))
+ ;; (add-to-list 'default-frame-alist '(alpha . (90)))
 
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)))
@@ -221,3 +221,24 @@
 
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+;; Multi-language spelling
+(with-eval-after-load "ispell"
+  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+  ;; dictionary' even though multiple dictionaries will be configured
+  ;; in next line.
+  (setenv "LANG" "en_US.UTF-8")
+  (setq ispell-program-name "hunspell")
+  (setq ispell-dictionary "it_IT,en_GB,en_US")
+  ;; ispell-set-spellchecker-params has to be called
+  ;; before ispell-hunspell-add-multi-dic will work
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "it_IT,en_GB,en_US")
+  ;; For saving words to the personal dictionary, don't infer it from
+  ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
+  (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
+
+;; The personal dictionary file has to exist, otherwise hunspell will
+;; silently not use it.
+(unless (file-exists-p ispell-personal-dictionary)
+  (write-region "" nil ispell-personal-dictionary nil 0))
