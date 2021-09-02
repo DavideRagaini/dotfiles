@@ -15,7 +15,7 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"
 	Plug 'junegunn/goyo.vim'
 	Plug 'bling/vim-airline'
 	Plug 'tpope/vim-commentary'
-	Plug 'ActivityWatch/aw-watcher-vim'
+	" Plug 'ActivityWatch/aw-watcher-vim'
 call plug#end()
 
 set title

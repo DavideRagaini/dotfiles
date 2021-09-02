@@ -73,6 +73,8 @@ settings:
     - --selection-path {}
   scrolling.smooth:
     global: false
+  session.lazy_restore:
+    global: true
   statusbar.show:
     global: in-mode
   tabs.last_close:

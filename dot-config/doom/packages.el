@@ -50,4 +50,5 @@
 ;(unpin! t)
 
 (package! ox-epub)
-(package! activity-watch-mode)
+(package! circadian)
+;; (package! activity-watch-mode)

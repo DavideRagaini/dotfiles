@@ -28,6 +28,7 @@ alias \
 alias \
     2f="tmux split -h lf; lf" \
     c.="cd .." \
+    doom="$HOME/.emacs.d/bin/doom" \
     e="\$EDITOR" \
     f="lfcd" \
     q="exit" \
