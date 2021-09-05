@@ -242,3 +242,13 @@
 ;; silently not use it.
 (unless (file-exists-p ispell-personal-dictionary)
   (write-region "" nil ispell-personal-dictionary nil 0))
+
+                ;; Circadian
+(use-package circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 43.59)
+  (setq calendar-longitude 12.50)
+  (setq circadian-themes '((:sunrise . doom-nord-light)
+                           (:sunset  . doom-nord)))
+  (circadian-setup))
