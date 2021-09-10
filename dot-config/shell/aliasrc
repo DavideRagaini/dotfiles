@@ -11,7 +11,8 @@ alias \
     ka="killall" \
     mkd="mkdir -pv" \
     mv="mv -iv" \
-    rm="rm -vI"
+    rm="rm -vI" \
+    rsync="rsync -h --progress"
 # unxz="unxz -v"
 
 # Colorize commands
