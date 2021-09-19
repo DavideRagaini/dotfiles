@@ -79,7 +79,7 @@ sxi() {
 
 # xbps-query
 alias \
-    xq="xbps-query" \
+    xq="xbps-query -Rs" \
     xgot="xbps-query -l | fzf"
 
 sxq() {

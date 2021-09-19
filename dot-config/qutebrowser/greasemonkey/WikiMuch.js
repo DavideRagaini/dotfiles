@@ -11,7 +11,7 @@
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
-// @run-at      document-ready
+// @run-at      document-end
 // ==/UserScript==
 
 // Default fonts

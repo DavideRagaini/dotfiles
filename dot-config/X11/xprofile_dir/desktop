@@ -1,33 +1,34 @@
 #!/bin/sh
 
-export BROWSER="librewolf"
+export BROWSER="qutebrowser"
 # export GDK_DPI_SCALE=1.5
 
 # mpd &
 remaps &
 setbg &
-xcompmgr &
+# xcompmgr &
 dunst &
 # xset r rate 300 50 &
 unclutter &
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
 numlockx &
-syncthing -no-browser &
+# syncthing -no-browser &
 redshift -l 43.59:12.50 -t 5700:3600 -g 0.8 -m randr &
+clipmenud &
 
 doas runsv /var/service/chronyd &
 doas runsv /var/service/socklog-unix &
 doas runsv /var/service/nanoklogd &
-doas runsv /var/service/sshd &
+# doas runsv /var/service/sshd &
 doas runsv /var/service/NetworkManager &
 # sudo runsv /var/service/dcron &
 doas intel-undervolt apply &
 
 timeOnPc start &
-xautolock -time 20 -notify 180 -notifier "notify-send -u critical -t 60000 'System will be locked' '1 minute left'" -locker 'doas zzz' &
+xautolock -time 15 -notify 180 -notifier "notify-send -u critical -t 180000 'System will be locked' '3 minute left'" -locker 'doas zzz' &
 sh ~/.config/screenlayout/Desktop/second.sh &
 blacklist on &
 # trayer --edge bottom --align right --SetDockType true --SetPartialStrut true --expand true --width 1 --transparent true --alpha 0 --height 19 --tint 0x2F0B3A &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"
 echo "\a" > /dev/tty5	# beep
-aw-qt &
+# aw-qt &

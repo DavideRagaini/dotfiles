@@ -48,28 +48,23 @@ settings:
     global: bottom
   downloads.remove_finished:
     global: 10000
-  editor.command:
-    global:
-    - emacs
-    - --file=
-    - '{file}'
   fileselect.folder.command:
     global:
-    - alacritty
+    - st
     - -e
-    - lf-ueberzug
+    - fu
     - --selection-path {}
   fileselect.multiple_files.command:
     global:
-    - alacritty
+    - st
     - -e
-    - lf-ueberzug
+    - fu
     - --selection-path {}
   fileselect.single_file.command:
     global:
-    - alacritty
+    - st
     - -e
-    - lf-ueberzug
+    - fu
     - --selection-path {}
   scrolling.smooth:
     global: false

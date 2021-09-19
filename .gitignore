@@ -7,6 +7,7 @@ dot-config/mpd/lyrics
 dot-config/mpd/pid
 dot-config/mpd/playlists
 dot-config/mpd/state
+dot-config/mpv/disabled_scripts
 dot-config/mpv/last
 dot-config/mpv/playlists
 dot-config/mpv/scripts/sponsorblock_shared/sponsorblock.db
@@ -24,6 +25,7 @@ dot-config/nvim/session/
 dot-config/nvim/tags*
 dot-config/nvim/vimspector-config/*
 dot-config/qutebrowser/__pycache__
+dot-config/qutebrowser/greasemonkey/disabled
 dot-config/qutebrowser/qsettings
 dot-config/ranger/__pycache__
 dot-config/ranger/shortcuts.conf

@@ -60,17 +60,19 @@
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (global-whitespace-mode 1)
+;; (global-activity-watch-mode 1)
 (setq browse-url-generic-program (executable-find "qutebrowser"))
 
  ;; (set-frame-parameter (selected-frame) 'alpha '(90))
  ;; (add-to-list 'default-frame-alist '(alpha . (90)))
 
+                ;; Functions
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)))
          ;; :map minibuffer-local-map
          ;; ("C-M-r" . 'counsel-minibuffer-history)))
 
-;; ORG ENHANEMENT
+                ;; ORG ENHANEMENT
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
                         '(("^ *\\([-]\\) "
@@ -211,37 +213,79 @@
     ("mw" "Weight" table-line
      (file+headline "~/Org/Metrics.org" "Weight")
      "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
-    ("r" "Add Reading Checkitem" checkitem
+    ("a" "Add New Entries")
+    ("ar" "Add Reading Checkitem" checkitem
      (file+headline "~/Org/Read.org" "New")
+         "+ [ ] %?" :kill-buffer t)
+    ("aw" "Add Watching Checkitem" checkitem
+     (file+headline "~/Org/Watch.org" "New")
          "+ [ ] %?" :kill-buffer t)))
 
 (setq org-refile-targets
   '(("Archive.org" :maxlevel . 1)
     ("Tasks.org" :maxlevel . 1)))
 
-;; Save Org buffers after refiling!
+	;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-;; Multi-language spelling
-(with-eval-after-load "ispell"
-  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
-  ;; dictionary' even though multiple dictionaries will be configured
-  ;; in next line.
-  (setenv "LANG" "en_US.UTF-8")
-  (setq ispell-program-name "hunspell")
-  (setq ispell-dictionary "it_IT,en_GB,en_US")
-  ;; ispell-set-spellchecker-params has to be called
-  ;; before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "it_IT,en_GB,en_US")
-  ;; For saving words to the personal dictionary, don't infer it from
-  ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
-  (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
+                ;; Mathjax
+(setq org-html-mathjax-options
+  '((path "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+  ;; '((path "/usr/share/mathjax/MathJax.js?config=TeX-AMS_HTML")
+    (scale "100")
+    (font "TeX")
+    (align "center")
+    (autonumber "AMS")
+    (indent "2em")
+    (mathml t)
+    (linebreaks "false")
+    (multlinewidth "85%")
+    (tagindent ".8em")
+    (tagside "right")))
 
-;; The personal dictionary file has to exist, otherwise hunspell will
-;; silently not use it.
-(unless (file-exists-p ispell-personal-dictionary)
-  (write-region "" nil ispell-personal-dictionary nil 0))
+(setq org-html-mathjax-template
+              "
+<script type=\"text/javascript\" src=\"%PATH\"></script>
+<script type=\"text/javascript\">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        jax: [\"input/TeX\", \"output/HTML-CSS\"],
+        extensions: [\"tex2jax.js\",\"TeX/AMSmath.js\",\"TeX/AMSsymbols.js\",
+                     \"TeX/noUndefined.js\", \"[Contrib]/siunitx/siunitx.js\", \"[Contrib]/mhchem/mhchem.js\"],
+        tex2jax: {
+            inlineMath: [ [\"\\\\(\",\"\\\\)\"] ],
+            displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"], [\"\\\\begin{displaymath}\",\"\\\\end{displaymath}\"] ],
+            skipTags: [\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"],
+            ignoreClass: \"tex2jax_ignore\",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: \"TeX\"
+        },
+        TeX: {extensions: [\"AMSmath.js\",\"AMSsymbols.js\",  \"[Contrib]/siunitx/siunitx.js\", \"[Contrib]/mhchem/mhchem.js\"]},
+        showProcessingMessages: true,
+        displayAlign: \"%ALIGN\",
+        displayIndent: \"%INDENT\",
+
+        \"HTML-CSS\": {
+             scale: %SCALE,
+             availableFonts: [\"STIX\",\"TeX\"],
+             preferredFont: \"TeX\",
+             webFont: \"TeX\",
+             imageFont: \"TeX\",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    \"MML\",
+                 Firefox: \"MML\",
+                 Opera:   \"HTML\",
+                 other:   \"HTML\"
+             }
+        }
+    });
+/*]]>*///-->
+</script>")
+;; equationNumbers: { autoNumber: "AMS" },
 
                 ;; Circadian
 (use-package circadian

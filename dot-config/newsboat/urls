@@ -1,11 +1,13 @@
-"---YOUTUBE---"
+# "---YOUTUBE---"
 "query:Unread Articles:unread = \"yes\""
 https://www.youtube.com/feeds/videos.xml?channel_id=UC4V3oCikXeSqYQr0hBMARwg "~Breaking Italy"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw "~Linus Tech Tips"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCMOiTfbUXxUFqJJtCQGHrrA "~Michele Boldrin"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "~System Crafters"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCrdEJmK5bgFte04-UF7o29Q "~Liberi Oltre"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCWKJtC_ekM-CUg3kB9-5gZw "~STEM Liberi Oltre"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCNSFH6m4JlzexDWxJSniqMg "~Agorà Liberi Oltre"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCWFKCr40YwOZQx8FHU_ZqqQ "~JerryRigEverything"
 https://videos.lukesmith.xyz/feeds/videos.xml "~Luke Smith"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRCWJCFoZUvkkWzIqzfBy6g "~Nova Lectio"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw"
@@ -46,7 +48,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCSr_y4ax0ZOf4MNrVnZEH5A "~M
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCRuIxfR8y1V2HP8bTWlxMrw "~Your Drum Sound"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg "~Big Think"
 
-"---LINUX---"
+# "---LINUX---"
 https://dyn.keepa.com/v2/user/rss/?feed=3s870pff177ohgninibgq9g0jpbu9n5r
 # https://github.com/void-linux/void-packages/commits/master.atom
 # https://raw.githubusercontent.com/ungoogled-software/ungoogled-chromium-binaries/master/feed.xml
