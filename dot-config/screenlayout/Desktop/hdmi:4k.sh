@@ -9,5 +9,3 @@ xrandr --output HDMI-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal --ou
 # pacmd list-sink-inputs | awk '/index:/{print $2}' | xargs -r -I{} pacmd move-sink-input {} $out || notify-send "Failed switching inputs"
 
 # pkill -RTMIN+12 dwmblocks
-
-setbg

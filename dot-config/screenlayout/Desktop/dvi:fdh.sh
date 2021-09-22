@@ -9,8 +9,3 @@ xrandr --output DVI-D-0 --primary --mode 1920x1080 --output HDMI-0 --off
 # pacmd list-sink-inputs | awk '/index:/{print $2}' | xargs -r -I{} pacmd move-sink-input {} $out || notify-send "Failed switching inputs"
 
 # pkill -RTMIN+12 dwmblocks
-
-setbg
-# xwallpaper --output DVI-D-0 --maximize ~/.config/Icons/wallpaper2.png
-# sleep 3 &&
-# kill -HUP "$(pidof -s dwm)"

@@ -18,34 +18,35 @@ source ~/.config/lf/shortcuts
 
 # cmds/functions
 cmd open ${{
-    case $f in
-        http* | *.html) setsid -f "$BROWSER" "$f" 2>/dev/null & ;;
-        *.txt) $TERMINAL "$EDITOR" "$f" & ;;
-        *.pdf | *.djvu | *.cbz) setsid -f "$READER" "$f" & ;;
-        *.epub | *.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
-        *.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" & ;;
-        *.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
-        *.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
-        *.tar*) tar tf "$f" | less ;;
-        *.zip) unzip -l "$f" | less ;;
-        *.rar) unrar l "$f" | less ;;
-        *.7z) 7z l "$f" | less ;;
+	case $f in
+	http* | *.html) setsid -f "$BROWSER" "$f" 2>/dev/null & ;;
+	*.txt) $TERMINAL "$EDITOR" "$f" & ;;
+	*.pdf | *.djvu | *.cbz) setsid -f "$READER" "$f" & ;;
+	*.epub | *.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
+	*.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" & ;;
+	*.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
+	*.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
+	*.tar*) tar tf "$f" | less ;;
+	*.zip) unzip -l "$f" | less ;;
+	*.rar) unrar l "$f" | less ;;
+	*.7z) 7z l "$f" | less ;;
 	# *) notify-send "No Mime Type set" ;;
-        *) case "$(file --mime-type $f -b)" in
-                audio/*) mpv $f ;;
-                application/epub+zip) ebook-viewer $f &;;
-                application/json) $EDITOR $fx ;;
-                image/vnd.djvu|application/pdf|application/octet-stream) setsid zathura $fx >/dev/null 2>&1 & ;;
-                image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-                image/svg+xml) display -- $f ;;
-                image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
-                text/html) $BROWSER $f ;;
-                text/*) $EDITOR $fx ;;
-                video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
-                *) xdg-open $f ;;
-                # *) notify-send "No Mime Type set" ;;
-        esac
-    esac
+	*) case "$(file --mime-type $f -b)" in
+		audio/*) mpv $f ;;
+		application/epub+zip) ebook-viewer $f &;;
+		application/json) $EDITOR $fx ;;
+		image/vnd.djvu|application/pdf|application/octet-stream) setsid zathura $fx >/dev/null 2>&1 & ;;
+		application/pgp-encrypted) $EDITOR $fx ;;
+		image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+		image/svg+xml) display -- $f ;;
+		image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
+		text/html) $BROWSER $f ;;
+		text/*) $EDITOR $fx ;;
+		video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
+		*) xdg-open $f ;;
+		# *) notify-send "No Mime Type set" ;;
+	esac
+	esac
 }}
 
 cmd extract ${{

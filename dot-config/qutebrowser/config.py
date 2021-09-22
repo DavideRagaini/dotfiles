@@ -14,6 +14,8 @@ config.bind(",V", "hint links spawn " + os.environ["BROWSER"] + ' "{hint-url}"')
 config.bind(",v", 'hint links spawn funnel "{hint-url}"')
 config.bind(",\\", 'spawn dmenuhandler "{url}"')
 
+config.bind(',s', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""')
+
 c.url.searchengines = {
     "DEFAULT": "https://searx.nevrlands.de/search?q={}",
     "a": "https://wiki.archlinux.org/?search={}",
