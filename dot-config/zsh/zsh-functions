@@ -1,6 +1,9 @@
+#!/bin/sh
+
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1" }
+
 function zsh_add_plugin() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
     if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
