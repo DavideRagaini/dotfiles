@@ -189,7 +189,8 @@
 -	{ MODKEY|ShiftMask,	XK_Page_Up,	shifttag,	{ .i = -1 } },
 -	{ MODKEY,		XK_Page_Down,	shiftview,	{ .i = +1 } },
 -	{ MODKEY|ShiftMask,	XK_Page_Down,	shifttag,	{ .i = +1 } },
--	{ MODKEY,		XK_Insert,	spawn,		SHCMD("notify-send \"📋 Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
+-	{ MODKEY,		XK_Insert,	spawn,		SHCMD("clipmenu") },
+-	{ MODKEY|ShiftMask,	XK_Insert,	spawn,		SHCMD("notify-send \"📋 Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
 -
 -	/* { MODKEY,		XK_F1,		spawn,		SHCMD("") }, */
 -	{ MODKEY,		XK_F2,		spawn,		SHCMD("killall -q dwmblocks; setsid dwmblocks &") },
@@ -197,8 +198,8 @@
 -	{ MODKEY|ShiftMask,	XK_F3,		spawn,		SHCMD("bluetooth toggle && pkill -RTMIN+7 dwmblocks") },
 -	/* { MODKEY,		XK_F3,		spawn,		SHCMD("") }, */
 -	/* { MODKEY,		XK_F4,		spawn,		SHCMD("") }, */
--	/* { MODKEY,		XK_F5,		spawn,		SHCMD("xrdb ~/.config/Xresources") }, */
--	/* { MODKEY|ShiftMask,	XK_F5,		spawn,		SHCMD("xrdb -remove ~/.config/Xresources") }, */
+-	{ MODKEY,		XK_F5,		spawn,		SHCMD("xrdb -load ~/.config/X11/xresources_dir/light") },
+-	{ MODKEY|ShiftMask,	XK_F5,		spawn,		SHCMD("xrdb -remove") },
 -	/* { MODKEY,		XK_F6,		spawn,		SHCMD("") }, */
 -	{ MODKEY,		XK_F7,		spawn,		SHCMD("i3lock -e -f -c 1d2021 -i ~/.config/Icons/lockscreen.png; xset dpms force off") },
 -	/* { MODKEY,		XK_F8,		spawn,		SHCMD("") }, */

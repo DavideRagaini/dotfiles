@@ -1,17 +1,17 @@
 #!/bin/sh
 
-export BROWSER="librewolf"
+export BROWSER="qutebrowser"
 
 # mpd &
 remaps &
 setbg &
 # xcompmgr &
 dunst &
-# xset r rate 300 50 &
 unclutter &
 # xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
 # xautolock -time 5 -notify 60 -notifier notifylock  -locker lock &
 # syncthing -no-browser &
+clipmenud &
 
 numlockx &
 redshift -l 43.5943:12.5034 -t 5700:3600 -g 0.8 -m randr &
@@ -24,3 +24,4 @@ doas tlp bat &
 blacklist on &
 doas intel-undervolt apply &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»"
+# aw-qt &

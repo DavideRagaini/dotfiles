@@ -52,3 +52,6 @@
 (package! ox-epub)
 (package! circadian)
 ;; (package! activity-watch-mode)
+(package! dired-single)
+(package! dired-open)
+(package! all-the-icons-dired)
