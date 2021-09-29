@@ -89,5 +89,7 @@ settings:
     global: file:///home/davide/.local/src/startpage/index.html
   window.hide_decoration:
     global: false
+  window.title_format:
+    global: '{perc}{current_url}{title_sep}{current_title}'
   zoom.default:
     global: '100'

@@ -2,15 +2,13 @@
 
 export BROWSER="qutebrowser"
 # export GDK_DPI_SCALE=1.5
+# export QT_SCALE_FACTOR=1.5
 
-# mpd &
+mpd &
 remaps &
-setbg &
 # xcompmgr &
 dunst &
-# xset r rate 300 50 &
 unclutter &
-xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
 numlockx &
 # syncthing -no-browser &
 redshift -l 43.59:12.50 -t 5700:3600 -g 0.8 -m randr &
@@ -26,7 +24,7 @@ doas intel-undervolt apply &
 
 timeOnPc start &
 xautolock -time 15 -notify 180 -notifier "notify-send -u critical -t 180000 'System will be locked' '3 minute left'" -locker 'doas zzz' &
-sh ~/.config/screenlayout/Desktop/second.sh &
+sh ~/.config/screenlayout/Desktop/hdmi:4k.sh &
 blacklist on &
 # trayer --edge bottom --align right --SetDockType true --SetPartialStrut true --expand true --width 1 --transparent true --alpha 0 --height 19 --tint 0x2F0B3A &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"

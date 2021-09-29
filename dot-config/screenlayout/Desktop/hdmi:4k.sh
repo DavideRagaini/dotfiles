@@ -2,7 +2,7 @@
 
 # export GDK_DPI_SCALE=1.5
 xrandr --output HDMI-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal --output DVI-D-0 --off
-xrdb -load ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources_dir/desktop-highdpi
+xrdb -load ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources_dir/desktop-highdpi
 setbg
 
 # out=$( pactl list short sinks | grep 'analog-stereo' | awk '{print $1}')

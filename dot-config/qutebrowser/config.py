@@ -2,19 +2,19 @@ import os
 import dracula
 
 config.load_autoconfig()
-dracula.blood(c, {"spacing": {"vertical": 6, "horizontal": 8}})
+dracula.blood(c, {"spacing": {"vertical": 4, "horizontal": 4}})
 
-config.bind(",a", ":hint links spawn --detach dmpv aplay '{hint-url}'")
-config.bind(",e", ":hint links spawn --detach dmpv enqueue '{hint-url}'")
-config.bind(",p", ":hint links spawn --detach dmpv eplay '{hint-url}'")
-config.bind(",c", ":hint links spawn clipf '{hint-url}'")
-config.bind(",t", ":hint links spawn transadd '{hint-url}'")
-config.bind("<y><o>", "yank inline [[{url}][{title}]]")
-config.bind(",V", "hint links spawn " + os.environ["BROWSER"] + ' "{hint-url}"')
+config.bind(",a", "hint links spawn --detach dmpv aplay '{hint-url}'")
+config.bind(",c", "hint links spawn clipf '{hint-url}'")
+config.bind(",e", "hint links spawn --detach dmpv enqueue '{hint-url}'")
+config.bind(",p", "hint links spawn --detach dmpv eplay '{hint-url}'")
+config.bind(",t", "hint links spawn transadd '{hint-url}'")
 config.bind(",v", 'hint links spawn funnel "{hint-url}"')
+config.bind(",s", 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""')
+config.bind(",z", "zoom 200")
+config.bind(",V", "hint links spawn " + os.environ["BROWSER"] + ' "{hint-url}"')
 config.bind(",\\", 'spawn dmenuhandler "{url}"')
-
-config.bind(',s', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""')
+config.bind("<y><o>", "yank inline [[{url}][{title}]]")
 
 c.url.searchengines = {
     "DEFAULT": "https://searx.nevrlands.de/search?q={}",

@@ -2,7 +2,7 @@
 
 # export GDK_DPI_SCALE=1.5
 xrandr --output DVI-D-0 --primary --mode 1920x1080 --output HDMI-0 --off
-xrdb -load ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources_dir/desktop
+xrdb -load ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources_dir/desktop
 setbg
 
 # out=$( pactl list short sinks | grep hdmi | awk '{print $1}')
