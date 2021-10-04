@@ -1,12 +1,12 @@
 #!/bin/sh
 
-export EDITOR="nvim"
+export EDITOR="lvim"
 export FILE="lf"
 export READER="zathura"
 export TERMINAL="st"
 
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
-# export PATH="$PATH:$HOME/.emacs.d/bin"
+export PATH="$PATH:$HOME/.config/emacs/bin"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -251,4 +251,4 @@ ex=:\
 [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
 # Switch escape and caps if tty:
-sudo -n loadkeys ~/.local/bin/ttymaps.kmap 2>/dev/null
+sudo -n loadkeys ~/.config/shell/ttymaps.kmap 2>/dev/null

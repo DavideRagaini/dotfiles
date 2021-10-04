@@ -85,8 +85,7 @@
 
 
                 ;; Circadian
-(use-package! circadian
-  :ensure t
+(use-package circadian
   :config
   (setq calendar-latitude 43.59)
   (setq calendar-longitude 12.50)
@@ -96,8 +95,7 @@
 
 
                 ;; Dired
-(use-package! dired
-  :ensure nil
+(use-package dired
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   ;; :custom ((dired-listing-switches "-agho --group-directories-first"))
@@ -105,12 +103,9 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
-(use-package! dired-single)
+(use-package dired-single)
 
-(use-package! all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package! dired-open
+(use-package dired-open
   :config
   ;; Doesn't work as expected!
   ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
@@ -120,28 +115,28 @@
 
                 ;; ORG ENHANEMENT
 (custom-set-faces
-    '(org-level-1 (t (:inherit outline-1 :height 2)))
-    '(org-level-2 (t (:inherit outline-2 :height 1.9)))
-    '(org-level-3 (t (:inherit outline-3 :height 1.8)))
-    '(org-level-4 (t (:inherit outline-4 :height 1.7)))
-    '(org-level-5 (t (:inherit outline-5 :height 1.6)))
-    '(org-level-6 (t (:inherit outline-6 :height 1.5)))
-    '(org-level-7 (t (:inherit outline-7 :height 1.4)))
-    '(org-level-8 (t (:inherit outline-8 :height 1.3)))
-    '(org-level-9 (t (:inherit outline-9 :height 1.2)))
-    '(org-level-10 (t (:inherit outline-10 :height 1.2)))
+    '(org-level-1 ((t (:inherit outline-1 :height 2))))
+    '(org-level-2 ((t (:inherit outline-2 :height 1.9))))
+    '(org-level-3 ((t (:inherit outline-3 :height 1.8))))
+    '(org-level-4 ((t (:inherit outline-4 :height 1.7))))
+    '(org-level-5 ((t (:inherit outline-5 :height 1.6))))
+    '(org-level-6 ((t (:inherit outline-6 :height 1.5))))
+    '(org-level-7 ((t (:inherit outline-7 :height 1.4))))
+    '(org-level-8 ((t (:inherit outline-8 :height 1.3))))
+    '(org-level-9 ((t (:inherit outline-9 :height 1.2))))
     '(org-document-title ((t (:inherit outline-1 :height 2.5))))
 )
-(setq org-cycle-level-faces nil)
-(setq org-n-level-faces 10)
-
+;; (setq org-cycle-level-faces nil)
+;; (setq org-n-level-faces 10)
 (with-eval-after-load 'org-superstar
   (set-face-attribute 'org-superstar-item nil :height 1.4)
   (set-face-attribute 'org-superstar-header-bullet nil :height 1.4)
-  (set-face-attribute 'org-superstar-leading nil :height 1.5))
+  (set-face-attribute 'org-superstar-leading nil :height 1.5)
+)
 ;; Set different bullets, with one getting a terminal fallback.
 (setq org-superstar-headline-bullets-list
-      '("" "" "" "" "" "" "" "" "" ""))
+      '("" "" "" "" "" "" "" "" "" "")
+)
 ;; Stop cycling bullets to emphasize hierarchy of headlines.
 (setq org-superstar-cycle-headline-bullets nil)
 ;; Hide away leading stars on terminal.
@@ -155,7 +150,7 @@
 
 
                 ;; Org Agenda
-(use-package! org-fancy-priorities
+(use-package org-fancy-priorities
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
@@ -175,9 +170,7 @@
   (setq org-log-into-drawer t)
 
 (use-package org
-  ;; :pin org
   :commands (org-capture org-agenda)
-  ;; :hook (org-mode . efs/org-mode-setup)
   :config
   (setq org-ellipsis " ▾")
 
@@ -186,21 +179,8 @@
   (setq org-habit-graph-column 60)
 
   (setq org-todo-keywords
-    '((sequence "TODO(t)"
-                "NEXT(n)"
-                "|"
-                "DONE(d!)")
-
-      (sequence "BACKLOG(b)"
-                "PLAN(p)"
-                "READY(r)"
-                "ACTIVE(a)"
-                "REVIEW(v)"
-                "WAIT(w@/!)"
-                "HOLD(h)"
-                "|"
-                "COMPLETED(c)"
-                "CANC(k@)")))
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+        (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
 
 (setq org-tag-alist
   '((:startgroup)
@@ -298,6 +278,10 @@
 
 	;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+
+                ;; Spell checking
+(setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
 
 
                 ;; Mathjax
