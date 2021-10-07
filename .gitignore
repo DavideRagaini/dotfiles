@@ -25,6 +25,7 @@ dot-config/nvim/session/
 dot-config/nvim/tags*
 dot-config/nvim/vimspector-config/*
 dot-config/qutebrowser/__pycache__
+dot-config/qutebrowser/autoconfig.yml
 dot-config/qutebrowser/greasemonkey/disabled
 dot-config/qutebrowser/qsettings
 dot-config/ranger/__pycache__
