@@ -18,14 +18,14 @@
 -- # enable automatic reload on timeout
 -- # when paused-for-cache event fired, we will wait
 -- # paused_for_cache_timer_timeout sedonds and then reload the video
--- paused_for_cache_timer_enabled=yes
+paused_for_cache_timer_enabled=yes
 --
 -- # checking paused_for_cache property interval in seconds,
 -- # can not be less than 0.05 (50 ms)
 -- paused_for_cache_timer_interval=1
 --
 -- # time in seconds to wait until reload
--- paused_for_cache_timer_timeout=10
+paused_for_cache_timer_timeout=5
 --
 -- # enable automatic reload based on demuxer cache
 -- # if demuxer-cache-time property didn't change in demuxer_cache_timer_timeout
