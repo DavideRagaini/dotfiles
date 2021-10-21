@@ -89,7 +89,7 @@ sxq() {
 # xbps-remove
 alias \
     xr="doas xbps-remove -R" \
-    sxr='xbps-query -l | fzf | xargs -r -I % doas xbps-remove -R %'
+    sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
 
 # youtube
 # alias \

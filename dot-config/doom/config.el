@@ -60,15 +60,10 @@
 
 
                 ;; Global
-(setq scroll-margin 2)
+(setq scroll-margin 5)
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (setq confirm-kill-emacs nil)
-(global-whitespace-mode 1)
-(custom-set-variables
- '(whitespace-style
-   '(face trailing tabs spaces newline empty indentation::tab indentation::space indentation big-indent space-after-tab::tab space-after-tab::space space-after-tab space-before-tab::tab space-before-tab::space space-before-tab space-mark tab-mark newline-mark)))
-;; (global-activity-watch-mode 1)
 
  ;; (set-frame-parameter (selected-frame) 'alpha '(90))
  ;; (add-to-list 'default-frame-alist '(alpha . (90)))

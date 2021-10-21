@@ -1,156 +1,68 @@
-# "---YOUTUBE---"
 "query:Unread Articles:unread = \"yes\""
+"---News---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC4V3oCikXeSqYQr0hBMARwg "~Breaking Italy"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw "~Linus Tech Tips"
+https://twitchrss.appspot.com/vod/breakingitaly "~Breaking Italy Live"
+"---Podcast---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCMOiTfbUXxUFqJJtCQGHrrA "~Michele Boldrin"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "~System Crafters"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCrdEJmK5bgFte04-UF7o29Q "~Liberi Oltre"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCWKJtC_ekM-CUg3kB9-5gZw "~STEM Liberi Oltre"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCNSFH6m4JlzexDWxJSniqMg "~Agorà Liberi Oltre"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCWFKCr40YwOZQx8FHU_ZqqQ "~JerryRigEverything"
-https://videos.lukesmith.xyz/feeds/videos.xml "~Luke Smith"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRCWJCFoZUvkkWzIqzfBy6g "~Nova Lectio"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCKoFUWEIFF33-92tBA0Cvzg "~Rick DuFer"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC87Lj67s_Ht40lvGhtF9iHA "~MindSmash"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCIILaFpcS6ZSIIYqSjNYgGA "~Annaliside"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCzQUP1qoWDoEbmsQxvdjxgQ "~PowerfulJRE"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCL_f53ZEJxp8TtlOkHwMV9Q "~Jordan B Peterson"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCSHZKyawb77ixDdsGog4iWA "~Lex Fridman"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg "~Big Think"
+"---Linux---"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw"
+https://www.youtube.com/watch?v=yMARzJCR8Ig "~Jeff Geerling"
+https://videos.lukesmith.xyz/feeds/videos.xml "~Luke Smith"
+https://dyn.keepa.com/v2/user/rss/?feed=3s870pff177ohgninibgq9g0jpbu9n5r
+https://voidlinux.org/atom.xml
+"---Text Editor---"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "~System Crafters"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCS97tchJDq17Qms3cux8wcA "~ChrisAtMachine"
+"---STEM---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCHnyfMqiRRG1u-2MsSQLbXA "~Veritasium"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw "~3Blue1Brown"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCK8XIGR5kRidIw2fWqwyHRA "~Reducible"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC6107grRI4m0o2-emgoDnAA "~SmarterEveryDay"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCEIwxahdLz7bap-VDs9h35A "~Steve Mould"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCqYPhGiB9tkShZorfgcL2lA "~What I've Learned"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCH-y44M0pvwaZx2rTq0rJoQ "~Barbascura"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCS0N5baNlQWJCUrhCEo8WlA "~Ben Eater"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCS97tchJDq17Qms3cux8wcA "~ChrisAtMachine"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCQPnCKNfzKn4OmPrx1KDWvg "~Entropy for Life"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCETyhmgxupv93Ix4VnIiQJQ "~Italia Squisita"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCBa659QWEk1AI4Tg--mrJ2A "~Tom Scott"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg "~Two Minute Papers"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC6107grRI4m0o2-emgoDnAA "~SmarterEveryDay"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC6mIxFTvXkWQVEHPsEdflzQ "~GreatScott"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCj1VqrHhDte54oLgPG4xpuQ "~Stuff Made Here"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q "~Kurzgesagt – In a Nutshell"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA "~Computerphile"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A "~Numberphile"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCIILaFpcS6ZSIIYqSjNYgGA "~Annaliside"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC1_uAIS3r8Vu6JjXWvastJg "~Mathologer"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCBa659QWEk1AI4Tg--mrJ2A "~Tom Scott"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCqYPhGiB9tkShZorfgcL2lA "~What I've Learned"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg "~Two Minute Papers"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UC8VkNBOwvsTlFjoSnNSMmxw "~Smarter Every Day 2"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCvBqzzvUBLCs8Y7Axb-jZew "~Sixty Symbols"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCyE9-Zvq3xxWGS5Okf-TWwg "~Random Physics"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA "~Computerphile"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A "~Numberphile"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCEIwxahdLz7bap-VDs9h35A "~Steve Mould"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCHRTziAevLPgAE9Y5VhSs5g "~link4universe"
+"---Tech General---"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw "~Linus Tech Tips"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCdBK94H6oZT2Q7l0-b0xmMg "~Short Circuit"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCWFKCr40YwOZQx8FHU_ZqqQ "~JerryRigEverything"
+"---Cucina---"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC8IKIlUPgPZ_NA1jKbsMfXw "~Scienza in Cucina"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCETyhmgxupv93Ix4VnIiQJQ "~Italia Squisita"
+"---Science---"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCJphwa8Wsgzsm1zJS4sm-mA "~Dario Bressanini"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCH-y44M0pvwaZx2rTq0rJoQ "~Barbascura"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCQPnCKNfzKn4OmPrx1KDWvg "~Entropy for Life"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q "~Kurzgesagt – In a Nutshell"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCyD1TlHPTq-H9dvQC3tr0zw "~ZooSparkle"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCmHoLDhqgvDaXWm9w1ZJzZw "~Angelo Greco"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCHRTziAevLPgAE9Y5VhSs5g "~link4universe"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCJphwa8Wsgzsm1zJS4sm-mA "~Dario Bressanini"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC8IKIlUPgPZ_NA1jKbsMfXw "~Scienza in Cucina"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCL_f53ZEJxp8TtlOkHwMV9Q "~Jordan B Peterson"
+"---Music---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCSr_y4ax0ZOf4MNrVnZEH5A "~Mavrus"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCSHZKyawb77ixDdsGog4iWA "~Lex Fridman"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCzQUP1qoWDoEbmsQxvdjxgQ "~PowerfulJRE"
+http://www.ottonepesante.it/?feed=gigpress "~Ottone Pesante"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCafxR2HWJRmMfSdyZXvZMTw "~LOOK MUM NO COMPUTER"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCRuIxfR8y1V2HP8bTWlxMrw "~Your Drum Sound"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg "~Big Think"
-
-# "---LINUX---"
-https://dyn.keepa.com/v2/user/rss/?feed=3s870pff177ohgninibgq9g0jpbu9n5r
-# https://github.com/void-linux/void-packages/commits/master.atom
-# https://raw.githubusercontent.com/ungoogled-software/ungoogled-chromium-binaries/master/feed.xml
-# https://github.com/void-linux/xbps/commits/master.atom
-https://voidlinux.org/atom.xml
-# https://www.archlinux.org/feeds/news/ "Arch news"
-# https://suckless.org/atom.xml
-# https://github.com/LukeSmithxyz/voidrice/commits/master.atom "~voidrice"
-# https://github.com/msjche/.local-bin-scripts/commits/master.atom "~msjche scripts"
-
-# "---Le SCIENZE---"
-# https://www.lescienze.it/rss/all/rss2.0.xml "~All - Le Scienze"
-# https://www.lescienze.it/rss/lanci/rss2.0.xml "~Lanci - Le Scienze"
-
-# "---VARI---"
-#http://lukesmith.xyz/rss.xml
-# https://thenextweb.com/feed/
-# https://rss.nixnet.services/?action=display&bridge=WikiLeaks&category=-Leaks-&format=Atom
-# http://feeds.feedburner.com/HighScalability?format=xml
-# http://feeds.nature.com/nature/rss/current?format=xml
-# https://blog.codinghorror.com/rss/
-# http://feeds.feedburner.com/TheHackersNews?format=xml
-# https://www.androidpolice.com/feed/
-# http://feeds.searchengineland.com/searchengineland
-# https://krebsonsecurity.com/feed/
-# https://www.schneier.com/blog/atom.xml
-# https://nakedsecurity.sophos.com/feed/
-# http://feedpress.me/mozblog
-# https://m.signalvnoise.com/feed/
-# https://martinfowler.com/feed.atom
-
-# "---NASA---"
-# http://www.nasa.gov/rss/dyn/educationnews.rss "~Nasa Educational"
-# http://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss "~Nasa Image of the Day"
-# http://www.nasa.gov/rss/dyn/solar_system.rss "~Nasa Solar System"
-
-# "---ANSA---"
-# https://www.ansa.it/utilities/addrss.jsp?title=Homepage&xml=/sito/ansait_rss.xml
-# https://www.ansa.it/sito/notizie/politica/politica_rss.xml
-# https://www.ansa.it/sito/ansait_rss.xml
-# https://www.ansa.it/sito/notizie/cronaca/cronaca_rss.xml
-# https://www.ansa.it/sito/notizie/mondo/mondo_rss.xml
-# https://www.ansa.it/sito/notizie/economia/economia_rss.xml
-# https://www.ansa.it/sito/notizie/cultura/cinema/cinema_rss.xml
-# https://www.ansa.it/sito/notizie/cultura/cultura_rss.xml
-# https://www.ansa.it/sito/notizie/tecnologia/tecnologia_rss.xml
-# # https://www.ansa.it/sito/notizie/topnews/topnews_rss.xml
-# https://www.ansa.it/english/english_rss.xml
-# https://www.ansa.it/sito/photogallery/foto_rss.xml
-# https://www.ansa.it/sito/videogallery/video_rss.xml
-# https://www.ansa.it/europa/notizie/rss.xml
-# https://www.ansa.it/europa/notizie/europarlamento/news/europarlamento_rss.xml
-# https://www.ansa.it/europa/notizie/la_tua_europa/la_tua_europa_rss.xml
-# https://www.ansa.it/europa/notizie/agri_ue/agri_ue_rss.xml
-# https://www.ansa.it/europa/notizie/rubriche/europa_delle_regioni/europa_delle_regioni_rss.xmlhttps://www.ansa.it/europa/notizie/proprieta_intellettuale/proprieta_intellettuale_rss.xml
-# https://www.ansa.it/utilities/addrss.jsp?title=Marche&xml=/marche/notizie/marche_rss.xml
-
-# LE SCIENZE
-# http://rss.sciam.com/ScientificAmerican-Global?format=xml "~Scientific American"
-# https://www.lescienze.it/rss/argomento/computer+science/rss2.0.xml "~Computer Science - Le Scienze"
-# https://www.lescienze.it/rss/argomento/arte/rss2.0.xml "~Arte - Le Scienze"
-# https://www.lescienze.it/rss/argomento/chimica/rss2.0.xml "~Chimica - Le Scienze"
-# https://www.lescienze.it/rss/argomento/cosmologia/rss2.0.xml "~Cosmologia - Le Scienze"
-# https://www.lescienze.it/rss/argomento/disturbi+mentali/rss2.0.xml "~Distrurbi Mentali - Le Scienze"
-# https://www.lescienze.it/rss/argomento/dipendenze/rss2.0.xml "~Dipendenze - Le Scienze"
-# https://www.lescienze.it/rss/argomento/evoluzione/rss2.0.xml "~Evoluzione - Le Scienze"
-# https://www.lescienze.it/rss/argomento/filosofia/rss2.0.xml "~Filosofia - Le Scienze"
-# https://www.lescienze.it/rss/argomento/fisica/rss2.0.xml "~Fisica - Le Scienze"
-# https://www.lescienze.it/rss/argomento/fisica+delle+particelle/rss2.0.xml "~Fisica delle Particelle - Le Scienze"
-# https://www.lescienze.it/rss/argomento/fisica+teorica/rss2.0.xml "~Fisica Teorica - Le Scienze"
-# https://www.lescienze.it/rss/argomento/genetica/rss2.0.xml "~Genetica - Le Scienze"
-# https://www.lescienze.it/rss/argomento/ingegneria/rss2.0.xml "~Ingegneria - Le Scienze"
-# https://www.lescienze.it/rss/argomento/internet/rss2.0.xml "~Internet - Le Scienze"
-# https://www.lescienze.it/rss/argomento/matematica/rss2.0.xml "~Matematica - Le Scienze"
-# https://www.lescienze.it/rss/argomento/materiali/rss2.0.xml "~Materiali - Le Scienze"
-# https://www.lescienze.it/rss/argomento/neuroscienze/rss2.0.xml "~Neuroscienze - Le Scienze"
-# https://www.lescienze.it/rss/argomento/nucleare/rss2.0.xml "~Nucleare - Le Scienze"
-# https://www.lescienze.it/rss/argomento/robotica/rss2.0.xml "~Robotica - Le Scienze"
-# https://www.lescienze.it/rss/argomento/statistica/rss2.0.xml "~Statistica - Le Scienze"
-# https://www.lescienze.it/rss/argomento/storia/rss2.0.xml "~Storia - Le Scienze"
-# https://www.lescienze.it/rss/argomento/tecnologia/rss2.0.xml "~Tecnologia - Le Scienze"
-
-# BBC
-# https://www.xkcd.com/atom.xml
-# https://css-tricks.com/feed/
-# http://feeds.bbci.co.uk/news/world/rss.xml
-# http://feeds.bbci.co.uk/news/rss.xml
-# http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml
-# http://feeds.bbci.co.uk/news/technology/rss.xml
-# http://feeds.bbci.co.uk/news/education/rss.xml
-# http://feeds.bbci.co.uk/news/health/rss.xml
-# http://feeds.bbci.co.uk/news/science_and_environment/rss.xml
-# http://feeds.bbci.co.uk/news/business/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/entertainment_and_arts/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/technology/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/science_and_environment/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/health/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/politics/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/business/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/world/rss.xml
-# http://feeds.bbci.co.uk/news/video_and_audio/news_front_page/rss.xml?edition=uk
-# http://feeds.bbci.co.uk/news/video_and_audio/science_and_environment/rss.xml
-# http://feeds.bbci.co.uk/news/world/europe/rss.xml
-
-http://www.ottonepesante.it/?feed=gigpress "~Ottone Pesante"
+"---Chill---"
+https://twitchrss.appspot.com/vod/dariomocciatwitch "~Deh"
+https://twitchrss.appspot.com/vod/enkk "~Deoh"
+https://twitchrss.appspot.com/vod/parliamodivg "~Trmoon"
