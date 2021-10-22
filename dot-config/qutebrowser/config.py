@@ -30,7 +30,6 @@ c.statusbar.show = "in-mode"
 c.tabs.last_close = "default-page"
 c.tabs.position = "bottom"
 c.tabs.show = "multiple"
-c.tabs.show_switching_delay = 10000
 startpage = "file://" + environ["HOME"] + "/.local/src/startpage/index.html"
 c.url.default_page = startpage
 c.url.start_pages = [startpage]

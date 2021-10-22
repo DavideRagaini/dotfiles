@@ -12,7 +12,7 @@ alias \
     mkd="mkdir -pv" \
     mv="mv -iv" \
     rm="rm -vI" \
-    rsync="rsync -h --info=progress2"
+    rsync="rsync -uavhrP --info=progress2"
 # unxz="unxz -v"
 
 # Colorize commands
@@ -50,6 +50,8 @@ alias \
     vfd="find \$HOME/.local/src/dotfiles/ | fzf | xargs -r -I % \$EDITOR %" \
     vfs="find \$HOME/.local/bin/ | fzf | xargs -r -I % \$EDITOR %" \
     vfz="find \$HOME/.config/zsh/ | fzf | xargs -r -I % \$EDITOR %"
+
+vff() { locate "$1" | fzf | xargs -r -I % "$EDITOR" % }
 
 # git
 alias \

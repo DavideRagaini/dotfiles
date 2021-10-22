@@ -14,6 +14,7 @@ numlockx &
 # syncthing -no-browser &
 redshift -l 43.59:12.50 -t 5700:3600 -g 0.8 -m randr &
 clipmenud &
+caffeine &
 
 doas runsv /var/service/chronyd &
 doas runsv /var/service/socklog-unix &

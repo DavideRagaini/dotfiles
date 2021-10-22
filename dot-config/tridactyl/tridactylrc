@@ -1,8 +1,7 @@
-" General Settings
 set allowautofocus false
 set smoothscroll true
-set theme shydactyl
-set newtab duckduckgo.com
+set theme quake
+set newtab startpage.com
 
 set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
 set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s
