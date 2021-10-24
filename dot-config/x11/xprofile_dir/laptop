@@ -2,26 +2,26 @@
 
 export BROWSER="qutebrowser"
 
-# mpd &
+mpd &
 remaps &
 setbg &
-# xcompmgr &
 dunst &
 unclutter &
-# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/X11/xresources &
-# xautolock -time 5 -notify 60 -notifier notifylock  -locker lock &
-# syncthing -no-browser &
+# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
+xautolock -time 5 -notify 60 -notifier notifylock -locker lock &
+# QsyncthingTray -no-browser &
 clipmenud &
-
 numlockx &
+doas intel-undervolt apply &
 redshift -l 43.5943:12.5034 -t 5700:3600 -g 0.8 -m randr &
-timeOnPc start &
+nm-applet &
+blueman-applet &
+bluetooth off &
+caffeine &
+blacklist on &
+doas tlp bat &
 xbacklight -set 20 &
 libinput-gestures-setup start &
-# wifi off &
-bluetooth off &
-doas tlp bat &
-blacklist on &
-doas intel-undervolt apply &
+timeOnPc start &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»"
 # aw-qt &

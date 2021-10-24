@@ -1,3 +1,5 @@
 #!/bin/sh
 
 timeOnPc resume
+doas sv restart NetworkManager
+doas intel-undervolt apply

@@ -1,20 +1,3 @@
-diff --git a/config.h b/config.h
-index 16e67ff..29f1ecc 100644
---- a/config.h
-+++ b/config.h
-@@ -6,1 +6,1 @@
- 
-static char selbordercolor[]        = "#FF00FF";
-static char selbgcolor[]            = "#571dc2";
-static char *colors[][3] = {
-+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-+static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
-+static const unsigned int systrayspacing = 2;   /* systray spacing */
-+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-+static const int showsystray        = 1;     /* 0 means no systray */
-        /*               fg           bg           border   */
-        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 diff --git a/dwm.c b/dwm.c
 index 929f878..12f9e95 100644
 --- a/dwm.c
