@@ -29,6 +29,7 @@ alias \
 alias \
     2f="tmux split -h lf; lf" \
     c.="cd .." \
+    cfd="nvim "${XDG_DATA_HOME:-$HOME/.local/share}/../src/dwm/config.h"" \
     e="\$EDITOR" \
     f="lfcd" \
     q="exit" \

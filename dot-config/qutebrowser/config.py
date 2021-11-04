@@ -89,7 +89,7 @@ c.content.headers.custom = {
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 }
 c.content.headers.user_agent = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36 Edg/91.0.864.37"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
 )
 c.content.javascript.can_access_clipboard = False
 c.content.webgl = False

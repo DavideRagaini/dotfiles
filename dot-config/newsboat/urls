@@ -6,31 +6,40 @@ https://twitchrss.appspot.com/vod/breakingitaly "~Breaking Italy Live"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCMOiTfbUXxUFqJJtCQGHrrA "~Michele Boldrin"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCrdEJmK5bgFte04-UF7o29Q "~Liberi Oltre"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCWKJtC_ekM-CUg3kB9-5gZw "~STEM Liberi Oltre"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCNSFH6m4JlzexDWxJSniqMg "~Agorà Liberi Oltre"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCRCWJCFoZUvkkWzIqzfBy6g "~Nova Lectio"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCKoFUWEIFF33-92tBA0Cvzg "~Rick DuFer"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCNSFH6m4JlzexDWxJSniqMg "~Agorà Liberi Oltre" https://www.youtube.com/feeds/videos.xml?channel_id=UCRCWJCFoZUvkkWzIqzfBy6g "~Nova Lectio" https://www.youtube.com/feeds/videos.xml?channel_id=UCKoFUWEIFF33-92tBA0Cvzg "~Rick DuFer"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC87Lj67s_Ht40lvGhtF9iHA "~MindSmash"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC-6aRYyLpgp1Wyc3iVd29ig "~Marco Cappato"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCIILaFpcS6ZSIIYqSjNYgGA "~Annaliside"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCzQUP1qoWDoEbmsQxvdjxgQ "~PowerfulJRE"
-# https://www.youtube.com/feeds/videos.xml?channel_id=UCL_f53ZEJxp8TtlOkHwMV9Q "~Jordan B Peterson"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCzQUP1qoWDoEbmsQxvdjxgQ "~PowerfulJRE" https://www.youtube.com/feeds/videos.xml?channel_id=UCL_f53ZEJxp8TtlOkHwMV9Q "~Jordan B Peterson"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCSHZKyawb77ixDdsGog4iWA "~Lex Fridman"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCvQECJukTDE2i6aCoMnS-Vg "~Big Think"
 "---Linux---"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw"
-https://www.youtube.com/watch?v=yMARzJCR8Ig "~Jeff Geerling"
-https://videos.lukesmith.xyz/feeds/videos.xml "~Luke Smith"
+https://odysee.com/$/rss/@HackerSploit:26
+https://odysee.com/$/rss/@AlphaNerd:8 "~Mental Outlaw"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCR-DXc1voovS8nhAvccRZhg "~Jeff Geerling"
+https://odysee.com/$/rss/@BrodieRobertson:5 "~BrodieRobertson"
+https://odysee.com/$/rss/@DistroTube:2 "~DistroTube"
+https://odysee.com/$/rss/@Luke:7
 https://dyn.keepa.com/v2/user/rss/?feed=3s870pff177ohgninibgq9g0jpbu9n5r
+# https://www.reddit.com/r/linux/new.rss?t=week
+# https://www.reddit.com/r/unixporn/new.rss?t=week
+"---Void-Linux---"
 https://voidlinux.org/atom.xml
+https://github.com/void-linux/xbps/commits/master.atom
+# https://github.com/void-linux/void-packages/commits/master.atom
+https://www.reddit.com/r/voidlinux/new.rss?t=week
 "---Text Editor---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "~System Crafters"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCS97tchJDq17Qms3cux8wcA "~ChrisAtMachine"
+# https://www.reddit.com/r/emacs/new.rss?t=week
+# https://www.reddit.com/r/neovim/new.rss?t=week
 "---STEM---"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCHnyfMqiRRG1u-2MsSQLbXA "~Veritasium"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw "~3Blue1Brown"
+https://odysee.com/$/rss/@veritasium:f "~Veritasium"
+https://odysee.com/$/rss/@3Blue1Brown:b
+https://odysee.com/$/rss/@beneater:6
 https://www.youtube.com/feeds/videos.xml?channel_id=UCK8XIGR5kRidIw2fWqwyHRA "~Reducible"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCS0N5baNlQWJCUrhCEo8WlA "~Ben Eater"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC6107grRI4m0o2-emgoDnAA "~SmarterEveryDay"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC6mIxFTvXkWQVEHPsEdflzQ "~GreatScott"
+https://odysee.com/$/rss/@GreatScott:a
 https://www.youtube.com/feeds/videos.xml?channel_id=UCj1VqrHhDte54oLgPG4xpuQ "~Stuff Made Here"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC1_uAIS3r8Vu6JjXWvastJg "~Mathologer"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCBa659QWEk1AI4Tg--mrJ2A "~Tom Scott"
@@ -62,7 +71,11 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCSr_y4ax0ZOf4MNrVnZEH5A "~M
 http://www.ottonepesante.it/?feed=gigpress "~Ottone Pesante"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCafxR2HWJRmMfSdyZXvZMTw "~LOOK MUM NO COMPUTER"
 # https://www.youtube.com/feeds/videos.xml?channel_id=UCRuIxfR8y1V2HP8bTWlxMrw "~Your Drum Sound"
-"---Chill---"
-https://twitchrss.appspot.com/vod/dariomocciatwitch "~Deh"
-https://twitchrss.appspot.com/vod/enkk "~Deoh"
-https://twitchrss.appspot.com/vod/parliamodivg "~Trmoon"
+"---Software---"
+https://blog.qutebrowser.org/feeds/all.rss.xml
+https://www.reddit.com/r/qutebrowser/new.rss?t=week
+https://www.reddit.com/r/librewolf/new.rss?t=week
+https://github.com/LukeSmithxyz/voidrice/commits.atom
+https://github.com/LukeSmithxyz/dwm/commits.atom
+https://github.com/LukeSmithxyz/dwmblocks/commits.atom
+https://github.com/LukeSmithxyz/st/commits.atom

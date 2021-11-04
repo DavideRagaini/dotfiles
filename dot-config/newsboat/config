@@ -1,6 +1,6 @@
 #show-read-feeds no
 auto-reload yes
-reload-threads 50
+reload-threads 100
 # external-url-viewer "urlscan -dc -r 'linkhandler {}'"
 
 bind-key j down
@@ -40,8 +40,8 @@ macro p set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkha
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
 macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
 
-highlight all "---.*---" yellow
-highlight feedlist ".*(0/0))" black
+highlight all "---.*---" yellow default bold
+highlight feedlist ".*0/0.." default default invis
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default
 highlight article "https?://[^ ]+" green default

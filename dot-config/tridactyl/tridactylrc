@@ -1,7 +1,7 @@
 set allowautofocus false
-set smoothscroll true
+set smoothscroll false
 set theme quake
-set newtab startpage.com
+set newtab https://unsplash.it/1920/1080?random
 
 set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
 set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s
@@ -12,5 +12,35 @@ set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&sea
 bind a hint -W exclaim_quiet dmpv aplay
 bind e hint -W exclaim_quiet dmpv enqueue
 bind p hint -W exclaim_quiet dmpv eplay
+bind t hint -W exclaim_quiet transadd
+bind c hint -W exclaim_quiet clipf
 
-" vim: set filetype=vim:
+set hintfiltermode vimperator-reflow
+set hintnames short chars
+
+" Git{Hub,Lab} git clone via SSH yank
+bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+
+" Allow Ctrl-a to select all in the commandline
+unbind --mode=ex <C-a>
+
+" Allow Ctrl-c to copy in the commandline
+unbind --mode=ex <C-c>
+
+" set editorcmd to suckless terminal, or use the defaults on other platforms
+" js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "st lvim" : "auto"; tri.config.set("editorcmd", editorcmd)})
+
+" alias tabsort jsb browser.tabs.query({}).then(tabs => tabs.sort((t1, t2) => t1.url.localeCompare(t2.url)).forEach((tab, index) => browser.tabs.move(tab.id, {index})))
+" alias tabuniq jsb browser.tabs.query({}).then(tabs => browser.tabs.remove(tabs.filter((tab, index) => tabs.slice(index + 1).find(t => t.url == tab.url)).map(tab => tab.id)))
+" alias logall js let l=prompt() ; Object.keys(tri.config.get("logging")).forEach(k => tri.config.set("logging", k, l))
+" alias gitclone jsb -p tri.native.run("git clone '" + JS_ARG + "' /home/Packages/gClone/" + JS_ARG.split("/").slice(-1))
+" alias openGithubNotifications composite js Array.from(document.querySelectorAll("li.list-group-item > span:nth-child(1) > a:nth-child(2)")).map(e => e.href) | jsb -p JS_ARG.forEach(url => tri.excmds.tabopen(url))
+" alias tn jsb let a = str.join("").split("/" + "/").slice(-1)[0]; tri.excmds.tabopen(a ? `https://intranet.adacore.com/crm/#/tn/${a}` : `https://intranet.adacore.com/crm/#/Tickets/myTNs`) //
+" alias mktn js tri.native.run(`mkdir -v "$HOME/prog/${document.location.href.split("/").slice(-1)[0]}"`).then(r=>Array.from(document.querySelectorAll("#Files a")).forEach(a=>fetch(a.href).then(r=>r.text()).then(t=>tri.native.write(`${r.content.match(/'.*'\n/)[0].slice(1,-2)}/${a.href.split("/").slice(-1)[0]}`,t))))
+
+" alias playAllVideos js tri.native.run("mpv --really-quiet --ontop --keepaspect-window --profile=protocol.http " + Array.from(document.querySelectorAll("a, iframe, video")).reduce((s, e) => {let r=(/^https?:\/\/((www.)?youtu((\.be\/)|(be\.com\/((embed\/)|(watch\?v=))))[^ ]+)|(.+\.webm)$/);let l="";if(e.tagName=="IFRAME")l=e.src.match(r);else if(e.tagName=="A")l=e.href.match(r)||e.innerText.match(r);else if(e.tagName=="VIDEO")l=[e.currentSrc?e.currentSrc:e.src];console.log(l);return s+(l && l.length > 0 && s.indexOf(l[0])<0?"'"+l[0]+"' ":"")},""))
+" bind <A-v> playAllVideos
+" alias rsssave jsb -p tri.native.run('cat >> ~/.config/newsboat/urls', JS_ARG + "\n")
+" set rsscmd rsssave %u
+
+" vim: filetype=tridactyl

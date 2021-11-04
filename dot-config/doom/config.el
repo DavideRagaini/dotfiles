@@ -279,6 +279,7 @@
 
 
                 ;; Spell checking
+(flyspell-mode-off)
 (setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
 
 
