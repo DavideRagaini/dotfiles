@@ -10,11 +10,7 @@ set relativenumber
 set drawbox
 set previewer ~/.config/lf/previewer
 set cleaner ~/.config/lf/cleaner
-# set previewer ~/.config/lf/scope
 source ~/.config/lf/shortcuts
-
-# Vars that depend on environmental variables
-# $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
 
 # cmds/functions
 cmd open ${{
@@ -55,7 +51,7 @@ cmd extract ${{
 	printf "%s\n\t" "$fx"
 	printf "extract?[y/N]"
 	read ans
-	[ $ans = "y" ] && ext $fx
+	[ $ans = "y" ] && aunpack $fx
 }}
 
 cmd mkdir %{{
@@ -225,6 +221,7 @@ map D delete
 map E extract
 map I push A<c-a> # at the very beginning
 map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcuts | sed 's/^.*cd //g' | fzf)"
+map W $setsid -f $TERMINAL >/dev/null 2>&1
 map M moveto
 map Pp :link
 map R push A<a-b> # after extention

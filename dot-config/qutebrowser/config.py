@@ -45,8 +45,9 @@ c.url.searchengines = {
     "d": "https://duckduckgo.com/?q={}",
     "g": "https://www.google.com/search?q={}",
     "s": "https://startpage.com/sp/search?query={}",
+    "u": "https://www.urbandictionary.com/define.php?term={}",
     "w": "https://en.wikipedia.org/?search={}",
-    "y": "https://www.youtube.com/results?search_query={}",
+    "y": "https://www.yewtu.be/results?search_query={}",
 }
 # }}}
 # ======================= Redline Insert Mode ============= {{{
@@ -88,9 +89,7 @@ c.content.headers.accept_language = "en-US,en;q=0.5"
 c.content.headers.custom = {
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 }
-c.content.headers.user_agent = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
-)
+c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
 c.content.javascript.can_access_clipboard = False
 c.content.webgl = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
