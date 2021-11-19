@@ -6,7 +6,7 @@ set newtab https://unsplash.it/1920/1080?random
 set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
 set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s
 set searchurls.g https://www.google.com/search?q=%s
-set searchurls.y https://www.yewtu.be/results?search_query=%s
+set searchurls.y https://yewtu.be/search?q=%s
 set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
 
 bind ,a hint -W exclaim_quiet dmpv aplay

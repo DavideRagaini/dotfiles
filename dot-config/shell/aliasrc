@@ -41,7 +41,7 @@ alias \
     x="sxiv -ft *" \
     xclip="xclip -selection clipboard" \
     zt="zathura"
-# spawn="setsid st &" \
+# samedir="setsid -f $TERMINAL >/dev/null 2>&1" \
 # trem="transmission-remote" \
 # sudo="doas" \
 

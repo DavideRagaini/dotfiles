@@ -23,7 +23,7 @@
        (company + childframe)  ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +childframe + icons)  ; a search engine for love and life
+       (ivy +icons)        ; a search engine for love and life
        ;;vertico           ; the search engine of the future
 
        :ui
@@ -39,7 +39,7 @@
        minimap             ; show a map of the code on the side
        (ligatures +extra +hasklig)  ; ligatures and symbols to make your code pretty again
        modeline            ; snazzy, Atom-inspired modeline, plus API
-       nav-flash         ; blink cursor line after big motions
+       ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints             ; highlight the region an operation acts on
        (popup +all +defaults)  ; tame sudden yet inevitable temporary windows

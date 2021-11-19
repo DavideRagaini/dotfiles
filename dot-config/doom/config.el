@@ -64,6 +64,7 @@
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (setq confirm-kill-emacs nil)
+(ivy-rich-mode 1)
 
  ;; (set-frame-parameter (selected-frame) 'alpha '(90))
  ;; (add-to-list 'default-frame-alist '(alpha . (90)))
@@ -148,24 +149,20 @@
 
 
                 ;; Org Agenda
+;; (setq org-agenda-start-with-log-mode t)
+(setq org-log-done 'time)
+;; (setq org-log-into-drawer t)
+
 (use-package org-fancy-priorities
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
   (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
 
-(setq org-agenda-start-with-log-mode t)
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
-
 (setq org-agenda-files
       '("~/Org/Tasks.org"
         "~/Org/Learn/Learn.org"
         "~/Org/Birthdays.org"))
-
-  (setq org-agenda-start-with-log-mode t)
-  (setq org-log-done 'time)
-  (setq org-log-into-drawer t)
 
 (use-package org
   :commands (org-capture org-agenda)
@@ -176,9 +173,9 @@
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
-  (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-        (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
+  ;; (setq org-todo-keywords
+  ;;     '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+  ;;       (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "DEFERRED(h)" "|" "COMPLETED(c)" "CANC(k@)")))
 
 (setq org-tag-alist
   '((:startgroup)
