@@ -6,6 +6,7 @@ export BROWSER2="qutebrowser"
 # export QT_SCALE_FACTOR=1.5
 # export QT_ENABLE_HIGHDPI_SCALING=1
 
+sh ~/.config/screenlayout/Desktop/hdmi:4k.sh &
 doas intel-undervolt apply &
 mpd &
 remaps &
@@ -16,12 +17,10 @@ numlockx &
 # QsyncthingTray &
 redshift -l 43.59:12.50 -t 5700:3600 -g 0.8 -m randr &
 clipmenud &
-caffeine &
-
-sh ~/.config/screenlayout/Desktop/hdmi:4k.sh &
+# caffeine &
 timeOnPc start &
 xautolock -time 15 -notify 180 -notifier "notify-send -u critical -t 180000 'System will be locked' '3 minute left'" -locker 'doas zzz' &
 blacklist on &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"
-doas runsv /var/service/emacs &
-echo "\a" > /dev/tty5	# beep
+emacs --daemon &
+echo "\a" >/dev/tty5 # beep

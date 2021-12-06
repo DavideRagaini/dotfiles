@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export EDITOR="lvim"
+export EDITOR="ted"
 export FILE="lf"
 export READER="zathura"
 export TERMINAL="st"

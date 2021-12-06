@@ -64,13 +64,12 @@
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (setq confirm-kill-emacs nil)
-(ivy-rich-mode 1)
 
  ;; (set-frame-parameter (selected-frame) 'alpha '(90))
  ;; (add-to-list 'default-frame-alist '(alpha . (90)))
 
-(use-package counsel
-  :bind (("C-M-j" . 'counsel-switch-buffer)))
+;; (use-package counsel
+;;   :bind (("C-M-j" . 'counsel-switch-buffer)))
          ;; :map minibuffer-local-map
          ;; ("C-M-r" . 'counsel-minibuffer-history)))
 
@@ -84,13 +83,13 @@
 
 
                 ;; Circadian
-(use-package circadian
-  :config
-  (setq calendar-latitude 43.59)
-  (setq calendar-longitude 12.50)
-  (setq circadian-themes '((:sunrise . doom-nord-light)
-                           (:sunset  . doom-dracula)))
-  (circadian-setup))
+;; (use-package circadian
+;;   :config
+;;   (setq calendar-latitude 43.59)
+;;   (setq calendar-longitude 12.50)
+;;   (setq circadian-themes '((:sunrise . doom-nord-light)
+;;                            (:sunset  . doom-dracula)))
+;;   (circadian-setup))
 
 
                 ;; Dired
@@ -114,44 +113,24 @@
 
                 ;; ORG ENHANEMENT
 (custom-set-faces
-    '(org-level-1 ((t (:inherit outline-1 :height 2.0))))
-    '(org-level-2 ((t (:inherit outline-2 :height 1.9))))
-    '(org-level-3 ((t (:inherit outline-3 :height 1.8))))
-    '(org-level-4 ((t (:inherit outline-4 :height 1.7))))
-    '(org-level-5 ((t (:inherit outline-5 :height 1.6))))
-    '(org-level-6 ((t (:inherit outline-6 :height 1.5))))
-    '(org-level-7 ((t (:inherit outline-7 :height 1.4))))
-    '(org-level-8 ((t (:inherit outline-8 :height 1.3))))
-    '(org-level-9 ((t (:inherit outline-9 :height 1.2))))
-    '(org-document-title ((t (:inherit outline-1 :height 2.5))))
-)
-;; (setq org-cycle-level-faces nil)
-;; (setq org-n-level-faces 10)
-(with-eval-after-load 'org-superstar
-  (set-face-attribute 'org-superstar-item nil :height 1.4)
-  (set-face-attribute 'org-superstar-header-bullet nil :height 1.4)
-  (set-face-attribute 'org-superstar-leading nil :height 1.5)
-)
-;; Set different bullets, with one getting a terminal fallback.
-(setq org-superstar-headline-bullets-list
-      '("" "" "" "" "" "" "" "" "" "")
+    '(org-level-1 ((t (:inherit outline-1 :height 1.25))))
+    '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
+    '(org-level-3 ((t (:inherit outline-3 :height 1.15))))
+    '(org-level-4 ((t (:inherit outline-4 :height 1.10))))
+    '(org-level-5 ((t (:inherit outline-5 :height 1.05))))
+    '(org-level-6 ((t (:inherit outline-6 :height 1.05))))
+    '(org-document-title ((t (:inherit outline-1 :height 1.25))))
 )
 ;; Stop cycling bullets to emphasize hierarchy of headlines.
 (setq org-superstar-cycle-headline-bullets nil)
 ;; Hide away leading stars on terminal.
 (setq org-superstar-leading-fallback ?\s)
 
-;; Replace list hyphen with dot
-(font-lock-add-keywords 'org-mode
-                        '(("^ *\\([-]\\) "
-                          (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-;; (setq org-hide-emphasis-markers t)
-
 
                 ;; Org Agenda
-;; (setq org-agenda-start-with-log-mode t)
+(setq org-agenda-start-with-log-mode t)
 (setq org-log-done 'time)
-;; (setq org-log-into-drawer t)
+(setq org-log-into-drawer t)
 
 (use-package org-fancy-priorities
   :hook
@@ -167,174 +146,35 @@
 (use-package org
   :commands (org-capture org-agenda)
   :config
-  (setq org-ellipsis " ▾")
+  (setq org-ellipsis " ▾"
+        org-hide-emphasis-markers t))
+;; Replace list hyphen with dot
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                          (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-  (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-graph-column 60)
-
-  ;; (setq org-todo-keywords
-  ;;     '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-  ;;       (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "DEFERRED(h)" "|" "COMPLETED(c)" "CANC(k@)")))
+;; (require 'org-habit)
+(add-to-list 'org-modules 'org-habit)
+(setq org-habit-graph-column 60)
 
 (setq org-tag-alist
   '((:startgroup)
      ; Put mutually exclusive tags here
-     (:endgroup)
      ("@errand" . ?E)
      ("@home" . ?H)
      ("@work" . ?W)
-     ("planning" . ?p)
+     (:endgroup)
      ("batch" . ?b)
      ("fix" . ?f)
      ("improve" . ?m)
-     ("note" . ?n)
-     ("idea" . ?i)))
-
-;; Configure custom agenda views
-(setq org-agenda-custom-commands
- '(("d" "Dashboard"
-   ((agenda "" ((org-deadline-warning-days 7)))
-  (todo "NEXT"
-      ((org-agenda-overriding-header "Next Tasks")))
-    (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
-
-  ("n" "Next Tasks"
-   ((todo "NEXT"
-      ((org-agenda-overriding-header "Next Tasks")))))
-
-  ("W" "Work Tasks" tags-todo "+work-email")
-
-  ;; Low-effort next actions
-  ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-   ((org-agenda-overriding-header "Low Effort Tasks")
-    (org-agenda-max-todos 20)
-    (org-agenda-files org-agenda-files)))
-
-  ("w" "Workflow Status"
-   ((todo "WAIT"
-          ((org-agenda-overriding-header "Waiting on External")
-           (org-agenda-files org-agenda-files)))
-    (todo "REVIEW"
-          ((org-agenda-overriding-header "In Review")
-           (org-agenda-files org-agenda-files)))
-    (todo "PLAN"
-          ((org-agenda-overriding-header "In Planning")
-           (org-agenda-todo-list-sublevels nil)
-           (org-agenda-files org-agenda-files)))
-    (todo "BACKLOG"
-          ((org-agenda-overriding-header "Project Backlog")
-           (org-agenda-todo-list-sublevels nil)
-           (org-agenda-files org-agenda-files)))
-    (todo "READY"
-          ((org-agenda-overriding-header "Ready for Work")
-           (org-agenda-files org-agenda-files)))
-    (todo "ACTIVE"
-          ((org-agenda-overriding-header "Active Projects")
-           (org-agenda-files org-agenda-files)))
-    (todo "COMPLETED"
-          ((org-agenda-overriding-header "Completed Projects")
-           (org-agenda-files org-agenda-files)))
-    (todo "CANC"
-          ((org-agenda-overriding-header "Cancelled Projects")
-           (org-agenda-files org-agenda-files))))))))
-
-(setq org-capture-templates
-  `(("t" "Tasks / Projects")
-     ("tt" "Task" entry (file+olp "~/Org/Tasks.org" "Inbox")
-          "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-     ("ts" "Clocked Entry Subtask" entry (clock)
-          "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
-    ("j" "Journal Entries")
-    ("jj" "Journal" entry
-     (file+olp+datetree "~/Org/Journal.org")
-     "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-     :clock-in :clock-resume :empty-lines 1)
-    ("jm" "Meeting" entry
-     (file+olp+datetree "~/Org/Journal.org")
-     "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-     :clock-in :clock-resume
-     :empty-lines 1)
-    ("m" "Metrics Capture")
-    ("mw" "Weight" table-line
-     (file+headline "~/Org/Metrics.org" "Weight")
-     "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
-    ("a" "Add New Entries")
-    ("ar" "Add Reading Checkitem" checkitem
-     (file+headline "~/Org/Read.org" "New")
-         "+ [ ] %?" :kill-buffer t)
-    ("aw" "Add Watching Checkitem" checkitem
-     (file+headline "~/Org/Watch.org" "New")
-         "+ [ ] %?" :kill-buffer t)))
+     ("note" . ?n)))
 
 (setq org-refile-targets
   '(("Archive.org" :maxlevel . 1)
     ("Tasks.org" :maxlevel . 1)))
-
-	;; Save Org buffers after refiling!
+                ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 
                 ;; Spell checking
-(flyspell-mode-off)
 (setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
-
-
-                ;; Mathjax
-;; (setq org-html-mathjax-options
-;;   '((path "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
-;;   ;; '((path "/usr/share/mathjax/MathJax.js?config=TeX-AMS_HTML")
-;;     (scale "100")
-;;     (font "TeX")
-;;     (align "center")
-;;     (autonumber "AMS")
-;;     (indent "2em")
-;;     (mathml t)
-;;     (linebreaks "false")
-;;     (multlinewidth "85%")
-;;     (tagindent ".8em")
-;;     (tagside "right")))
-
-;; (setq org-html-mathjax-template
-;;               "
-;; <script type=\"text/javascript\" src=\"%PATH\"></script>
-;; <script type=\"text/javascript\">
-;; <!--/*--><![CDATA[/*><!--*/
-;;     MathJax.Hub.Config({
-;;         jax: [\"input/TeX\", \"output/HTML-CSS\"],
-;;         extensions: [\"tex2jax.js\",\"TeX/AMSmath.js\",\"TeX/AMSsymbols.js\",
-;;                      \"TeX/noUndefined.js\", \"[Contrib]/siunitx/siunitx.js\", \"[Contrib]/mhchem/mhchem.js\"],
-;;         tex2jax: {
-;;             inlineMath: [ [\"\\\\(\",\"\\\\)\"] ],
-;;             displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"], [\"\\\\begin{displaymath}\",\"\\\\end{displaymath}\"] ],
-;;             skipTags: [\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"],
-;;             ignoreClass: \"tex2jax_ignore\",
-;;             processEscapes: false,
-;;             processEnvironments: true,
-;;             preview: \"TeX\"
-;;         },
-;;         TeX: {extensions: [\"AMSmath.js\",\"AMSsymbols.js\",  \"[Contrib]/siunitx/siunitx.js\", \"[Contrib]/mhchem/mhchem.js\"]},
-;;         showProcessingMessages: true,
-;;         displayAlign: \"%ALIGN\",
-;;         displayIndent: \"%INDENT\",
-
-;;         \"HTML-CSS\": {
-;;              scale: %SCALE,
-;;              availableFonts: [\"STIX\",\"TeX\"],
-;;              preferredFont: \"TeX\",
-;;              webFont: \"TeX\",
-;;              imageFont: \"TeX\",
-;;              showMathMenu: true,
-;;         },
-;;         MMLorHTML: {
-;;              prefer: {
-;;                  MSIE:    \"MML\",
-;;                  Firefox: \"MML\",
-;;                  Opera:   \"HTML\",
-;;                  other:   \"HTML\"
-;;              }
-;;         }
-;;     });
-;; /*]]>*///-->
-;; </script>")
-;; equationNumbers: { autoNumber: "AMS" },
