@@ -47,7 +47,7 @@ c.url.searchengines = {
     "s": "https://startpage.com/sp/search?query={}",
     "u": "https://www.urbandictionary.com/define.php?term={}",
     "w": "https://en.wikipedia.org/?search={}",
-    "y": "https://www.yewtu.be/results?search_query={}",
+    "y": "https://yewtu.be/search?q={}",
 }
 # }}}
 # ======================= Redline Insert Mode ============= {{{
