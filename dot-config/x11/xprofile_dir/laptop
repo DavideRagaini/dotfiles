@@ -17,11 +17,11 @@ redshift -l 43.5943:12.5034 -t 5700:3600 -g 0.8 -m randr &
 nm-applet &
 blueman-applet &
 bluetooth off &
-caffeine &
+# caffeine &
 blacklist on &
-doas tlp bat &
 xbacklight -set 20 &
 libinput-gestures-setup start &
 timeOnPc start &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»"
 # aw-qt &
+emacs --daemon &

@@ -1,6 +1,7 @@
 #!/bin/sh
 
-export EDITOR="ted"
+export EDITOR="emacsclient -t"
+export VISUAL="emacsclient -c -a emacs"
 export FILE="lf"
 export READER="zathura"
 export TERMINAL="st"
