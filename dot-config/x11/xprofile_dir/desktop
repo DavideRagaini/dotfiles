@@ -8,7 +8,7 @@ export BROWSER2="qutebrowser"
 
 sh ~/.config/screenlayout/Desktop/hdmi:4k.sh &
 doas intel-undervolt apply &
-mpd &
+[ ! -s ~/.config/mpd/pid ] && mpd  &
 remaps &
 # xcompmgr &
 dunst &

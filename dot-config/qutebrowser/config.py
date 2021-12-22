@@ -100,7 +100,7 @@ c.fileselect.multiple_files.command = fileselect_cmd
 c.fileselect.single_file.command = fileselect_cmd
 # }}}
 # ======================= Dark Mode ============= {{{
-c.colors.webpage.prefers_color_scheme_dark = True
+# c.colors.webpage.prefers_color_scheme_dark = True
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.algorithm = 'lightness-hsl'
 c.colors.webpage.darkmode.contrast = -.022

@@ -20,7 +20,7 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (company + childframe)  ; the ultimate code completion backend
+       company             ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;; (ivy +icons)     ; a search engine for love and life
@@ -43,7 +43,7 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints             ; highlight the region an operation acts on
        (popup +all +defaults)  ; tame sudden yet inevitable temporary windows
-       tabs                ; a tab bar for Emacs
+       ;;tabs              ; a tab bar for Emacs
        ;;(treemacs +lsp)   ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter           ; vcs diff in the fringe

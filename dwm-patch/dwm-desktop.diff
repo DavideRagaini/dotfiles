@@ -1,8 +1,8 @@
 diff --git a/config.h b/config.h
-index 16e67ff..5546c86 100644
+index 16e67ff..0255658 100644
 --- a/config.h
 +++ b/config.h
-@@ -6,22 +6,22 @@
+@@ -6,22 +6,27 @@
  
  /* appearance */
  static unsigned int borderpx  = 3;        /* border pixel of windows */
@@ -28,6 +28,11 @@ index 16e67ff..5546c86 100644
 -static char selbordercolor[]        = "#770000";
 -static char selbgcolor[]            = "#005577";
 +static int topbar             = 0;        /* 0 means bottom bar */
++static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
++static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
++static const unsigned int systrayspacing = 2;   /* systray spacing */
++static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
++static const int showsystray        = 1;     /* 0 means no systray */
 +static char *fonts[]          = { "CaskaydiaCove Nerd Font Mono:size=9", "Hack Nerd Font Mono:size=9" };
 +static char normbgcolor[]           = "#2F0B3A";
 +static char normbordercolor[]       = "#BD93F9";
@@ -56,8 +61,8 @@ index 16e67ff..5546c86 100644
 +const char *spcmd3[] = {"st", "-n", "sp-pmx", "-g", "120x25", "-e", "pulsemixer", NULL };
 +const char *spcmd4[] = {"st", "-n", "sp-nws", "-g", "150x50", "-e", "newsboat", NULL };
 +const char *spcmd5[] = {"st", "-n", "sp-mpl", "-g", "150x50", "-e", "mp", NULL };
++const char *spcmd6[] = {"flEmacs", NULL };
 +
-+const char *spcmd6[] = {"emacs", "--name", "flEmacs", "-g", "220x50", "-f", "org-agenda-list", NULL };
  static Sp scratchpads[] = {
  	/* name          cmd  */
 -	{"spterm",      spcmd1},
@@ -72,64 +77,76 @@ index 16e67ff..5546c86 100644
  };
  
  /* tagging */
-@@ -49,17 +71,50 @@ static const Rule rules[] = {
+@@ -48,18 +70,60 @@ static const Rule rules[] = {
+ 	 *	WM_CLASS(STRING) = instance, class
  	 *	WM_NAME(STRING) = title
  	*/
- 	/* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
+-	/* class    instance      title       	 tags mask    isfloating   isterminal  noswallow  monitor */
 -	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
 -	{ TERMCLASS,  NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 -	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 -	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
 -	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 },
-+	{ TERMCLASS,	NULL,		NULL,		0,		0,	1,	0,	-1 },
-+	{ "sxiv",	NULL,		NULL,		0,		0,	0,	0,	-1 },
-+	{ "LibreWolf",	NULL,		NULL,		1,		0,	0,	0,	-1 },
-+	{ "qutebrowser",NULL,		NULL,		1,		0,	0,	0,	-1 },
++	/* class    instance      title       	 tags mask    isfloating   centered    isterminal  noswallow  monitor */
++	{ TERMCLASS,	NULL,		NULL,		0,		0,	1,	1,	0,	-1 },
++	{ "sxiv",	NULL,		NULL,		0,		0,	0,	0,	0,	-1 },
++	/* { "QSyncthingTray",NULL,	NULL,		0,		1,	1,	0,	1,	-1 }, */
++	{ "Caffeine",	NULL,		NULL,		0,		1,	1,	0,	1,	-1 },
 +
-+	{ "mpv",	NULL,		NULL,		1 << 8,		0,	0,	0,	-1 },
++	{ "LibreWolf",	NULL,		NULL,		1,		0,	0,	0,	0,	-1 },
++	{ "qutebrowser",NULL,		NULL,		1,		0,	0,	0,	0,	-1 },
 +
-+	{ "Chromium",	NULL,		NULL,		1 << 7,		0,	0,	0,	-1 },
-+	{ "Psensor",	NULL,		NULL,		1 << 7,		0,	0,	0,	-1 },
-+	{ "calibre",	NULL,		NULL,		1 << 7,		0,	0,	0,	-1 },
-+	{ "obs",	NULL,		NULL,		1 << 7,		0,	0,	0,	-1 },
++	{ "mpv",	NULL,		NULL,		1 << 8,		0,	0,	0,	0,	-1 },
 +
-+	{ "Ferdi",NULL,	NULL,		1 << 5,		0,	0,	0,	-1 },
-+	{ "Microsoft Teams - Preview",NULL,	NULL,	1 << 5,		0,	0,	0,	-1 },
++	{ "Chromium",	NULL,		NULL,		1 << 7,		0,	0,	0,	0,	-1 },
++	{ "Psensor",	NULL,		NULL,		1 << 7,		0,	0,	0,	0,	-1 },
++	{ "calibre",	NULL,		NULL,		1 << 7,		0,	0,	0,	0,	-1 },
++	{ "obs",	NULL,		NULL,		1 << 7,		0,	0,	0,	0,	-1 },
 +
-+	{ "Tex-match",	NULL,		NULL,		1 << 4,		0,	0,	0,	-1 },
++	{ "Ferdi",NULL,	NULL,				1 << 5,		0,	0,	0,	0,	-1 },
++	{ "Microsoft Teams - Preview",NULL,	NULL,	1 << 5,		0,	0,	0,	0,	-1 },
 +
-+	{ "Gimp",	NULL,		NULL,		1 << 3,		0,	0,	0,	-1 },
-+	{ "Inkscape",	NULL,		NULL,		1 << 3,		0,	0,	0,	-1 },
-+	{ "FreeCAD",	NULL,		NULL,		1 << 3,		0,	0,	0,	-1 },
++	{ "Tex-match",	NULL,		NULL,		1 << 4,		0,	0,	0,	0,	-1 },
 +
-+	{ "Zathura",	NULL,		NULL,		1 << 2,		0,	0,	0,	-1 },
++	{ "Gimp",	NULL,		NULL,		1 << 3,		0,	0,	0,	0,	-1 },
++	{ "Inkscape",	NULL,		NULL,		1 << 3,		0,	0,	0,	0,	-1 },
++	{ "FreeCAD",	NULL,		NULL,		1 << 3,		0,	0,	0,	0,	-1 },
 +
-+	{ "MATLAB R2019b - academic use",NULL,	NULL,	1 << 1,		0,	0,	0,	-1 },
++	{ NULL,	"zathura-tabbed",	NULL,		1 << 2,	  	0,	0,	0,	0,	-1 },
++	{ "tabbed",	NULL,		NULL,		1 << 2,	  	0,	0,	0,	0,	-1 },
++	{ "Zathura",	NULL,		NULL,		1 << 2,		0,	0,	0,	0,	-1 },
 +
-+	{ NULL,		"emacs",	NULL,		1 << 1,		0,	0,	0,	-1 },
-+	{ NULL,		"fzfmenu",	NULL,		0,		1,	1,	1,	-1 },
++	{ "MATLAB R2019b - academic use",NULL,	NULL,	1 << 1,		0,	0,	0,	0,	-1 },
 +
-+	{ NULL,		"sp-trm",	NULL,		SPTAG(0),	1,	1,	0,	-1 },
-+	{ NULL,		"sp-tlf",	NULL,		SPTAG(1),	1,	1,	0,	-1 },
-+	{ NULL,		"sp-clc",	NULL,		SPTAG(2),	1,	1,	0,	-1 },
-+	{ NULL,		"sp-pmx",	NULL,		SPTAG(3),	1,	1,	0,	-1 },
-+	{ NULL,		"sp-nws",	NULL,		SPTAG(4),	1,	1,	0,	-1 },
-+	{ NULL,		"sp-mpl",	NULL,		SPTAG(5),	1,	1,	0,	-1 },
-+	{ NULL,		"flEmacs",	NULL,		SPTAG(6),	1,	0,	0,	-1 },
++	/* class	instance	title        tags mask    floating   centered    isterminal  noswallow  monitor */
++	{ NULL,		"emacs",	NULL,		1 << 1,		0,	0,	0,	0,	-1 },
++	{ NULL,		"fzfmenu",	NULL,		0,		1,	1,	1,	1,	-1 },
 +
-+	{ NULL,		NULL,		"fmpv",		1 << 8,		1,	0,	0,	-1 },
-+	{ NULL,		NULL,		"Event Tester",	0,		0,	0,	1,	-1 },
++	{ NULL,		"sp-trm",	NULL,		SPTAG(0),	1,	1,	1,	0,	-1 },
++	{ NULL,		"sp-tlf",	NULL,		SPTAG(1),	1,	1,	1,	0,	-1 },
++	{ NULL,		"sp-clc",	NULL,		SPTAG(2),	1,	1,	1,	0,	-1 },
++	{ NULL,		"sp-pmx",	NULL,		SPTAG(3),	1,	1,	1,	0,	-1 },
++	{ NULL,		"sp-nws",	NULL,		SPTAG(4),	1,	1,	1,	0,	-1 },
++	{ NULL,		"sp-mpl",	NULL,		SPTAG(5),	1,	1,	1,	0,	-1 },
++
++	{ NULL,		NULL,		"flEmacs",	SPTAG(6),	1,	1,	0,	0,	-1 },
++	{ NULL,		NULL,		"fmpv",		1 << 8,		1,	0,	0,	0,	-1 },
++	{ NULL,		NULL,		"Event Tester",	0,		0,	0,	0,	1,	-1 },
++
++	{ "LibreWolf",	NULL,		"Library",	0,		1,	1,	0,	0,	-1 },
++	{ "LibreWolf",	NULL,	"About LibreWolf",	0,		1,	1,	0,	0,	-1 },
  };
  
  /* layout(s) */
- static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+-static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
++static float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
  static int nmaster     = 1;    /* number of clients in master area */
 -static int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 +static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
  #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
  #include "vanitygaps.c"
  static const Layout layouts[] = {
-@@ -135,8 +190,9 @@ static Key keys[] = {
+@@ -135,8 +199,9 @@ static Key keys[] = {
  	STACKKEYS(MODKEY,                          focus)
  	STACKKEYS(MODKEY|ShiftMask,                push)
  	/* { MODKEY|ShiftMask,		XK_Escape,	spawn,	SHCMD("") }, */
@@ -141,7 +158,7 @@ index 16e67ff..5546c86 100644
  	TAGKEYS(			XK_1,		0)
  	TAGKEYS(			XK_2,		1)
  	TAGKEYS(			XK_3,		2)
-@@ -148,184 +204,228 @@ static Key keys[] = {
+@@ -148,184 +213,231 @@ static Key keys[] = {
  	TAGKEYS(			XK_9,		8)
  	{ MODKEY,			XK_0,		view,		{.ui = ~0 } },
  	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
@@ -309,7 +326,7 @@ index 16e67ff..5546c86 100644
 +	{ MODKEY|ShiftMask,	XK_w,		spawn,		SHCMD("$BROWSER2") },
 +	{ MODKEY|ControlMask,	XK_w,		spawn,		SHCMD("$BROWSER2 --private-window") },
 +	{ MODKEY,		XK_e,		togglescratch,	{.ui = 6 } },
-+	{ MODKEY|ShiftMask,	XK_e,		spawn,		SHCMD("emacs") },
++	{ MODKEY|ShiftMask,	XK_e,		spawn,		SHCMD("emacsclient -c -a \'emacs\'") },
 +	{ MODKEY,		XK_r,		togglescratch,	{.ui = 1 } },
 +	{ MODKEY,		XK_t,		setlayout,	{.v = &layouts[0]} },
 +	{ MODKEY|ShiftMask,	XK_t,		setlayout,	{.v = &layouts[1]} },
@@ -327,20 +344,22 @@ index 16e67ff..5546c86 100644
 +	{ MODKEY,		XK_backslash,	view,		{0} },
 +
 +	/* 3rd row */
-+	{ MODKEY,		XK_a,		togglegaps,	{0} },
-+	{ MODKEY|ShiftMask,	XK_a,		defaultgaps,	{0} },
++	{ MODKEY,		XK_a,		shiftview,	{.i = -1 } },
++	{ MODKEY|ShiftMask,	XK_a,		shifttag,	{.i = -1 } },
 +	{ MODKEY,		XK_s,		togglesticky,	{0} },
 +	{ MODKEY,		XK_d,		spawn,		SHCMD("dmenu_run") },
 +	{ MODKEY|ShiftMask,	XK_d,		spawn,		SHCMD("via") },
 +	{ MODKEY|ControlMask,	XK_d,		spawn,		SHCMD("via -r") },
 +	{ MODKEY,		XK_f,		togglefullscr,	{0} },
 +	{ MODKEY|ShiftMask,	XK_f,		setlayout,	{.v = &layouts[8]} },
-+	{ MODKEY,		XK_g,		shiftview,	{.i = -1 } },
-+	{ MODKEY|ShiftMask,	XK_g,		shifttag,	{.i = -1 } },
++	{ MODKEY,		XK_g,		togglegaps,	{0} },
++	{ MODKEY|ShiftMask,	XK_g,		defaultgaps,	{0} },
 +	{ MODKEY,		XK_h,		setmfact,	{.f = -0.05} },
-+	{ Mod1Mask,	XK_h,		focusmon,	{.i = -1 } },
++	{ MODKEY|ShiftMask,	XK_h,		tagmon,	{.i = -1 } },
++	{ MODKEY|ControlMask,	XK_h,		focusmon,	{.i = -1 } },
 +	{ MODKEY,		XK_l,		setmfact,	{.f = +0.05} },
-+	{ Mod1Mask,	XK_l,		focusmon,	{.i = +1 } },
++	{ MODKEY|ShiftMask,	XK_l,		tagmon,	{.i = +1 } },
++	{ MODKEY|ControlMask,	XK_l,		focusmon,	{.i = +1 } },
 +	{ MODKEY,		XK_semicolon,	shiftview,	{.i = 1 } },
 +	{ MODKEY|ShiftMask,	XK_semicolon,	shifttag,	{.i = 1 } },
 +	{ MODKEY,		XK_apostrophe,	spawn,		SHCMD("dmenuunicode") },
@@ -543,3 +562,4 @@ index 16e67ff..5546c86 100644
 +    {ClkTagBar, 0, Button5, shiftview, {.i = 1}},
 +    {ClkRootWin, 0, Button2, togglebar, {0}},
  };
++

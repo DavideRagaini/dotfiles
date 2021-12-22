@@ -29,15 +29,15 @@ alias \
 alias \
     2f="tmux split -h lf; lf" \
     c.="cd .." \
-    cfd="nvim "${XDG_DATA_HOME:-$HOME/.local/share}/../src/dwm/config.h"" \
-    e="\$EDITOR" \
+    e="$EDITOR" \
+    E="$VISUAL" \
     f="lfcd" \
     q="exit" \
     s="doas" \
     smi="doas make install" \
     t="task" \
     tw="timew" \
-    v="\$EDITOR" \
+    v="nvim" \
     x="sxiv -ft *" \
     xclip="xclip -selection clipboard" \
     zt="zathura"
@@ -93,16 +93,6 @@ sxq() {
 alias \
     xr="doas xbps-remove -R" \
     sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
-
-# youtube
-# alias \
-# y="straw-viewer"
-# yt="youtube-dl --add-metadata -i" \
-# yta="yt -x -f bestaudio/best" \
-# dlm="youtube-dl --add-metadata -ic --extract-audio --audio-format mp3 --audio-quality 0" \
-# dlv="youtube-dl -ic --add-metadata" \
-# yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
-# yta="yt -x -f bestaudio/best"
 
 # Miscellaneous
 alias \

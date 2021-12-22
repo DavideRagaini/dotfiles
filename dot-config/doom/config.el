@@ -60,7 +60,7 @@
 
 
                 ;; Global
-(setq scroll-margin 5)
+(setq scroll-margin 2)
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (setq confirm-kill-emacs nil)
@@ -140,7 +140,7 @@
 
 (setq org-agenda-files
       '("~/Org/Tasks.org"
-        "~/Org/Learn/Learn.org"
+        "~/Org/Learn.org"
         "~/Org/Birthdays.org"))
 
 (use-package org

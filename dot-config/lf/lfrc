@@ -17,8 +17,8 @@ cmd open ${{
 	case $f in
 	http* | *.html) setsid -f "$BROWSER" "$f" 2>/dev/null & ;;
 	*.txt) "$TERMINAL" "$EDITOR" "$f" & ;;
-	*.pdf | *.djvu | *.cbz) setsid -f "$READER" "$f" & ;;
-	*.epub | *.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
+	*.pdf | *.djvu | *.epub | *.cbz) setsid -f "$READER" "$f" & ;;
+	*.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
 	*.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" & ;;
 	*.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
 	*.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
@@ -29,7 +29,7 @@ cmd open ${{
 	# *) notify-send "No Mime Type set" ;;
 	*) case "$(file --mime-type $f -b)" in
 		audio/*) mpv $f ;;
-		application/epub+zip) ebook-viewer $f &;;
+		application/epub+zip) "$READER" $f &;;
 		application/json) $EDITOR $fx ;;
 		image/vnd.djvu|application/pdf|application/octet-stream) setsid "$READER" $fx >/dev/null 2>&1 & ;;
 		application/pgp-encrypted) "$EDITOR" $fx ;;
