@@ -32,6 +32,7 @@ set smartindent
 set autoindent
 set laststatus=2
 set cursorline
+set cursorcolumn
 set mouse=a
 set nocompatible
 set encoding=utf-8

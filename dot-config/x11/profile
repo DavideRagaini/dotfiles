@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -c -a emacs"
 export FILE="lf"
@@ -236,6 +237,7 @@ ex=:\
 *.pdf=:\
 *.nix=:\
 *.org=:\
+*.org_archive=:\
 *.epub=:\
 *.mobi=:\
 *.azw=:\
