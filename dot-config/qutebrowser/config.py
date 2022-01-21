@@ -23,13 +23,13 @@ c.bindings.commands["normal"] = {
 dracula.blood(c, {"spacing": {"vertical": 4, "horizontal": 4}})
 c.downloads.location.suggestion = "both"
 c.downloads.position = "bottom"
-c.downloads.remove_finished = 20000
+# c.downloads.remove_finished = 20000
 c.scrolling.smooth = False
 c.session.lazy_restore = True
 c.statusbar.show = "in-mode"
 c.tabs.last_close = "default-page"
 c.tabs.position = "bottom"
-c.tabs.show = "multiple"
+c.tabs.show = "switching"
 startpage = "file://" + environ["HOME"] + "/.local/src/startpage/index.html"
 c.url.default_page = startpage
 c.url.start_pages = [startpage]
