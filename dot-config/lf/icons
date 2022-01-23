@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 export LF_ICONS="\
 tw=:\
