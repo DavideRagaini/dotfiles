@@ -1,3 +1,4 @@
+# System
 tw	
 st	
 ow	
@@ -7,6 +8,8 @@ fi	
 ln	
 or	
 ex	
+
+#Programming Languages
 *.c	
 *.cc	
 *.clj	
@@ -29,7 +32,6 @@ ex	
 *.js	
 *.json	
 *.lua	
-*.md	
 *.php	
 *.pl	
 *.pro	
@@ -39,12 +41,19 @@ ex	
 *.scala	
 *.ts	
 *.vim	
+*.tex	
+*.el	
+*.xml	謹
+
+# Shell
 *.cmd	
 *.ps1	
 *.sh	
 *.bash	
 *.zsh	
 *.fish	
+
+# Archive
 *.tar	
 *.tgz	
 *.arc	
@@ -91,6 +100,8 @@ ex	
 *.swm	
 *.dwm	
 *.esd	
+
+# Image
 *.jpg	
 *.jpeg	
 *.mjpg	
@@ -110,6 +121,8 @@ ex	
 *.svgz	
 *.mng	
 *.pcx	
+
+# Video
 *.mov	📼
 *.mpg	📼
 *.mpeg	📼
@@ -138,6 +151,8 @@ ex	
 *.yuv	
 *.cgm	
 *.emf	
+
+# Audio
 *.ogv	
 *.ogx	
 *.aac	🎵
@@ -149,26 +164,44 @@ ex	
 *.mka	
 *.mp3	🎵
 *.mpc	
-*.ogg	
+*.ogg	🎵
 *.ra	
 *.wav	🎵
 *.oga	
 *.opus	🎵
+
+# Document
 *.spx	
 *.xspf	
 *.pdf	
-*.part	
-*.nix	
 *.org	
 *.org_archive	
 *.epub	
 *.mobi	
 *.azw	
 *.azw3	
-*.tex	
+
+# Extras
+*.md	
+*.part	
+*.nix	
+*.log	
+*.yml	ﲇ
+*.diff	
+*.conf	
+*conf	
+*config	
+Makefile	
+LICENSE	
+
+# Git
 *.github	
 *.gitignore	
+*.gitmodules	
 .git/	
+.github/	
+
+# Home Dirs
 ~/.config/	⚙
 ~/.mozilla/	
 ~/.librewolf/	
@@ -185,6 +218,7 @@ ex	
 ~/Universitá/	
 ~/Storage/Videos/	ﳜ
 
+# Ignore
 # node_modules/	
 # ~/.local/src/dotfiles/	
 # ~/.ssh/	㊙

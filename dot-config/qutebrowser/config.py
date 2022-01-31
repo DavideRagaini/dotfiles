@@ -50,15 +50,22 @@ c.url.searchengines = {
 }
 # }}}
 # ======================= Redline Insert Mode ============= {{{
-# Awesome way to open vim from qutebrowser
+# Vim
+# c.editor.command = [
+#     environ["TERMINAL"],
+#     "-e",
+#     "nvim",   # environ["EDITOR"],
+#     "-f",
+#     "{file}",
+#     "-c",
+#     "normal {line}G{column0}1",
+# ]
+# Emacs
 c.editor.command = [
-    environ["TERMINAL"],
-    "-e",
-    environ["EDITOR"],
-    "-f",
+    "emacsclient",
     "{file}",
-    "-c",
-    "normal {line}G{column0}1",
+    "+{line}:{column0}1",
+    "-a", "'emacs'"
 ]
 c.bindings.commands["insert"] = {
     "<Ctrl-h>": "fake-key <Backspace>",
