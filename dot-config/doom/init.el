@@ -20,10 +20,10 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company             ; the ultimate code completion backend
+       (company +tng)             ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;; (ivy +icons)     ; a search engine for love and life
+       ;;(ivy +icons)      ; a search engine for love and life
        (vertico +icons)    ; the search engine of the future
 
        :ui
@@ -37,7 +37,7 @@
        ;;hydra
        indent-guides       ; highlighted indent columns
        ;;minimap           ; show a map of the code on the side
-       (ligatures +extra +hasklig)  ; ligatures and symbols to make your code pretty again
+       (ligatures +extra)  ; ligatures and symbols to make your code pretty again
        modeline            ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
@@ -94,7 +94,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup +dictionary)  ; navigate your code and its documentation
-       lsp
+       (lsp +peek)
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds

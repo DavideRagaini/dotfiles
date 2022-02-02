@@ -1,0 +1,7 @@
+color=true
+precision=-1
+use_radians=false
+print_prefixes=true
+print_delimiters=true
+# thousands_delimiter=true
+# decimal_delimiter=true
