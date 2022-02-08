@@ -83,13 +83,13 @@
 
 
                 ;; Circadian
-;; (use-package circadian
-;;   :config
-;;   (setq calendar-latitude 43.59)
-;;   (setq calendar-longitude 12.50)
-;;   (setq circadian-themes '((:sunrise . doom-nord-light)
-;;                            (:sunset  . doom-dracula)))
-;;   (circadian-setup))
+(use-package circadian
+  :config
+  (setq calendar-latitude 43.50)
+  (setq calendar-longitude 13.01)
+  (setq circadian-themes '((:sunrise . doom-nord-light)
+                           (:sunset  . doom-dracula)))
+  (circadian-setup))
 
 
                 ;; Dired
@@ -112,14 +112,19 @@
 
 
                 ;; ORG ENHANEMENT
+;; Automatically change bullet type when indenting
+;; Ex: indenting a + makes the bullet a *.
+(setq org-list-demote-modify-bullet
+      '(("+" . "*") ("*" . "-") ("-" . "+")))
+
 (custom-set-faces
     '(org-level-1 ((t (:inherit outline-1 :height 1.25))))
-    '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
-    '(org-level-3 ((t (:inherit outline-3 :height 1.15))))
-    '(org-level-4 ((t (:inherit outline-4 :height 1.10))))
-    '(org-level-5 ((t (:inherit outline-5 :height 1.05))))
-    '(org-level-6 ((t (:inherit outline-6 :height 1.05))))
-    '(org-document-title ((t (:inherit outline-1 :height 1.25))))
+    ;; '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
+    ;; '(org-level-3 ((t (:inherit outline-3 :height 1.15))))
+    ;; '(org-level-4 ((t (:inherit outline-4 :height 1.10))))
+    ;; '(org-level-5 ((t (:inherit outline-5 :height 1.05))))
+    ;; '(org-level-6 ((t (:inherit outline-6 :height 1.05))))
+    ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
 )
 ;; Stop cycling bullets to emphasize hierarchy of headlines.
 (setq org-superstar-cycle-headline-bullets nil)
@@ -175,6 +180,7 @@
                 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
+(add-hook 'org-mode-hook 'org-appear-mode)
 
                 ;; Spell checking
 (setq ispell-personal-dictionary "~/.local/share/hunspell_personal")

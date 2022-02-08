@@ -14,13 +14,14 @@ remaps &
 dunst &
 unclutter &
 numlockx &
-# QsyncthingTray &
-redshift -l 43.59:12.50 -t 5700:3600 -g 0.8 -m randr &
+redshift -l 43.50:13.01 -t 5700:3600 -g 0.8 -m randr &
 clipmenud &
 # caffeine &
 timeOnPc start &
 xautolock -time 15 -notify 180 -notifier "notify-send -u critical -t 180000 'System will be locked' '3 minute left'" -locker 'doas zzz' &
 blacklist on &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"
-emacs --daemon &
 echo "\a" >/dev/tty5 # beep
+emacs --daemon &
+# QSyncthingTray &
+doas tlp start

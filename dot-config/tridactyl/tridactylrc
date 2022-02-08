@@ -9,11 +9,11 @@ set searchurls.g https://www.google.com/search?q=%s
 set searchurls.y https://yewtu.be/search?q=%s
 set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
 
-bind ,a hint -W exclaim_quiet dmpv aplay
-bind ,e hint -W exclaim_quiet dmpv enqueue
-bind ,p hint -W exclaim_quiet dmpv eplay
-bind ,t hint -W exclaim_quiet transadd
-bind ,c hint -W exclaim_quiet clipf
+bind ",a" hint -W exclaim_quiet dmpv aplay
+bind ",e" hint -W exclaim_quiet dmpv enqueue
+bind ",p" hint -W exclaim_quiet dmpv eplay
+# bind ",t" hint -W exclaim_quiet transadd
+bind ",c" hint -W exclaim_quiet clipf
 
 set hintfiltermode vimperator-reflow
 set hintnames short chars

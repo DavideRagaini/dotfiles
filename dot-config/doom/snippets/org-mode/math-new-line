@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: math-new-line
+# key: ,$$
+# --
+$$ $0 $$

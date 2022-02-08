@@ -50,6 +50,7 @@
 ;(unpin! t)
 
 (package! ox-epub)
-;; (package! circadian)
+(package! circadian)
 (package! dired-single)
 (package! dired-open)
+(package! org-appear)
