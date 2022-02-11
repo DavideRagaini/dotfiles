@@ -34,6 +34,7 @@ zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]
 PROMPT=" %B%{$fg[magenta]%}%~ %{$fg[blue]%}❯%{$fg[magenta]%}❯%{$fg[red]%}❯%b "
 RPROMPT="%(?:: %F{1}✘ %?)"
 RPROMPT+="\$vcs_info_msg_0_ "
+RPROMPT+="%{$fg[green]%}[%D{%T}]"
 SPROMPT="Correct %F{1}%R%f to %F{2}%r%f [nyae]? "
 
 # TODO look into this for more colors
