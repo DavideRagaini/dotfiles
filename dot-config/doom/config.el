@@ -131,12 +131,6 @@
 ;; Hide away leading stars on terminal.
 (setq org-superstar-leading-fallback ?\s)
 
-
-                ;; Org Agenda
-(setq org-agenda-start-with-log-mode t)
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
-
 (use-package org-fancy-priorities
   :hook
   (org-mode . org-fancy-priorities-mode)

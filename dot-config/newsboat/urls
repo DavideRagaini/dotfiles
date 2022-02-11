@@ -8,17 +8,14 @@ https://yewtu.be/feed/channel/UCWKJtC_ekM-CUg3kB9-5gZw "~STEM Liberi Oltre"
 https://yewtu.be/feed/channel/UCRCWJCFoZUvkkWzIqzfBy6g "~Nova Lectio"
 # https://yewtu.be/feed/channel/UCrdEJmK5bgFte04-UF7o29Q "~Liberi Oltre"
 # https://yewtu.be/feed/channel/UCNSFH6m4JlzexDWxJSniqMg "~Agorà Liberi Oltre"
+"---Text Editor---"
+https://odysee.com/$/rss/@SystemCrafters:e "~System Crafters"
+https://yewtu.be/feed/channel/UCZ4HO8or08HUGUzA0w8Tagw "Flux Harmonic"
 "---Linux---"
 https://yewtu.be/feed/channel/UC9x0AN7BWHpCDHSm9NiJFJQ "~NetworkChuck"
 https://yewtu.be/feed/channel/UCJetJ7nDNLlEzDLXv7KIo0w "~Gavin Freeborn"
 https://yewtu.be/feed/channel/UCR-DXc1voovS8nhAvccRZhg "~Jeff Geerling"
 https://yewtu.be/feed/channel/UCnDDucQDLncrauOCmanCIgw "~Morro"
-"---Void-Linux---"
-https://voidlinux.org/atom.xml
-https://github.com/void-linux/xbps/commits/master.atom
-"---Text Editor---"
-https://odysee.com/$/rss/@SystemCrafters:e "~System Crafters"
-https://yewtu.be/feed/channel/UCZ4HO8or08HUGUzA0w8Tagw "Flux Harmonic"
 "---STEM---"
 https://odysee.com/$/rss/@veritasium:f "~Veritasium"
 https://odysee.com/$/rss/@3Blue1Brown:b "~3Blue1Brown"
@@ -48,6 +45,9 @@ https://yewtu.be/feed/channel/UCyDZai57BfE_N0SaBkKQyXg "~Rob Scallon"
 https://yewtu.be/feed/channel/UCjewxGh1Gx5i5Uzxn0v-TPw "~The Punk Rock MBA"
 https://yewtu.be/feed/channel/UCSr_y4ax0ZOf4MNrVnZEH5A "~Mavrus"
 http://www.ottonepesante.it/?feed=gigpress "~Ottone Pesante"
+"---Void-Linux---"
+https://voidlinux.org/atom.xml
+https://github.com/void-linux/xbps/commits/master.atom
 "---Software---"
 https://blog.qutebrowser.org/feeds/all.rss.xml
 https://github.com/LukeSmithxyz/voidrice/commits.atom
