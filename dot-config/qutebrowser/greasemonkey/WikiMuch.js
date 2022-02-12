@@ -457,6 +457,7 @@ html.dark .toccolours { border-color: #1c1c1b !important }
 
 document.addEventListener('DOMContentLoaded', function() {
   darkMode();
+  tocOff();
 
 	var tabs = document.getElementById('p-views').getElementsByTagName('ul')[0];
 	var talk = document.getElementById('ca-talk');
@@ -503,6 +504,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!GM_getValue(pref)) GM_setValue(pref, eval(pref));
 });
 
+tocOff() {
+	var toc = document.getElementById('toc');
+	document.getElementById('content').style.marginLeft = '0px';
+	if (toc) toc.style.display = 'none';
+	if (plang) plang.style.display = 'none';
+}
+
 document.addEventListener('keydown', function(e) {
 	if (e.altKey || e.ctrlKey || e.shiftKey) return;
 	switch(e.key) {
@@ -514,9 +522,7 @@ document.addEventListener('keydown', function(e) {
 				if (toc) toc.style.display = '';
 				if (plang) plang.style.display = '';
 			} else {
-				document.getElementById('content').style.marginLeft = '0px';
-				if (toc) toc.style.display = 'none';
-				if (plang) plang.style.display = 'none';
+				tocOff();
 			}
 			break;
 		case 'F9':
