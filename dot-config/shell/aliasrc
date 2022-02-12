@@ -64,7 +64,7 @@ alias \
     gu="git push" \
     scommitf="fzf --multi --ansi --preview='head -20 {+}' &&
 		git log --oneline |
-		fzf --multi --preview --ansi 'git show {+1}'"
+		fzf --multi --ansi --preview='git show {+1}'"
 # gua="git remote | xargs -L1 git push --all"
 
 gcl() {
@@ -73,7 +73,7 @@ gcl() {
 
 # xbps-install & upgrade
 alias \
-    xi="doas xbps-install -S" \
+    xbi="doas xbps-install -S" \
     xu="doas xbps-install -Su"
 
 sxi() {

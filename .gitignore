@@ -23,6 +23,9 @@ dot-config/nvim/pythonpath.vim
 dot-config/nvim/session/
 dot-config/nvim/tags*
 dot-config/nvim/vimspector-config/*
+dot-config/pipe-viewer/cli-history.txt
+dot-config/pipe-viewer/playlists/
+dot-config/pipe-viewer/watched.txt
 dot-config/qutebrowser/__pycache__
 dot-config/qutebrowser/autoconfig.yml
 dot-config/qutebrowser/greasemonkey/disabled

@@ -2,7 +2,6 @@ config.load_autoconfig()
 # ======================= Imports ============= {{{
 import dracula  # User Interface
 from os import environ  # User Defined Bindings
-
 # }}}
 # ======================= User Defined Bindings ============= {{{
 c.bindings.commands["normal"] = {
@@ -12,7 +11,7 @@ c.bindings.commands["normal"] = {
     ",p": "hint links spawn --detach dmpv eplay '{hint-url}'",
     ",s": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
     ",t": "hint links spawn transadd '{hint-url}'",
-    ",v": 'hint links spawn funnel "{hint-url}"',
+    # ",g": 'hint links spawn funnel "{hint-url}"',
     ",z": "zoom 200",
     ",V": 'hint links spawn + environ["BROWSER"] + {hint-url}',
     ",\\": 'spawn dmenuhandler "{url}"',
@@ -108,11 +107,11 @@ c.fileselect.single_file.command = fileselect_cmd
 # }}}
 # ======================= Dark Mode ============= {{{
 # c.colors.webpage.prefers_color_scheme_dark = True
-c.colors.webpage.darkmode.enabled = True
-c.colors.webpage.darkmode.algorithm = 'lightness-hsl'
-c.colors.webpage.darkmode.contrast = -.022
+# c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.algorithm = "lightness-hsl"
+c.colors.webpage.darkmode.contrast = -0.022
 c.colors.webpage.darkmode.threshold.text = 150
 c.colors.webpage.darkmode.threshold.background = 100
-c.colors.webpage.darkmode.policy.images = 'always'
+c.colors.webpage.darkmode.policy.images = "always"
 c.colors.webpage.darkmode.grayscale.images = 0.35
 # }}}
