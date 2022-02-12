@@ -1,32 +1,23 @@
    # Active
-ActivityWatch Web Watcher
-AutoFullscreen
-ClearURLs
+Auto Tab Discard
 Dark Reader
-HTTPS Everywhere
-Keepa
-LocalCDN
-New Tab Suspender
-Privacy Badger
-SponsorBlock YT
+Librewolf Updater
+Smart Referer
 Tridactyl
 uBlock Origin
-uMatrix
-Universal Bypass
-Video Speed Controller
 Violentmonkey
 
    # Disabled
-Channel Blocker
+ClearURLs
+Keepa
+LocalCDN
+Privacy Badger
 Simple mass downloader
-
-   # Removed
-Decentraleyes
-Ghostery
-New Tab Redirect
-Tampermonkey
-Vimium
+uMatrix
+Universal Bypass
 
    # Chromium
 Chromium Web Store
 The Great Suspender
+Vimium
+Tampermonkey
