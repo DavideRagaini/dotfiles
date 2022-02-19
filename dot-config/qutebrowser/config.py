@@ -42,6 +42,7 @@ c.url.searchengines = {
     "a": "https://wiki.archlinux.org/?search={}",
     "d": "https://duckduckgo.com/?q={}",
     "g": "https://www.google.com/search?q={}",
+    "i": "https://searx.nevrlands.de/search?q={}&language=it-IT",
     "s": "https://startpage.com/sp/search?query={}",
     "u": "https://www.urbandictionary.com/define.php?term={}",
     "w": "https://en.wikipedia.org/?search={}",
