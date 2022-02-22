@@ -26,14 +26,14 @@ cmd open ${{
 	*.rar) unrar l "$f" | less ;;
 	*.7z) 7z l "$f" | less ;;
 	# *) notify-send "No Mime Type set" ;;
-	*) case "$(file --mime-type $f -b)" in
+	*) case $(file --mime-type "$(readlink -f $f)" -b) in
 		audio/*) mpv $f ;;
 		application/epub+zip) "$READER" $f &;;
 		application/json) "$EDITOR" $fx ;;
-		image/vnd.djvu|application/pdf|application/octet-stream) setsid "$READER" $fx >/dev/null 2>&1 & ;;
 		application/pgp-encrypted) "$EDITOR" $fx ;;
 		image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
 		image/svg+xml) display -- $f ;;
+		image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
 		image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
 		text/html) "$BROWSER" $f ;;
 		text/*) emacsclient -ct -a 'nvim' $f ;;
@@ -72,7 +72,7 @@ cmd moveto ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	clear; echo "Move to where?"
-	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
 	for x in $fx; do
 		eval mv -iv \"$x\" \"$dest\"
 	done &&
@@ -83,7 +83,7 @@ cmd copyto ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	clear; echo "Copy to where?"
-	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
 	for x in $fx; do
 		eval cp -ivr \"$x\" \"$dest\"
 	done &&
@@ -219,7 +219,7 @@ map C copyto
 map D delete
 map E extract
 map I push A<c-a> # at the very beginning
-map J $lf -remote "send $id cd $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcuts | sed 's/^.*cd //g' | fzf)"
+map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 map M moveto
 map Pp :link
