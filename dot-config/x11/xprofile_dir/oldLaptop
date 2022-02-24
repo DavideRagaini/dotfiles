@@ -2,17 +2,17 @@
 
 export BROWSER="qutebrowser"
 
-mpd &
-remaps &		# run the remaps script, switching caps/esc and more; check it for more info
-setbg &			# set the background with the `setbg` script
-dunst &			# dunst for notifications
-unclutter &		# Remove mouse when idle
-
+setbg &
+dunst &
+unclutter &
+[ ! -s ~/.config/mpd/pid ] && mpd  &
+remaps &
+clipmenud &
 timeOnPc start
 libinput-gestures-setup start
-# sudo rfkill block wlan
-# sudo tlp bat
-blacklist on
-notify-send -i /home/davide/.config/Icons/UserImg.png "<Welcome>" "Today is a great day to suck...less"
+redshift -l 43.5943:12.5034 -t 5700:3600 -g 0.8 -m randr &
+xautolock -time 15 -notify 180 -notifier "notify-send -u critical -t 180000 'System will be locked' '3 minute left'" -locker 'doas zzz' &
+blacklist on &
+notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"
 emacs --daemon &
 syncthing &
