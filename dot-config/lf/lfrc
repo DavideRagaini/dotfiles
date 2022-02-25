@@ -20,7 +20,7 @@ cmd open ${{
 	*.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
 	*.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" & ;;
 	*.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
-	*.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
+	*.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
 	*.tar*) tar tf "$f" | less ;;
 	*.zip) unzip -l "$f" | less ;;
 	*.rar) unrar l "$f" | less ;;
@@ -34,7 +34,7 @@ cmd open ${{
 		image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
 		image/svg+xml) display -- $f ;;
 		image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
-		image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select & ;;
+		image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
 		text/html) "$BROWSER" $f ;;
 		text/*) emacsclient -ct -a 'nvim' $f ;;
 		video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
