@@ -1,8 +1,8 @@
 set allowautofocus false
 set smoothscroll false
 set theme quake
-# set newtab https://unsplash.it/1920/1080?random
 
+set searchengine https://searx.be/search?q=%s
 set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
 set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s
 set searchurls.g https://www.google.com/search?q=%s
