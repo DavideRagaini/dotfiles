@@ -1,2 +1,0 @@
-#!/bin/sh
-exec chpst -u davide svlogd -tt /opt/log/emacs

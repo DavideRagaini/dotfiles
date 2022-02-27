@@ -23,6 +23,7 @@ window:
   dimensions:
     columns: 150
     lines: 40
+  opacity: 0.80
 
 scrolling:
   history: 10000
@@ -46,7 +47,6 @@ key_bindings:
   - { key: Minus, mods: Control, action: DecreaseFontSize }
   - { key: N, mods: Control|Alt, action: SpawnNewInstance }
 
-background_opacity: 0.88
 
 # Colors (Dracula)
 colors:

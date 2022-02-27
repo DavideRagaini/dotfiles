@@ -65,8 +65,8 @@
 (blink-cursor-mode 1)
 (setq confirm-kill-emacs nil)
 
- ;; (set-frame-parameter (selected-frame) 'alpha '(90))
- ;; (add-to-list 'default-frame-alist '(alpha . (90)))
+ (set-frame-parameter (selected-frame) 'alpha '(90))
+ (add-to-list 'default-frame-alist '(alpha . (90)))
 
 ;; (use-package counsel
 ;;   :bind (("C-M-j" . 'counsel-switch-buffer)))
@@ -82,16 +82,6 @@
    ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl t)))
 
 
-                ;; Circadian
-(use-package circadian
-  :config
-  (setq calendar-latitude 43.50)
-  (setq calendar-longitude 13.01)
-  (setq circadian-themes '((:sunrise . doom-nord-light)
-                           (:sunset  . doom-dracula)))
-  (circadian-setup))
-
-
                 ;; Dired
 (use-package dired
   :commands (dired dired-jump)
@@ -102,13 +92,6 @@
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
 (use-package dired-single)
-
-(use-package dired-open
-  :config
-  ;; Doesn't work as expected!
-  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
-  (setq dired-open-extensions '(("png" . "sxiv")
-                                ("mkv" . "mpv"))))
 
 
                 ;; ORG ENHANEMENT

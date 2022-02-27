@@ -1,0 +1,2 @@
+#!/bin/sh
+/bin/emacs -u davide --fg-daemon

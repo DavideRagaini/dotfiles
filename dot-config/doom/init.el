@@ -37,7 +37,7 @@
        ;;hydra
        indent-guides       ; highlighted indent columns
        ;;minimap           ; show a map of the code on the side
-       (ligatures +extra)  ; ligatures and symbols to make your code pretty again
+       (ligatures +extra +iosevka)  ; ligatures and symbols to make your code pretty again
        modeline            ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim

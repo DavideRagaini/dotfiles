@@ -49,8 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! ox-epub)
-(package! circadian)
+;; (package! ox-epub)
 (package! dired-single)
-(package! dired-open)
+;; (package! dired-open)
 (package! org-appear)

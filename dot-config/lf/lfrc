@@ -36,7 +36,7 @@ cmd open ${{
 		image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
 		image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
 		text/html) "$BROWSER" $f ;;
-		text/*) emacsclient -ct -a 'nvim' $f ;;
+		text/*) nvim $f ;;
 		video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
 		*) xdg-open $f ;;
 		# *) notify-send "No Mime Type set" ;;
@@ -231,6 +231,7 @@ map Yd yank-dirname
 map Yp yank-path
 map b $vidir
 map c $vl $f
+map e &e "$f"
 map gg top
 map o push :open-with<space>
 map Pa async_paste

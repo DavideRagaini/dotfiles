@@ -34,8 +34,9 @@ dot-config/ranger/__pycache__
 dot-config/ranger/shortcuts.conf
 dot-config/shell/shortcutrc
 dot-config/shell/zshnameddirrc
+dot-config/sv/emacs-daemon/supervise
+dot-config/sv/runsvdir-davide/supervise
 dot-config/x11/xresources
-dot-config/x11/xprofile
 dot-config/x11/zprofile
 !dot-config/timewarrior/timewarrior.cfg
 dot-config/timewarrior/data
