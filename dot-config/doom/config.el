@@ -58,6 +58,18 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(let ((x (system-name)))
+  (cond
+   ((string-equal x "VoiD")
+    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 18)
+          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 20)))
+   ((string-equal x "void")
+    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 12)
+          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 14)))
+   (nil
+    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 16)
+          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 18)))
+   ))
 
                 ;; Global
 (setq scroll-margin 2)
