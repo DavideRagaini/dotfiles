@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export USER="davide"
-export HOME="/home/davide"
+export USER="$(cat /etc/passwd | grep 1000 | cut -d':' -f1)"
+export HOME="/home/$USER"
 
 groups="$(id -Gn "$USER" | tr ' ' ':')"
 svdir="$HOME/.local/service"

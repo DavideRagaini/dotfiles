@@ -14,8 +14,8 @@ else
 	. "$HOME/.xprofile"
 fi
 
-pipewire &
-pipewire-pulse &
+# pipewire &
+# pipewire-pulse &
 dwmblocks &
 
 # test for an existing bus daemon, just to be safe

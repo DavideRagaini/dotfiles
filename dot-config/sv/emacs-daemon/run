@@ -1,2 +1,4 @@
 #!/bin/sh
-/bin/emacs -u davide --fg-daemon
+
+[ -r ./conf ] && . ./conf
+exec emacs -u $USER --chdir=$HOME --fg-daemon ${OPTS:-}

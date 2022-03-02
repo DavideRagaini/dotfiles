@@ -1,0 +1,7 @@
+#!/bin/sh
+
+[ -r ./conf ] && . ./conf
+export DISPLAY=:0
+export XAUTHORITY="$HOME/.config/Xauthority"
+exec redshift ${OPTS:-} 2>&1
+# exec redshift -v

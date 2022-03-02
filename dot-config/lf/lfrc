@@ -231,7 +231,7 @@ map Yd yank-dirname
 map Yp yank-path
 map b $vidir
 map c $vl $f
-map e &e "$f"
+map e &em "$f"
 map gg top
 map o push :open-with<space>
 map Pa async_paste

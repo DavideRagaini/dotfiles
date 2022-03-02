@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export DISPLAY=:0
+export XAUTHORITY="$HOME/.config/Xauthority"
+exec unclutter

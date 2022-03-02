@@ -21,11 +21,11 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 18)
-      doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 20)
+;; (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 18)
+;;       doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 20)
       ;; doom-unicode-font (font-spec :family "Input Mono Narrow" :size 12)
       ;; doom-big-font (font-spec :family "FiraMono Nerd Font" :size 30)
-)
+;; )
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -61,8 +61,8 @@
 (let ((x (system-name)))
   (cond
    ((string-equal x "VoiD")
-    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 18)
-          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 20)))
+    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 30)
+          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 32)))
    ((string-equal x "void")
     (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 12)
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 14)))

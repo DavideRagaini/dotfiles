@@ -3,18 +3,6 @@
 [user]
 	email = DavideRagaini@gmail.com
 	name = DavideRagaini
-[diff]
-	tool = nvim
-[difftool]
-	prompt = false
-[difftool "nvim"]
-	cmd = "vim -d -u ~/.config/nvim/init.vim \"$LOCAL\" \"$REMOTE\""
-[merge]
-	tool = nvim
-[mergetool "nvim"]
-  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-[mergetool]
-	prompt = false
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
