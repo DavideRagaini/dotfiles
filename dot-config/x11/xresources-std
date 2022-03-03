@@ -1,7 +1,7 @@
 /* *.alpha: 0.85 */
 /* *cursorColor: magenta */
-Xcursor.theme: oreo_purple_cursors
-Xcursor.size: 32
+/* Xcursor.theme: oreo_purple_cursors */
+/* Xcursor.size: 32 */
 /* Xft.dpi: 96 */
 /* *.font: Iosevka:size=12 */
 /* dmenu.font: Iosevka:size=28 */

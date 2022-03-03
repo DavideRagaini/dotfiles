@@ -3,11 +3,11 @@
 
 # Set brightness values for each status.
 # Range from 1 to 100 is valid
-brightness_day=85
-brightness_transition=50
-brightness_night=30
+brightness_day=25
+brightness_transition=20
+brightness_night=15
 # Set fps for smoooooth transition
-fps=1000
+fps=5000
 # Adjust this grep to filter only the backlights you want to adjust
 backlights=($(xbacklight -list | grep ddcci*))
 

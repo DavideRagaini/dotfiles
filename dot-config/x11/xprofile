@@ -6,11 +6,9 @@ case $(hostname) in
         export BROWSER2="qutebrowser"
         xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
         xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
-        doas intel-undervolt apply &
         ;;
     vDR)
         export BROWSER="qutebrowser"
-        doas intel-undervolt apply &
         xbacklight -set 20 &
         libinput-gestures-setup start &
         bluetooth off &
@@ -28,5 +26,4 @@ timeOnPc start &
 blacklist on &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"
 # xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
-doas tlp start
 echo "\a" >/dev/tty5 # beep

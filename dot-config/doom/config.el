@@ -23,8 +23,8 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 ;; (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 18)
 ;;       doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 20)
-      ;; doom-unicode-font (font-spec :family "Input Mono Narrow" :size 12)
-      ;; doom-big-font (font-spec :family "FiraMono Nerd Font" :size 30)
+;; doom-unicode-font (font-spec :family "Input Mono Narrow" :size 12)
+;; doom-big-font (font-spec :family "FiraMono Nerd Font" :size 30)
 ;; )
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -66,35 +66,31 @@
    ((string-equal x "void")
     (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 12)
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 14)))
-   (nil
+   ((string-equal x "vDR")
     (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 16)
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 18)))
    ))
 
-                ;; Global
+;; Global
 (setq scroll-margin 2)
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (setq confirm-kill-emacs nil)
+(global-auto-revert-mode 1)
 
- (set-frame-parameter (selected-frame) 'alpha '(90))
- (add-to-list 'default-frame-alist '(alpha . (90)))
-
-;; (use-package counsel
-;;   :bind (("C-M-j" . 'counsel-switch-buffer)))
-         ;; :map minibuffer-local-map
-         ;; ("C-M-r" . 'counsel-minibuffer-history)))
+(set-frame-parameter (selected-frame) 'alpha '(90))
+(add-to-list 'default-frame-alist '(alpha . (90)))
 
 (set-popup-rules!
- '(("^ \\*" :slot -1) ; fallback rule for special buffers
-   ("^\\*" :select t)
-   ("^\\*Completions" :slot -1 :ttl 0)
-   ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)
-   ("^\\*Help" :slot -1 :size 0.2 :select t)
-   ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl t)))
+  '(("^ \\*" :slot -1) ; fallback rule for special buffers
+    ("^\\*" :select t)
+    ("^\\*Completions" :slot -1 :ttl 0)
+    ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)
+    ("^\\*Help" :slot -1 :size 0.2 :select t)
+    ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl t)))
 
 
-                ;; Dired
+;; Dired
 (use-package dired
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
@@ -106,21 +102,21 @@
 (use-package dired-single)
 
 
-                ;; ORG ENHANEMENT
+;; ORG ENHANEMENT
 ;; Automatically change bullet type when indenting
 ;; Ex: indenting a + makes the bullet a *.
 (setq org-list-demote-modify-bullet
       '(("+" . "*") ("*" . "-") ("-" . "+")))
 
 (custom-set-faces
-    '(org-level-1 ((t (:inherit outline-1 :height 1.25))))
-    ;; '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
-    ;; '(org-level-3 ((t (:inherit outline-3 :height 1.15))))
-    ;; '(org-level-4 ((t (:inherit outline-4 :height 1.10))))
-    ;; '(org-level-5 ((t (:inherit outline-5 :height 1.05))))
-    ;; '(org-level-6 ((t (:inherit outline-6 :height 1.05))))
-    ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
-)
+ '(org-level-1 ((t (:inherit outline-1 :height 1.25))))
+ ;; '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
+ ;; '(org-level-3 ((t (:inherit outline-3 :height 1.15))))
+ ;; '(org-level-4 ((t (:inherit outline-4 :height 1.10))))
+ ;; '(org-level-5 ((t (:inherit outline-5 :height 1.05))))
+ ;; '(org-level-6 ((t (:inherit outline-6 :height 1.05))))
+ ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
+ )
 ;; Stop cycling bullets to emphasize hierarchy of headlines.
 (setq org-superstar-cycle-headline-bullets nil)
 ;; Hide away leading stars on terminal.
@@ -145,31 +141,31 @@
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
                         '(("^ *\\([-]\\) "
-                          (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 ;; (require 'org-habit)
 (add-to-list 'org-modules 'org-habit)
 (setq org-habit-graph-column 60)
 
 (setq org-tag-alist
-  '((:startgroup)
-     ; Put mutually exclusive tags here
-     ("@errand" . ?E)
-     ("@home" . ?H)
-     ("@work" . ?W)
-     (:endgroup)
-     ("batch" . ?b)
-     ("fix" . ?f)
-     ("improve" . ?m)
-     ("note" . ?n)))
+      '((:startgroup)
+                                        ; Put mutually exclusive tags here
+        ("@errand" . ?E)
+        ("@home" . ?H)
+        ("@work" . ?W)
+        (:endgroup)
+        ("batch" . ?b)
+        ("fix" . ?f)
+        ("improve" . ?m)
+        ("note" . ?n)))
 
 (setq org-refile-targets
-  '(("Archive.org" :maxlevel . 1)
-    ("Tasks.org" :maxlevel . 1)))
-                ;; Save Org buffers after refiling!
+      '(("Archive.org" :maxlevel . 1)
+        ("Tasks.org" :maxlevel . 1)))
+;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 (add-hook 'org-mode-hook 'org-appear-mode)
 
-                ;; Spell checking
+;; Spell checking
 (setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
