@@ -361,11 +361,11 @@ def_key "f"
 #def_key "Z"
 #  shuffle
 #
-#def_key "x"
-#  toggle_crossfade
+def_key "X"
+ toggle_crossfade
 #
-#def_key "X"
-#  set_crossfade
+def_key "ctrl-x"
+ set_crossfade
 #
 #def_key "u"
 #  update_database

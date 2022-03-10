@@ -32,9 +32,7 @@ c.tabs.show = "switching"
 startpage = "file://" + environ["HOME"] + "/.local/src/startpage/index.html"
 c.url.default_page = startpage
 c.url.start_pages = [startpage]
-c.window.title_format = (
-    "{private}{perc}[{scroll_pos}]:{current_url}{title_sep}{current_title}"
-)
+c.window.title_format = ("{private}{perc}[{scroll_pos}]:{current_url}{title_sep}{current_title}")
 # }}}
 # ======================= Search Engines ============= {{{
 c.url.searchengines = {
@@ -71,17 +69,11 @@ c.bindings.commands["insert"] = {
     "<Ctrl-h>": "fake-key <Backspace>",
     "<Ctrl-a>": "fake-key <Home>",
     "<Ctrl-e>": "fake-key <End>",
-    "<Ctrl-b>": "fake-key <Left>",
-    "<Mod1-b>": "fake-key <Ctrl-Left>",
-    "<Ctrl-f>": "fake-key <Right>",
-    "<Mod1-f>": "fake-key <Ctrl-Right>",
-    "<Ctrl-p>": "fake-key <Up>",
-    "<Ctrl-n>": "fake-key <Down>",
-    "<Mod1-d>": "fake-key <Ctrl-Delete>",
+    "<Ctrl-j>": "fake-key <Left>",
+    "<Ctrl-k>": "fake-key <Right>",
     "<Ctrl-d>": "fake-key <Delete>",
-    "<Ctrl-w>": "fake-key <Ctrl-Backspace>",
     "<Ctrl-u>": "fake-key <Shift-Home><Delete>",
-    "<Ctrl-k>": "fake-key <Shift-End><Delete>",
+    "<Ctrl-i>": "fake-key <Shift-End><Delete>",
     "<Ctrl-x><Ctrl-e>": "edit-text",
 }
 # }}}
@@ -107,7 +99,6 @@ c.fileselect.multiple_files.command = fileselect_cmd
 c.fileselect.single_file.command = fileselect_cmd
 # }}}
 # ======================= Dark Mode ============= {{{
-# c.colors.webpage.prefers_color_scheme_dark = True
 # c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.algorithm = "lightness-hsl"
 c.colors.webpage.darkmode.contrast = -0.022

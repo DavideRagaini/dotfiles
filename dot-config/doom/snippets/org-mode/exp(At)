@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: exp(At)
+# key: ,eat
+# --
+
+e^{At}$0

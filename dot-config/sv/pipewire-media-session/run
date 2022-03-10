@@ -1,9 +1,6 @@
 #!/bin/sh
 
-export XDG_RUNTIME_DIR="$HOME/.cache"
-# Wait for the PipeWire daemon to start.
 sv check "${XDG_CONFIG_HOME:-$HOME/.config}/sv/pipewire" >/dev/null || exit 1
-
 [ -r ./conf ] && . ./conf
 
 if [ "${LOGGING_ENABLE}x" = "1x" -a -n "${LOG_LEVEL}" ]; then

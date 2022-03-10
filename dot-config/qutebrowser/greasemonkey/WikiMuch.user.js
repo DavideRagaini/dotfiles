@@ -3,12 +3,14 @@
 // @namespace   https://greasyfork.org
 // @description Wikipedia clean and minimal theme. Press B to show/hide sidebar. Press F9 for dark mode. Custom fonts can be set via userscript variables mainFont, textFont and monoFont. Inspired by https://userstyles.org/styles/102164 and https://greasyfork.org/en/scripts/10731.
 // @author      Guillaume
-// @version     2.2.1
+// @version     2.3.3
 // @icon        https://github.com/ltGuillaume/WikiMuch/raw/master/logo.png
 // @match       *://*.wikipedia.org/w/*
 // @match       *://*.wikipedia.org/wiki/*
 // @match       *://*.wikiless.org/w/*
 // @match       *://*.wikiless.org/wiki/*
+// @match       *://*.emacswiki.org/w/*
+// @match       *://*.emacswiki.org/wiki/*
 // @homepageURL https://greasyfork.org/scripts/31127
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -60,6 +62,13 @@ dd, ol, p, ul {
 	font-family: ${textFont} !important;
 	letter-spacing: -.0075em;
 	line-height: 1.5 !important;
+}
+table:not(.infobox):not(.sidebar).wikitable thead,
+tr:first-child th:not(.infobox-above):not(.summary) {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1;
 }
 table, td, th {
 	border: 0 !important;
@@ -125,7 +134,7 @@ select { padding: 0 10px }
 }
 #wpSave:hover, #wpPreview:hover, #wpDiff:hover { color: rgba(52, 123, 255, .5) !important }
 #p-personal, #ca-view, #ca-edit, #ca-talk { display: none }
-#right-navigation { margin-top: .5em }
+#right-navigation { margin-top: .5em !important }
 /* Search */
 #simpleSearch {
 	border: 1px solid rgba(0, 0, 0, .25) !important;
@@ -255,7 +264,8 @@ table:not(.navbox-subgroup):not(.ambox), .infobox, .mbox-small, .navbox, .quoteb
 	border-collapse: collapse !important;
 	color: #333;
 }
-.mwe-popups { background: #f9f9f9 !important }
+.mwe-popups p { line-height: 19.5px !important }
+.mwe-popups-container { background: #f9f9f9 !important }
 .mwe-popups-extract[dir="ltr"]:after { background-image: linear-gradient(to right, rgba(249,249,249,0), #f9f9f9 50%) !important }
 .mwe-popups-extract[dir="rtl"]:after { background-image: linear-gradient(to left, rgba(249,249,249,0),#f9f9f9 50%) !important }
 .infobox td, .infobox th, .tright td, .tright th, .toccolours td, .toccolours th {
@@ -416,6 +426,9 @@ div.toctitle { text-decoration: none !important }
 	color: #222 !important;
 	outline: none;
 }
+.hlist #toc li::after {
+	display: none;
+}
 /* hide protected lock */
 div#protected-icon { display: none !important }
 
@@ -457,7 +470,6 @@ html.dark .toccolours { border-color: #1c1c1b !important }
 
 document.addEventListener('DOMContentLoaded', function() {
   darkMode();
-  tocOff();
 
 	var tabs = document.getElementById('p-views').getElementsByTagName('ul')[0];
 	var talk = document.getElementById('ca-talk');
@@ -504,13 +516,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!GM_getValue(pref)) GM_setValue(pref, eval(pref));
 });
 
-tocOff() {
-	var toc = document.getElementById('toc');
-	document.getElementById('content').style.marginLeft = '0px';
-	if (toc) toc.style.display = 'none';
-	if (plang) plang.style.display = 'none';
-}
-
 document.addEventListener('keydown', function(e) {
 	if (e.altKey || e.ctrlKey || e.shiftKey) return;
 	switch(e.key) {
@@ -522,7 +527,7 @@ document.addEventListener('keydown', function(e) {
 				if (toc) toc.style.display = '';
 				if (plang) plang.style.display = '';
 			} else {
-				tocOff();
+				TOCoff();
 			}
 			break;
 		case 'F9':
@@ -533,9 +538,16 @@ document.addEventListener('keydown', function(e) {
 	}
 });
 
+function TOCoff() {
+	document.getElementById('content').style.marginLeft = '0px';
+	if (toc) toc.style.display = 'none';
+	if (plang) plang.style.display = 'none';
+}
+
 function darkMode() {
 	if (GM_getValue('darkMode')) document.documentElement.classList.add('dark');
 	else document.documentElement.classList.remove('dark');
 }
 
 darkMode();
+TOCoff();

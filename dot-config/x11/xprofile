@@ -23,7 +23,4 @@ remaps &
 setbg &
 numlockx &
 timeOnPc start &
-blacklist on &
 notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"
-# xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
-echo "\a" >/dev/tty5 # beep

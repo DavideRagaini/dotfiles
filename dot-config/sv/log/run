@@ -1,0 +1,6 @@
+#!/bin/sh
+
+PS="$(pwd | rev | cut -d'/' -f2 | rev)"
+LOG="${LOG_DIR:-$HOME/.local/share/log}/$PS"
+[ -d "$LOG" ] || mkdir -p "$LOG"
+exec svlogd -tt "$LOG"

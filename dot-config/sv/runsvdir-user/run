@@ -1,7 +1,16 @@
 #!/bin/sh
 
+sleep 20
+while [ $(pidof -qs Xorg) ]; do
+    sleep 5
+done
+
 export USER="$(cat /etc/passwd | grep 1000 | cut -d':' -f1)"
 export HOME="/home/$USER"
+export XDG_RUNTIME_DIR="$HOME/.cache"
+export LOG_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/log"
+export DISPLAY=:0
+export XAUTHORITY="$HOME/.config/Xauthority"
 
 groups="$(id -Gn "$USER" | tr ' ' ':')"
 svdir="$HOME/.local/service"

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:inverse
+# key: ,inv
+# --
+
+$1^{-$2}$3

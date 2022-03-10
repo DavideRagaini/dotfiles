@@ -1,8 +1,4 @@
 #!/bin/sh
 
-# Wait for the PipeWire daemon to start.
 sv check "${XDG_CONFIG_HOME:-$HOME/.config}/sv/pipewire" >/dev/null || exit 1
-
-[ -r ./conf ] && . ./conf
-export XDG_RUNTIME_DIR="/home/$USER/.cache"
-exec mpd --no-daemon --stderr ${OPTS:-} 2>&1
+exec mpd --no-daemon
