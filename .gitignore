@@ -5,11 +5,13 @@ dot-config/lf/shortcuts
 !dot-config/mpd/mpd.conf
 dot-config/mpd/**
 
-dot-config/mpv/**
+dot-config/mpv/last
+dot-config/mpv/playlists
+dot-config/mpv/scripts/sponsorblock_shared
+dot-config/mpv/watch_later
 !dot-config/mpv/scripts
 !dot-config/mpv/input.conf
 !dot-config/mpv/mpv.conf
-!dot-config/mpv/scripts/sponsorblock_shared
 !dot-config/mpv/queue
 
 dot-config/ncmpcpp/error.log
