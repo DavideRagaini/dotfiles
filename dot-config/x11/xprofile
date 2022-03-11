@@ -13,9 +13,9 @@ case $(hostname) in
         libinput-gestures-setup start &
         bluetooth off &
         ;;
-    v)
+    void)
         export BROWSER="librewolf"
-        libinput-gestures-setup start
+        libinput-gestures-setup start &
         ;;
 esac
 
