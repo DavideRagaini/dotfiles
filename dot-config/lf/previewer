@@ -21,12 +21,12 @@ case "$(basename "$FILE_PATH" | tr '[:upper:]' '[:lower:]')" in
 	*.zip) unzip -l "$FILE_PATH" ;;
 	*.rar) unrar l "$FILE_PATH" ;;
 	*.7z) 7z l "$FILE_PATH" ;;
-	*.torrent) transmission-show "$1" ;;
-	*.o) nm "$1" | less ;;
+	*.torrent) transmission-show "${FILE_PATH}" ;;
+	*.o) nm "${FILE_PATH}" | less ;;
 	*.docx | *.odt | *.epub) pandoc -s -t plain -- "$FILE_PATH" | head -n 100 ;;
 	*.djvu | *.djv)
 		thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
-		ddjvu -format=pdf -quality=90 -page=1 "$FILE_PATH" "$thumbnail.pdf"
+		ddjvu -format=pdf -quality=90 -page=1 "${FILE_PATH}" "$thumbnail.pdf"
 		gs -o "$thumbnail" -sDEVICE=pngalpha -dLastPage=1 "$thumbnail.pdf" >/dev/null
 		preview "$thumbnail" "$@"
 		;;
@@ -47,16 +47,15 @@ case "$(basename "$FILE_PATH" | tr '[:upper:]' '[:lower:]')" in
 		;;
 esac
 
-# case "$(FILE_PATH -Lb --mime-type -- "$file")" in
 case "$(file --dereference --brief --mime-type -- "${FILE_PATH}")" in
 	audio/* | application/octet-stream) mediainfo "$FILE_PATH" ;;
 	application/pgp-encrypted) gpg -d -- "${FILE_PATH}" ;;
 	application/zip) atool --list -- "${FILE_PATH}" ;;
 	*opendocument*) odt2txt "${FILE_PATH}" ;;
 	image/*) preview "$FILE_PATH" "$@" ;;
-	text/html) lynx -display_charset=utf-8 -dump "${FILE_PATH_PATH}" | head -n 50 ;;
- 	text/* | */xml | application/json) bat --terminal-width "$4" -f "$1" ;;
 	text/troff) man ./ "${FILE_PATH}" | col -b ;;
+	text/html) lynx -display_charset=utf-8 -dump "${FILE_PATH}" ;;
+ 	text/* | */xml | application/json) bat --line-range :60 -f "${FILE_PATH}" ;;
 	video/*) mediainfo "$FILE_PATH" ;;
 		# thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
 		# ffmpeg -y -i "$FILE_PATH" -vframes 1 "$thumbnail"

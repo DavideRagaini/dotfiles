@@ -20,7 +20,7 @@ c.bindings.commands["normal"] = {
 }
 # }}}
 # ======================= User Interface ============= {{{
-dracula.blood(c, {"spacing": {"vertical": 4, "horizontal": 4}})
+dracula.blood(c, {'spacing': {'vertical': 6, 'horizontal': 8}})
 c.downloads.location.suggestion = "both"
 c.downloads.position = "bottom"
 # c.downloads.remove_finished = 20000
