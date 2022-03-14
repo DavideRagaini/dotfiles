@@ -154,10 +154,13 @@
         ("@home" . ?H)
         ("@work" . ?W)
         (:endgroup)
-        ("batch" . ?b)
-        ("fix" . ?f)
-        ("improve" . ?m)
-        ("note" . ?n)))
+        ("BATCH" . ?b)
+        ("FIX" . ?f)
+        ("IMPROVE" . ?m)
+        ("READ" . ?r)
+        ("STUDY" . ?s)
+        ("THINK" . ?t)
+        ("WATCH" . ?w)))
 
 (setq org-refile-targets
       '(("Archive.org" :maxlevel . 1)

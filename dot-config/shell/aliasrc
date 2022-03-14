@@ -27,7 +27,7 @@ alias \
 
 # Abbreviations
 alias \
-    2f="tmux split -h lf; lf" \
+    2f="tmux split -h lfcd; lfcd" \
     c.="cd .." \
     e="$EDITOR" \
     E="$VISUAL" \
@@ -55,16 +55,16 @@ alias \
 vff() { locate "$1" | fzf | xargs -r -I % "$EDITOR" % }
 
 # git
-alias \
-    g="git" \
-    ga="git add" \
-    gc="git commit -m" \
-    gd="git pull" \
-    gs="git status" \
-    gu="git push" \
-    scommitf="fzf --multi --ansi --preview='head -20 {+}' &&
-		git log --oneline |
-		fzf --multi --ansi --preview='git show {+1}'"
+# alias \
+    # g="git" \
+    # ga="git add" \
+    # gc="git commit -m" \
+    # gd="git pull" \
+    # gs="git status" \
+    # gu="git push" \
+    # scommitf="fzf --multi --ansi --preview='head -20 {+}' &&
+	# 	git log --oneline |
+	# 	fzf --multi --ansi --preview='git show {+1}'"
 # gua="git remote | xargs -L1 git push --all"
 
 gcl() {

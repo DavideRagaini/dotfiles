@@ -15,7 +15,7 @@ mn	/mnt
 mt	/mnt/tmp
 org	$HOME/Org
 pp	${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}
-sb	$HOME/.local/src/dwmblocks
+sb	$HOME/.local/src/dwmblocks-async
 sc	$HOME/.local/bin
 sd	/mnt/sd
 src	$HOME/.local/src

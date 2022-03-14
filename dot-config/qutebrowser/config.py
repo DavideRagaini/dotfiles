@@ -16,6 +16,7 @@ c.bindings.commands["normal"] = {
     ",V": 'hint links spawn + environ["BROWSER"] + {hint-url}',
     ",\\": 'spawn dmenuhandler "{url}"',
     "<y><o>": "yank inline [[{url}][{title}]]",
+    "td": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
 }
 # }}}
 # ======================= User Interface ============= {{{
