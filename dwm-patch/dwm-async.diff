@@ -1,0 +1,44 @@
+diff --git a/config.h b/config.h
+index 40d5a96..726a3e6 100644
+--- a/config.h
++++ b/config.h
+@@ -1,16 +1,27 @@
+-#define CMDLENGTH 60
+-#define DELIMITER "  "
++#define CMDLENGTH 100
++#define DELIMITER " "
++/* #define LEADING_DELIMITER */
+ #define CLICKABLE_BLOCKS
+ 
+ const Block blocks[] = {
+-	BLOCK("sb-mail",    1800, 17),
+-	BLOCK("sb-music",   0,    18),
+-	BLOCK("sb-disk",    1800, 19),
+-	BLOCK("sb-memory",  10,   20),
+-	BLOCK("sb-loadavg", 5,    21),
+-	BLOCK("sb-mic",     0,    26),
+-	BLOCK("sb-record",  0,    27),
+-	BLOCK("sb-volume",  0,    22),
+-	BLOCK("sb-battery", 5,    23),
+-	BLOCK("sb-date",    1,    24)
++	BLOCK("sb-music",         0,    1),
++	BLOCK("sb-spt",           0,    2),
++	BLOCK("sb-cpubars",       1,    0),
++	BLOCK("sb-tlp",           0,    7),
++	BLOCK("sb-cpu",           30,   0),
++	BLOCK("sb-memory",        10,   0),
++	BLOCK("sb-internet",      30,   3),
++	BLOCK("sb-bluethooth",    0,    4),
++	BLOCK("sb-volume",        0,    5),
++	BLOCK("sb-uptime",        60,   0),
++	BLOCK("sb-date",          0,    0),
++	BLOCK("sb-clock",         1,    0)
+ };
++
++/* 1: music */
++/* 2: spt */
++/* 3: internet */
++/* 4: bluetooth */
++/* 5: volume */
++/* 6: backlight */
++/* 7: tlp */

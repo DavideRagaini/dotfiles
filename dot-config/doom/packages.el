@@ -53,3 +53,4 @@
 (package! dired-single)
 ;; (package! dired-open)
 (package! org-appear)
+(package! activity-watch-mode)

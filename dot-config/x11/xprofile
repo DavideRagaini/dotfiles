@@ -23,4 +23,3 @@ remaps &
 setbg &
 numlockx &
 timeOnPc start &
-notify-send -i "${XDG_PICTURES_DIR:-$HOME/Storage/Pictures}/UserImg.jpg" "«Welcome»" "$(date)"

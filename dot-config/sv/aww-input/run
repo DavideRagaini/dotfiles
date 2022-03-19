@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sv check "${XDG_CONFIG_HOME:-$HOME/.config}/sv/aw-server" >/dev/null || exit 1
+cd $HOME/Packages/activitywatch-mod/aw-watcher-input
+exec $HOME/.local/bin/miscellaneous/python/poetry run aw-watcher-input
