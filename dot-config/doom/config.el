@@ -78,8 +78,6 @@
 (setq confirm-kill-emacs nil)
 (global-auto-revert-mode 1)
 (global-activity-watch-mode t)
-(setq centaur-tabs-set-icons t)
-(setq centaur-tabs-set-close-button nil)
 
 (set-frame-parameter (selected-frame) 'alpha '(90))
 (add-to-list 'default-frame-alist '(alpha . (90)))

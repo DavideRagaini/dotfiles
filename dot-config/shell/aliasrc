@@ -22,6 +22,7 @@ alias \
     egrep='egrep --color=auto' \
     fgrep='fgrep --color=auto' \
     grep="grep --color=auto" \
+    ip='ip -color=auto' \
     l='exa -l' \
     la='exa -la'
 
@@ -46,13 +47,15 @@ alias \
 # sudo="doas" \
 
 # fuzzy find
-alias \
-    vfc="find \$HOME/.config/ -maxdepth 1 | fzf | xargs -r -I % \$EDITOR %" \
-    vfd="find \$HOME/.local/src/dotfiles/ | fzf | xargs -r -I % \$EDITOR %" \
-    vfs="find \$HOME/.local/bin/ | fzf | xargs -r -I % \$EDITOR %" \
-    vfz="find \$HOME/.config/zsh/ | fzf | xargs -r -I % \$EDITOR %"
-
-vff() { locate "$1" | fzf | xargs -r -I % "$EDITOR" % }
+# alias \
+#     vfc="find \$HOME/.config/ -maxdepth 1 | fzf | xargs -r -I % \$EDITOR %" \
+#     vfd="find \$HOME/.local/src/dotfiles/ | fzf | xargs -r -I % \$EDITOR %" \
+#     vfs="find \$HOME/.local/bin/ | fzf | xargs -r -I % \$EDITOR %" \
+#     vfz="find \$HOME/.config/zsh/ | fzf | xargs -r -I % \$EDITOR %"
+fzfopen() {
+    f="$(locate -i "$HOME/$1" | fzf)"
+    xdg-open "$f"
+}
 
 # git
 # alias \
@@ -87,6 +90,13 @@ alias \
 
 sxq() {
     xbps-query -Rs $1 | fzf
+}
+
+tso(){
+    setsid -f $(ts |
+        awk -v n=6 '{ for (i=n; i<=NF; i++) printf "%s%s", $i, (i<NF ? OFS : ORS)}' |
+        fzf |
+        cut -d']' -f2)
 }
 
 # xbps-remove

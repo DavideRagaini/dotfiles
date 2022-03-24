@@ -1,4 +1,3 @@
 #!/bin/sh
 
-timeOnPc suspend
-
+/home/davide/.local/bin/controller/sysact Suspend

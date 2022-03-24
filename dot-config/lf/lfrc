@@ -14,34 +14,32 @@ source ~/.config/lf/shortcuts
 
 # cmds/functions
 cmd open ${{
-	case $f in
-	http* | *.html) setsid -f "$BROWSER" "$f" 2>/dev/null & ;;
-	*.pdf | *.djvu | *.epub | *.cbz) setsid -f "$READER" "$f" & ;;
-	*.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
-	*.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" & ;;
-	*.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
-	*.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
-	*.tar*) tar tf "$f" | less ;;
-	*.zip) unzip -l "$f" | less ;;
-	*.rar) unrar l "$f" | less ;;
-	*.7z) 7z l "$f" | less ;;
-	# *) notify-send "No Mime Type set" ;;
-	*) case $(file --mime-type "$(readlink -f $f)" -b) in
-		audio/*) mpv $f ;;
-		application/epub+zip) "$READER" $f &;;
-		application/json) "$EDITOR" $fx ;;
-		application/pgp-encrypted) "$EDITOR" $fx ;;
-		image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-		image/svg+xml) display -- $f ;;
-		image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
-		image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
-		text/html) "$BROWSER" $f ;;
-		text/*) nvim $f ;;
-		video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
-		*) xdg-open $f ;;
-		# *) notify-send "No Mime Type set" ;;
-	esac
-	esac
+    case $f in
+        http* | *.html) setsid -f "$BROWSER" "$f" 2>/dev/null & ;;
+        *.pdf | *.djvu | *.epub | *.cbz) setsid -f "$READER" "$f" & ;;
+        *.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
+        *.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" & ;;
+        *.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
+        *.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
+        *.tar*) tar tf "$f" | less ;;
+        *.zip) unzip -l "$f" | less ;;
+        *.rar) unrar l "$f" | less ;;
+        *.7z) 7z l "$f" | less ;;
+        *) case $(file --mime-type "$(readlink -f $f)" -b) in
+            audio/*) mpv $f ;;
+            application/epub+zip) "$READER" $f &;;
+            application/json) "$EDITOR" $fx ;;
+            application/pgp-encrypted) "$EDITOR" $fx ;;
+            image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+            image/svg+xml) display -- $f ;;
+            image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
+            image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
+            text/html) "$BROWSER" $f ;;
+            text/*) emacsclient -t $f ;;
+            video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
+            *) xdg-open $f ;;
+        esac
+    esac
 }}
 
 cmd chmod %{{
@@ -231,12 +229,13 @@ map D delete
 map E extract
 map I push A<c-a> # at the very beginning
 map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
-map N chmod
-map W $setsid -f $TERMINAL >/dev/null 2>&1
 map M moveto
+map N chmod
+map Pa async_paste
+map Pb backup_paste
 map Pp :link
 map R push A<a-b> # after extention
-map V push :!nvim<space>
+map W $setsid -f $TERMINAL >/dev/null 2>&1
 map Yb yank-basename
 map Ybe yank-basename-without-extension
 map Yd yank-dirname
@@ -245,11 +244,11 @@ map b $vidir
 map c $vl $f
 map e &em "$f"
 map gg top
+map i $bat --paging=always "$f"
 map o push :open-with<space>
-map Pa async_paste
-map Pb backup_paste
 # map A rename # at the very end
 # map O $mimeopen --ask "$f"
+# map V push :!nvim<space>
 # map X !$f
 # map c push A<c-u> # new rename
 # map i push A<a-b><a-b><a-f> # before extention

@@ -1,11 +1,12 @@
 #!/bin/sh
 
 export ALTERNATE_EDITOR=""
-export EDITOR="em"
-export VISUAL="emacsclient"
+export EDITOR="emacsclient -t"
 export FILE="lf"
+export PAGER="bat"
 export READER="zathura"
 export TERMINAL="st"
+export VISUAL="emacsclient"
 
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 export PATH="$PATH:$HOME/.config/emacs/bin"

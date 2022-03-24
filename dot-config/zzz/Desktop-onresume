@@ -1,4 +1,3 @@
 #!/bin/sh
 
-timeOnPc resume
-
+/home/davide/.local/bin/controller/sysact Resume
