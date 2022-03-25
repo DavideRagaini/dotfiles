@@ -24,6 +24,9 @@ dot-config/nvim/**
 !dot-config/nvim/init.vim
 !dot-config/nvim/shortcuts.vim
 
+dot-config/peaclock/**
+!dot-config/peaclock/config
+
 dot-config/pipe-viewer/**
 dot-config/pipe-viewer/pipe-viewer.conf
 
