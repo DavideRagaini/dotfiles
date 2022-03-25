@@ -71,6 +71,13 @@
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 18)))
    ))
 
+(defun toggle-theme ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'doom-dracula)
+      (load-theme 'doom-nord-light)
+    (load-theme 'doom-dracula)))
+(global-set-key [f5] 'toggle-theme)
+
 ;; Global
 (setq scroll-margin 2)
 (global-visual-line-mode t)
