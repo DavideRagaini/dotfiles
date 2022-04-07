@@ -61,7 +61,7 @@
 (let ((x (system-name)))
   (cond
    ((string-equal x "VoiD")
-    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 30)
+    (setq doom-font (font-spec :family "Iosevka" :size 30)
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 32)))
    ((string-equal x "void")
     (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 12)
