@@ -7,9 +7,10 @@ from os import environ  # User Defined Bindings
 c.bindings.commands["normal"] = {
     ",a": "hint links spawn --detach dmpv aplay '{hint-url}'",
     ",c": "hint links spawn clipf '{hint-url}'",
+    ",d": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
     ",e": "hint links spawn --detach dmpv enqueue '{hint-url}'",
     ",p": "hint links spawn --detach dmpv eplay '{hint-url}'",
-    ",s": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
+    ",s": "hint links spawn --detach streamlink --player mpv '{hint-url}' best",
     ",t": "hint links spawn transadd '{hint-url}'",
     # ",g": 'hint links spawn funnel "{hint-url}"',
     ",z": "zoom 200",

@@ -64,10 +64,10 @@
     (setq doom-font (font-spec :family "Iosevka" :size 30)
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 32)))
    ((string-equal x "void")
-    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 12)
+    (setq doom-font (font-spec :family "Iosevka" :size 12)
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 14)))
    ((string-equal x "vDR")
-    (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 16)
+    (setq doom-font (font-spec :family "Iosevka" :size 16)
           doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 18)))
    ))
 
@@ -115,26 +115,25 @@
 ;; Ex: indenting a + makes the bullet a *.
 (setq org-list-demote-modify-bullet
       '(("+" . "*") ("*" . "-") ("-" . "+")))
-
-(custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :height 1.25))))
- ;; '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
- ;; '(org-level-3 ((t (:inherit outline-3 :height 1.15))))
- ;; '(org-level-4 ((t (:inherit outline-4 :height 1.10))))
- ;; '(org-level-5 ((t (:inherit outline-5 :height 1.05))))
- ;; '(org-level-6 ((t (:inherit outline-6 :height 1.05))))
- ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
- )
-;; Stop cycling bullets to emphasize hierarchy of headlines.
-(setq org-superstar-cycle-headline-bullets nil)
+(setq org-superstar-headline-bullets-list
+      '("" "" "" "" "" "" "" "" "" ""))
 ;; Hide away leading stars on terminal.
 (setq org-superstar-leading-fallback ?\s)
-
 (use-package org-fancy-priorities
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
   (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
+
+(custom-set-faces
+ '(org-level-1 ((t (:inherit outline-1 :height 1.6))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.5))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.4))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.3))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.2))))
+ '(org-level-6 ((t (:inherit outline-6 :height 1.1))))
+ '(org-document-title ((t (:inherit outline-1 :height 1.25))))
+ )
 
 (setq org-agenda-files
       '("~/Org/Tasks.org"

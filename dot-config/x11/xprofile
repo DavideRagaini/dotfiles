@@ -9,12 +9,14 @@ case $(hostname) in
         ;;
     vDR)
         export BROWSER="qutebrowser"
+        export BROWSER2="librewolf"
         xbacklight -set 20 &
         libinput-gestures-setup start &
         bluetooth off &
         ;;
     void)
         export BROWSER="librewolf"
+        export BROWSER2="qutebrowser"
         libinput-gestures-setup start &
         ;;
 esac
