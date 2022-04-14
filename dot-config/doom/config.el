@@ -137,6 +137,7 @@
 
 (setq org-agenda-files
       '("~/Org/Tasks.org"
+        "~/Org/Habits.org"
         "~/Org/Learn.org"
         "~/Org/Birthdays.org"))
 
