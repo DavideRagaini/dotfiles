@@ -22,42 +22,42 @@ rotate() {
 	degree="$1"
 	tr '\n' '\0' | xargs -0 realpath | sort | uniq | while read file; do
 		case "$(file -b -i "$file")" in
-		image/jpeg*) jpegtran -rotate "$degree" -copy all -outfile "$file" "$file" ;;
-		*)           mogrify  -rotate "$degree" "$file" ;;
+			image/jpeg*) jpegtran -rotate "$degree" -copy all -outfile "$file" "$file" ;;
+			*) mogrify -rotate "$degree" "$file" ;;
 		esac
 	done
 }
 
 case "$1" in
-"C-x")      xclip -in -filter | tr '\n' ' ' | xclip -in -selection clipboard ;;
-"C-c")      while read file; do xclip -selection clipboard -target image/png "$file"; done ;;
-"C-e")      while read file; do urxvt -bg "#444" -fg "#eee" -sl 0 -title "$file" -e sh -c "exiv2 pr -q -pa '$file' | less" & done ;;
-"C-g")      tr '\n' '\0' | xargs -0 gimp & ;;
-"C-r")      while read file; do rawtherapee "$file" & done ;;
-"C-comma")  rotate 270 ;;
-"C-period") rotate  90 ;;
-"C-slash")  rotate 180 ;;
-"w") setbg "$file" & ;;
-"c")
-	[ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
-	[ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
-	cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
-	;;
-"m")
-	[ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | awk '{print $2}' | dmenu -l 20 -i -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
-	[ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
-	mv "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file moved to $destdir." &
-	;;
-"y")
-	echo -n "$file" | tr -d '\n' | xclip -selection clipboard &&
-		notify-send "$file copied to clipboard" &
-	;;
-"Y")
-	readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
-		notify-send "$(readlink -f "$file") copied to clipboard" &
-	;;
-"d")
-	[ "$(printf "No\\nYes" | dmenu -i -p "Really delete $file?")" = "Yes" ] && rm "$file" && notify-send "$file deleted."
-	;;
-"i") notify-send "File information" "$(mediainfo "$file")" ;;
+	"C-x") xclip -in -filter | tr '\n' ' ' | xclip -in -selection clipboard ;;
+	"C-c") while read file; do xclip -selection clipboard -target image/png "$file"; done ;;
+	"C-e") while read file; do urxvt -bg "#444" -fg "#eee" -sl 0 -title "$file" -e sh -c "exiv2 pr -q -pa '$file' | less" & done ;;
+	"C-g") tr '\n' '\0' | xargs -0 gimp & ;;
+	"C-r") while read file; do rawtherapee "$file" & done ;;
+	"C-comma") rotate 270 ;;
+	"C-period") rotate 90 ;;
+	"C-slash") rotate 180 ;;
+	"w") setbg "$file" & ;;
+	"c")
+		[ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"
+		[ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+		cp "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file copied to $destdir." &
+		;;
+	"m")
+		[ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | awk '{print $2}' | dmenu -l 20 -i -p "Move file(s) to where?" | sed "s|~|$HOME|g")"
+		[ ! -d "$destdir" ] && notify-send "$destdir is not a directory, cancelled." && exit
+		mv "$file" "$destdir" && notify-send -i "$(readlink -f "$file")" "$file moved to $destdir." &
+		;;
+	"y")
+		printf "%s" "$file" | tr -d '\n' | xclip -selection clipboard &&
+			notify-send "$file copied to clipboard" &
+		;;
+	"Y")
+		readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
+			notify-send "$(readlink -f "$file") copied to clipboard" &
+		;;
+	"d")
+		[ "$(printf "No\\nYes" | dmenu -i -p "Really delete $file?")" = "Yes" ] && rm "$file" && notify-send "$file deleted."
+		;;
+	"i") notify-send "File information" "$(mediainfo "$file")" ;;
 esac

@@ -18,7 +18,7 @@ export XDG_DOCUMENTS_DIR="$HOME/Documents"
 export XDG_DOWNLOAD_DIR="$HOME/Downloads"
 export XDG_MUSIC_DIR="$HOME/Storage/Music"
 export XDG_PICTURES_DIR="$HOME/Storage/Pictures"
-export XDG_RUNTIME_DIR="$HOME/.cache"
+export XDG_RUNTIME_DIR="$HOME/.cache/runtime"
 export XDG_VIDEOS_DIR="$HOME/Storage/Videos"
 
 # export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java"

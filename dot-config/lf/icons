@@ -1,12 +1,14 @@
 # System
+ln  
+or  
 tw	
+ow  
 st	
 ow	
 dt	
 di	
 fi	
-ln	
-or	
+so  臘
 ex	
 
 #Programming Languages
@@ -189,8 +191,11 @@ ex	
 *.yml	ﲇ
 *.diff	
 *.conf	
+*rc 	
 *conf	
+config	
 *config	
+*.config	
 Makefile	
 LICENSE	
 
@@ -208,7 +213,7 @@ LICENSE	
 ~/Applications/ 
 ~/Books/	📚
 ~/Documents/	
-~/Downloads/	
+~/Downloads/	
 ~/Storage/	
 ~/Storage/Music/	
 ~/Org/	

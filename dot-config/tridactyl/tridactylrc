@@ -14,11 +14,12 @@ searchurls = {
 }
 
 nmaps = {
-    "ma": "hint -W exclaim_quiet dmpv aplay",
-    "me": "hint -W exclaim_quiet dmpv enqueue",
-    "mp": "hint -W exclaim_quiet dmpv eplay",
-    "mc": "hint -W exclaim_quiet clipf",
-    "mT": "hint -W exclaim_quiet transadd",
+    ",a": "hint -W exclaim_quiet dmpv aplay",
+    ",e": "hint -W exclaim_quiet dmpv enqueue",
+    ",p": "hint -W exclaim_quiet dmpv eplay",
+    ",c": "hint -W exclaim_quiet clipf",
+    ",s": "hint -W exclaim_quiet streamlink",
+    ",t": "hint -W exclaim_quiet transadd",
 }
 
 " Git{Hub,Lab} git clone via SSH yank

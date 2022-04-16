@@ -72,11 +72,21 @@
    ))
 
 (defun toggle-theme ()
+  "Light theme toggles"
   (interactive)
   (if (eq (car custom-enabled-themes) 'doom-dracula)
       (load-theme 'doom-nord-light)
     (load-theme 'doom-dracula)))
 (global-set-key [f5] 'toggle-theme)
+
+(defun agenda-layout ()
+  "Eagenda layout"
+  (progn
+    ;; (+workspace/new-named "agenda")
+    (find-file (expand-file-name "~/Org/Tasks.org"))
+    (split-window-right 65)
+    (org-agenda-list 15))
+  )
 
 ;; Global
 (setq scroll-margin 2)
@@ -116,7 +126,7 @@
 (setq org-list-demote-modify-bullet
       '(("+" . "*") ("*" . "-") ("-" . "+")))
 (setq org-superstar-headline-bullets-list
-      '("" "" "" "" "" "" "" "" "" ""))
+      '("" "" "" "" "" "" "" "" ""))
 ;; Hide away leading stars on terminal.
 (setq org-superstar-leading-fallback ?\s)
 (use-package org-fancy-priorities
@@ -132,7 +142,7 @@
  '(org-level-4 ((t (:inherit outline-4 :height 1.3))))
  '(org-level-5 ((t (:inherit outline-5 :height 1.2))))
  '(org-level-6 ((t (:inherit outline-6 :height 1.1))))
- '(org-document-title ((t (:inherit outline-1 :height 1.25))))
+ ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
  )
 
 (setq org-agenda-files
@@ -180,4 +190,18 @@
 (add-hook 'org-mode-hook 'org-appear-mode)
 
 ;; Spell checking
-(setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
+(setq-default ispell-program-name "/bin/huspell")
+(setq-default ispell-extra-args  '("--sug-mode=ultra"))
+(setenv "DICTDIR" "~/.local/share/hunspell_personal")
+(setq ispell-dictionary "en_US,en_GB,it_IT")
+;; Automatically enable flyspell-mode in text-mode
+;; (setq text-mode-hook '(lambda() (flyspell-mode t) ))
+;; (require 'ispell)
+(with-eval-after-load "ispell"
+  (setq ispell-program-name "hunspell")
+  (setq ispell-dictionary "en_GB,en_US,it_IT")
+  ;;   ispell-set-spellchecker-params has to be called
+  ;;   before ispell-hunspell-add-multi-dic will work
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
+  (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))

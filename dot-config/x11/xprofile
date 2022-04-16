@@ -2,10 +2,11 @@
 
 case $(hostname) in
     VoiD)
+        xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
         export BROWSER="librewolf"
         export BROWSER2="qutebrowser"
         xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
-        xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
+        [ -n "$xrdbpid" ] && wait "$xrdbpid"
         ;;
     vDR)
         export BROWSER="qutebrowser"
