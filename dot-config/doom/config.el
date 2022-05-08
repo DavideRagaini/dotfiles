@@ -61,15 +61,17 @@
 (let ((x (system-name)))
   (cond
    ((string-equal x "VoiD")
-    (setq doom-font (font-spec :family "Iosevka" :size 30)
-          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 32)))
+    (setq custom-font-size 30))
    ((string-equal x "void")
-    (setq doom-font (font-spec :family "Iosevka" :size 12)
-          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 14)))
+    (setq custom-font-size 12))
    ((string-equal x "vDR")
-    (setq doom-font (font-spec :family "Iosevka" :size 16)
-          doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 18)))
-   ))
+    (setq custom-font-size 16)))
+   (setq doom-font (font-spec :family "Iosevka" :size custom-font-size)
+         doom-variable-pitch-font (font-spec :family "Luxi Sans" :size (+ custom-font-size 2))
+         doom-serif-font (font-spec :family "Luxi Sans" :size (+ custom-font-size 2))
+         doom-unicode-font (font-spec :family "Dejavu Sans" :size custom-font-size)
+         doom-big-font (font-spec :family "SpaceMono Nerd Font" :size custom-font-size)
+         ))
 
 (defun toggle-theme ()
   "Light theme toggles"
@@ -96,8 +98,8 @@
 (global-auto-revert-mode 1)
 (global-activity-watch-mode t)
 
-(set-frame-parameter (selected-frame) 'alpha '(90))
-(add-to-list 'default-frame-alist '(alpha . (90)))
+(set-frame-parameter (selected-frame) 'alpha '(92))
+(add-to-list 'default-frame-alist '(alpha . (92)))
 
 (set-popup-rules!
   '(("^ \\*" :slot -1) ; fallback rule for special buffers
@@ -105,6 +107,9 @@
     ("^\\*Completions" :slot -1 :ttl 0)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)
     ("^\\*Help" :slot -1 :size 0.2 :select t)
+    ("^\\*Man" :slot -1 :size 0.4 :select t)
+    ("^\\*helpful" :slot -1 :size 0.35 :select t)
+    ("^\\*compilation" :slot -1 :size 0.3 :select nil)
     ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl t)))
 
 
