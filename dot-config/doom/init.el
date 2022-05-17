@@ -36,7 +36,7 @@
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides       ; highlighted indent columns
-       ;;minimap           ; show a map of the code on the side
+       minimap           ; show a map of the code on the side
        (ligatures +extra +iosevka)  ; ligatures and symbols to make your code pretty again
        modeline            ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink cursor line after big motions
@@ -93,7 +93,7 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
-       (lookup +dictionary)  ; navigate your code and its documentation
+       (lookup +dictionary +offline)  ; navigate your code and its documentation
        (lsp +peek)
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs

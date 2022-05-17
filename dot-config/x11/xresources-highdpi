@@ -6,6 +6,11 @@ Xft.rgba:	rgb
 Xft.lcdfilter:	lcddefault
 Xft.dpi: 200
 
+Nsxiv.window.background: #000000
+Nsxiv.window.foreground: #ffffff
+Nsxiv.bar.background: #000000
+Nsxiv.bar.foreground: #ffffff
+
 /* *.alpha: 0.85 */
 
 /* *cursorColor: magenta */

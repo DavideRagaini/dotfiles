@@ -5,3 +5,8 @@
 /* Xft.dpi: 96 */
 /* *.font: Iosevka:size=12 */
 /* dmenu.font: Iosevka:size=28 */
+
+Nsxiv.window.background: #000000
+Nsxiv.window.foreground: #ffffff
+Nsxiv.bar.background: #000000
+Nsxiv.bar.foreground: #ffffff
