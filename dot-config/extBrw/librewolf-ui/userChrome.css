@@ -11,3 +11,6 @@
 /*USE ANY ONE at once*/
 @import url("patches/ctrl+l-access.css");
 /* @import url("patches/hover-access.css"); */
+
+/* Disable Animations */
+@import url("patches/animations-disable.css");

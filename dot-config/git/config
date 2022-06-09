@@ -1,8 +1,8 @@
 [credential]
 	helper = store
 [user]
-	email = DavideRagaini@gmail.com
-	name = DavideRagaini
+	email = ragainidavide@gmail.com
+	name = Davide Ragaini
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color]

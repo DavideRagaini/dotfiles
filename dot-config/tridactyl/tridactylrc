@@ -8,6 +8,7 @@ searchurls = {
     a: "https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s",
     d: "https://duckduckgo.com/?t=hd&va=u&q=%s",
     g: "https://www.google.com/search?q=%s",
+    gw: "https://wiki.gentoo.org/wiki/%s"
     i: "https://searx.be/search?q=%s&language=it-IT",
     y: "https://yewtu.be/search?q=%s",
     w: "https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s",
