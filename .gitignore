@@ -3,6 +3,7 @@ dot-config/git/credentials
 dot-config/lf/shortcuts
 
 !dot-config/mpd/mpd.conf
+!dot-config/mpd/playlists
 dot-config/mpd/**
 
 dot-config/mpv/last
@@ -53,6 +54,8 @@ dot-config/transmission/**
 
 dot-config/x11/xresources
 
+dot-config/zsh/plugins
+dot-config/zsh/.z*
 !dot-config/zsh/.zshrc
 
 dot-config/zzz/onresume

@@ -11,7 +11,7 @@ function zsh_add_plugin() {
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
     else
-        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+        git clone "git@github.com:$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
     fi
 }
 
@@ -23,7 +23,7 @@ function zsh_add_completion() {
 		fpath+="$(dirname "${completion_file_path}")"
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
     else
-        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+        git clone "git@github.com:$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
 		fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
         [ -f $ZDOTDIR/.zccompdump ] && $ZDOTDIR/.zccompdump
     fi
@@ -130,6 +130,7 @@ __timer_format_duration() {
 }
 
 __timer_save_time_preexec() {
+  current_cmd=$1
   __timer_cmd_start_time=$(__timer_current_time)
 }
 
@@ -141,7 +142,11 @@ __timer_display_timer_precmd() {
     if [[ -z "${TIMER_THRESHOLD}" || ${tdiff} -ge "${TIMER_THRESHOLD}" ]]; then
         local tdiffstr=$(__timer_format_duration ${tdiff})❯[$(strftime "%T")]
         local cols=$((COLUMNS - ${#tdiffstr} - 1))
-        echo -e "\033[1A\033[${cols}C ${tdiffstr}" | lolcat
+        echo -e "\e[1;33m\033[1A\033[${cols}C ${tdiffstr}"
+    fi
+    if [[ $tdiff -ge 60 ]]; then
+       notify-send "$HOST:" "$current_cmd\n\n$tdiffstr"
+       aplay -q "$ZDOTDIR/zip_tone.wav"
     fi
   fi
 }

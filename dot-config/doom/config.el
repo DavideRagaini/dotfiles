@@ -183,6 +183,7 @@
         (:endgroup)
         ("BATCH" . ?b)
         ("FIX" . ?f)
+        ("SETUP" . ?u)
         ("IMPROVE" . ?m)
         ("READ" . ?r)
         ("STUDY" . ?s)
