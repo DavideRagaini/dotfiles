@@ -80,21 +80,21 @@
        ;;vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       (syntax +childframe)  ; tasing you for every semicolon you forget
+       syntax              ; tasing you for every semicolon you forget
        (spell +flyspell +hunspell)  ; tasing you for misspelling mispelling
        grammar             ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
-       (debugger +lsp)     ; FIXME stepping through code, to help you add bugs
+       debugger            ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
-       (eval +overlay)     ; run code, run (also, repls)
+       eval                ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup +dictionary +offline)  ; navigate your code and its documentation
-       (lsp +peek)
+       (lsp +eglot)
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -107,7 +107,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       ;; (:if IS-MAC macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang

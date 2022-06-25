@@ -102,15 +102,17 @@
 (add-to-list 'default-frame-alist '(alpha . (92)))
 
 (set-popup-rules!
-  '(("^ \\*" :slot -1) ; fallback rule for special buffers
-    ("^\\*" :select t)
-    ("^\\*Completions" :slot -1 :ttl 0)
+  '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
+    ("^\\*"  :slot 1 :vslot -1 :select t)
+    ("^\\*Completions" :slot -1 :vslot -2 :ttl 0)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)
     ("^\\*Help" :slot -1 :size 0.2 :select t)
-    ("^\\*Man" :slot -1 :size 0.4 :select t)
+    ("^\\*Man" :slot -1 :size 0.4 :side bottom :select t)
     ("^\\*helpful" :slot -1 :size 0.35 :select t)
-    ("^\\*compilation" :slot -1 :size 0.3 :select nil)
-    ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl t)))
+    ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3 :ttl 0 :quit t)
+    ("^\\*eww" :slot -1 :side left :quit nil :size 0.5 :select t)
+    ("^\\*Python*" :slot -1 :side left :quit nil :size 0.5 :select t)
+    ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl 5)))
 
 
 ;; Dired

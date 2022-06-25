@@ -1,3 +1,5 @@
+dot-config/doom/custom.el
+
 dot-config/git/credentials
 
 dot-config/lf/shortcuts
@@ -38,6 +40,9 @@ dot-config/qutebrowser/qsettings
 
 dot-config/shell/shortcutrc
 dot-config/shell/zshnameddirrc
+
+dot-config/spotify-tui/**
+!dot-config/spotify-tui/config.yml
 
 dot-config/sv/**/supervise
 

@@ -18,7 +18,7 @@ cmd open ${{
         http* | *.html) setsid -f "$BROWSER" "$f" 2>/dev/null & ;;
         *.pdf | *.djvu | *.epub | *.cbz) setsid -f "$READER" "$fx" >/dev/null 2>&1 & ;;
         *.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
-        *.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" & ;;
+        *.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" >/dev/null 2>&1 & ;;
         *.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
         *.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
         *.tar*) tar tf "$f" | less ;;
@@ -35,7 +35,7 @@ cmd open ${{
             image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
             text/html) "$BROWSER" $f ;;
             text/*) emacsclient -t $f ;;
-            video/*) setsid mpv $f -quiet >/dev/null 2>&1 & ;;
+            video/*) setsid mpv $f -no-terminal >/dev/null 2>&1 & ;;
             *) xdg-open $f ;;
         esac
     esac
@@ -240,7 +240,6 @@ map Ybe yank-basename-without-extension
 map Yd yank-dirname
 map Yp yank-path
 map b $vidir
-map c $vl $f
 map e &em "$f"
 map gg top
 map i $bat --paging=always "$f"

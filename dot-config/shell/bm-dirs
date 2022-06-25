@@ -3,7 +3,7 @@ M	${XDG_MUSIC_DIR:-$HOME/Music}
 P	$HOME/Projects
 S	$HOME/Storage
 Sh	${XDG_CONFIG_HOME:-$HOME/.config}/shell
-U	$HOME/Universitá
+U	$HOME/Storage/Uni
 X	${XDG_CONFIG_HOME:-$HOME/.config}/x11
 cac	${XDG_CACHE_HOME:-$HOME/.cache}
 cf	${XDG_CONFIG_HOME:-$HOME/.config}
