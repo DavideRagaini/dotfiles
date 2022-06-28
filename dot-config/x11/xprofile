@@ -1,12 +1,13 @@
 #!/bin/sh
 
+xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
+
 case $(hostname) in
     VoiD)
-        xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!
+        xrandr --output HDMI-0 --off --output DVI-D-0 --auto --scale 2
+        # xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
         export BROWSER="librewolf"
         export BROWSER2="qutebrowser"
-        xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
-        [ -n "$xrdbpid" ] && wait "$xrdbpid"
         ;;
     vDR)
         export BROWSER="qutebrowser"
@@ -26,3 +27,5 @@ remaps &
 setbg &
 numlockx &
 sysact Start &
+
+[ -n "$xrdbpid" ] && wait "$xrdbpid"

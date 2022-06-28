@@ -1,4 +1,4 @@
 #!/bin/sh
-sleep 60
+sleep 3m
 sv check "${XDG_CONFIG_HOME:-$HOME/.config}/sv/aw-server" >/dev/null || exit 1
 exec $HOME/Packages/activitywatch-mod/aw-watcher-afk/aw-watcher-afk

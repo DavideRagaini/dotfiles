@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec xautolock -time 10 -notify 180 -notifier "notify-send -u critical -t 180000 'System will be locked' '3 minute left'" -locker 'i3lock -eft -c 1d2021 -i ~/Storage/Pictures/lockscreen.png && doas zzz'
+exec xautolock -time 10 -notify 180 -notifier "notify-send -u critical -t 180000 'System will be locked' '3 minute left'" -locker 'i3lock -eft -c 1d2021 -i ~/Storage/Pictures/lockscreen && doas zzz'
