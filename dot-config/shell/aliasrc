@@ -7,7 +7,6 @@ alias \
     df="df -h" \
     du="du -h" \
     free="free -h" \
-    gotop="gotop -sa --mbps" \
     ka="killall" \
     mkd="mkdir -pv" \
     mv="mv -iv" \
@@ -24,20 +23,19 @@ alias \
     grep="grep --color=auto" \
     ip='ip -color=auto' \
     l='exa -l' \
-    la='exa -la'
+    ll='exa -la'
 
 # Abbreviations
 alias \
     2f="tmux split -h lfcd; lfcd" \
     c.="cd .." \
-    e="$EDITOR" \
-    E="$VISUAL" \
+    e="\$EDITOR" \
+    E="\$VISUAL" \
     f="lfcd" \
+    pw="pipe-viewer" \
     q="exit" \
     s="doas" \
     smi="doas make install" \
-    t="task" \
-    tw="timew" \
     v="nvim" \
     x="sxiv -ft *" \
     xclip="xclip -selection clipboard" \
@@ -52,6 +50,7 @@ alias \
 #     vfd="find \$HOME/.local/src/dotfiles/ | fzf | xargs -r -I % \$EDITOR %" \
 #     vfs="find \$HOME/.local/bin/ | fzf | xargs -r -I % \$EDITOR %" \
 #     vfz="find \$HOME/.config/zsh/ | fzf | xargs -r -I % \$EDITOR %"
+
 fzfopen() {
     f="$(locate -i "$HOME/$1" | fzf)"
     xdg-open "$f"

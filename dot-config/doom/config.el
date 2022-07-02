@@ -201,19 +201,12 @@
 
 (add-hook 'org-mode-hook 'org-appear-mode)
 
+
 ;; Spell checking
-(setq-default ispell-program-name "/bin/huspell")
-(setq-default ispell-extra-args  '("--sug-mode=ultra"))
-(setenv "DICTDIR" "~/.local/share/hunspell_personal")
-(setq ispell-dictionary "en_US,en_GB,it_IT")
-;; Automatically enable flyspell-mode in text-mode
-;; (setq text-mode-hook '(lambda() (flyspell-mode t) ))
-;; (require 'ispell)
 (with-eval-after-load "ispell"
-  (setq ispell-program-name "hunspell")
-  (setq ispell-dictionary "en_GB,en_US,it_IT")
-  ;;   ispell-set-spellchecker-params has to be called
-  ;;   before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
-  (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
+        (setq ispell-program-name "/usr/bin/hunspell")
+        (setq ispell-extra-args  '("--sug-mode=ultra"))
+        (setq ispell-dictionary "en_GB,en_US,it_IT")
+        (ispell-set-spellchecker-params)
+        (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
+        (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
