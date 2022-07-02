@@ -124,7 +124,7 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
-(use-package dired-single)
+;; (use-package dired-single)
 
 
 ;; ORG ENHANEMENT
@@ -207,6 +207,5 @@
         (setq ispell-program-name "/usr/bin/hunspell")
         (setq ispell-extra-args  '("--sug-mode=ultra"))
         (setq ispell-dictionary "en_GB,en_US,it_IT")
-        (ispell-set-spellchecker-params)
-        (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
+        (setq ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
         (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
