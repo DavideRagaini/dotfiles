@@ -1,0 +1,9 @@
+[submodule "dot-config/mpv/modules/mpv-quality-menu"]
+	path = dot-config/mpv/modules/mpv-quality-menu
+	url = https://github.com/christoph-heinrich/mpv-quality-menu
+[submodule "dot-config/mpv/modules/mpv_sponsorblock"]
+	path = dot-config/mpv/modules/mpv_sponsorblock
+	url = https://github.com/po5/mpv_sponsorblock.git
+[submodule "dot-config/mpv/modules/mpv-playlistmanager"]
+	path = dot-config/mpv/modules/mpv-playlistmanager
+	url = https://github.com/jonniek/mpv-playlistmanager
