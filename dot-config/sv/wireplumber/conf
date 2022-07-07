@@ -1,0 +1,5 @@
+# -*- mode: sh; -*-
+
+LOGGING_ENABLE=0
+LOG_LEVEL=1
+LOG_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/log/pipewire-media-session"

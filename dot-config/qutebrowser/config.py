@@ -92,6 +92,7 @@ c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW
 c.content.javascript.can_access_clipboard = False
 c.content.webgl = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
+c.content.blocking.method = "both"
 # }}}
 # ======================= Folders & Files ============= {{{
 fileselect_cmd = ["st", "-e", "fu", "selection-path {}"]

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+[ -r ../conf ] && . ../conf
+
+if [ "${LOGGING_ENABLE}x" = "1x" ]; then
+    [ -d "$LOG" ] || mkdir -p "$LOG"
+    exec svlogd -tt "$LOG"
+else
+    exec pause
+fi
