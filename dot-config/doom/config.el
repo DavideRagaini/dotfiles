@@ -201,6 +201,53 @@
 
 (add-hook 'org-mode-hook 'org-appear-mode)
 
+(setq org-capture-templates
+  `(("t" "Tasks / Projects")
+    ("tt" "Task" entry (file+olp "~/Org/Tasks.org" "---------- Inbox ----------")
+         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+    ("ts" "Clocked Entry Subtask" entry (clock)
+         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+
+    ("n" "Note Entries")
+    ("np" "Protocol" entry (file+olp "~/Org/Tasks.org" "---------- Inbox ----------")
+        "* TODO %?[[%:link][%:description]] %U\n%i\n" :prepend t)
+    ("nl" "Protocol Link" entry (file+olp "~/Org/Tasks.org" "---------- Inbox ----------")
+        "* TODO %?[[%:link][%:description]] %U\n" :prepend t)
+    ("nx" "Protocol Link from Clipboard" entry (file+olp "~/Org/Tasks.org" "---------- Inbox ----------")
+        "* TODO %?%x %U\n" :prepend t)
+    ("nb" "Protocol Link Blank" entry (file+olp "~/Org/Tasks.org" "---------- Inbox ----------")
+        "* TODO %? %U\n" :prepend t)
+
+    ("j" "Journal Entries")
+    ("jj" "Journal" entry
+         (file+olp+datetree "~/Org/Journal.org")
+         "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+         ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
+         :clock-in :clock-resume
+         :empty-lines 1)
+    ("jm" "Meeting" entry
+         (file+olp+datetree "~/Org/Journal.org")
+         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+         :clock-in :clock-resume
+         :empty-lines 1)
+
+
+    ("t" "Protocol Link Blank" entry (file+olp "~/Org/Tasks.org" "---------- Inbox ----------")
+        "* TODO %? %U\n" :prepend t)
+    ;; ("w" "Workflows")
+    ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
+    ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+    ("s" "Scramble Capture")
+    ("sd" "Dataset" table-line (file+headline "~/Org/Scrambled.org" "Dataset:")
+     "| %^{Color} | %^{Time} | %^{Declared} | %^{Extracted} | %U |" :kill-buffer t)
+    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Scrambled.org" "Inbox")
+         "* IDEA %?  %U\n" :empty-lines 1)
+    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Scrambled.org" "Inbox")
+         "* TODO %?  %U\n" :empty-lines 1)
+
+    ("m" "Metrics Capture")
+    ("mw" "Weight" table-line (file+headline "~/Org/Metrics.org" "Weight")
+     "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
 ;; Spell checking
 (setq-default ispell-program-name "/usr/bin/hunspell")
