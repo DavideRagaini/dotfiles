@@ -1,5 +1,5 @@
 D	${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
-M	${XDG_MUSIC_DIR:-$HOME/Music}
+M	${XDG_MUSIC_DIR:-$HOME/Storage/Music}
 P	$HOME/Projects
 S	$HOME/Storage
 Sh	${XDG_CONFIG_HOME:-$HOME/.config}/shell
