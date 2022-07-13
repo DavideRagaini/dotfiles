@@ -250,9 +250,9 @@
      "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
 ;; Spell checking
-(setq-default ispell-program-name "/usr/bin/hunspell")
-(setq-default ispell-extra-args  '("--sug-mode=ultra"))
-(setq ispell-dictionary "en_GB,en_US,it_IT")
-;; (ispell-set-spellchecker-params)
-(setq ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
-(setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
+(with-eval-after-load "ispell"
+  (setq ispell-program-name "hunspell")
+  (setq ispell-dictionary "en_GB,en_US,it_IT")
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
+  (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
