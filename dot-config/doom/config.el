@@ -1,81 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-;; (setq doom-font (font-spec :family "mononoki Nerd Font Mono" :size 18)
-;;       doom-variable-pitch-font (font-spec :family "Luxi Sans" :size 20)
-;; doom-unicode-font (font-spec :family "Input Mono Narrow" :size 12)
-;; doom-big-font (font-spec :family "FiraMono Nerd Font" :size 30)
-;; )
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Org")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
-
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
-;; ======================= Functions ============= {{{
-(defun toggle-theme ()
-  "Light theme toggles"
-  (interactive)
-  (if (eq (car custom-enabled-themes) 'doom-dracula)
-      (load-theme 'doom-nord-light)
-    (load-theme 'doom-dracula)))
-(global-set-key [f5] 'toggle-theme)
-
-(defun agenda-layout ()
-  "Eagenda layout"
-  (progn
-    ;; (+workspace/new-named "agenda")
-    (find-file (expand-file-name "~/Org/Tasks.org"))
-    (split-window-right 65)
-    (org-agenda-list 15))
-  )
-;; }}}
 ;; ======================= User Interface ============= {{{
 (let ((x (system-name)))
   (cond
@@ -90,6 +16,8 @@
       doom-unicode-font (font-spec :family "Linux Libertine O" :size dr\font-size)
       doom-big-font (font-spec :family "Iosevka" :size (+ dr\font-size 10)))
 
+(setq doom-theme 'doom-dracula)
+(setq display-line-numbers-type t)
 (setq scroll-margin 2)
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
@@ -113,6 +41,24 @@
     ("^\\*Python*" :slot -1 :side left :quit nil :size 0.5 :select t)
     ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl 5)))
 ;; }}}
+;; ======================= Functions ============= {{{
+(defun toggle-theme ()
+  "Light theme toggles"
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'doom-dracula)
+      (load-theme 'doom-nord-light)
+    (load-theme 'doom-dracula)))
+(global-set-key [f5] 'toggle-theme)
+
+(defun agenda-layout ()
+  "Eagenda layout"
+  (progn
+    ;; (+workspace/new-named "agenda")
+    (find-file (expand-file-name "~/Org/Tasks.org"))
+    (split-window-right 65)
+    (org-agenda-list 15))
+  )
+;; }}}
 ;; ======================= Dired ============= {{{
 (use-package! dired
   :commands (dired dired-jump)
@@ -124,6 +70,7 @@
     "l" 'dired-single-buffer))
 ;; }}}
 ;; ======================= Org ============= {{{
+(setq org-directory "~/Org")
 (setq org-list-demote-modify-bullet
       '(("+" . "*") ("*" . "-") ("-" . "+")))
 (setq org-superstar-headline-bullets-list
@@ -249,3 +196,18 @@
   (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
   (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
 ;; }}}
+
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
