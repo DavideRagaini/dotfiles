@@ -53,4 +53,7 @@
 (package! dired-single)
 ;; (package! dired-open)
 (package! org-appear)
-(package! activity-watch-mode)
+;; (package! nov)
+(let ((x (system-name)))
+  (cond ((or (string-equal x "VoiD") (string-equal x "vDR"))
+         (package! activity-watch-mode))))

@@ -58,21 +58,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(let ((x (system-name)))
-  (cond
-   ((string-equal x "VoiD")
-    (setq custom-font-size 30))
-   ((string-equal x "void")
-    (setq custom-font-size 12))
-   ((string-equal x "vDR")
-    (setq custom-font-size 16)))
-   (setq doom-font (font-spec :family "Iosevka" :size custom-font-size)
-         doom-variable-pitch-font (font-spec :family "Luxi Sans" :size (+ custom-font-size 2))
-         doom-serif-font (font-spec :family "Luxi Sans" :size (+ custom-font-size 2))
-         doom-unicode-font (font-spec :family "Dejavu Sans" :size custom-font-size)
-         doom-big-font (font-spec :family "SpaceMono Nerd Font" :size custom-font-size)
-         ))
-
+;; ======================= Functions ============= {{{
 (defun toggle-theme ()
   "Light theme toggles"
   (interactive)
@@ -89,14 +75,27 @@
     (split-window-right 65)
     (org-agenda-list 15))
   )
+;; }}}
+;; ======================= User Interface ============= {{{
+(let ((x (system-name)))
+  (cond
+   ((string-equal x "VoiD") (setq dr\font-size 30) (global-activity-watch-mode t))
+   ((string-equal x "vDR") (setq dr\font-size 16) (global-activity-watch-mode t))
+   ((or (string-equal x "void") (string-equal x "NT")) (setq dr\font-size 12))
+   ((or (string-equal x "tinkerboard") (string-equal x "bagaro")) (setq dr\font-size 14))))
 
-;; Global
+(setq doom-font (font-spec :family "Iosevka" :size dr\font-size)
+      doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr\font-size 2))
+      doom-serif-font (font-spec :family "Liberation Sans" :size (+ dr\font-size 2))
+      doom-unicode-font (font-spec :family "Linux Libertine O" :size dr\font-size)
+      doom-big-font (font-spec :family "Iosevka" :size (+ dr\font-size 10)))
+
 (setq scroll-margin 2)
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (setq confirm-kill-emacs nil)
 (global-auto-revert-mode 1)
-(global-activity-watch-mode t)
+(global-evil-vimish-fold-mode 1)
 
 (set-frame-parameter (selected-frame) 'alpha '(92))
 (add-to-list 'default-frame-alist '(alpha . (92)))
@@ -113,10 +112,9 @@
     ("^\\*eww" :slot -1 :side left :quit nil :size 0.5 :select t)
     ("^\\*Python*" :slot -1 :side left :quit nil :size 0.5 :select t)
     ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl 5)))
-
-
-;; Dired
-(use-package dired
+;; }}}
+;; ======================= Dired ============= {{{
+(use-package! dired
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   ;; :custom ((dired-listing-switches "-agho --group-directories-first"))
@@ -124,19 +122,15 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
-;; (use-package dired-single)
-
-
-;; ORG ENHANEMENT
-;; Automatically change bullet type when indenting
-;; Ex: indenting a + makes the bullet a *.
+;; }}}
+;; ======================= Org ============= {{{
 (setq org-list-demote-modify-bullet
       '(("+" . "*") ("*" . "-") ("-" . "+")))
 (setq org-superstar-headline-bullets-list
       '("" "" "" "" "" "" "" "" ""))
 ;; Hide away leading stars on terminal.
 (setq org-superstar-leading-fallback ?\s)
-(use-package org-fancy-priorities
+(use-package! org-fancy-priorities
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
@@ -158,7 +152,7 @@
         "~/Org/Learn.org"
         "~/Org/Birthdays.org"))
 
-(use-package org
+(use-package! org
   :commands (org-capture org-agenda)
   :config
   (setq org-ellipsis " ▾"
@@ -168,7 +162,6 @@
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-;; (require 'org-habit)
 (add-to-list 'org-modules 'org-habit)
 (setq org-habit-graph-column 60)
 
@@ -222,7 +215,6 @@
     ("jj" "Journal" entry
          (file+olp+datetree "~/Org/Journal.org")
          "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-         ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
          :clock-in :clock-resume
          :empty-lines 1)
     ("jm" "Meeting" entry
@@ -248,11 +240,12 @@
     ("m" "Metrics Capture")
     ("mw" "Weight" table-line (file+headline "~/Org/Metrics.org" "Weight")
      "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
-
-;; Spell checking
-(with-eval-after-load "ispell"
+;; }}}
+;; ======================= Spell Checking ============= {{{
+(after! ispell
   (setq ispell-program-name "hunspell")
   (setq ispell-dictionary "en_GB,en_US,it_IT")
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
   (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
+;; }}}
