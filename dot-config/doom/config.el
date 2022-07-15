@@ -1,27 +1,27 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq user-full-name "Davide Ragaini"
-      user-mail-address "ragainidavide@gmail.com")
 ;; ======================= User Interface ============= {{{
 (let ((x (system-name)))
   (cond
    ((string-equal x "VoiD") (setq dr\font-size 30) (global-activity-watch-mode t))
    ((string-equal x "vDR") (setq dr\font-size 16) (global-activity-watch-mode t))
    ((or (string-equal x "void") (string-equal x "NT")) (setq dr\font-size 12))
-   ((or (string-equal x "tinkerboard") (string-equal x "bagaro")) (setq dr\font-size 14))))
+   ((or (string-equal x "tinkerboard") (string-equal x "bagaro")) (setq dr\font-size 15))))
 
-(setq doom-font (font-spec :family "Iosevka" :size dr\font-size)
+(setq user-full-name "Davide Ragaini"
+      user-mail-address "ragainidavide@gmail.com"
+      doom-font (font-spec :family "Iosevka" :size dr\font-size)
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr\font-size 2))
       doom-serif-font (font-spec :family "Liberation Sans" :size (+ dr\font-size 2))
       doom-unicode-font (font-spec :family "Linux Libertine O" :size dr\font-size)
-      doom-big-font (font-spec :family "Iosevka" :size (+ dr\font-size 10)))
+      doom-big-font (font-spec :family "Iosevka" :size (+ dr\font-size 10))
+      doom-theme 'doom-dracula
+      display-line-numbers-type t
+      scroll-margin 2
+      confirm-kill-emacs nil)
 
-(setq doom-theme 'doom-dracula)
-(setq display-line-numbers-type t)
-(setq scroll-margin 2)
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
-(setq confirm-kill-emacs nil)
 (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
 
@@ -49,15 +49,6 @@
       (load-theme 'doom-nord-light)
     (load-theme 'doom-dracula)))
 (global-set-key [f5] 'toggle-theme)
-
-(defun agenda-layout ()
-  "Eagenda layout"
-  (progn
-    ;; (+workspace/new-named "agenda")
-    (find-file (expand-file-name "~/Org/Tasks.org"))
-    (split-window-right 65)
-    (org-agenda-list 15))
-  )
 ;; }}}
 ;; ======================= Dired ============= {{{
 (use-package! dired
@@ -69,19 +60,59 @@
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
 ;; }}}
+;; ======================= Org Modern ============= {{{
+(package-initialize)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+;; (modus-themes-load-operandi)
+
+;; Choose some fonts
+;; (set-face-attribute 'default nil :family "Iosevka")
+;; (set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
+;; (set-face-attribute 'org-modern-symbol nil :family "Iosevka")
+
+(dolist (face '(window-divider
+                window-divider-first-pixel
+                window-divider-last-pixel))
+  (face-spec-reset-face face)
+  (set-face-foreground face (face-attribute 'default :background)))
+(set-face-background 'fringe (face-attribute 'default :background))
+
+(setq org-auto-align-tags nil
+      org-tags-column 0
+      org-catch-invisible-edits 'show-and-error
+      org-special-ctrl-a/e t
+      org-insert-heading-respect-content t
+      ;; Org styling, hide markup etc.
+      org-hide-emphasis-markers t
+      org-pretty-entities t
+      org-ellipsis "…"
+      ;; Agenda styling
+      org-agenda-tags-column 0
+      org-agenda-block-separator ?─
+      org-agenda-time-grid '((daily today require-timed)
+                             (800 1000 1200 1400 1600 1800 2000)
+                             " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+      org-agenda-current-time-string
+      "⭠ now ─────────────────────────────────────────────────")
+(global-org-modern-mode)
+;; }}}
 ;; ======================= Org ============= {{{
-(setq org-directory "~/Org")
-(setq org-list-demote-modify-bullet
-      '(("+" . "*") ("*" . "-") ("-" . "+")))
-(setq org-superstar-headline-bullets-list
-      '("" "" "" "" "" "" "" "" ""))
-;; Hide away leading stars on terminal.
-(setq org-superstar-leading-fallback ?\s)
-(use-package! org-fancy-priorities
-  :hook
-  (org-mode . org-fancy-priorities-mode)
-  :config
-  (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
+(setq org-directory "~/Org"
+      org-agenda-files
+      '("~/Org/Tasks.org"
+        "~/Org/Habits.org"
+        "~/Org/Learn.org"
+        "~/Org/Birthdays.org"))
+      ;; org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
+      ;; org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
+      ;; org-superstar-leading-fallback ?\s);; Hide away leading stars on terminal.
+;; (use-package! org-fancy-priorities
+;;   :hook
+;;   (org-mode . org-fancy-priorities-mode)
+;;   :config
+;;   (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit outline-1 :height 1.6))))
@@ -92,12 +123,6 @@
  '(org-level-6 ((t (:inherit outline-6 :height 1.1))))
  ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
  )
-
-(setq org-agenda-files
-      '("~/Org/Tasks.org"
-        "~/Org/Habits.org"
-        "~/Org/Learn.org"
-        "~/Org/Birthdays.org"))
 
 (use-package! org
   :commands (org-capture org-agenda)
@@ -190,8 +215,8 @@
 ;; }}}
 ;; ======================= Spell Checking ============= {{{
 (after! ispell
-  (setq ispell-program-name "hunspell")
-  (setq ispell-dictionary "en_GB,en_US,it_IT")
+  (setq ispell-program-name "hunspell"
+        ispell-dictionary "en_GB,en_US,it_IT")
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
   (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))

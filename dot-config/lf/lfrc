@@ -41,17 +41,6 @@ cmd open ${{
     esac
 }}
 
-cmd chmod %{{
-    IFS=" "
-    printf "Mode bits: "
-    read ans
-    for file in "$fx"
-    do
-        chmod $ans $file
-    done
-    lf -remote 'send reload'
-}}
-
 cmd extract ${{
 	# clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
@@ -172,9 +161,9 @@ cmd paste &{{
             ;;
         move) mv -n -- "$@" .;;
     esac
+    notify-send "RSYNC Done" "$(cat ~/.local/share/lf/files)"
     rm ~/.local/share/lf/files
     lf -remote "send clear"
-    notify-send "rsync done "
 }}
 
 cmd recol &{{
@@ -206,6 +195,16 @@ cmd link %{{
     esac
     rm ~/.local/share/lf/files
     lf -remote "send clear"
+}}
+
+cmd zz %{{
+    result="$(zoxide query --exclude "${PWD}" -- "$1")"
+    lf -remote "send ${id} cd '${result}'"
+}}
+
+cmd zi ${{
+    result="$(zoxide query -i -- "$1")"
+    lf -remote "send ${id} cd '${result}'"
 }}
 
 cmd yank-dirname $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
