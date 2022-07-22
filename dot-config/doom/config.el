@@ -25,8 +25,9 @@
 (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
 
-(set-frame-parameter (selected-frame) 'alpha '(92))
-(add-to-list 'default-frame-alist '(alpha . (92)))
+(set-face-foreground 'vertical-border "magenta")
+(set-frame-parameter (selected-frame) 'alpha '(90))
+(add-to-list 'default-frame-alist '(alpha . (80)))
 
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
@@ -60,59 +61,22 @@
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
 ;; }}}
-;; ======================= Org Modern ============= {{{
-(package-initialize)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-;; (modus-themes-load-operandi)
-
-;; Choose some fonts
-;; (set-face-attribute 'default nil :family "Iosevka")
-;; (set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
-;; (set-face-attribute 'org-modern-symbol nil :family "Iosevka")
-
-(dolist (face '(window-divider
-                window-divider-first-pixel
-                window-divider-last-pixel))
-  (face-spec-reset-face face)
-  (set-face-foreground face (face-attribute 'default :background)))
-(set-face-background 'fringe (face-attribute 'default :background))
-
-(setq org-auto-align-tags nil
-      org-tags-column 0
-      org-catch-invisible-edits 'show-and-error
-      org-special-ctrl-a/e t
-      org-insert-heading-respect-content t
-      ;; Org styling, hide markup etc.
-      org-hide-emphasis-markers t
-      org-pretty-entities t
-      org-ellipsis "…"
-      ;; Agenda styling
-      org-agenda-tags-column 0
-      org-agenda-block-separator ?─
-      org-agenda-time-grid '((daily today require-timed)
-                             (800 1000 1200 1400 1600 1800 2000)
-                             " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-      org-agenda-current-time-string
-      "⭠ now ─────────────────────────────────────────────────")
-(global-org-modern-mode)
-;; }}}
 ;; ======================= Org ============= {{{
 (setq org-directory "~/Org"
       org-agenda-files
       '("~/Org/Tasks.org"
         "~/Org/Habits.org"
         "~/Org/Learn.org"
-        "~/Org/Birthdays.org"))
-      ;; org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
-      ;; org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
-      ;; org-superstar-leading-fallback ?\s);; Hide away leading stars on terminal.
-;; (use-package! org-fancy-priorities
-;;   :hook
-;;   (org-mode . org-fancy-priorities-mode)
-;;   :config
-;;   (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
+        "~/Org/Birthdays.org")
+      org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
+      org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
+      org-superstar-leading-fallback ?\s);; Hide away leading stars on terminal.
+
+(use-package! org-fancy-priorities
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit outline-1 :height 1.6))))
@@ -164,7 +128,7 @@
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-(add-hook 'org-mode-hook 'org-appear-mode)
+;; (add-hook 'org-mode-hook 'org-appear-mode)
 
 (setq org-capture-templates
   `(("t" "Tasks / Projects")

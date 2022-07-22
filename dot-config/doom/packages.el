@@ -52,8 +52,6 @@
 ;; (package! ox-epub)
 (package! dired-single)
 ;; (package! dired-open)
-(package! org-appear)
-(package! org-modern)
 ;; (package! nov)
 (let ((x (system-name)))
   (cond ((or (string-equal x "VoiD") (string-equal x "vDR"))
