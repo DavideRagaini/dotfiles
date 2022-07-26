@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# i3lock -eft -c 1d2021 -i ~/.config/lockscreen
-lock && timeOnPc suspend
-
+PATH="/home/davide/.local/bin/controller"
+"$PATH"/lock &&
+    "$PATH"/sysact Suspend
