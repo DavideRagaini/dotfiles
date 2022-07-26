@@ -54,13 +54,17 @@ bindkey '^[[P' delete-char
 bindkey '^[[3~' delete-char
 bindkey '^H' delete-char
 bindkey '^s' doas-command-line
+bindkey -M vicmd '^[[P' vi-delete-char
+bindkey -M vicmd '^e' edit-command-line
+bindkey -M visual '^[[P' vi-delete
 bindkey -r "^d"
 bindkey -r "^u"
 bindkey '^[[28;5;9~' autosuggest-execute
 bindkey -s '^b' '"$(xclip -o)"'
-bindkey -s '^o' 'lfcd^M'
+bindkey -s '^o' '^ulfcd^M'
+bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 # bindkey -s '^v' 'nvim $(fzf)^M'
-bindkey -s '^v' 'vf^M'
+# bindkey -s '^v' 'vf^M'
 bindkey -s '^z' 'zi^M'
 bindkey -v '^?' backward-delete-char
 

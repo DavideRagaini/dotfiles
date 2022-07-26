@@ -32,21 +32,19 @@ function zsh_add_completion() {
 }
 
 # Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp)"
-   fu -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        if [ -d "$dir" ]; then
-            if [ "$dir" != "$(pwd)" ]; then
-                cd "$dir"
-            fi
-        fi
-    fi
-}
+ lfcd() {
+   tmp="$(mktemp)"
+   tmp="$(mktemp -uq)"
+   trap 'rm -f $tmp >/dev/null 2>&1' HUP INT QUIT TERM PWR EXIT
+   lf -last-dir-path="$tmp" "$@"
+   if [ -f "$tmp" ]; then
+     dir="$(cat "$tmp")"
+     rm -f "$tmp" >/dev/null
+     [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+   fi
+ }
 
-#   - CTRL-O to open with `open` command,
+#   CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
 vf () {
   IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e --preview 'highlight -q -O ansi --line-range=1-20 {}')")

@@ -39,6 +39,7 @@ alias \
     v="nvim" \
     x="sxiv -ft *" \
     xclip="xclip -selection clipboard" \
+	yt="yt-dlp --embed-metadata -i" \
     zt="zathura"
 # samedir="setsid -f $TERMINAL >/dev/null 2>&1" \
 # trem="transmission-remote" \
