@@ -2,4 +2,4 @@
 
 LOCK_TIME=5 # Minutes
 NOTIFY=30 # Seconds
-exec xautolock -time $LOCK_TIME -notify $NOTIFY -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" -locker '/home/davide/.local/bin/controller/lock'
+exec xautolock -time $LOCK_TIME -notify $NOTIFY -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" -locker 'sudo -A zzz'
