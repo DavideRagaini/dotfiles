@@ -18,12 +18,14 @@
       doom-theme 'doom-dracula
       display-line-numbers-type t
       scroll-margin 2
+      whitespace-line-column 300
       confirm-kill-emacs nil)
 
 (global-visual-line-mode t)
 (blink-cursor-mode 1)
 (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
+(global-whitespace-mode 1)
 
 (set-face-foreground 'vertical-border "magenta")
 (set-frame-parameter (selected-frame) 'alpha '(90))
@@ -35,11 +37,13 @@
     ("^\\*Completions" :slot -1 :vslot -2 :ttl 0)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)
     ("^\\*Help" :slot -1 :size 0.2 :select t)
+    ("^\\*Warnings" :slot -1 :vslot -2 :size 0.3 :ttl 0)
     ("^\\*Man" :slot -1 :size 0.4 :side bottom :select t)
     ("^\\*helpful" :slot -1 :size 0.35 :select t)
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3 :ttl 0 :quit t)
     ("^\\*eww" :slot -1 :side left :quit nil :size 0.5 :select t)
     ("^\\*Python*" :slot -1 :side left :quit nil :size 0.5 :select t)
+    ("^\\*eshell*" :slot -1 :side bottom :quit nil :size 0.4 :select t)
     ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl 5)))
 ;; }}}
 ;; ======================= Functions ============= {{{
@@ -127,8 +131,6 @@
         ("Tasks.org" :maxlevel . 1)))
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
-;; (add-hook 'org-mode-hook 'org-appear-mode)
 
 (setq org-capture-templates
   `(("t" "Tasks / Projects")

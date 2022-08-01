@@ -1,16 +1,18 @@
 #!/bin/sh
 
 sleep 20
-while [ $(pidof -qs Xorg) ]; do
+while [ "$(pidof -qs Xorg)" ]; do
     sleep 5
 done
 
-export USER="$(awk -F':' '/1000/ {print $1}' /etc/passwd)"
+user=$(awk -F':' '/1000/ {print $1}' /etc/passwd)
+id="$(id -u "$USER")"
+export USER="$user"
 export HOME="/home/$USER"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_RUNTIME_DIR="$HOME/.cache/runtime"
+export XDG_RUNTIME_DIR="/run/user/$id"
 export LOG_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/log"
 export DISPLAY=:0
 export XAUTHORITY="$HOME/.config/Xauthority"
