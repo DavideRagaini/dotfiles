@@ -74,13 +74,20 @@ gcl() {
     git clone "$(xclip -selection clipboard -o)"
 }
 
+alias pip='function _pip(){
+    if [ $1 = "search" ]; then
+        pip_search "$2";
+    else pip "$@";
+    fi;
+};_pip'
+
 # xbps-install & upgrade
 alias \
     xbi="doas xbps-install -S" \
     xu="doas xbps-install -Su"
 
 sxi() {
-    xbps-query -Rs $1 | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -Sy %
+    xbps-query -Rs "$1" | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -Sy %
 }
 
 # xbps-query
@@ -89,14 +96,14 @@ alias \
     xgot="xbps-query -l | fzf"
 
 sxq() {
-    xbps-query -Rs $1 | fzf
+    xbps-query -Rs "$1" | fzf
 }
 
 tso(){
-    setsid -f $(ts |
+    setsid -f "$(ts |
         awk -v n=6 '{ for (i=n; i<=NF; i++) printf "%s%s", $i, (i<NF ? OFS : ORS)}' |
         fzf |
-        cut -d']' -f2)
+        cut -d']' -f2)"
 }
 
 # xbps-remove

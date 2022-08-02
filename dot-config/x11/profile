@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export ALTERNATE_EDITOR=""
+export ALTERNATE_EDITOR="nvim"
 export EDITOR="emacsclient -t"
 export FILE="lf"
 export PAGER="bat"

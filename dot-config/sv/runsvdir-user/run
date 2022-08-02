@@ -5,9 +5,9 @@ while [ "$(pidof -qs Xorg)" ]; do
     sleep 5
 done
 
-user=$(awk -F':' '/1000/ {print $1}' /etc/passwd)
+USER=$(awk -F':' '/1000/ {print $1}' /etc/passwd)
 id="$(id -u "$USER")"
-export USER="$user"
+export USER="$USER"
 export HOME="/home/$USER"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
