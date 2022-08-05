@@ -43,6 +43,7 @@
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3 :ttl 0 :quit t)
     ("^\\*eww" :slot -1 :side left :quit nil :size 0.5 :select t)
     ("^\\*Python*" :slot -1 :side left :quit nil :size 0.5 :select t)
+    ("^\\*Org Agenda*" :slot -1 :side left :quit nil :size 0.4 :select t)
     ("^\\*eshell*" :slot -1 :side bottom :quit nil :size 0.4 :select t)
     ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl 5)))
 ;; }}}
