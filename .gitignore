@@ -10,7 +10,6 @@ dot-config/mpd/**
 
 dot-config/mpv/last
 dot-config/mpv/playlists
-dot-config/mpv/scripts/sponsorblock_shared
 dot-config/mpv/watch_later
 !dot-config/mpv/scripts
 !dot-config/mpv/input.conf
