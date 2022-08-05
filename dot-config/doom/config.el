@@ -131,7 +131,8 @@
         ("Tasks.org" :maxlevel . 1)))
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
+;; }}}
+;; ======================= Org Capture ============= {{{
 (setq org-capture-templates
   `(("t" "Tasks / Projects")
     ("tt" "Task" entry (file+headline "~/Org/Tasks.org" "---------- Inbox ----------")
@@ -163,6 +164,8 @@
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+    ("w" "Workout" table-line (file+headline "~/Org/Habits.org" "Calisthenics")
+          "| %^{Time-Stamps}T | %^{Exercises} | %^{Notes} |" :kill-buffer t)
 
     ("s" "Scramble Capture")
     ("sd" "Dataset" table-line (file+headline "~/Org/Scrambled.org" "Dataset")
