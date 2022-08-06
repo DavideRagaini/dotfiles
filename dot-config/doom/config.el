@@ -170,7 +170,7 @@
 
     ("s" "Scramble Capture")
     ("sd" "Dataset" table-line (file+headline "~/Org/Scrambled.org" "Dataset")
-          "| %^{Color} | %^{Minutes} | %^{Minutes} | %^{Declared} | %^{Extracted} | %U |")
+          "| %^{Players} | %^{Color} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %U |")
     ("si" "Scrambled Idea" table-line (file+headline "~/Org/Scrambled.org" "Inbox")
           "* IDEA %?  %U\n" :empty-lines 1)
     ("st" "Scrambled Todo" table-line (file+headline "~/Org/Scrambled.org" "Inbox")

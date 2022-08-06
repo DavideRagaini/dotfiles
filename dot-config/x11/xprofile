@@ -21,6 +21,10 @@ case $(hostname) in
         export BROWSER2="qutebrowser"
         libinput-gestures-setup start &
         ;;
+    *)
+        export BROWSER="qutebrowser"
+        export BROWSER2="librewolf"
+        ;;
 esac
 
 remaps &
