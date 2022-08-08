@@ -1,11 +1,12 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;; ======================= User Interface ============= {{{
+(cond
+ ((> (x-display-pixel-width) 1920) (setq dr\font-size 30))
+ ((= (x-display-pixel-width) 1920) (setq dr\font-size 15))
+ ((< (x-display-pixel-width) 1920) (setq dr\font-size 12)))
 (let ((x (system-name)))
   (cond
-   ((string-equal x "VoiD") (setq dr\font-size 30) (global-activity-watch-mode t))
-   ((string-equal x "vDR") (setq dr\font-size 16) (global-activity-watch-mode t))
-   ((or (string-equal x "void") (string-equal x "NT")) (setq dr\font-size 12))
-   ((or (string-equal x "tinkerboard") (string-equal x "bagaro")) (setq dr\font-size 15))))
+   ((or (string-equal x "VoiD") (string-equal x "vDR")) (global-activity-watch-mode t))))
 
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
@@ -89,12 +90,12 @@
   (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :height 1.6))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.5))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.4))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.3))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.2))))
- '(org-level-6 ((t (:inherit outline-6 :height 1.1))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.2))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.1))))
+ '(org-level-6 ((t (:inherit outline-6 :height 1.0))))
  ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
  )
 
@@ -132,9 +133,12 @@
 (after! org (setq org-capture-templates
   `(("t" "Tasks / Projects")
     ("tt" "Task" entry (file+headline "~/Org/Tasks.org" "Inbox")
-         "** TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+         "** TODO %?  %U\n  %a\n  %i" :empty-lines 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+         "** TODO %?  %U\n  %a\n  %i" :empty-lines 1)
+    ("ti" "Interrupt" entry (file+headline "~/Org/Tasks.org" "Inbox")
+          "* %<T> %a :interrupt:\n\n%?\n\n"
+          :clock-in :clock-resume :empty-lines 1)
 
     ("n" "Note Entries")
     ("np" "Protocol" entry (file+headline "~/Org/Tasks.org" "Inbox")
@@ -153,12 +157,9 @@
     ("jj" "Journal note" entry (file+olp+datetree "~/Org/Journal.org")
           "* %<T> Journal :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
-    ("jh" "Hangout" entry (file+olp+datetree "~/Org/Journal.org")
-          "* %<T> %^{Start}T--%^{End}T :hangout:\n%?\n\n"
-          :clock-in :clock-resume :empty-lines 1)
-    ("ji" "Interrupt" entry (file+headline "~/Org/Tasks.org" "Inbox")
-          "* %<T> %a :interrupt:\n\n%?\n\n"
-          :clock-in :clock-resume :empty-lines 1)
+    ("jh" "Hangout" table-line (file+headline "~/Org/Journal.org" "Hangouts")
+          "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
+          :empty-lines 1)
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
@@ -187,8 +188,9 @@
         ispell-extra-args '("--sug-mode=ultra"))
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT,italiano,english")
-  (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
-(remove-hook 'text-mode-hook #'flyspell-mode)
+  (setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
+  (remove-hook 'text-mode-hook #'flyspell-mode)
+  (remove-hook 'org-mode-hook #'flyspell-mode))
 ;; }}}
 
 ;; - `load!' for loading external *.el files relative to this one
