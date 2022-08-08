@@ -1,4 +1,5 @@
 #!/bin/sh
+# zmodload zsh/zprof
 
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
@@ -137,3 +138,5 @@ ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=cyan'
 
 # typeset -F SECONDS
 # echo $SECONDS
+
+# zprof

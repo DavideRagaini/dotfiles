@@ -1,5 +1,4 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
 ;; ======================= User Interface ============= {{{
 (let ((x (system-name)))
   (cond
@@ -75,7 +74,13 @@
         "~/Org/Birthdays.org")
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
-      org-superstar-leading-fallback ?\s);; Hide away leading stars on terminal.
+      org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
+      org-ellipsis " ▾"
+      org-hide-emphasis-markers t
+      org-habit-graph-column 60
+      org-refile-targets
+      '(("Archive.org" :maxlevel . 1)
+        ("Tasks.org" :maxlevel . 1)))
 
 (use-package! org-fancy-priorities
   :hook
@@ -93,18 +98,12 @@
  ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
  )
 
-(use-package! org
-  :commands (org-capture org-agenda)
-  :config
-  (setq org-ellipsis " ▾"
-        org-hide-emphasis-markers t))
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 (add-to-list 'org-modules 'org-habit)
-(setq org-habit-graph-column 60)
 
 (setq org-tag-alist
       '((:startgroup)
@@ -126,51 +125,52 @@
         ("TRY" . ?t)
         ("THINK" . ?T)
         ("WATCH" . ?w)))
-
-(setq org-refile-targets
-      '(("Archive.org" :maxlevel . 1)
-        ("Tasks.org" :maxlevel . 1)))
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 ;; }}}
 ;; ======================= Org Capture ============= {{{
-(setq org-capture-templates
+(after! org (setq org-capture-templates
   `(("t" "Tasks / Projects")
-    ("tt" "Task" entry (file+headline "~/Org/Tasks.org" "---------- Inbox ----------")
+    ("tt" "Task" entry (file+headline "~/Org/Tasks.org" "Inbox")
          "** TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
          "** TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
 
     ("n" "Note Entries")
-    ("np" "Protocol" entry (file+headline "~/Org/Tasks.org" "---------- Inbox ----------")
+    ("np" "Protocol" entry (file+headline "~/Org/Tasks.org" "Inbox")
           "** TODO %?[[%:link][%:description]] %U\n%i\n" :prepend t)
-    ("nl" "Protocol Link" entry (file+headline "~/Org/Tasks.org" "---------- Inbox ----------")
+    ("nl" "Protocol Link" entry (file+headline "~/Org/Tasks.org" "Inbox")
           "** TODO %?[[%:link][%:description]] %U\n" :prepend t)
-    ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Tasks.org" "---------- Inbox ----------")
+    ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Tasks.org" "Inbox")
           "** TODO %?%x %U\n" :prepend t)
-    ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Tasks.org" "---------- Inbox ----------")
+    ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Tasks.org" "Inbox")
           "** TODO %? %U\n" :prepend t)
 
     ("j" "Journal Entries")
-    ("jj" "Journal note" entry (file+olp+datetree "~/Org/Journal.org")
-          "* %<T> - Journal :journal:\n\n%?\n\n"
+    ("jd" "Dream" entry (file+olp+datetree "~/Org/Journal.org")
+          "* %<T> Dream :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
-    ("jm" "Meeting interrupt" entry (file+olp+datetree "~/Org/Journal.org")
-          "* %<T> - %a :meetings:\n\n%?\n\n"
+    ("jj" "Journal note" entry (file+olp+datetree "~/Org/Journal.org")
+          "* %<T> Journal :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
     ("jh" "Hangout" entry (file+olp+datetree "~/Org/Journal.org")
           "* %<T> %^{Start}T--%^{End}T :hangout:\n%?\n\n"
+          :clock-in :clock-resume :empty-lines 1)
+    ("ji" "Interrupt" entry (file+headline "~/Org/Tasks.org" "Inbox")
+          "* %<T> %a :interrupt:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-    ("w" "Workout" table-line (file+headline "~/Org/Habits.org" "Calisthenics")
-          "| %^{Time-Stamps}T | %^{Exercises} | %^{Notes} |" :kill-buffer t)
+    ("w" "Workout" table-line (file+headline "~/Org/Habits.org" "Workout")
+          "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
+          :kill-buffer t)
 
     ("s" "Scramble Capture")
     ("sd" "Dataset" table-line (file+headline "~/Org/Scrambled.org" "Dataset")
-          "| %^{Players} | %^{Color} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %U |")
+          "| %^{Players|2|3|4|5} | %^{Color|B|G|P|W} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U |"
+          :kill-budder t)
     ("si" "Scrambled Idea" table-line (file+headline "~/Org/Scrambled.org" "Inbox")
           "* IDEA %?  %U\n" :empty-lines 1)
     ("st" "Scrambled Todo" table-line (file+headline "~/Org/Scrambled.org" "Inbox")
@@ -178,15 +178,17 @@
 
     ("m" "Metrics Capture")
     ("mw" "Weight" table-line (file+headline "~/Org/Metrics.org" "Weight")
-          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t))))
 ;; }}}
 ;; ======================= Spell Checking ============= {{{
 (after! ispell
   (setq ispell-program-name "hunspell"
-        ispell-dictionary "en_GB,en_US,it_IT")
+        ispell-dictionary "en_GB,en_US,it_IT,italiano,english"
+        ispell-extra-args '("--sug-mode=ultra"))
   (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT")
+  (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT,italiano,english")
   (setq ispell-personal-dictionary "~/.local/share/hunspell_personal"))
+(remove-hook 'text-mode-hook #'flyspell-mode)
 ;; }}}
 
 ;; - `load!' for loading external *.el files relative to this one
