@@ -133,7 +133,7 @@
 (after! org (setq org-capture-templates
   `(("t" "Tasks / Projects")
     ("tt" "Task" entry (file+headline "~/Org/Tasks.org" "Inbox")
-         "** TODO %?  %U\n  %a\n  %i" :empty-lines 1)
+         "** TODO %?  %U\n%i" :empty-lines 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
          "** TODO %?  %U\n  %a\n  %i" :empty-lines 1)
     ("ti" "Interrupt" entry (file+headline "~/Org/Tasks.org" "Inbox")
