@@ -1,20 +1,18 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;; ======================= User Interface ============= {{{
 (cond
- ((> (x-display-pixel-width) 1920) (setq dr\font-size 30))
- ((= (x-display-pixel-width) 1920) (setq dr\font-size 15))
- ((< (x-display-pixel-width) 1920) (setq dr\font-size 12)))
-(let ((x (system-name)))
-  (cond
-   ((or (string-equal x "VoiD") (string-equal x "vDR")) (global-activity-watch-mode t))))
+   ((string-equal (system-name) "VoiD") (setq dr/font-size 30) (global-activity-watch-mode t))
+   ((string-equal (system-name) "vDR") (setq dr/font-size 16) (global-activity-watch-mode t))
+   ((or (string-equal (system-name) "void") (string-equal (system-name) "NT")) (setq dr/font-size 12))
+   ((or (string-equal (system-name) "tinkerboard") (string-equal (system-name) "bagaro")) (setq dr/font-size 14)))
 
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
-      doom-font (font-spec :family "Iosevka" :size dr\font-size)
-      doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr\font-size 2))
-      doom-serif-font (font-spec :family "Liberation Sans" :size (+ dr\font-size 2))
-      doom-unicode-font (font-spec :family "Linux Libertine O" :size dr\font-size)
-      doom-big-font (font-spec :family "Iosevka" :size (+ dr\font-size 10))
+      doom-font (font-spec :family "Iosevka" :size dr/font-size)
+      doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
+      doom-serif-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
+      doom-unicode-font (font-spec :family "Linux Libertine O" :size dr/font-size)
+      doom-big-font (font-spec :family "Iosevka" :size (+ dr/font-size 10))
       doom-theme 'doom-dracula
       display-line-numbers-type t
       scroll-margin 2
@@ -27,7 +25,6 @@
 (global-evil-vimish-fold-mode 1)
 (global-whitespace-mode 1)
 
-(set-face-foreground 'vertical-border "magenta")
 (set-frame-parameter (selected-frame) 'alpha '(90))
 (add-to-list 'default-frame-alist '(alpha . (80)))
 
@@ -48,13 +45,17 @@
     ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl 5)))
 ;; }}}
 ;; ======================= Functions ============= {{{
-(defun toggle-theme ()
+(defun dr/toggle-theme ()
   "Light theme toggles"
   (interactive)
   (if (eq (car custom-enabled-themes) 'doom-dracula)
       (load-theme 'doom-nord-light)
     (load-theme 'doom-dracula)))
 (global-set-key [f5] 'toggle-theme)
+
+(defun dr/late-load ()
+  (set-face-foreground 'vertical-border "magenta"))
+(add-hook! 'doom-load-theme-hook #'dr/late-load)
 ;; }}}
 ;; ======================= Dired ============= {{{
 (use-package! dired
@@ -133,12 +134,12 @@
 (after! org (setq org-capture-templates
   `(("t" "Tasks / Projects")
     ("tt" "Task" entry (file+headline "~/Org/Tasks.org" "Inbox")
-         "** TODO %?  %U\n%i" :empty-lines 1)
+         "** TODO %?  %U\n%i" :preappend t :empty-lines 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %?  %U\n  %a\n  %i" :empty-lines 1)
+         "** TODO %?  %U\n  %a\n  %i" :preappend t :empty-lines 1)
     ("ti" "Interrupt" entry (file+headline "~/Org/Tasks.org" "Inbox")
           "* %<T> %a :interrupt:\n\n%?\n\n"
-          :clock-in :clock-resume :empty-lines 1)
+          :clock-in :clock-resume :preappend t :empty-lines 1)
 
     ("n" "Note Entries")
     ("np" "Protocol" entry (file+headline "~/Org/Tasks.org" "Inbox")
