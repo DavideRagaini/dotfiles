@@ -16,7 +16,8 @@
       doom-theme 'doom-dracula
       display-line-numbers-type t
       scroll-margin 2
-      whitespace-line-column 300
+      whitespace-line-column 500
+      straight-disable-native-compile t
       confirm-kill-emacs nil)
 
 (global-visual-line-mode t)
@@ -36,7 +37,7 @@
     ("^\\*Help" :slot -1 :size 0.2 :select t)
     ("^\\*Warnings" :slot -1 :vslot -2 :size 0.3 :ttl 0)
     ("^\\*Man" :slot -1 :size 0.4 :side bottom :select t)
-    ("^\\*helpful" :slot -1 :size 0.35 :select t)
+    ("^\\*helpful" :slot -1 :side right :size 0.30 :quit nil :select t)
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3 :ttl 0 :quit t)
     ("^\\*eww" :slot -1 :side left :quit nil :size 0.5 :select t)
     ("^\\*Python*" :slot -1 :side left :quit nil :size 0.5 :select t)
@@ -138,7 +139,7 @@
     ("ts" "Clocked Entry Subtask" entry (clock)
          "** TODO %?  %U\n  %a\n  %i" :preappend t :empty-lines 1)
     ("ti" "Interrupt" entry (file+headline "~/Org/Tasks.org" "Inbox")
-          "* %<T> %a :interrupt:\n\n%?\n\n"
+          "* %T %a :interrupt:\n\n%?\n\n"
           :clock-in :clock-resume :preappend t :empty-lines 1)
 
     ("n" "Note Entries")
@@ -153,10 +154,10 @@
 
     ("j" "Journal Entries")
     ("jd" "Dream" entry (file+olp+datetree "~/Org/Journal.org")
-          "* %<T> Dream :journal:\n\n%?\n\n"
+          "* %T Dream :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
     ("jj" "Journal note" entry (file+olp+datetree "~/Org/Journal.org")
-          "* %<T> Journal :journal:\n\n%?\n\n"
+          "* %T Journal :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
     ("jh" "Hangout" table-line (file+headline "~/Org/Journal.org" "Hangouts")
           "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"

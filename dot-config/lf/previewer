@@ -55,7 +55,7 @@ case "$(file --dereference --brief --mime-type -- "${FILE_PATH}")" in
 	image/*) preview "$FILE_PATH" "$@" ;;
 	text/troff) man ./ "${FILE_PATH}" | col -b ;;
 	text/html) lynx -display_charset=utf-8 -dump "${FILE_PATH}" ;;
- 	text/* | */xml | application/json) bat --line-range :60 -f "${FILE_PATH}" ;;
+ 	text/* | */xml | application/json) $PAGER "${FILE_PATH}" ;;
 	video/*) mediainfo "$FILE_PATH" ;;
 		# thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
 		# ffmpeg -y -i "$FILE_PATH" -vframes 1 "$thumbnail"
