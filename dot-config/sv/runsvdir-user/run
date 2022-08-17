@@ -14,10 +14,16 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_RUNTIME_DIR="/run/user/$id"
 export LOG_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/log"
-export DISPLAY=:0
+export DISPLAY=":0"
 export XAUTHORITY="$HOME/.config/Xauthority"
 
 groups="$(id -Gn "$USER" | tr ' ' ':')"
 svdir="$HOME/.local/service"
+
+if [ ! -d $XDG_RUNTIME_DIR ]; then
+    mkdir -p "$XDG_RUNTIME_DIR" -m 700
+    chown "$USER" "$XDG_RUNTIME_DIR"
+    chgrp "$USER" "$XDG_RUNTIME_DIR"
+fi
 
 exec chpst -u "$USER:$groups" runsvdir "$svdir"
