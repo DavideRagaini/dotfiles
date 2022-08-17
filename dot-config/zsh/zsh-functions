@@ -112,7 +112,7 @@ __timer_format_duration() {
   local secs=$(printf "%.${TIMER_PRECISION:-1}f" $(($1 - 60 * mins)))
   local duration_str=$(echo "${mins}m${secs}s")
   local format="${TIMER_FORMAT:-%d}"
-  echo "❮${format//\%d/${duration_str#0m}}"
+  echo "${format//\%d/${duration_str#0m}}"
 }
 
 __timer_save_time_preexec() {
@@ -124,11 +124,13 @@ __timer_display_timer_precmd() {
   if [ -n "${__timer_cmd_start_time}" ]; then
     local cmd_end_time=$(__timer_current_time)
     local tdiff=$((cmd_end_time - __timer_cmd_start_time))
+    local tstartstr="$(date -d @${__timer_cmd_start_time} +'%T')"
     unset __timer_cmd_start_time
     if [[ -z "${TIMER_THRESHOLD}" || ${tdiff} -ge "${TIMER_THRESHOLD}" ]]; then
-        local tdiffstr="$(__timer_format_duration ${tdiff}) $(strftime "%T")❯"
-        local cols=$((COLUMNS - ${#tdiffstr} - 1))
-        echo -e "\e[1;33m\033[1A\033[${cols}C ${tdiffstr}"
+        local tdiffstr="$(__timer_format_duration ${tdiff})"
+        local prompt="❮${tdiffstr} ${tstartstr} $(strftime "%T")❯"
+        local cols=$((COLUMNS - ${#prompt} - 1))
+        echo -e "\e[1;33m\033[1A\033[${cols}C ${prompt}"
     fi
     if [[ $tdiff -ge 60 ]]; then
        notify-send "$current_cmd" "Status $?\n\n$tdiffstr"
