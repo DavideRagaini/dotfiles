@@ -1,10 +1,19 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;; ======================= User Interface ============= {{{
-(cond
-   ((string-equal (system-name) "VoiD") (setq dr/font-size 30) (global-activity-watch-mode t))
-   ((string-equal (system-name) "vDR") (setq dr/font-size 16) (global-activity-watch-mode t))
-   ((or (string-equal (system-name) "void") (string-equal (system-name) "NT")) (setq dr/font-size 12))
-   ((or (string-equal (system-name) "tinkerboard") (string-equal (system-name) "bagaro")) (setq dr/font-size 14)))
+(cond ((string-equal (system-name) "VoiD")
+        (setq dr/font-size 30)
+        (global-activity-watch-mode t))
+   ((string-equal (system-name) "vDR")
+        (setq dr/font-size 16)
+        (global-activity-watch-mode t))
+   ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
+        (setq dr/font-size 12
+                straight-disable-native-compile t))
+   ((string-equal (system-name) "tinkerboard")
+        (setq dr/font-size 14
+                straight-disable-native-compile t))
+   ((string-equal (system-name) "bagaro")
+        (setq dr/font-size 14)))
 
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
@@ -17,7 +26,9 @@
       display-line-numbers-type t
       scroll-margin 2
       whitespace-line-column 500
-      straight-disable-native-compile t
+      org-clock-persist 'history
+      org-agenda-include-diary t
+      org-agenda-include-inactive-timestamps t
       confirm-kill-emacs nil)
 
 (global-visual-line-mode t)
@@ -25,6 +36,7 @@
 (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
 (global-whitespace-mode 1)
+(org-clock-persistence-insinuate)
 
 (set-frame-parameter (selected-frame) 'alpha '(90))
 (add-to-list 'default-frame-alist '(alpha . (80)))
@@ -180,8 +192,11 @@
           "* TODO %?  %U\n" :empty-lines 1)
 
     ("m" "Metrics Capture")
+    ("md" "Drink Journal" table-line (file+headline "~/Org/Metrics.org" "Hydro Journal")
+          "| %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
+          :kill-buffer t :prepend t)
     ("mw" "Weight" table-line (file+headline "~/Org/Metrics.org" "Weight")
-          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t))))
+          "| %U | %^{Weight} |" :preappend t :kill-buffer t))))
 ;; }}}
 ;; ======================= Spell Checking ============= {{{
 (after! ispell
