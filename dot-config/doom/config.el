@@ -28,7 +28,7 @@
       whitespace-line-column 500
       org-clock-persist 'history
       org-agenda-include-diary t
-      org-agenda-include-inactive-timestamps t
+      ;; org-agenda-include-inactive-timestamps t
       confirm-kill-emacs nil)
 
 (global-visual-line-mode t)
@@ -38,8 +38,8 @@
 (global-whitespace-mode 1)
 (org-clock-persistence-insinuate)
 
-(set-frame-parameter (selected-frame) 'alpha '(90))
-(add-to-list 'default-frame-alist '(alpha . (80)))
+(set-frame-parameter (selected-frame) 'alpha '(92))
+(add-to-list 'default-frame-alist '(alpha . (92)))
 
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
@@ -83,19 +83,19 @@
 ;; ======================= Org ============= {{{
 (setq org-directory "~/Org"
       org-agenda-files
-      '("~/Org/Tasks.org"
-        "~/Org/Habits.org"
-        "~/Org/Learn.org"
-        "~/Org/Birthdays.org")
+      '("~/Org/Me/Tasks.org"
+        "~/Org/Me/Habits.org"
+        "~/Org/Me/Learn.org"
+        "~/Org/Me/Birthdays.org")
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
       org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
       org-ellipsis " ▾"
       org-hide-emphasis-markers t
       org-habit-graph-column 60
+      org-archive-location "Archive/%s_archive::"
       org-refile-targets
-      '(("Archive.org" :maxlevel . 1)
-        ("Tasks.org" :maxlevel . 1)))
+      '((org-agenda-files :maxlevel . 3)))
 
 (use-package! org-fancy-priorities
   :hook
@@ -146,56 +146,56 @@
 ;; ======================= Org Capture ============= {{{
 (after! org (setq org-capture-templates
   `(("t" "Tasks / Projects")
-    ("tt" "Task" entry (file+headline "~/Org/Tasks.org" "Inbox")
+    ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
          "** TODO %?  %U\n%i" :preappend t :empty-lines 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
          "** TODO %?  %U\n  %a\n  %i" :preappend t :empty-lines 1)
-    ("ti" "Interrupt" entry (file+headline "~/Org/Tasks.org" "Inbox")
+    ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "* %T %a :interrupt:\n\n%?\n\n"
           :clock-in :clock-resume :preappend t :empty-lines 1)
 
     ("n" "Note Entries")
-    ("np" "Protocol" entry (file+headline "~/Org/Tasks.org" "Inbox")
-          "** TODO %?[[%:link][%:description]] %U\n%i\n" :prepend t)
-    ("nl" "Protocol Link" entry (file+headline "~/Org/Tasks.org" "Inbox")
-          "** TODO %?[[%:link][%:description]] %U\n" :prepend t)
-    ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Tasks.org" "Inbox")
-          "** TODO %?%x %U\n" :prepend t)
-    ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Tasks.org" "Inbox")
-          "** TODO %? %U\n" :prepend t)
+    ("np" "Protocol" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %?[[%:link][%:description]] %U\n%i\n" :prepend t)
+    ("nl" "Protocol Link" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %?[[%:link][%:description]] %U\n" :prepend t)
+    ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %?%x %U\n" :prepend t)
+    ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %? %U\n" :prepend t)
 
     ("j" "Journal Entries")
-    ("jd" "Dream" entry (file+olp+datetree "~/Org/Journal.org")
+    ("jd" "Dream" entry (file+olp+datetree "~/Org/Me/Journal.org")
           "* %T Dream :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
-    ("jj" "Journal note" entry (file+olp+datetree "~/Org/Journal.org")
+    ("jj" "Journal note" entry (file+olp+datetree "~/Org/Me/Journal.org")
           "* %T Journal :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1)
-    ("jh" "Hangout" table-line (file+headline "~/Org/Journal.org" "Hangouts")
+    ("jh" "Hangout" table-line (file+headline "~/Org/Me/Journal.org" "Hangouts")
           "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
           :empty-lines 1)
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-    ("w" "Workout" table-line (file+headline "~/Org/Habits.org" "Workout")
+    ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
           "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
           :kill-buffer t)
 
     ("s" "Scramble Capture")
-    ("sd" "Dataset" table-line (file+headline "~/Org/Scrambled.org" "Dataset")
-          "| %^{Players|2|3|4|5} | %^{Color|B|G|P|W} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U |"
+    ("sd" "Dataset" table-line (file+headline "~/Org/Me/Scrambled.org" "Dataset")
+          "| %^{Players|2|3|4|5} | %^{Color|B|G|P|W} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
           :kill-budder t)
-    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Scrambled.org" "Inbox")
+    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
           "* IDEA %?  %U\n" :empty-lines 1)
-    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Scrambled.org" "Inbox")
+    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
           "* TODO %?  %U\n" :empty-lines 1)
 
     ("m" "Metrics Capture")
-    ("md" "Drink Journal" table-line (file+headline "~/Org/Metrics.org" "Hydro Journal")
+    ("md" "Drink Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Hydro Journal")
           "| %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
           :kill-buffer t :prepend t)
-    ("mw" "Weight" table-line (file+headline "~/Org/Metrics.org" "Weight")
+    ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
           "| %U | %^{Weight} |" :preappend t :kill-buffer t))))
 ;; }}}
 ;; ======================= Spell Checking ============= {{{
