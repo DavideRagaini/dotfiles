@@ -43,19 +43,20 @@
 
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
-    ("^\\*"  :slot 1 :vslot -1 :select t)
-    ("^\\*Completions" :slot -1 :vslot -2 :ttl 0)
-    ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)
-    ("^\\*Help" :slot -1 :size 0.2 :select t)
-    ("^\\*Warnings" :slot -1 :vslot -2 :size 0.3 :ttl 0)
-    ("^\\*Man" :slot -1 :size 0.4 :side right :quit nil :select t)
-    ("^\\*helpful" :slot -1 :side right :size 0.30 :quit nil :select t)
-    ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3 :side right :ttl 5 :quit t)
-    ("^\\*eww" :slot -1 :side left :quit nil :size 0.5 :select t)
-    ("^\\*Python*" :slot -1 :side left :quit nil :size 0.5 :select t)
-    ("^\\*Org Agenda*" :slot -1 :side left :quit nil :size 0.4 :select t)
-    ("^\\*eshell*" :slot -1 :side bottom :quit nil :size 0.4 :select t)
-    ("^\\*doom:"AA :size 0.35 :select t :modeline t :quit t :ttl 5)))
+    ("^\\*"  :slot 1 :vslot -1 :size #'+popup-shrink-to-fit :select t)
+    ("^\\*Completions*"    :slot -1 :vslot -2 :ttl 0)
+    ("^\\*Edit Formulas*" :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Help*"           :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Man*"            :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Org Agenda*"    :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Python*"        :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Warnings*"       :side bottom :size 0.30 :quit t   :slot -1 :vslot -2 :ttl 0 :select nil)
+    ("^\\*doom:*"        :side bottom :size 0.35 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)
+    ("^\\*eshell*"        :side bottom :size 0.42 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*eww*"            :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*helpful*"        :side right  :size 0.33 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :ttl 5 :quit t)
+    ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
 ;; }}}
 ;; ======================= Functions ============= {{{
 (defun dr/toggle-theme ()
@@ -92,7 +93,7 @@
       org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
       org-ellipsis " ▾"
       org-hide-emphasis-markers t
-      org-habit-graph-column 60
+      org-habit-graph-column 40
       org-archive-location "Archive/%s_archive::"
       org-refile-targets
       '((org-agenda-files :maxlevel . 3)))
@@ -193,7 +194,7 @@
 
     ("m" "Metrics Capture")
     ("md" "Drink Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Hydro Journal")
-          "| %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
+          "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
           :kill-buffer t :prepend t)
     ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
           "| %U | %^{Weight} |" :preappend t :kill-buffer t))))
