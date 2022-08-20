@@ -1,11 +1,11 @@
 include "/home/davide/.gtkrc-2.0.mine"
 gtk-theme-name="Sweet-Dark"
-gtk-icon-theme-name="NeonIcons"
-gtk-font-name="Inconsolata 10"
-# gtk-cursor-theme-name="oreo_purple_cursors"
-# gtk-cursor-theme-size=3
-gtk-toolbar-style=GTK_TOOLBAR_TEXT
-gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-icon-theme-name="candy-icons-master"
+gtk-font-name="Liberation Mono 10"
+gtk-cursor-theme-name="oreo_purple_cursors"
+gtk-cursor-theme-size=0
+gtk-toolbar-style=GTK_TOOLBAR_BOTH
+gtk-toolbar-icon-size=GTK_ICON_SIZE_SMALL_TOOLBAR
 gtk-button-images=1
 gtk-menu-images=1
 gtk-enable-event-sounds=0

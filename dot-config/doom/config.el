@@ -87,7 +87,7 @@
       '("~/Org/Me/Tasks.org"
         "~/Org/Me/Habits.org"
         "~/Org/Me/Learn.org"
-        "~/Org/Me/Birthdays.org")
+        "~/Org/Others/Birthdays.org")
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
       org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
