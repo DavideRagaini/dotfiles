@@ -98,12 +98,6 @@
       org-refile-targets
       '((org-agenda-files :maxlevel . 3)))
 
-(use-package! org-fancy-priorities
-  :hook
-  (org-mode . org-fancy-priorities-mode)
-  :config
-  (setq org-fancy-priorities-list '("❗" "⬆" "⬇" )))
-
 (custom-set-faces
  '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
@@ -181,7 +175,7 @@
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
     ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
           "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
-          :kill-buffer t)
+          :prepend t :kill-buffer t)
 
     ("s" "Scramble Capture")
     ("sd" "Dataset" table-line (file+headline "~/Org/Me/Scrambled.org" "Dataset")
@@ -195,6 +189,9 @@
     ("m" "Metrics Capture")
     ("md" "Drink Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Hydro Journal")
           "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
+          :kill-buffer t :prepend t)
+    ("ms" "Sleep Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Sleep Journal")
+          "| %^{Sleep TimeStamp}U--%^{Wake TimeStamp}U | |"
           :kill-buffer t :prepend t)
     ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
           "| %U | %^{Weight} |" :preappend t :kill-buffer t))))
