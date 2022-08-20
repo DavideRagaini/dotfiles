@@ -140,51 +140,23 @@
 ;; }}}
 ;; ======================= Org Capture ============= {{{
 (after! org (setq org-capture-templates
-  `(("t" "Tasks / Projects")
-    ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-         "** TODO %?  %U\n%i" :preappend t :empty-lines 1)
-    ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %?  %U\n  %a\n  %i" :preappend t :empty-lines 1)
-    ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "* %T %a :interrupt:\n\n%?\n\n"
-          :clock-in :clock-resume :preappend t :empty-lines 1)
+  `(("a" "Metrics Capture")
+    ("ad" "Debts" table-line (file+headline "~/Org/Me/Accounting.org" "Debts")
+          "| %^{Quantity} | %^{Reason} | %^{Note} | %^{TimeStamp}U |"
+          :kill-buffer t :prepend t)
+    ("ag" "Give" table-line (file+headline "~/Org/Me/Accounting.org" "Give")
+          "| %^{Quantity} | %^{Reason} | %^{Note} | %^{TimeStamp}U |"
+          :kill-buffer t :prepend t)
+    ("ah" "Have" table-line (file+headline "~/Org/Me/Accounting.org" "Have")
+          "| %^{Quantity} | %^{Reason} | %^{Note} | %^{TimeStamp}U |"
+          :kill-buffer t :prepend t)
+    ("as" "Spent" table-line (file+headline "~/Org/Me/Accounting.org" "Spent")
+          "| %^{Quantity} | %^{Reason} | %^{Note} | %^{TimeStamp}U |"
+          :kill-buffer t :prepend t)
 
-    ("n" "Note Entries")
-    ("np" "Protocol" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?[[%:link][%:description]] %U\n%i\n" :prepend t)
-    ("nl" "Protocol Link" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?[[%:link][%:description]] %U\n" :prepend t)
-    ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?%x %U\n" :prepend t)
-    ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %? %U\n" :prepend t)
-
-    ("j" "Journal Entries")
-    ("jd" "Dream" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* %T Dream :journal:\n\n%?\n\n"
-          :clock-in :clock-resume :empty-lines 1)
-    ("jj" "Journal note" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* %T Journal :journal:\n\n%?\n\n"
-          :clock-in :clock-resume :empty-lines 1)
-    ("jh" "Hangout" table-line (file+headline "~/Org/Me/Journal.org" "Hangouts")
-          "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
-          :empty-lines 1)
-
-    ;; ("w" "Workflows")
-    ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
-    ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-    ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
-          "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
-          :prepend t :kill-buffer t)
-
-    ("s" "Scramble Capture")
-    ("sd" "Dataset" table-line (file+headline "~/Org/Me/Scrambled.org" "Dataset")
-          "| %^{Players|2|3|4|5} | %^{Color|B|G|P|W} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
-          :kill-budder t)
-    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
-          "* IDEA %?  %U\n" :empty-lines 1)
-    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
-          "* TODO %?  %U\n" :empty-lines 1)
+    ("b" "Add Birtday" entry (file+headline "~/Org/Others/Birthdays.org")
+          "* %? %T\n"
+          :kill-buffer t :prepend t)
 
     ("m" "Metrics Capture")
     ("md" "Drink Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Hydro Journal")
@@ -194,7 +166,71 @@
           "| %^{Sleep TimeStamp}U--%^{Wake TimeStamp}U | |"
           :kill-buffer t :prepend t)
     ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
-          "| %U | %^{Weight} |" :preappend t :kill-buffer t))))
+          "| %U | %^{Weight} |"
+          :preappend t :kill-buffer t)
+
+    ("n" "Note Entries")
+    ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %? %U\n"
+          :prepend t)
+    ("nl" "Protocol Link" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %?[[%:link][%:description]] %U\n"
+          :prepend t)
+    ("np" "Protocol" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %?[[%:link][%:description]] %U\n%i\n"
+          :prepend t)
+    ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "** NOTE %?%x %U\n"
+          :prepend t)
+
+    ("j" "Journal Entries")
+    ("jd" "Dream" entry (file+olp+datetree "~/Org/Me/Journal.org")
+          "* %<R> Dream :journal:\n\n%?\n\n"
+          :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
+    ("jj" "Journal note" entry (file+olp+datetree "~/Org/Me/Journal.org")
+          "* %<R> Journal :journal:\n\n%?\n\n"
+          :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
+    ("jh" "Hangout" table-line (file+headline "~/Org/Me/Journal.org" "Hangouts")
+          "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
+          :empty-lines 1 :empty-lines-after 1)
+    ("jo" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
+          "* [ ] %<R> %?"
+          :prepend t :time-prompt t :empty-lines 1 :empty-lines-after 1)
+    ("jp" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
+          "* [ ] %<R> %?"
+          :prepend t :empty-lines 1 :empty-lines-after 1)
+    ("jt" "Time Journal" entry (file+olp+datetree "~/Org/Me/Journal.org")
+          "* %<R> -  %? :TIME:CLOCKING:"
+          :clock-in :clock-resume :prepend t)
+
+    ("s" "Scramble Capture")
+    ("sd" "Dataset" table-line (file+headline "~/Org/Me/Scrambled.org" "Dataset")
+          "| %^{Players|2|3|4|5} | %^{Color|B|G|P|W} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
+          :kill-budder t)
+    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
+          "* IDEA %?  %U\n"
+          :empty-lines 1 :empty-lines-after 1)
+    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
+          "* TODO %?  %U\n"
+          :empty-lines 1 :empty-lines-after 1)
+
+    ("t" "Tasks / Projects")
+    ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+         "** TODO %?  %U\n%i"
+         :prepend t :empty-lines 1 :empty-lines-after 1)
+    ("ts" "Clocked Entry Subtask" entry (clock)
+         "** TODO %?  %U\n  %a\n  %i"
+         :prepend t :empty-lines 1 :empty-lines-after 1)
+    ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+          "* %T %a :interrupt:\n\n%?\n\n"
+          :clock-in :clock-resume :prepend t :empty-lines 1 :empty-lines-after 1)
+
+    ;; ("w" "Workflows")
+    ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
+    ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+    ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
+          "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
+          :prepend t :kill-buffer t))))
 ;; }}}
 ;; ======================= Spell Checking ============= {{{
 (after! ispell
