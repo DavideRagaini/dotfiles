@@ -1,5 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-;; ======================= User Interface ============= {{{
+;; ========= User Interface ========= {{{
 (cond ((string-equal (system-name) "VoiD")
         (setq dr/font-size 30)
         (global-activity-watch-mode t))
@@ -26,39 +26,35 @@
       display-line-numbers-type t
       scroll-margin 2
       whitespace-line-column 500
-      org-clock-persist 'history
-      org-agenda-include-diary t
-      ;; org-agenda-include-inactive-timestamps t
       confirm-kill-emacs nil)
 
-(global-visual-line-mode t)
 (blink-cursor-mode 1)
 (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
+(global-visual-line-mode t)
 (global-whitespace-mode 1)
 (org-clock-persistence-insinuate)
-
 (set-frame-parameter (selected-frame) 'alpha '(92))
 (add-to-list 'default-frame-alist '(alpha . (92)))
 
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
     ("^\\*"  :slot 1 :vslot -1 :size #'+popup-shrink-to-fit :select t)
-    ("^\\*Completions*"    :slot -1 :vslot -2 :ttl 0)
+    ("^\\*Completions*"   :slot -1 :vslot -2 :ttl 0)
     ("^\\*Edit Formulas*" :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Help*"           :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Man*"            :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Help*"          :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Man*"           :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Org Agenda*"    :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Python*"        :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Warnings*"       :side bottom :size 0.30 :quit t   :slot -1 :vslot -2 :ttl 0 :select nil)
-    ("^\\*doom:*"        :side bottom :size 0.35 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)
+    ("^\\*Warnings*"      :side bottom :size 0.30 :quit t   :slot -1 :vslot -2 :ttl 0 :select nil)
+    ("^\\*doom:*"         :side bottom :size 0.35 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)
     ("^\\*eshell*"        :side bottom :size 0.42 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*eww*"            :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*helpful*"        :side right  :size 0.33 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*eww*"           :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*helpful*"       :side right  :size 0.33 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :ttl 5 :quit t)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
 ;; }}}
-;; ======================= Functions ============= {{{
+;; ========= Functions ========= {{{
 (defun dr/toggle-theme ()
   "Light theme toggles"
   (interactive)
@@ -71,7 +67,7 @@
   (set-face-foreground 'vertical-border "magenta"))
 (add-hook! 'doom-load-theme-hook #'dr/late-load)
 ;; }}}
-;; ======================= Dired ============= {{{
+;; ========= Dired ========= {{{
 (use-package! dired
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
@@ -81,30 +77,39 @@
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer))
 ;; }}}
-;; ======================= Org ============= {{{
+;; ========= Org ========= {{{
 (setq org-directory "~/Org"
       org-agenda-files
       '("~/Org/Me/Tasks.org"
         "~/Org/Me/Habits.org"
         "~/Org/Me/Learn.org"
         "~/Org/Others/Birthdays.org")
-      org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
-      org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
-      org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
+      org-agenda-log-mode-items '(state closed clock)
+      org-agenda-start-with-log-mode t
+      ;; org-agenda-include-diary t
+      ;; org-agenda-include-inactive-timestamps t
+      ;; org-agenda-show-log 'only
+      ;; org-clock-persist 'history
+      org-archive-location "~/Org/Archive/%s_archive::"
       org-ellipsis " ▾"
       org-hide-emphasis-markers t
       org-habit-graph-column 40
-      org-archive-location "Archive/%s_archive::"
-      org-refile-targets
-      '((org-agenda-files :maxlevel . 3)))
+      org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
+      ;; org-log-done 'time
+      ;; org-log-into-drawer t
+      org-refile-targets '((org-agenda-files :maxlevel . 3)
+      org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
+      org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
+))
+
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.2))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.3))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
  '(org-level-5 ((t (:inherit outline-5 :height 1.1))))
- '(org-level-6 ((t (:inherit outline-6 :height 1.0))))
+ '(org-level-6 ((t (:inherit outline-6 :height 1.1))))
  ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
  )
 
@@ -138,7 +143,7 @@
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 ;; }}}
-;; ======================= Org Capture ============= {{{
+;; ========= Org Capture ========= {{{
 (after! org (setq org-capture-templates
   `(("a" "Metrics Capture")
     ("ad" "Debts" table-line (file+headline "~/Org/Me/Accounting.org" "Debts")
@@ -167,7 +172,7 @@
           :kill-buffer t :prepend t)
     ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
           "| %U | %^{Weight} |"
-          :preappend t :kill-buffer t)
+          :prepend t :kill-buffer t)
 
     ("n" "Note Entries")
     ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
@@ -185,22 +190,22 @@
 
     ("j" "Journal Entries")
     ("jd" "Dream" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* %<R> Dream :journal:\n\n%?\n\n"
+          "* <%R> Dream :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
     ("jj" "Journal note" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* %<R> Journal :journal:\n\n%?\n\n"
+          "* <%R> Journal :journal:\n\n%?\n\n"
           :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
     ("jh" "Hangout" table-line (file+headline "~/Org/Me/Journal.org" "Hangouts")
           "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
           :empty-lines 1 :empty-lines-after 1)
     ("jo" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* [ ] %<R> %?"
+          "* [ ] <%R> %?"
           :prepend t :time-prompt t :empty-lines 1 :empty-lines-after 1)
     ("jp" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* [ ] %<R> %?"
+          "* [ ] <%R> %?"
           :prepend t :empty-lines 1 :empty-lines-after 1)
     ("jt" "Time Journal" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* %<R> -  %? :TIME:CLOCKING:"
+          "* <%R> -  %? :TIME:CLOCKING:"
           :clock-in :clock-resume :prepend t)
 
     ("s" "Scramble Capture")
@@ -232,7 +237,7 @@
           "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
           :prepend t :kill-buffer t))))
 ;; }}}
-;; ======================= Spell Checking ============= {{{
+;; ========= Spell Checking ========= {{{
 (after! ispell
   (setq ispell-program-name "hunspell"
         ispell-dictionary "en_GB,en_US,it_IT,italiano,english"
