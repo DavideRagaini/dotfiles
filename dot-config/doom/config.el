@@ -33,7 +33,6 @@
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
-(org-clock-persistence-insinuate)
 (set-frame-parameter (selected-frame) 'alpha '(92))
 (add-to-list 'default-frame-alist '(alpha . (92)))
 
@@ -78,6 +77,9 @@
     "l" 'dired-single-buffer))
 ;; }}}
 ;; ========= Org ========= {{{
+;; Resume clocking task when emacs is restarted
+(org-clock-persistence-insinuate)
+
 (setq org-directory "~/Org"
       org-agenda-files
       '("~/Org/Me/Tasks.org"
@@ -86,32 +88,54 @@
         "~/Org/Others/Birthdays.org")
       org-agenda-log-mode-items '(state closed clock)
       org-agenda-start-with-log-mode t
+      org-archive-location "~/Org/Archive/%s_archive::"
+      org-columns-default-format "%4TODO(ToDo) %40ITEM(Task) %2PRIORITY %6CLOCKSUM(Clock) %8Effort(Estimated Effort){:} %TAGS(Tags)"
       ;; org-agenda-include-diary t
       ;; org-agenda-include-inactive-timestamps t
       ;; org-agenda-show-log 'only
       ;; org-clock-persist 'history
-      org-archive-location "~/Org/Archive/%s_archive::"
+      ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+      org-clock-persist t
+      ;; Resume clocking task on clock-in if the clock is open
+      org-clock-in-resume t
+      ;; Save clock data and state changes and notes in the LOGBOOK drawer
+      org-clock-into-drawer t
+      ;; Removes clocked tasks with 0:00 duration
+      org-clock-out-remove-zero-time-clocks t
+      ;; Clock out when moving task to a done state
+      org-clock-out-when-done t
+      ;; Enable auto clock resolution for finding open clocks
+      org-clock-auto-clock-resolution (quote when-no-clock-is-running)
+      ;; Include current clocking task in clock reports
+      org-clock-report-include-clocking-task t
       org-ellipsis " ▾"
+      org-global-properties
+      '(("Effort_ALL" .
+         "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))
+      ;;        1    2    3    4    5    6    7    8    9    0
       org-hide-emphasis-markers t
       org-habit-graph-column 40
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       ;; org-log-done 'time
       ;; org-log-into-drawer t
-      org-refile-targets '((org-agenda-files :maxlevel . 3)
+      ;; Use pretty things for the clocktable
+      org-pretty-entities t
+      org-refile-targets '((org-agenda-files :maxlevel . 3))
       org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
       org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
-))
+      org-tags-column -1
+      )
 
 
-(custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :height 1.3))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.1))))
- '(org-level-6 ((t (:inherit outline-6 :height 1.1))))
- ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
- )
+;; (custom-set-faces
+;;  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+;;  '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
+;;  '(org-level-3 ((t (:inherit outline-3 :height 1.2))))
+;;  '(org-level-4 ((t (:inherit outline-4 :height 1.2))))
+;;  '(org-level-5 ((t (:inherit outline-5 :height 1.2))))
+;;  '(org-level-6 ((t (:inherit outline-6 :height 1.2))))
+;;  ;; '(org-document-title ((t (:inherit outline-1 :height 1.25))))
+;; )
 
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
@@ -131,21 +155,23 @@
         ("ME" . ?i)
         ("OTHERS" . ?o)
         (:endgroup)
+        ("ASK" . ?b)
         ("BATCH" . ?b)
         ("FIX" . ?f)
         ("SETUP" . ?u)
         ("IMPROVE" . ?m)
         ("READ" . ?r)
+        ("REVIEW" . ?R)
         ("STUDY" . ?s)
-        ("TRY" . ?t)
+        ("TEST" . ?t)
         ("THINK" . ?T)
         ("WATCH" . ?w)))
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 ;; }}}
 ;; ========= Org Capture ========= {{{
-(after! org (setq org-capture-templates
-  `(("a" "Metrics Capture")
+(setq org-capture-templates
+  `(("a" "Accounting Capture")
     ("ad" "Debts" table-line (file+headline "~/Org/Me/Accounting.org" "Debts")
           "| %^{Quantity} | %^{Reason} | %^{Note} | %^{TimeStamp}U |"
           :kill-buffer t :prepend t)
@@ -159,12 +185,26 @@
           "| %^{Quantity} | %^{Reason} | %^{Note} | %^{TimeStamp}U |"
           :kill-buffer t :prepend t)
 
-    ("b" "Add Birtday" entry (file+headline "~/Org/Others/Birthdays.org")
+    ("b" "Personal Capture")
+    ("bb" "Add Birtday" entry (file+headline "~/Org/Others/Birthdays.org")
           "* %? %T\n"
+          :kill-buffer t :prepend t)
+    ("bm" "Add to Music List" entry (file+headline "~/Org/Me/Music.org" "Inbox")
+          "* %^{Title} - %^{Artist}\n:PROPERTIES:\n:CREATED: %U\n:TITLE: %\\1\n:ARTIST: %\\2\n:END:"
+          :kill-buffer t :prepend t)
+    ("br" "Add to Read List" entry (file+headline "~/Org/Me/Read.org" "Inbox")
+          "* %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:TITLE: %\\1\n:AUTHOR: %\\2\n:END:"
+          :kill-buffer t :prepend t)
+    ("bw" "Add to Watch List" entry (file+headline "~/Org/Me/Watch.org" "Inbox")
+          "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
           :kill-buffer t :prepend t)
 
     ("m" "Metrics Capture")
     ("md" "Drink Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Hydro Journal")
+          "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
+          :kill-buffer t :prepend t)
+
+    ("mt" "Drink Journal" table-line (file+olp+datetree "~/Org/Me/Metrics.org" "Hydro Journal")
           "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
           :kill-buffer t :prepend t)
     ("ms" "Sleep Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Sleep Journal")
@@ -227,15 +267,18 @@
          "** TODO %?  %U\n  %a\n  %i"
          :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "* %T %a :interrupt:\n\n%?\n\n"
+          "* %T %a :INTERRUPT:\n\n%?\n\n"
           :clock-in :clock-resume :prepend t :empty-lines 1 :empty-lines-after 1)
+    ("tm" "Meeting" entry (file+headline "~/Org/Me/Tasks.org" "Meeting")
+          "* %^{Purpouse} :MEETING:\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:WITH: %^{With}\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
+          :prepend t :empty-lines 1 :empty-lines-after 1)
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
     ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
           "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
-          :prepend t :kill-buffer t))))
+          :prepend t :kill-buffer t)))
 ;; }}}
 ;; ========= Spell Checking ========= {{{
 (after! ispell

@@ -56,3 +56,9 @@
 (let ((x (system-name)))
   (cond ((or (string-equal x "VoiD") (string-equal x "vDR"))
          (package! activity-watch-mode))))
+
+;; (package! scad-mode
+;;   :recipe (:host github :repo "openscad/openscad"
+;;            :files ("scad-mode.el" "contrib/scad-mode.el")))
+;; (package! scad-dbus
+;;   :recipe (:host github :repo "Lenbok/scad-dbus"))
