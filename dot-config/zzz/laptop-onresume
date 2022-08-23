@@ -3,4 +3,5 @@
 sysact Resume
 # doas sv restart NetworkManager
 doas intel-undervolt apply
-sleep 3 && sysact dwmblocks
+sleep 3 &&
+    setsid -f sysact dwmblocks
