@@ -7,11 +7,13 @@
         (setq dr/font-size 16)
         (global-activity-watch-mode t))
    ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
+        ;; (dr/low-resources)
         (setq dr/font-size 12
-                straight-disable-native-compile t))
+              straight-disable-native-compile t))
    ((string-equal (system-name) "tinkerboard")
+        ;; (dr/low-resources)
         (setq dr/font-size 14
-                straight-disable-native-compile t))
+              straight-disable-native-compile t))
    ((string-equal (system-name) "bagaro")
         (setq dr/font-size 14)))
 
@@ -33,8 +35,6 @@
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
-(set-frame-parameter (selected-frame) 'alpha '(92))
-(add-to-list 'default-frame-alist '(alpha . (92)))
 
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
@@ -65,6 +65,15 @@
 (defun dr/late-load ()
   (set-face-foreground 'vertical-border "magenta"))
 (add-hook! 'doom-load-theme-hook #'dr/late-load)
+
+(defun dr/low-resources()
+        (setq display-line-numbers-type nil
+        company-idle-delay nil)
+        (after! org
+        (setq org-fontify-quote-and-verse-blocks nil
+                org-fontify-whole-heading-line nil
+                org-hide-leading-stars nil
+                org-startup-indented nil)))
 ;; }}}
 ;; ========= Dired ========= {{{
 (use-package! dired
@@ -111,8 +120,8 @@
       org-ellipsis " ▾"
       org-global-properties
       '(("Effort_ALL" .
+      ;;   1    2    3    4    5    6    7    8    9    0
          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))
-      ;;        1    2    3    4    5    6    7    8    9    0
       org-hide-emphasis-markers t
       org-habit-graph-column 40
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
@@ -121,8 +130,6 @@
       ;; Use pretty things for the clocktable
       org-pretty-entities t
       org-refile-targets '((org-agenda-files :maxlevel . 3))
-      org-superstar-headline-bullets-list '("" "" "" "" "" "" "" "" "")
-      org-superstar-leading-fallback ?\s;; Hide away leading stars on terminal.
       org-tags-column -1
       )
 
@@ -203,12 +210,8 @@
     ("md" "Drink Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Hydro Journal")
           "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
           :kill-buffer t :prepend t)
-
-    ("mt" "Drink Journal" table-line (file+olp+datetree "~/Org/Me/Metrics.org" "Hydro Journal")
-          "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
-          :kill-buffer t :prepend t)
     ("ms" "Sleep Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Sleep Journal")
-          "| %^{Sleep TimeStamp}U--%^{Wake TimeStamp}U | |"
+          "| %^{Sleep TimeStamp}U | %^{Wake TimeStamp}U | | |"
           :kill-buffer t :prepend t)
     ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
           "| %U | %^{Weight} |"
@@ -216,24 +219,24 @@
 
     ("n" "Note Entries")
     ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %? %U\n"
+          "** NOTE %? %U"
           :prepend t)
     ("nl" "Protocol Link" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?[[%:link][%:description]] %U\n"
+          "** NOTE %?[[%:link][%:description]] %U"
           :prepend t)
     ("np" "Protocol" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?[[%:link][%:description]] %U\n%i\n"
+          "** NOTE %?[[%:link][%:description]] %U\n%i"
           :prepend t)
     ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?%x %U\n"
+          "** NOTE %?%x %U"
           :prepend t)
 
     ("j" "Journal Entries")
     ("jd" "Dream" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* <%R> Dream :journal:\n\n%?\n\n"
+          "* <%R> Dream :journal:\n%?"
           :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
     ("jj" "Journal note" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* <%R> Journal :journal:\n\n%?\n\n"
+          "* <%R> Journal :journal:\n%?"
           :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
     ("jh" "Hangout" table-line (file+headline "~/Org/Me/Journal.org" "Hangouts")
           "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
@@ -261,10 +264,10 @@
 
     ("t" "Tasks / Projects")
     ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-         "** TODO %?  %U\n%i"
+         "** TODO %? %U\n"
          :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %?  %U\n  %a\n  %i"
+         "** TODO %? %U\n  %a\n  %i"
          :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "* %T %a :INTERRUPT:\n\n%?\n\n"
