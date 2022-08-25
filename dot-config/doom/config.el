@@ -94,6 +94,7 @@
       '("~/Org/Me/Tasks.org"
         "~/Org/Me/Habits.org"
         "~/Org/Me/Learn.org"
+        "~/Org/Me/Journal.org"
         "~/Org/Others/Birthdays.org")
       org-agenda-log-mode-items '(state closed clock)
       org-agenda-start-with-log-mode t
@@ -233,22 +234,19 @@
 
     ("j" "Journal Entries")
     ("jd" "Dream" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* <%R> Dream :journal:\n%?"
+          "* %<%R> Dream :journal:\n%?"
           :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
     ("jj" "Journal note" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* <%R> Journal :journal:\n%?"
+          "* %<%R> Journal :journal:\n%?"
           :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
     ("jh" "Hangout" table-line (file+headline "~/Org/Me/Journal.org" "Hangouts")
           "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
-          :empty-lines 1 :empty-lines-after 1)
-    ("jo" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* [ ] <%R> %?"
-          :prepend t :time-prompt t :empty-lines 1 :empty-lines-after 1)
+          :prepend t :empty-lines 1 :empty-lines-after 1)
     ("jp" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* [ ] <%R> %?"
+          "* [ ] %<%R> %?"
           :prepend t :empty-lines 1 :empty-lines-after 1)
     ("jt" "Time Journal" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* <%R> -  %? :TIME:CLOCKING:"
+          "* %<%R> -  %? :TIME:CLOCKING:"
           :clock-in :clock-resume :prepend t)
 
     ("s" "Scramble Capture")
@@ -280,7 +278,7 @@
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
     ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
-          "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming} | %^{Exercises} | %^{Time-Stamps}T |"
+         "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming}|%^{Exercises}|%^{Time-Stamps}T|"
           :prepend t :kill-buffer t)))
 ;; }}}
 ;; ========= Spell Checking ========= {{{
