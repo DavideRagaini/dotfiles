@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name           Yewtube redirector
-// @namespace      mamg22's userscripts
+// @namespace      raghyz's userscripts
 // @match          http://www.youtube.com/*
 // @match          https://www.youtube.com/*
 // @match          http://youtube.com/*

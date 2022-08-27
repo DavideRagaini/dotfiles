@@ -10,6 +10,7 @@ c.bindings.commands["normal"] = {
     ",d": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
     ",e": "hint links spawn --detach dmpv enqueue '{hint-url}'",
     ",g": "hint links spawn --detach gallery-dl '{hint-url}'",
+    ",m": "hint links spawn --detach dmpv music '{hint-url}'",
     ",p": "hint links spawn --detach dmpv eplay '{hint-url}'",
     ",s": "hint links spawn --detach streamlink --player mpv '{hint-url}' best",
     ",t": "hint links spawn transadd '{hint-url}'",

@@ -51,7 +51,9 @@ vf () {
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && opener "$file" || ${EDITOR:-nvim} "$file"
+    [ "$key" = ctrl-o ] &&
+        opener "$file" ||
+            ${EDITOR:-$ALTERNATE_EDITOR} "$file"
   fi
 }
 

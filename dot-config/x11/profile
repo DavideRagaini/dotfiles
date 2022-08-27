@@ -1,12 +1,12 @@
 #!/bin/sh
 
-export ALTERNATE_EDITOR="nvim"
-export EDITOR="emacsclient -t"
+export ALTERNATE_EDITOR="vim"
+export EDITOR="ted"
 export FILE="lf"
 export PAGER="bat"
 export READER="zathura"
 export TERMINAL="st"
-export VISUAL="emacsclient"
+export VISUAL="em"
 
 bin="$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 export PATH="$PATH:$bin"

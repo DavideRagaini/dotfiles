@@ -64,7 +64,7 @@ bindkey -s '^b' '"$(xclip -o)"'
 bindkey -s '^o' '^ulfcd^M'
 bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 # bindkey -s '^v' 'nvim $(fzf)^M'
-# bindkey -s '^v' 'vf^M'
+bindkey -s '^v' 'vf^M'
 bindkey -s '^z' 'zi^M'
 bindkey -v '^?' backward-delete-char
 
