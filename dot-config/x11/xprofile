@@ -2,6 +2,8 @@
 
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources" & xrdbpid=$!
 
+export BROWSER="qutebrowser"
+export BROWSER2="librewolf"
 case $(hostname) in
     VoiD)
         xrandr --output HDMI-0 --off --output DVI-D-0 --auto --scale 2
@@ -10,8 +12,6 @@ case $(hostname) in
         export BROWSER2="qutebrowser"
         ;;
     vDR)
-        export BROWSER="qutebrowser"
-        export BROWSER2="librewolf"
         xbacklight -set 20 &
         libinput-gestures-setup start &
         bluetooth off &
@@ -22,8 +22,6 @@ case $(hostname) in
         libinput-gestures-setup start &
         ;;
     *)
-        export BROWSER="qutebrowser"
-        export BROWSER2="librewolf"
         ;;
 esac
 

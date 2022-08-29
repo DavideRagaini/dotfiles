@@ -1,4 +1,19 @@
 ;; -*- no-byte-compile: t; -*-
+(let ((x (system-name)))
+  (cond ((or (string-equal x "VoiD") (string-equal x "vDR"))
+         (package! activity-watch-mode))))
+
+;; (package! ox-epub)
+; (package! dired-single)
+;; (package! dired-open)
+;; (package! nov)
+
+;; (package! scad-mode
+;;   :recipe (:host github :repo "openscad/openscad"
+;;            :files ("scad-mode.el" "contrib/scad-mode.el")))
+;; (package! scad-dbus
+;;   :recipe (:host github :repo "Lenbok/scad-dbus"))
+
 ;;; $DOOMDIR/packages.el
 
 ;; To install a package with Doom you must declare them here and run 'doom sync'
@@ -48,17 +63,3 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
-
-;; (package! ox-epub)
-(package! dired-single)
-;; (package! dired-open)
-;; (package! nov)
-(let ((x (system-name)))
-  (cond ((or (string-equal x "VoiD") (string-equal x "vDR"))
-         (package! activity-watch-mode))))
-
-;; (package! scad-mode
-;;   :recipe (:host github :repo "openscad/openscad"
-;;            :files ("scad-mode.el" "contrib/scad-mode.el")))
-;; (package! scad-dbus
-;;   :recipe (:host github :repo "Lenbok/scad-dbus"))
