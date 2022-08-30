@@ -26,8 +26,8 @@
           org-startup-indented nil)))
 
 (defun dr/high-resources()
-  (doom-theme 'doom-dracula)
-  (display-line-numbers-type t)
+  (setq doom-theme 'doom-dracula
+        display-line-numbers-type t)
   (dr/ispell-settings)
   (add-hook! 'doom-load-theme-hook
              #'(set-face-foreground 'vertical-border "magenta")))

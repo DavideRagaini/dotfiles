@@ -136,7 +136,7 @@ __timer_display_timer_precmd() {
     fi
     if [[ $tdiff -ge 60 ]]; then
        notify-send "$current_cmd" "Status $?\n\n$tdiffstr"
-       setsid -f aplay -q "$ZDOTDIR/notification-sound.wav"
+       # setsid -f aplay -q "$ZDOTDIR/notification-sound.wav"
     fi
   fi
 }
