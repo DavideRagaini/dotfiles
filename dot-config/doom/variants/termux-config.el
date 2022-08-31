@@ -2,38 +2,6 @@
 ;; ========= Testing ========= {{{
 ;; }}}
 ;; ========= Functions ========= {{{
-(defun dr/ispell-settings()
-  (after! ispell
-    (setq ispell-program-name "hunspell"
-          ispell-dictionary "en_GB,en_US,it_IT,italiano,english"
-          ispell-extra-args '("--sug-mode=ultra"))
-    (ispell-set-spellchecker-params)
-    (ispell-hunspell-add-multi-dic "en_GB,en_US,it_IT,italiano,english")
-    (setq ispell-personal-dictionary "~/.local/share/hunspell_personal")
-    ;; (remove-hook 'text-mode-hook #'flyspell-mode)
-    ;; (remove-hook 'org-mode-hook #'flyspell-mode)
-    ))
-
-(defun dr/low-resources()
-  (setq display-line-numbers-type nil
-        company-idle-delay 0.5
-        no-native-compile t)
-  (load-theme 'modus-vivendi)
-  (after! org
-    (setq org-fontify-quote-and-verse-blocks nil
-          org-fontify-whole-heading-line nil
-          org-hide-leading-stars nil
-          org-startup-indented nil)))
-
-(defun dr/custom-sep()
-  (set-face-foreground 'vertical-border "magenta"))
-
-(defun dr/high-resources()
-  (setq doom-theme 'doom-dracula
-        display-line-numbers-type t)
-  (dr/ispell-settings)
-  (add-hook! 'doom-load-theme-hook
-             #'dr/custom-sep))
 ;; }}}
 ;; ========= Popups Rules ========= {{{
 (set-popup-rules!
@@ -53,42 +21,25 @@
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :ttl 5 :quit t)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
 ;; }}}
-;; ========= Bootstraps ========= {{{
-(cond
- ((string-equal (system-name) "VoiD")
-        (setq dr/font-size 30)
-        (dr/high-resources)
-        (global-activity-watch-mode t))
- ((string-equal (system-name) "vDR")
-        (setq dr/font-size 16)
-        (dr/high-resources)
-        (global-activity-watch-mode t))
- ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
-        (dr/low-resources)
-        (setq dr/font-size 12))
- ((string-equal (system-name) "tinkerboard")
-        (dr/low-resources)
-        (setq dr/font-size 14))
- ((string-equal (system-name) "bagaro")
-        (dr/high-resources)
-        (setq dr/font-size 14)))
-;; }}}
 ;; ========= Common ========= {{{
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
-      doom-font (font-spec :family "Iosevka" :size dr/font-size)
-      doom-big-font (font-spec :family "Iosevka" :size (+ dr/font-size 12))
-      doom-serif-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
-      doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
-      doom-unicode-font (font-spec :family "Linux Libertine O" :size dr/font-size)
+      ;; doom-font (font-spec :family "Iosevka" :size dr/font-size)
+      ;; doom-big-font (font-spec :family "Iosevka" :size (+ dr/font-size 12))
+      ;; doom-serif-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
+      ;; doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
+      ;; doom-unicode-font (font-spec :family "Linux Libertine O" :size dr/font-size)
+      display-line-numbers-type nil
+      no-native-compile t
       scroll-margin 2
       whitespace-line-column 500
       confirm-kill-emacs nil)
 
+(load-theme 'modus-vivendi)
 (blink-cursor-mode 1)
 (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
-(global-visual-line-mode t)
+(global-visual-line-mode nil)
 (global-whitespace-mode 1)
 ;; }}}
 ;; ========= Load Configs ========= {{{

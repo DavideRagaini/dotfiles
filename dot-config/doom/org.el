@@ -8,7 +8,6 @@
       '("~/Org/Me/Tasks.org"
         "~/Org/Me/Habits.org"
         "~/Org/Me/Learn.org"
-        "~/Org/Me/Journal.org"
         "~/Org/Others/Birthdays.org")
       org-agenda-log-mode-items '(state closed clock)
       org-agenda-start-with-log-mode t
@@ -158,13 +157,10 @@
     ("jp" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
           "* [ ] %<%R> %?"
           :prepend t :empty-lines 1 :empty-lines-after 1)
-    ("jt" "Time Journal" entry (file+olp+datetree "~/Org/Me/Journal.org")
-          "* %<%R> -  %? :TIME:CLOCKING:"
-          :clock-in :clock-resume :prepend t)
 
     ("s" "Scramble Capture")
     ("sd" "Dataset" table-line (file+headline "~/Org/Me/Scrambled.org" "Dataset")
-          "| %^{Players|2|3|4|5} | %^{Color|B|G|P|W} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
+          "| %^{Players|2|3|4|5} | %^{Color|Blue|Green|Purple|White} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
           :kill-budder t)
     ("si" "Scrambled Idea" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
           "* IDEA %?  %U\n"
@@ -174,18 +170,21 @@
           :empty-lines 1 :empty-lines-after 1)
 
     ("t" "Tasks / Projects")
-    ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-         "** TODO %? %U\n"
-         :prepend t :empty-lines 1 :empty-lines-after 1)
-    ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %? %U\n  %a\n  %i"
-         :prepend t :empty-lines 1 :empty-lines-after 1)
+    ("tc" "Time Journal" entry (file+olp+datetree "~/Org/Me/Tasks.org" "Daily")
+          "* %<%R> -  %?"
+          :clock-in :clock-resume :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "* %T %a :INTERRUPT:\n\n%?\n\n"
           :clock-in :clock-resume :prepend t :empty-lines 1 :empty-lines-after 1)
     ("tm" "Meeting" entry (file+headline "~/Org/Me/Tasks.org" "Meeting")
           "* %^{Purpouse} :MEETING:\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:WITH: %^{With}\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
           :prepend t :empty-lines 1 :empty-lines-after 1)
+    ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
+         "** TODO %? %U\n"
+         :prepend t :empty-lines 1 :empty-lines-after 1)
+    ("ts" "Clocked Entry Subtask" entry (clock)
+         "** TODO %? %U\n  %a\n  %i"
+         :prepend t :empty-lines 1 :empty-lines-after 1)
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
