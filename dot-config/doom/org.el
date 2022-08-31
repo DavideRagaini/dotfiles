@@ -40,7 +40,7 @@
       org-hide-emphasis-markers t
       org-habit-graph-column 40
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
-      ;; org-log-done 'time
+      org-log-done 'time
       ;; org-log-into-drawer t
       ;; Use pretty things for the clocktable
       org-pretty-entities t
