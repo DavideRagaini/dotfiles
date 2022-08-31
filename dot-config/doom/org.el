@@ -159,13 +159,13 @@
           :prepend t :empty-lines 1 :empty-lines-after 1)
 
     ("s" "Scramble Capture")
-    ("sd" "Dataset" table-line (file+headline "~/Org/Me/Scrambled.org" "Dataset")
+    ("sd" "Dataset" table-line (file+headline "~/Org/Others/Scrambled.org" "Dataset")
           "| %^{Players|2|3|4|5} | %^{Color|Blue|Green|Purple|White} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
           :kill-budder t)
-    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
+    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Others/Scrambled.org" "Inbox")
           "* IDEA %?  %U\n"
           :empty-lines 1 :empty-lines-after 1)
-    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Me/Scrambled.org" "Inbox")
+    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Others/Scrambled.org" "Inbox")
           "* TODO %?  %U\n"
           :empty-lines 1 :empty-lines-after 1)
 
