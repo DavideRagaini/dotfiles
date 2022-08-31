@@ -171,7 +171,7 @@
 
     ("t" "Tasks / Projects")
     ("tc" "Time Journal" entry (file+olp+datetree "~/Org/Me/Tasks.org" "Daily")
-          "* %<%R> -  %?"
+          "* %?"
           :clock-in :clock-resume :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "* %T %a :INTERRUPT:\n\n%?\n\n"
@@ -180,10 +180,10 @@
           "* %^{Purpouse} :MEETING:\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:WITH: %^{With}\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
           :prepend t :empty-lines 1 :empty-lines-after 1)
     ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-         "** TODO %? %U\n"
+         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
          :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %? %U\n  %a\n  %i"
+         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i"
          :prepend t :empty-lines 1 :empty-lines-after 1)
 
     ;; ("w" "Workflows")

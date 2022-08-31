@@ -38,7 +38,7 @@
 ;; ========= Popups Rules ========= {{{
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
-    ("^\\*"  :slot 1 :vslot -1 :size #'+popup-shrink-to-fit :select t)
+    ("^\\*"  :slot 1 :vslot -1 :size 0.3 :select t)
     ("^\\*Completions*"   :slot -1 :vslot -2 :ttl 0)
     ("^\\*Edit Formulas*" :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Help*"          :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
