@@ -1,1 +1,0 @@
-variants/init-lr.el
