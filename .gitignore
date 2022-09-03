@@ -1,4 +1,6 @@
+dot-config/doom/config.el
 dot-config/doom/custom.el
+dot-config/doom/init.el
 
 dot-config/git/credentials
 

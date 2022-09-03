@@ -22,8 +22,9 @@
   (after! org
     (setq org-fontify-quote-and-verse-blocks nil
           org-fontify-whole-heading-line nil
-          org-hide-leading-stars nil
-          org-startup-indented nil)))
+          ;; org-hide-leading-stars nil
+          ;; org-startup-indented nil
+          )))
 
 (defun dr/custom-sep()
   (set-face-foreground 'vertical-border "magenta"))
@@ -90,6 +91,7 @@
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
+(add-hook 'org-mode-hook (lambda () visual-linee-mode 0))
 ;; }}}
 ;; ========= Load Configs ========= {{{
 (load! "org.el")

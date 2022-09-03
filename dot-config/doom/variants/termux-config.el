@@ -39,7 +39,8 @@
 (blink-cursor-mode 1)
 (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
-(global-visual-line-mode nil)
+(global-visual-line-mode 0)
+(visual-line-mode 0)
 (global-whitespace-mode 1)
 ;; }}}
 ;; ========= Load Configs ========= {{{

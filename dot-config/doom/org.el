@@ -119,6 +119,12 @@
           "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
           :kill-buffer t :prepend t)
 
+    ("g" "Goals Capture")
+    ("gp" "Primary Goals" entry (file+olp "~/Org/Me/Goals.org" "Ideals" "Inbox")
+          "* %?" :kill-buffer t :prepend t)
+    ("gs" "Secondary Goals" entry (file+olp "~/Org/Me/Goals.org" "Secondary" "Inbox")
+          "* %?" :kill-buffer t :prepend t)
+
     ("m" "Metrics Capture")
     ("md" "Drink Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Hydro Journal")
           "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
@@ -139,6 +145,9 @@
           :prepend t)
     ("np" "Protocol" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "** NOTE %?[[%:link][%:description]] %U\n%i"
+          :prepend t)
+    ("ns" "Shopping Note" entry (file+headline "~/Org/Me/Shopping_List.org" "Inbox")
+          "* NOTE %? %U"
           :prepend t)
     ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "** NOTE %?%x %U"
@@ -183,13 +192,12 @@
          "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
          :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i"
-         :prepend t :empty-lines 1 :empty-lines-after 1)
+         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i")
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
     ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
-         "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming}|%^{Exercises}|%^{Time-Stamps}T|"
-          :prepend t :kill-buffer t)))
+         "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming}|%^{Exercises}| | |%^{Start Time-Stamps}T|%^{End Time-Stamps}T|"
+          :kill-buffer t)))
 ;; }}}

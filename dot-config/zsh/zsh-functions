@@ -118,7 +118,6 @@ __timer_format_duration() {
 }
 
 __timer_save_time_preexec() {
-  current_cmd=$1
   __timer_cmd_start_time=$(__timer_current_time)
 }
 
@@ -133,10 +132,6 @@ __timer_display_timer_precmd() {
         local prompt="❮${tdiffstr} ${tstartstr} $(strftime "%T")❯"
         local cols=$((COLUMNS - ${#prompt} - 1))
         echo -e "\e[1;33m\033[1A\033[${cols}C ${prompt}"
-    fi
-    if [[ $tdiff -ge 60 ]]; then
-       notify-send "$current_cmd" "Status $?\n\n$tdiffstr"
-       # setsid -f aplay -q "$ZDOTDIR/notification-sound.wav"
     fi
   fi
 }
