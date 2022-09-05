@@ -106,7 +106,7 @@
           :kill-buffer t :prepend t)
 
     ("b" "Personal Capture")
-    ("bb" "Add Birtday" entry (file+headline "~/Org/Others/Birthdays.org")
+    ("bb" "Add Birtday" entry (file+headline "~/Org/Others/Birthdays.org" "Inbox")
           "* %? %T\n"
           :kill-buffer t :prepend t)
     ("bm" "Add to Music List" entry (file+headline "~/Org/Me/Music.org" "Inbox")
@@ -192,7 +192,8 @@
          "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
          :prepend t :empty-lines 1 :empty-lines-after 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i")
+         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i"
+         :prepend t :empty-lines 1 :empty-lines-after 1)
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))

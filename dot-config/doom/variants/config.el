@@ -84,6 +84,8 @@
       doom-unicode-font (font-spec :family "Linux Libertine O" :size dr/font-size)
       scroll-margin 2
       whitespace-line-column 500
+      delete-by-moving-to-trash t
+      trash-directory "~/.local/share/Trash/files/"
       confirm-kill-emacs nil)
 
 (blink-cursor-mode 1)
@@ -91,7 +93,7 @@
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
-(add-hook 'org-mode-hook (lambda () visual-linee-mode 0))
+(add-hook 'org-mode-hook (lambda () visual-line-mode 0))
 ;; }}}
 ;; ========= Load Configs ========= {{{
 (load! "org.el")

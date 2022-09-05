@@ -1,19 +1,4 @@
 ;;; init.el -*- lexical-binding: t; -*-
-
-;; This file controls what Doom modules are enabled and what order they load
-;; in. Remember to run 'doom sync' after modifying it!
-
-;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
-;;      documentation. There you'll find a "Module Index" link where you'll find
-;;      a comprehensive list of Doom's modules and what flags they support.
-
-;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
-;;      'C-c c k' for non-vim users) to view its documentation. This works on
-;;      flags as well (those symbols that start with a plus).
-;;
-;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
-;;      directory (for easy access to its source code).
-
 (doom! :input
        ;;chinese
        ;;japanese
@@ -81,12 +66,12 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       ;(spell +flyspell +hunspell)  ; tasing you for misspelling mispelling
-       ;grammar            ; tasing grammar mistake every you make
+       ;;(spell +flyspell +hunspell)  ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
-       ;; debugger            ; FIXME stepping through code, to help you add bugs
+       ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
@@ -94,7 +79,7 @@
        eval                ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup +dictionary +offline)  ; navigate your code and its documentation
-       ;; (lsp +eglot)
+       ;;(lsp +eglot)
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -112,7 +97,7 @@
 
        :lang
        ;;agda              ; types of types of types of types...
-       ;cc                  ; C/C++/Obj-C madness
+       ;;cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -188,3 +173,17 @@
        (default +bindings +smartparens))
 
 ;; (setq evil-respect-visual-line-mode t)
+
+;; This file controls what Doom modules are enabled and what order they load
+;; in. Remember to run 'doom sync' after modifying it!
+
+;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
+;;      documentation. There you'll find a "Module Index" link where you'll find
+;;      a comprehensive list of Doom's modules and what flags they support.
+
+;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
+;;      'C-c c k' for non-vim users) to view its documentation. This works on
+;;      flags as well (those symbols that start with a plus).
+;;
+;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+;;      directory (for easy access to its source code).
