@@ -3,7 +3,7 @@
 export ALTERNATE_EDITOR="vim"
 export EDITOR="ted"
 export FILE="lf"
-export PAGER="bat"
+# export PAGER="bat"
 export READER="zathura"
 export TERMINAL="st"
 export VISUAL="em"

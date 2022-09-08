@@ -53,12 +53,12 @@ http://www.ottonepesante.it/?feed=gigpress "~Ottone Pesante"
 "---Cars---"
 https://yewtu.be/feed/channel/UCx8aikojDTsbC_iS-204Y0w "~Angelo Nero"
 https://yewtu.be/feed/channel/UCFNLUhl6K-zVILHawerpDDA "~Passione Motori"
-"---Void-Linux---"
-https://voidlinux.org/atom.xml
-https://github.com/void-linux/xbps/commits/master.atom
-"---Software---"
-https://blog.qutebrowser.org/feeds/all.rss.xml
-https://github.com/LukeSmithxyz/voidrice/commits.atom
-https://github.com/LukeSmithxyz/dwm/commits.atom
-https://github.com/LukeSmithxyz/dwmblocks/commits.atom
-https://github.com/LukeSmithxyz/st/commits.atom
+# "---Void-Linux---"
+# https://voidlinux.org/atom.xml
+# https://github.com/void-linux/xbps/commits/master.atom
+# "---Software---"
+# https://blog.qutebrowser.org/feeds/all.rss.xml
+# https://github.com/LukeSmithxyz/voidrice/commits.atom
+# https://github.com/LukeSmithxyz/dwm/commits.atom
+# https://github.com/LukeSmithxyz/dwmblocks/commits.atom
+# https://github.com/LukeSmithxyz/st/commits.atom
