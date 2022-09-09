@@ -51,6 +51,7 @@
     ("^\\*eshell*"        :side bottom :size 0.42 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*eww*"           :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*helpful*"       :side right  :size 0.33 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*magit-process*" :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :ttl 5 :quit t)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
 ;; }}}
