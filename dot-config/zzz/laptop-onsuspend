@@ -1,5 +1,5 @@
 #!/bin/sh
 
-PATH="/home/davide/.local/bin/controller"
-"$PATH"/lock &&
-    "$PATH"/sysact Suspend
+PATH="/home/davide/.local/bin"
+"$PATH/su/sysact" Suspend
+exec "$PATH/abrev/lock"

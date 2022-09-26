@@ -113,7 +113,7 @@
           "* %^{Title} - %^{Artist}\n:PROPERTIES:\n:CREATED: %U\n:TITLE: %\\1\n:ARTIST: %\\2\n:END:"
           :kill-buffer t :prepend t)
     ("br" "Add to Read List" entry (file+headline "~/Org/Me/Read.org" "Inbox")
-          "* %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:TITLE: %\\1\n:AUTHOR: %\\2\n:END:"
+          "* %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
           :kill-buffer t :prepend t)
     ("bw" "Add to Watch List" entry (file+headline "~/Org/Me/Watch.org" "Inbox")
           "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
@@ -131,7 +131,7 @@
           :kill-buffer t :prepend t)
     ("ms" "Sleep Journal" table-line (file+headline "~/Org/Me/Metrics.org" "Sleep Journal")
           "| %^{Sleep TimeStamp}U | %^{Wake TimeStamp}U | | |"
-          :kill-buffer t :prepend t)
+          :kill-buffer t)
     ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
           "| %U | %^{Weight} |"
           :prepend t :kill-buffer t)
