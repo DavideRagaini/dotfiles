@@ -18,7 +18,6 @@
   (setq display-line-numbers-type nil
         company-idle-delay 0.5
         no-native-compile t)
-  (load-theme 'modus-vivendi)
   (after! org
     (setq org-fontify-quote-and-verse-blocks nil
           org-fontify-whole-heading-line nil
@@ -30,11 +29,10 @@
   (set-face-foreground 'vertical-border "magenta"))
 
 (defun dr/high-resources()
-  (setq doom-theme 'doom-dracula
-        display-line-numbers-type t)
+  (setq display-line-numbers-type t)
   (dr/ispell-settings)
-  (add-hook! 'doom-load-theme-hook
-             #'dr/custom-sep))
+  (global-activity-watch-mode t)
+  )
 ;; }}}
 ;; ========= Popups Rules ========= {{{
 (set-popup-rules!
@@ -59,12 +57,10 @@
 (cond
  ((string-equal (system-name) "VoiD")
         (setq dr/font-size 30)
-        (dr/high-resources)
-        (global-activity-watch-mode t))
+        (dr/high-resources))
  ((string-equal (system-name) "vDR")
         (setq dr/font-size 16)
-        (dr/high-resources)
-        (global-activity-watch-mode t))
+        (dr/high-resources))
  ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
         (dr/low-resources)
         (setq dr/font-size 12))
@@ -78,11 +74,12 @@
 ;; ========= Common ========= {{{
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
-      doom-font (font-spec :family "Iosevka" :size dr/font-size)
-      doom-big-font (font-spec :family "Iosevka" :size (+ dr/font-size 12))
-      doom-serif-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
+      doom-font (font-spec :family "Liberation Mono" :size dr/font-size)
+      doom-big-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 12))
+      doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-unicode-font (font-spec :family "Linux Libertine O" :size dr/font-size)
+      doom-theme 'doom-dracula
       scroll-margin 2
       whitespace-line-column 500
       delete-by-moving-to-trash t
@@ -94,6 +91,8 @@
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
+
+(add-hook! 'doom-load-theme-hook #'dr/custom-sep)
 (add-hook 'org-mode-hook (lambda () visual-line-mode 0))
 ;; }}}
 ;; ========= Load Configs ========= {{{

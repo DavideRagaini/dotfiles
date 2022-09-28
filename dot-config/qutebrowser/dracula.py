@@ -17,7 +17,7 @@ def blood(c, options = {}):
         'purple': '#bd93f9',
         'red': '#ff5555',
         'yellow': '#f1fa8c'
-    }   
+    }
 
     spacing = options.get('spacing', {
         'vertical': 5,
@@ -114,7 +114,7 @@ def blood(c, options = {}):
     c.colors.keyhint.fg = palette['purple']
 
     ## Highlight color for keys to complete the current keychain.
-    c.colors.keyhint.suffix.fg = palette['selection']
+    c.colors.keyhint.suffix.fg = palette['purple']
 
     ## Background color of an error message.
     c.colors.messages.error.bg = palette['background']

@@ -129,7 +129,8 @@ __timer_display_timer_precmd() {
     unset __timer_cmd_start_time
     if [[ -z "${TIMER_THRESHOLD}" || ${tdiff} -ge "${TIMER_THRESHOLD}" ]]; then
         local tdiffstr="$(__timer_format_duration ${tdiff})"
-        local prompt="❮${tdiffstr} ${tstartstr} $(strftime "%T")❯"
+        # local prompt="❮${tdiffstr} ${tstartstr} $(strftime "%T")❯"
+        local prompt="❮${tdiffstr} $(strftime "%T")❯"
         local cols=$((COLUMNS - ${#prompt} - 1))
         echo -e "\e[1;33m\033[1A\033[${cols}C ${prompt}"
     fi

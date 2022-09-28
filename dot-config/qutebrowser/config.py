@@ -5,21 +5,22 @@ from os import environ  # User Defined Bindings
 # }}}
 # ======================= User Defined Bindings ============= {{{
 c.bindings.commands["normal"] = {
-    ",a": "hint links spawn --detach dmpv aplay '{hint-url}'",
     ",c": "hint links spawn clipf '{hint-url}'",
-    ",d": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
-    ",e": "hint links spawn --detach dmpv enqueue '{hint-url}'",
-    ",g": "hint links spawn --detach gallery-dl '{hint-url}'",
-    ",m": "hint links spawn --detach dmpv music '{hint-url}'",
-    ",p": "hint links spawn --detach dmpv eplay '{hint-url}'",
-    ",s": "hint links spawn --detach streamlink --player mpv '{hint-url}' best",
-    ",t": "hint links spawn transadd '{hint-url}'",
-    # ",g": 'hint links spawn funnel "{hint-url}"',
+    ",dg": "hint links spawn --detach gallery-dl '{hint-url}'",
+    ",dt": "hint links spawn transadd '{hint-url}'",
+    ",mm": "hint links spawn --detach dmpv music '{hint-url}'",
+    ",ms": "hint links spawn --detach dmpv save_music '{hint-url}'",
+    ",va": "hint links spawn --detach dmpv aplay '{hint-url}'",
+    ",ve": "hint links spawn --detach dmpv enqueue '{hint-url}'",
+    ",vp": "hint links spawn --detach dmpv eplay '{hint-url}'",
+    ",vs": "hint links spawn --detach streamlink --player mpv '{hint-url}' best",
     ",z": "zoom 200",
     ",V": 'hint links spawn + environ["BROWSER"] + {hint-url}',
     ",\\": 'spawn dmenuhandler "{url}"',
     "<y><o>": "yank inline [[{url}][{title}]]",
-    "td": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
+    "tdd": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
+    "tds": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
+    # ",g": 'hint links spawn funnel "{hint-url}"',
 }
 # }}}
 # ======================= User Interface ============= {{{

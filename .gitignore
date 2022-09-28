@@ -6,11 +6,12 @@ dot-config/git/credentials
 
 dot-config/lf/shortcuts
 
-!dot-config/mpd/mpd.conf
-!dot-config/mpd/playlists
 dot-config/mpd/**
+!dot-config/mpd/mpd.conf
+!dot-config/mpd/playlists/
 
 dot-config/mpv/last
+dot-config/mpv/music
 dot-config/mpv/playlists
 dot-config/mpv/watch_later
 !dot-config/mpv/scripts

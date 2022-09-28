@@ -31,7 +31,7 @@
       org-clock-auto-clock-resolution (quote when-no-clock-is-running)
       ;; Include current clocking task in clock reports
       org-clock-report-include-clocking-task t
-      org-ellipsis " ▾"
+      org-ellipsis " ¶"
       org-global-properties
       '(("Effort_ALL" .
       ;;   1    2    3    4    5    6    7    8    9    0
@@ -77,6 +77,7 @@
         (:endgroup)
         ("ASK" . ?b)
         ("BATCH" . ?b)
+        ("DIY" . ?d)
         ("FIX" . ?f)
         ("SETUP" . ?u)
         ("IMPROVE" . ?i)
@@ -110,13 +111,13 @@
           "* %? %T\n"
           :kill-buffer t :prepend t)
     ("bm" "Add to Music List" entry (file+headline "~/Org/Me/Music.org" "Inbox")
-          "* %^{Title} - %^{Artist}\n:PROPERTIES:\n:CREATED: %U\n:TITLE: %\\1\n:ARTIST: %\\2\n:END:"
+          "* [ ] %^{Title} - %^{Artist}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
           :kill-buffer t :prepend t)
     ("br" "Add to Read List" entry (file+headline "~/Org/Me/Read.org" "Inbox")
-          "* %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
+          "* [ ] %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
           :kill-buffer t :prepend t)
     ("bw" "Add to Watch List" entry (file+headline "~/Org/Me/Watch.org" "Inbox")
-          "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
+          "* [ ] %^{Title} - %^{Author/Director}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
           :kill-buffer t :prepend t)
 
     ("g" "Goals Capture")
@@ -172,28 +173,26 @@
           "| %^{Players|2|3|4|5} | %^{Color|Blue|Green|Purple|White} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
           :kill-budder t)
     ("si" "Scrambled Idea" table-line (file+headline "~/Org/Others/Scrambled.org" "Inbox")
-          "* IDEA %?  %U\n"
-          :empty-lines 1 :empty-lines-after 1)
+          "* IDEA %?  %U\n")
     ("st" "Scrambled Todo" table-line (file+headline "~/Org/Others/Scrambled.org" "Inbox")
-          "* TODO %?  %U\n"
-          :empty-lines 1 :empty-lines-after 1)
+          "* TODO %?  %U\n")
 
     ("t" "Tasks / Projects")
     ("tc" "Time Journal" entry (file+olp+datetree "~/Org/Me/Tasks.org" "Daily")
           "* %?"
-          :clock-in :clock-resume :prepend t :empty-lines 1 :empty-lines-after 1)
+          :clock-in :clock-resume :prepend t)
     ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "* %T %a :INTERRUPT:\n\n%?\n\n"
-          :clock-in :clock-resume :prepend t :empty-lines 1 :empty-lines-after 1)
+          :clock-in :clock-resume :prepend t)
     ("tm" "Meeting" entry (file+headline "~/Org/Me/Tasks.org" "Meeting")
           "* %^{Purpouse} :MEETING:\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:WITH: %^{With}\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
-          :prepend t :empty-lines 1 :empty-lines-after 1)
+          :prepend t)
     ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
          "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
-         :prepend t :empty-lines 1 :empty-lines-after 1)
+         :prepend t)
     ("ts" "Clocked Entry Subtask" entry (clock)
          "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i"
-         :prepend t :empty-lines 1 :empty-lines-after 1)
+         :prepend t)
 
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
