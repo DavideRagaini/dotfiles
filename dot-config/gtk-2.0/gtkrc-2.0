@@ -1,6 +1,6 @@
 include "/home/davide/.gtkrc-2.0.mine"
-gtk-theme-name="Sweet-Dark"
-gtk-icon-theme-name="candy-icons-master"
+gtk-theme-name="Orchis-Purple-Dark-Compact"
+gtk-icon-theme-name="candy-icons"
 gtk-font-name="Liberation Mono 10"
 gtk-cursor-theme-name="oreo_purple_cursors"
 gtk-cursor-theme-size=0
@@ -12,5 +12,5 @@ gtk-enable-event-sounds=0
 gtk-enable-input-feedback-sounds=0
 gtk-xft-antialias=1
 gtk-xft-hinting=1
-gtk-xft-hintstyle="hintmedium"
+gtk-xft-hintstyle="hintfull"
 gtk-xft-rgba="rgb"

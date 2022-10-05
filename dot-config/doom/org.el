@@ -135,23 +135,23 @@
           :kill-buffer t)
     ("mw" "Weight" table-line (file+headline "~/Org/Me/Metrics.org" "Weight")
           "| %U | %^{Weight} |"
-          :prepend t :kill-buffer t)
+          :kill-buffer t)
 
     ("n" "Note Entries")
     ("nb" "Protocol Link Blank" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %? %U"
+          "* NOTE %? %U"
           :prepend t)
     ("nl" "Protocol Link" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?[[%:link][%:description]] %U"
+          "* NOTE %?[[%:link][%:description]] %U"
           :prepend t)
     ("np" "Protocol" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?[[%:link][%:description]] %U\n%i"
+          "* NOTE %?[[%:link][%:description]] %U\n%i"
           :prepend t)
     ("ns" "Shopping Note" entry (file+headline "~/Org/Me/Shopping_List.org" "Inbox")
           "* NOTE %? %U"
           :prepend t)
     ("nx" "Protocol Link from Clipboard" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-          "** NOTE %?%x %U"
+          "* NOTE %?%x %U"
           :prepend t)
 
     ("j" "Journal Entries")
@@ -188,10 +188,10 @@
           "* %^{Purpouse} :MEETING:\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:WITH: %^{With}\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
           :prepend t)
     ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
-         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
+         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
          :prepend t)
     ("ts" "Clocked Entry Subtask" entry (clock)
-         "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i"
+         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n%a\n%i"
          :prepend t)
 
     ;; ("w" "Workflows")
