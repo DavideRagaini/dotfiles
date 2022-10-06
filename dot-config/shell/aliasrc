@@ -16,7 +16,7 @@ alias \
 
 # Colorize commands
 alias \
-    ccat="highlight --out-format=ansi" \
+    ccat="bat --pager=never" \
     diff="diff --color=auto" \
     egrep='egrep --color=auto' \
     fgrep='fgrep --color=auto' \

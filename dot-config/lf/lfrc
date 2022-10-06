@@ -2,6 +2,7 @@ set shell dash
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 5
+set ratios 1:2
 # set color256
 set icons
 set period 1
@@ -165,8 +166,7 @@ cmd paste &{{
     rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
-
-cmd recol &{{
+cmd recol %{{
     w=$(tput cols)
     if [ $w -le 80 ]; then
         lf -remote "send $id set ratios 1:2"
@@ -243,7 +243,7 @@ map Yp yank-path
 map b $vidir
 map e &em "$f"
 map gg top
-map i $bat --paging=always "$f"
+map i !bat "$f"
 map o push :open-with<space>
 # map A rename # at the very end
 # map O $mimeopen --ask "$f"

@@ -18,25 +18,26 @@ cache() {
 file="$1"
 shift
 
+case "$(file -Lb --mime-type -- "$file")" in
+  audio/* | application/octet-stream) mediainfo "$file" ;;
+  application/pgp-encrypted) gpg -d -- "${file}" ;;
+  application/zip) atool --list -- "${file}" ;;
+  # *opendocument*) odt2txt "${file}" ;;
+  text/troff) man ./ "${file}" | col -b ;;
+  # text/html) lynx -display_charset=utf-8 -dump "${file}" ;;
+  text/* | */xml | application/json) bat --paging=never --line-range :50 "$file" ;;
+  video/*) mediainfo "$file" ;;
+  # image/*) mediainfo "$file" ;;
+esac
+
 if [ -n "$FIFO_UEBERZUG" ]; then
   case "$(file -Lb --mime-type -- "$file")" in
-    # audio/* | application/octet-stream) mediainfo "$FILE_PATH" ;;
-    # application/pgp-encrypted) gpg -d -- "${FILE_PATH}" ;;
-    # application/pdf)
-    #   cache="$(hash "$file").jpg"
-    #   cache "$cache" "$@"
-    #   gs -o "$cache" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
-    #   draw "$cache" "$@"
-    #   ;;
-    # application/zip) atool --list -- "${FILE_PATH}" ;;
-    # *opendocument*) odt2txt "${FILE_PATH}" ;;
-    # text/troff) man ./ "${FILE_PATH}" | col -b ;;
-    # text/html) lynx -display_charset=utf-8 -dump "${FILE_PATH}" ;;
-    # text/* | */xml | application/json) $PAGER "${FILE_PATH}" ;;
-    # thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
-    # ffmpeg -y -i "$FILE_PATH" -vframes 1 "$thumbnail"
-    # preview "$thumbnail" "$@"
-    # ;;
+    application/pdf)
+      cache="$(hash "$file").jpg"
+      cache "$cache" "$@"
+      gs -o "$cache" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
+      draw "$cache" "$@"
+      ;;
     image/*)
       orientation="$(identify -format '%[EXIF:Orientation]\n' -- "$file")"
       if [ -n "$orientation" ] && [ "$orientation" != 1 ]; then
@@ -48,9 +49,7 @@ if [ -n "$FIFO_UEBERZUG" ]; then
         draw "$file" "$@"
       fi
       ;;
-    video/*)
-      mediainfo "$FILE_PATH"
-      ;;
+    # video/*)
       # cache="$(hash "$file").jpg"
       # cache "$cache" "$@"
       # ffmpegthumbnailer -i "$file" -o "$cache" -s 0
