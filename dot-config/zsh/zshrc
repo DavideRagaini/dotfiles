@@ -140,4 +140,18 @@ ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=cyan'
 # typeset -F SECONDS
 # echo $SECONDS
 
+# marzocchi/zsh-notify
+zstyle ':notify:*' error-title "Command failed"
+zstyle ':notify:*' success-title "Command finished"
+zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
+zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
+# zstyle ':notify:*' error-icon "/path/to/error-icon.png"
+# zstyle ':notify:*' success-icon "/path/to/success-icon.png"
+# zstyle ':notify:*' error-sound "Glass"
+# zstyle ':notify:*' success-sound "default"
+zstyle ':notify:*' activate-terminal no
+# zstyle ':notify:*' disable-urgent no
+# zstyle ':notify:*' app-name sh
+zstyle ':notify:*' always-notify-on-failure no
+
 # zprof
