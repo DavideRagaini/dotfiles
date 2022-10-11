@@ -198,6 +198,6 @@
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
     ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
-         "| %^{Type of Workout|Calisthenics|Streatching|Yoga|Swimming}|%^{Exercises}| | |%^{Start Time-Stamps}T|%^{End Time-Stamps}T|"
+         "| %^{Type of Workout|Calisthenics|Stretching|Yoga|Swimming|Others}|%^{Exercises}| | |%^{Start Time-Stamps}T|%^{End Time-Stamps}T|"
           :kill-buffer t)))
 ;; }}}

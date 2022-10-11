@@ -14,6 +14,11 @@
     ;; (remove-hook 'org-mode-hook #'flyspell-mode)
     ))
 
+(defun dr/eagenda()
+  (find-file "~/Org/Me/Tasks.org")
+  (org-agenda-list 21)
+)
+
 (defun dr/low-resources()
   (setq display-line-numbers-type nil
         company-idle-delay 0.5
@@ -99,7 +104,7 @@
 ;; ========= Load Configs ========= {{{
 (load! "org.el")
 ;; }}}
-
+;; ========= Manual ========= {{{
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
 ;; - `after!' for running code after a package has loaded
@@ -114,3 +119,4 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;; }}}
