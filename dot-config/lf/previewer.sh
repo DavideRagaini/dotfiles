@@ -19,15 +19,27 @@ file="$1"
 shift
 
 case "$(file -Lb --mime-type -- "$file")" in
-  audio/* | application/octet-stream) mediainfo "$file" ;;
+  */xml) bat --paging=never --line-range :50 "$file" ;;
+  *opendocument*) odt2txt "${file}" ;;
+  application/bzip2) atool --list -- "${file}" ;;
+  application/gzip) atool --list -- "${file}" ;;
+  application/json) bat --paging=never --line-range :50 "$file" ;;
+  application/lzma) atool --list -- "${file}" ;;
+  application/lzop) atool --list -- "${file}" ;;
+  application/octet-stream) mediainfo "$file" ;;
+  application/pdf) pdftotext "${file}" ;;
   application/pgp-encrypted) gpg -d -- "${file}" ;;
+  application/x-brotli) atool --list -- "${file}" ;;
+  application/x-iso9660-image) ;;
+  application/x-lzip) atool --list -- "${file}" ;;
+  application/x-tar) atool --list -- "${file}" ;;
   application/zip) atool --list -- "${file}" ;;
-  # *opendocument*) odt2txt "${file}" ;;
   text/troff) man ./ "${file}" | col -b ;;
-  # text/html) lynx -display_charset=utf-8 -dump "${file}" ;;
-  text/* | */xml | application/json) bat --paging=never --line-range :50 "$file" ;;
+  text/html) html2text "${file}" ;;
+  text/*) bat --paging=never --line-range :50 "$file" ;;
+  audio/*) mediainfo "$file" ;;
+  image/*) mediainfo "$file" ;;
   video/*) mediainfo "$file" ;;
-  # image/*) mediainfo "$file" ;;
 esac
 
 if [ -n "$FIFO_UEBERZUG" ]; then
@@ -55,6 +67,12 @@ if [ -n "$FIFO_UEBERZUG" ]; then
       # ffmpegthumbnailer -i "$file" -o "$cache" -s 0
       # draw "$cache" "$@"
       # ;;
+    text/html)
+      cache="$(hash "$file").jpg"
+      cache "$cache" "$@"
+      wkhtmltoimage --quality 70 -f jpg --height 1000 "${file}" "$cache"
+      draw "$cache" "$@"
+      ;;
   esac
 fi
 

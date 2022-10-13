@@ -16,7 +16,9 @@
 
 (defun dr/eagenda()
   (find-file "~/Org/Me/Tasks.org")
+  (split-window-horizontally 80)
   (org-agenda-list 21)
+  (+workspace:rename "agenda")
 )
 
 (defun dr/low-resources()
