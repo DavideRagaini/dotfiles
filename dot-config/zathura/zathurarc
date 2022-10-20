@@ -36,41 +36,41 @@ set statusbar-home-tilde true
 
 # set recolor                     "true"
 #colors
-set font                        "iosevka 10"
-set default-bg                  "#263238" 
-set default-fg                  "#222D32" 
+set font                        "Liberation Mono 10"
+set default-bg                  "#263238"
+set default-fg                  "#222D32"
 
-set statusbar-fg                "#B0B0B0" 
-set statusbar-bg                "#222D32" 
+set statusbar-fg                "#B0B0B0"
+set statusbar-bg                "#222D32"
 
-set inputbar-bg                 "#222D32" 
+set inputbar-bg                 "#222D32"
 set inputbar-fg                 "#B0B0B0"
 
-set index-bg                   "#222D32" 
-set index-fg                   "#B9C2C6" 
-set index-active-bg             "#B12CC9" 
-set index-active-fg             "#F4F4F4" 
+set index-bg                   "#222D32"
+set index-fg                   "#B9C2C6"
+set index-active-bg             "#B12CC9"
+set index-active-fg             "#F4F4F4"
 
-set notification-error-bg       "#AC4142" 
-set notification-error-fg       "#263238" 
+set notification-error-bg       "#AC4142"
+set notification-error-fg       "#263238"
 
-set notification-warning-bg     "#AC4142" 
-set notification-warning-fg     "#263238" 
+set notification-warning-bg     "#AC4142"
+set notification-warning-fg     "#263238"
 
-set highlight-color             "#F4BF75" 
-set highlight-active-color      "#6A9FB5" 
+set highlight-color             "#F4BF75"
+set highlight-active-color      "#6A9FB5"
 
-set completion-highlight-fg     "#303030" 
-set completion-highlight-bg     "#75B5AA" 
+set completion-highlight-fg     "#303030"
+set completion-highlight-bg     "#75B5AA"
 
-set completion-bg               "#303030" 
-set completion-fg               "#75B5AA" 
+set completion-bg               "#303030"
+set completion-fg               "#75B5AA"
 
-set notification-bg             "#90A959" 
-set notification-fg             "#263238" 
+set notification-bg             "#90A959"
+set notification-fg             "#263238"
 
-set recolor-lightcolor          "#263238" 
-set recolor-darkcolor           "#E0E0E0" 
+set recolor-lightcolor          "#263238"
+set recolor-darkcolor           "#E0E0E0"
 
 # setting recolor-keep true will keep any color your pdf has.
 # if it is false, it'll just be black and white

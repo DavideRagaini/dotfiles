@@ -27,7 +27,7 @@ case "$(file -Lb --mime-type -- "$file")" in
   application/lzma) atool --list -- "${file}" ;;
   application/lzop) atool --list -- "${file}" ;;
   application/octet-stream) mediainfo "$file" ;;
-  application/pdf) pdftotext "${file}" ;;
+  application/pdf) pdftotext "${file}" /tmp/pdftotext.txt ;;
   application/pgp-encrypted) gpg -d -- "${file}" ;;
   application/x-brotli) atool --list -- "${file}" ;;
   application/x-iso9660-image) ;;
@@ -36,6 +36,7 @@ case "$(file -Lb --mime-type -- "$file")" in
   application/zip) atool --list -- "${file}" ;;
   text/troff) man ./ "${file}" | col -b ;;
   text/html) html2text "${file}" ;;
+  text/plain) cat "${file}" ;;
   text/*) bat --paging=never --line-range :50 "$file" ;;
   audio/*) mediainfo "$file" ;;
   image/*) mediainfo "$file" ;;

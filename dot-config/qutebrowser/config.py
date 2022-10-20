@@ -85,6 +85,7 @@ c.bindings.commands["insert"] = {
 # ======================= Security Settings ============= {{{
 c.auto_save.session = True
 c.content.autoplay = False
+c.content.blocking.method = "both"
 c.content.canvas_reading = False
 c.content.cookies.accept = "no-3rdparty"
 c.content.geolocation = False
@@ -92,12 +93,12 @@ c.content.headers.accept_language = "en-US,en;q=0.5"
 c.content.headers.custom = { "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" }
 c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
 c.content.javascript.can_access_clipboard = False
+c.content.pdfjs = False
 c.content.webgl = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
-c.content.blocking.method = "both"
 # }}}
 # ======================= Folders & Files ============= {{{
-fileselect_cmd = ["st", "-e", "fu", "selection-path {}"]
+fileselect_cmd = ["st", "-e", "lfub", "selection-path {}"]
 c.fileselect.folder.command = fileselect_cmd
 c.fileselect.multiple_files.command = fileselect_cmd
 c.fileselect.single_file.command = fileselect_cmd

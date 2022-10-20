@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: vector
-# key: ,v
+# key: ,va
 # --
 \vec{$0}
