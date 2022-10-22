@@ -168,13 +168,13 @@
           "* [ ] %<%R> %?"
           :prepend t :empty-lines 1 :empty-lines-after 1)
 
-    ("s" "Scramble Capture")
-    ("sd" "Dataset" table-line (file+headline "~/Org/Others/Scrambled.org" "Dataset")
+    ("s" "Tambreet Capture")
+    ("sd" "Dataset" table-line (file+headline "~/Org/Others/Tambreet.org" "Dataset")
           "| %^{Players|2|3|4|5} | %^{Color|Blue|Green|Purple|White} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
           :kill-budder t)
-    ("si" "Scrambled Idea" table-line (file+headline "~/Org/Others/Scrambled.org" "Inbox")
+    ("si" "Tambreet Idea" table-line (file+headline "~/Org/Others/Tambreet.org" "Inbox")
           "* IDEA %?  %U\n")
-    ("st" "Scrambled Todo" table-line (file+headline "~/Org/Others/Scrambled.org" "Inbox")
+    ("st" "Tambreet Todo" table-line (file+headline "~/Org/Others/Tambreet.org" "Inbox")
           "* TODO %?  %U\n")
 
     ("t" "Tasks / Projects")
@@ -184,7 +184,7 @@
     ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
           "* %T %a :INTERRUPT:\n\n%?\n\n"
           :clock-in :clock-resume :prepend t)
-    ("tm" "Meeting" entry (file+headline "~/Org/Me/Tasks.org" "Meeting")
+    ("tm" "Meeting Entry" entry (file+headline "~/Org/Me/Tasks.org" "Schedules")
           "* %^{Purpouse} :MEETING:\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:WITH: %^{With}\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
           :prepend t)
     ("tt" "Task" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")

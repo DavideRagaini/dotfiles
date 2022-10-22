@@ -1,2 +1,2 @@
 #!/bin/sh
-exec unclutter --jitter 10
+exec unclutter --jitter 10 --exclude-root --ignore-scrolling

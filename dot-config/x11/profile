@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export ALTERNATE_EDITOR="vim"
+export ALTERNATE_EDITOR="nvim"
 export EDITOR="ted"
 export FILE="lf"
 export PAGER="bat"
@@ -8,13 +8,9 @@ export READER="zathura"
 export TERMINAL="st"
 export VISUAL="em"
 
-bin="$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
-export PATH="$PATH:$bin"
-export PATH="$PATH:$HOME/.config/emacs/bin"
-export PATH="$PATH:$HOME/.local/share/npm/bin/"
-export PATH="$PATH:$HOME/.local/share/cargo/bin/"
+PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -):$HOME/.config/emacs/bin:$HOME/.local/share/npm/bin/"
+export PATH
 
-id="$(id -u)"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -22,7 +18,8 @@ export XDG_DOCUMENTS_DIR="$HOME/Documents"
 export XDG_DOWNLOAD_DIR="$HOME/Downloads"
 export XDG_MUSIC_DIR="$HOME/Storage/Music"
 export XDG_PICTURES_DIR="$HOME/Storage/Pictures"
-export XDG_RUNTIME_DIR="/run/user/$id"
+XDG_RUNTIME_DIR="/run/user/$(id -u)"
+export XDG_RUNTIME_DIR
 export XDG_VIDEOS_DIR="$HOME/Storage/Videos"
 
 # export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java"
@@ -68,7 +65,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # Java doesn't understand tiling windows
 
 export FZF_DEFAULT_OPTS="--layout=reverse \
 --info=inline \
---height=80% \
+--height=100% \
 --multi \
 --preview-window=:hidden \
 --preview 'bat --paging=never --line-range {}' \

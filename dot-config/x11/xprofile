@@ -4,6 +4,7 @@ xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources" & xrdbpid=$!
 
 export BROWSER="qutebrowser"
 export BROWSER2="librewolf"
+
 case $(hostname) in
     VoiD)
         xrandr --output HDMI-0 --off --output DVI-D-0 --auto --scale 2
@@ -25,6 +26,17 @@ case $(hostname) in
         ;;
 esac
 
+delayed() {
+        sleep 10
+        LOCK_TIME=5 # Minutes
+        NOTIFY=30 # Seconds
+        xautolock -time $LOCK_TIME -notify $NOTIFY -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" -locker 'systemctl suspend' &
+        unclutter-xfixes --jitter 10 --exclude-root --ignore-scrolling --fork &
+        # redshift &
+        emacs --daemon &
+}
+
+# delayed &
 remaps &
 setbg &
 numlockx &
