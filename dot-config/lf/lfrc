@@ -11,7 +11,7 @@ set relativenumber
 set drawbox
 set previewer ~/.config/lf/previewer.sh
 set cleaner ~/.config/lf/clear_img.sh
-source ~/.config/lf/shortcuts
+# source ~/.config/lf/shortcuts
 
 # cmds/functions
 cmd open ${{
@@ -58,7 +58,6 @@ cmd mkdir %{{
 }}
 
 cmd delete ${{
-	# clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	printf "%s\n\t" "$fx"
 	printf "delete?[y/N]"
@@ -67,11 +66,9 @@ cmd delete ${{
 }}
 
 cmd moveto ${{
-	# clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
-	# clear
     echo "Move to where?"
-	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+    dest=$(fdfind -td -E octave -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
 	for x in $fx; do
 		eval mv -iv \"$x\" \"$dest\"
 	done &&
@@ -79,11 +76,9 @@ cmd moveto ${{
 }}
 
 cmd copyto ${{
-	# clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
-	# clear
     echo "Copy to where?"
-	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+    dest=$(fdfind -td -E octave -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
 	for x in $fx; do
 		eval cp -ivr \"$x\" \"$dest\"
 	done &&
@@ -91,13 +86,26 @@ cmd copyto ${{
 }}
 
 cmd fzf_jump ${{
-    res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    res=$(fdfind -td -E octave -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
+    # res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
     if [ -d "$res" ]; then
         cmd="cd"
     else
         cmd="select"
     fi
     lf -remote "send $id $cmd \"$res\""
+}}
+
+cmd fzf_search ${{
+    res="$( \
+        RG_PREFIX="rg --column --line-number --no-heading --color=always \
+            --smart-case "
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1
+    )"
+    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
 }}
 
 cmd zle-cd %printf 'cd %q && zle reset-prompt\n' "$PWD" >&$ZLE_FIFO
@@ -214,21 +222,22 @@ cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | r
 
 cmd open-with %"$@" $fx
 
+cmd trash %trash-put $fx
+
 # cmd paste $cp-p --lf-paste $id
 
 # Bindings
 map <c-b> $setbg $f
 map <c-e> down
-map <c-f> fzf_jump
 map <c-n> push :mkdir<space>
 map <c-r> reload
 map <c-y> up
 map <enter> shell
 map C copyto
-map D delete
+map D trash # delete
 map E extract
 map I push A<c-a> # at the very beginning
-map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
+map J fzf_jump
 map M moveto
 map N chmod
 map Pa async_paste
@@ -243,6 +252,7 @@ map Yp yank-path
 map b $vidir
 map e &em "$f"
 map gg top
+map gs :fzf_search
 map i !bat "$f"
 map o push :open-with<space>
 # map A rename # at the very end
