@@ -26,7 +26,7 @@ case "$(file -Lb --mime-type -- "$file")" in
   application/json) bat --paging=never --line-range :50 "$file" ;;
   application/lzma) atool --list -- "${file}" ;;
   application/lzop) atool --list -- "${file}" ;;
-  application/octet-stream) mediainfo "$file" ;;
+  application/octet-stream) xxd "$file" ;;
   application/pdf) pdftotext "${file}" /tmp/pdftotext.txt ;;
   application/pgp-encrypted) gpg -d -- "${file}" ;;
   application/x-brotli) atool --list -- "${file}" ;;

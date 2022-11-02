@@ -15,35 +15,46 @@ set cleaner ~/.config/lf/clear_img.sh
 
 # cmds/functions
 cmd open ${{
-    case $f in
-        http* | *.html) setsid -f "$BROWSER" "$f" 2>/dev/null & ;;
-        *.pdf | *.djvu | *.epub | *.cbz) setsid -f "$READER" "$fx" >/dev/null 2>&1 & ;;
-        *.mobi | *.azw3) setsid ebook-viewer "$f" & ;;
-        *.mkv | *.web | *.mp4 | *avi) setsid mpv -no-terminal "$f" >/dev/null 2>&1 & ;;
-        *.mp3 | *.flac | *.opus | *mp3?source*) mpv "$f" ;;
-        *.png | *.jpg | *.jpeg | *.gif) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
-        *.tar*) tar tf "$f" | less ;;
-        *.zip) unzip -l "$f" | less ;;
-        *.rar) unrar l "$f" | less ;;
-        *.7z) 7z l "$f" | less ;;
-        *) case $(file --mime-type "$(readlink -f $f)" -b) in
-            audio/*) mpv $f ;;
-            application/json) "$EDITOR" $fx ;;
-            application/pgp-encrypted) "$EDITOR" $fx ;;
-            image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-            image/svg+xml) display -- $f ;;
-            image/vnd.djvu | application/pdf | application/octet-stream | application/postscript | application/epub+zip) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
-            image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | nsxiv -aio 2>/dev/null | lf-select & ;;
-            text/html) "$BROWSER" $f ;;
-            text/*) emacsclient -t $f ;;
-            video/*) setsid mpv $f -no-terminal >/dev/null 2>&1 & ;;
-            *) xdg-open $f ;;
-        esac
+    case $(file --mime-type "$(readlink -f $f)" -b) in
+        application/bzip2) atool --list -- "$fx" ;;
+        application/gzip) atool --list -- "$fx" | bat | bat ;;
+        application/json) "$EDITOR" "$fx" ;;
+        application/lzma) atool --list -- "$fx" | bat ;;
+        application/lzop) atool --list -- "$fx" | bat ;;
+        application/octet-stream) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
+        application/pgp-encrypted) "$EDITOR" "$fx" ;;
+        application/x-brotli) atool --list -- "$fx" | bat ;;
+        application/x-iso9660-image) ;;
+        application/x-lzip) atool --list -- "$fx" | bat ;;
+        application/x-tar) atool --list -- "$fx" | bat ;;
+        application/zip) atool --list -- "$fx" | bat ;;
+
+        audio/*) mpv "$fx" --no-config --term-osd-bar ;;
+
+        application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
+        application/epub+zip) ebook-viewer "$fx" ;;
+        application/postscrip) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
+        application/pdf) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
+        image/svg+xml) display -- "$fx";;
+        image/vnd.djvu) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
+
+        image/x-xcf) setsid -f gimp "$fx" >/dev/null 2>&1 ;;
+        image/*) rotdir "$fx" |
+            grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+            nsxiv -aio 2>/dev/null |
+            lf-select & ;;
+
+        */xml) bat --paging=never --line-range :50 "$fx" ;;
+        text/html) "$BROWSER" "$fx" ;;
+        text/troff) man ./ "${file}" | col -b ;;
+        text/*) "$EDITOR" "$fx" ;;
+
+        video/*) setsid -f mpv "$fx" -no-terminal ;;
+        *) xdg-open "$fx" ;;
     esac
 }}
 
 cmd extract ${{
-	# clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	printf "%s\n\t" "$fx"
 	printf "extract?[y/N]"
@@ -60,9 +71,10 @@ cmd mkdir %{{
 cmd delete ${{
 	set -f
 	printf "%s\n\t" "$fx"
-	printf "delete?[y/N]"
+	printf "Delete or trash it?[d/t]"
 	read ans
-	[ $ans = "y" ] && rm -rf -- $fx
+	[ $ans = "d" ] && rm -rf -- $fx
+	[ $ans = "t" ] && trash-put -- $fx
 }}
 
 cmd moveto ${{
@@ -174,6 +186,7 @@ cmd paste &{{
     rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
+
 cmd recol %{{
     w=$(tput cols)
     if [ $w -le 80 ]; then
@@ -222,8 +235,6 @@ cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | r
 
 cmd open-with %"$@" $fx
 
-cmd trash %trash-put $fx
-
 # cmd paste $cp-p --lf-paste $id
 
 # Bindings
@@ -234,7 +245,7 @@ map <c-r> reload
 map <c-y> up
 map <enter> shell
 map C copyto
-map D trash # delete
+map D delete
 map E extract
 map I push A<c-a> # at the very beginning
 map J fzf_jump
@@ -244,13 +255,14 @@ map Pa async_paste
 map Pb backup_paste
 map Pp :link
 map R push A<a-b> # after extention
+map T trash
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 map Yb yank-basename
 map Ybe yank-basename-without-extension
 map Yd yank-dirname
 map Yp yank-path
 map b $vidir
-map e &em "$f"
+map e &em "$fx"
 map gg top
 map gs :fzf_search
 map i !bat "$f"
