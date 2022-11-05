@@ -18,7 +18,8 @@ c.bindings.commands["normal"] = {
     ",V": 'hint links spawn + environ["BROWSER"] + {hint-url}',
     ",\\": 'spawn dmenuhandler "{url}"',
     "<y><o>": "yank inline [[{url}][{title}]]",
-    "tdd": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
+    "tdd": "config-cycle colors.webpage.darkmode.enabled true false",
+    "tdr": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
     "tds": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
     # ",g": 'hint links spawn funnel "{hint-url}"',
 }

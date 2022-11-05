@@ -11,14 +11,14 @@ theme:
   inactive: Gray # borders of inactive panes
   playbar_background: Black # background of progress bar
   playbar_progress: DarkGray # filled-in part of the progress bar
-  playbar_text: White # artist name in player pane
+  playbar_text: Yellow # artist name in player pane
   selected: Red # a) selected pane border, b) hovered item in list, & c) track title in player
-  text: "255, 255, 255" # text in panes
+  text: Blue # text in panes
   header: LightRed # header text in panes (e.g. 'Title', 'Artist', etc.)
 
 behavior:
   seek_milliseconds: 5000
-  volume_increment: 10
+  volume_increment: 5
   # The lower the number the higher the "frames per second". You can decrease this number so that the audio visualisation is smoother but this can be expensive!
   tick_rate_milliseconds: 500
   # Enable text emphasis (typically italic/bold text styling). Disabling this might be important if the terminal config is otherwise restricted and rendering text escapes interferes with the UI.
@@ -40,7 +40,7 @@ keybindings:
 
   manage_devices: "d"
   decrease_volume: "-"
-  increase_volume: "+"
+  increase_volume: "="
   toggle_playback: " "
   seek_backwards: "<"
   seek_forwards: ">"

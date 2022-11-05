@@ -43,3 +43,4 @@ numlockx &
 sysact Start &
 
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
+xset dpms 0 0 180

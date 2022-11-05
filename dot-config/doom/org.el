@@ -1,8 +1,6 @@
 ;;; ../../.local/src/dotfiles/dot-config/doom/org.el -*- lexical-binding: t; -*-
 ;; ========= Org Misc ========= {{{
 ;; Resume clocking task when emacs is restarted
-(org-clock-persistence-insinuate)
-
 (setq org-directory "~/Org"
       org-agenda-files
       '("~/Org/Me/Tasks.org"
@@ -31,12 +29,12 @@
       org-clock-auto-clock-resolution (quote when-no-clock-is-running)
       ;; Include current clocking task in clock reports
       org-clock-report-include-clocking-task t
-      org-ellipsis " ¶"
+      org-ellipsis " ⤵" ; ▼
       org-global-properties
       '(("Effort_ALL" .
       ;;   1    2    3    4    5    6    7    8    9    0
          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))
-      org-hide-emphasis-markers t
+      org-hide-emphasis-markers nil
       org-habit-graph-column 40
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       org-log-done 'time
@@ -44,8 +42,9 @@
       ;; Use pretty things for the clocktable
       org-pretty-entities t
       org-refile-targets '((org-agenda-files :maxlevel . 3))
-      org-tags-column -1
-      )
+      org-tags-column -1)
+
+(org-clock-persistence-insinuate)
 
 ;; (custom-set-faces
 ;;  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
@@ -115,6 +114,9 @@
           :kill-buffer t :prepend t)
     ("br" "Add to Read List" entry (file+headline "~/Org/Me/Read.org" "Inbox")
           "* [ ] %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
+          :kill-buffer t :prepend t)
+    ("bt" "Add Bookmark" entry (file+headline "~/Org/Me/Bookmarks.org")
+          "* %?"
           :kill-buffer t :prepend t)
     ("bw" "Add to Watch List" entry (file+headline "~/Org/Me/Watch.org" "Inbox")
           "* [ ] %^{Title} - %^{Author/Director}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"

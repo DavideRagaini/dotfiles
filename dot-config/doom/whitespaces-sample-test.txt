@@ -1,0 +1,36 @@
+
+
+
+above is beginning of file repeated newline
+
+ beginning single space
+ending single space
+    beginning repeated spaces
+        beginning repeated spaces
+ending repeated spaces
+ending repeated spaces
+	beginning single tab
+ending single tab
+			beginning repeated tabs
+ending repeated tabs
+ 	beginning space tab
+ending space tab
+  	beginning space space tab
+ending space space tab
+	 beginning tab space
+ending tab space
+	  beginning tab space space
+ending tab space space
+
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+this is a long line. what's â€œlongâ€ is determined by fill-column, not by window width.
+
+
+ long long long long long long long long long long
+
+LongLineNoWhiteSpacettttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+
+                  this is a long line with beginning and ending repeated spaces long long long long
+
+
+following is end of file repeated newline

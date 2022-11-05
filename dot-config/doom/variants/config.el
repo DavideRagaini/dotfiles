@@ -88,8 +88,10 @@
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-unicode-font (font-spec :family "Linux Libertine O" :size dr/font-size)
       doom-theme 'doom-dracula
-      scroll-margin 2
-      whitespace-line-column 500
+      ;; whitespace-line-column 500
+      whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark newline-mark )
+      line-spacing 5
+      scroll-margin 3
       delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/"
       confirm-kill-emacs nil)
