@@ -37,6 +37,7 @@ alias \
     s="doas" \
     smi="doas make install" \
     v="nvim" \
+    trr="transmission-remote" \
     x="sxiv -ft *" \
     xclip="xclip -selection clipboard" \
 	yt="yt-dlp --embed-metadata -i" \
