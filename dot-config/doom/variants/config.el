@@ -61,13 +61,13 @@
       user-mail-address "ragainidavide@gmail.com"
       doom-font (font-spec :family "Fantasque Sans Mono" :size dr/font-size)
       doom-big-font (font-spec :family "Fantasque Sans Mono" :size (* dr/font-size 2))
-      doom-serif-font (font-spec :family "Nimbus Roman" :size (+ dr/font-size 2))
-      doom-variable-pitch-font (font-spec :family "DejaVu Serif" :size (+ dr/font-size 2))
-      doom-unicode-font (font-spec :family "Linux Libertine O" :size dr/font-size)
+      doom-serif-font (font-spec :family "Nimbus Mono PS" :size (+ dr/font-size 2))
+      doom-variable-pitch-font (font-spec :family "Linux Biolinum O" :size (+ dr/font-size 2))
+      doom-unicode-font (font-spec :family "DejaVu Serif" :size dr/font-size)
       doom-theme 'doom-dracula
       ;; whitespace-line-column 500
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark newline-mark )
-      line-spacing 5
+      line-spacing 2
       scroll-margin 3
       delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/"
@@ -104,6 +104,7 @@
 ;; ========= Hooks ========= {{{
 (add-hook! 'doom-load-theme-hook (set-face-foreground 'vertical-border "magenta"))
 (add-hook 'org-mode-hook (lambda () visual-line-mode 0))
+(add-hook 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
 ;; ========= Load Config Files ========= {{{
 (load! "org.el")

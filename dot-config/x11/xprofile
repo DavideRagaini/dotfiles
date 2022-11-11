@@ -38,6 +38,7 @@ delayed() {
 
 # delayed &
 remaps &
+conky -d &
 setbg &
 numlockx &
 sysact Start &
