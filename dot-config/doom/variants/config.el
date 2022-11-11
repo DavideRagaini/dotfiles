@@ -44,7 +44,7 @@
         (setq dr/font-size 30)
         (dr/high-resources))
  ((string-equal (system-name) "vDR")
-        (setq dr/font-size 16)
+        (setq dr/font-size 18)
         (dr/high-resources))
  ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
         (dr/low-resources)

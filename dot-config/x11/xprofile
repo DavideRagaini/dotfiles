@@ -1,5 +1,14 @@
 #!/bin/sh
 
+delayed() {
+        sleep 10
+        LOCK_TIME=5 # Minutes
+        NOTIFY=30 # Seconds
+        xautolock -time $LOCK_TIME -notify $NOTIFY -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" -locker 'systemctl suspend' &
+        unclutter-xfixes --jitter 10 --exclude-root --ignore-scrolling --fork &
+        # redshift &
+}
+
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources" & xrdbpid=$!
 
 export BROWSER="qutebrowser"
@@ -22,21 +31,9 @@ case $(hostname) in
         export BROWSER2="qutebrowser"
         libinput-gestures-setup start &
         ;;
-    *)
-        ;;
+    tinkerboard) delayed & ;;
 esac
 
-delayed() {
-        sleep 10
-        LOCK_TIME=5 # Minutes
-        NOTIFY=30 # Seconds
-        xautolock -time $LOCK_TIME -notify $NOTIFY -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" -locker 'systemctl suspend' &
-        unclutter-xfixes --jitter 10 --exclude-root --ignore-scrolling --fork &
-        # redshift &
-        emacs --daemon &
-}
-
-# delayed &
 remaps &
 conky -d &
 setbg &
