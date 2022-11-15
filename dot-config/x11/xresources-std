@@ -5,7 +5,7 @@ Xcursor.theme: oreo_purple_cursors
 Xcursor.size: 32
 /* Xft.dpi: 96 */
 
-dmenu.font: Fantasque Sans Mono:size=22
+dmenu.font: Fantasque Sans Mono:size=14
 dmenu.background: #2F0B3A
 dmenu.foreground: #FF00FF
 dmenu.selbackground: #FFFFF
