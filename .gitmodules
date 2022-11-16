@@ -10,3 +10,6 @@
 [submodule "dot-config/mpv/modules/mpv_sponsorblock_minimal"]
 	path = dot-config/mpv/modules/mpv_sponsorblock_minimal
 	url = https://codeberg.org/jouni/mpv_sponsorblock_minimal.git
+[submodule "dot-config/mpv/modules/thumbfast"]
+	path = dot-config/mpv/modules/thumbfast
+	url = https://github.com/po5/thumbfast.git

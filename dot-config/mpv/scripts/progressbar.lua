@@ -12,7 +12,7 @@ local log = {
   dump = function(item, ignore)
     if "table" ~= type(item) then
       msg.info(tostring(item))
-      return 
+      return
     end
     local count = 1
     local tablecount = 1
@@ -172,7 +172,7 @@ local settingsMeta = {
     end
     if not (oldConfig) then
       log.debug('No old config file found. Migration finished.')
-      return 
+      return
     end
     for _index_0 = 1, #newConfigFiles do
       local file = newConfigFiles[_index_0]
@@ -194,14 +194,14 @@ local settingsMeta = {
       local dirExists = mp.find_config_file(configDir)
       if dirExists and not utils.readdir(configDir) then
         log.warn(('Configuration migration failed. "%s" exists and does not appear to be a folder'):format(configDir))
-        return 
+        return
       else
         if not dirExists then
           log.debug(('Attempting to create directory "%s"'):format(configDir))
           local res = mkdir(configDir)
           if res.error or res.status ~= 0 then
             log.warn(('Making directory "%s" failed.'):format(configDir))
-            return 
+            return
           end
           log.debug('successfully created directory.')
         else
@@ -212,7 +212,7 @@ local settingsMeta = {
       local res = mv(oldConfig, newConfig)
       if res.error or res.status ~= 0 then
         log.warn(('Moving file "%s" -> "%s" failed.'):format(oldConfig, newConfig))
-        return 
+        return
       end
       if mp.find_config_file(newConfigFile) then
         return log.info('Configuration successfully migrated.')
@@ -239,7 +239,7 @@ settings['top-hover-zone-height'] = 40
 helpText['top-hover-zone-height'] = [[Sets the height of the rectangular area at the top of the screen that shows the
 file name and system time when the mouse is hovered over it.
 ]]
-settings['default-style'] = [[\fnSource Sans Pro\b1\bord2\shad0\fs30\c&HFC799E&\3c&H2D2D2D&]]
+settings['default-style'] = [[\fnFantesque Sans Mono\b1\bord2\shad0\fs30\c&HFC799E&\3c&H2D2D2D&]]
 helpText['default-style'] = [[Default style that is applied to all UI elements. A string of ASS override tags.
 Individual elements have their own style settings which override the tags here.
 Changing the font will likely require changing the hover-time margin settings
@@ -497,18 +497,21 @@ settings['chapter-marker-after-style'] = [[\c&H2D2D2D&]]
 helpText['chapter-marker-after-style'] = [[A string of ASS override tags that get applied only to chapter markers that have
 already been passed.
 ]]
-settings['request-display-duration'] = 1
+settings['request-display-duration'] = 2
 helpText['request-display-duration'] = [[Sets the amount of time in seconds that the UI stays on the screen after it
 receives a request-display signal. A value of 0 will keep the display on screen
 only as long as the key bound to it is held down.
 ]]
-settings['redraw-period'] = 0.03
+settings['redraw-period'] = 0.05
 helpText['redraw-period'] = [[Controls how often the display is redrawn, in seconds. This does not seem to
 significantly affect the smoothness of animations, and it is subject to the
 accuracy limits imposed by the scheduler mpv uses. Probably not worth changing
 unless you have major performance problems.
 ]]
-settings['animation-duration'] = 0.25
+settings['animation-pause-duration'] = 0.4
+helpText['animation-duration'] = [[Controls how long the Pause Indicator animations take. A value of 0 disables.
+]]
+settings['animation-duration'] = 0
 helpText['animation-duration'] = [[Controls how long the UI animations take. A value of 0 disables all animations
 (which breaks the pause indicator).
 ]]
@@ -582,7 +585,7 @@ do
     end,
     removeSortedList = function(self, elementList)
       if #elementList < 1 then
-        return 
+        return
       end
       for i = 1, #elementList - 1 do
         local element = table.remove(elementList)
@@ -822,7 +825,7 @@ do
     end,
     clickHandler = function(self)
       if not (self:containsPoint(Mouse.clickX, Mouse.clickY)) then
-        return 
+        return
       end
       for _, element in ipairs(self.elements) do
         if element.clickHandler and not element:clickHandler() then
@@ -929,7 +932,7 @@ do
   end
   self.animate = function()
     if #animationList == 0 then
-      return 
+      return
     end
     local currentTime = mp.get_time()
     for _, animation in ipairs(animationList) do
@@ -962,13 +965,13 @@ do
     end,
     addZone = function(self, zone)
       if zone == nil then
-        return 
+        return
       end
       return self.activityZones:insert(zone)
     end,
     removeZone = function(self, zone)
       if zone == nil then
-        return 
+        return
       end
       return self.activityZones:remove(zone)
     end,
@@ -1058,7 +1061,7 @@ do
       local displayDuration = settings['request-display-duration']
       mp.add_key_binding("tab", "request-display", function(event)
         if event.event == "repeat" then
-          return 
+          return
         end
         if event.event == "down" or event.event == "press" then
           if displayRequestTimer then
@@ -2287,7 +2290,7 @@ do
         self.line[7] = 'm 75 37.5 b 75 58.21 58.21 75 37.5 75 16.79 75 0 58.21 0 37.5 0 16.79 16.79 0 37.5 0 58.21 0 75 16.79 75 37.5 m 25.8333 17.18 l 25.8333 57.6 60.8333 37.39\n'
         self.line[14] = 'm 0 0 m 75 75 m 25.8333 17.18 l 25.8333 57.6 60.8333 37.39'
       end
-      AnimationQueue.addAnimation(Animation(0, 1, settings['animation-duration'], (function()
+      AnimationQueue.addAnimation(Animation(0, 1, settings['animation-pause-duration'], (function()
         local _base_1 = self
         local _fn_0 = _base_1.animate
         return function(...)
