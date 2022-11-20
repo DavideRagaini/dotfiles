@@ -51,6 +51,16 @@ if [ -n "$FIFO_UEBERZUG" ]; then
       gs -o "$cache" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
       draw "$cache" "$@"
       ;;
+    font/sfnt | application/octet-stream)
+      PREVIEW_TEXT=${FONTPREVIEW_PREVIEW_TEXT:-"ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n1234567890\n!@#$\%^&*,.;:\n_-=+'\"|\\(){}[]"}
+      TEXT_ALIGN=${FONTPREVIEW_TEXT_ALIGN:-center}
+      [ "$TEXT_ALIGN" = center ] || [ "$TEXT_ALIGN" = south ] || [ "$TEXT_ALIGN" = north ] || PADDING=50
+      cache="$(hash "$file").jpg"
+      cache "$cache" "$@"
+      convert -size "800x800" xc:"#ffffff" -fill "#000000" \
+      -pointsize "72" -font "$file" -gravity "$TEXT_ALIGN" \
+      -annotate +${PADDING:-0}+0 "$PREVIEW_TEXT" "$cache"
+      draw "$cache" "$@" ;;
     image/*)
       orientation="$(identify -format '%[EXIF:Orientation]\n' -- "$file")"
       if [ -n "$orientation" ] && [ "$orientation" != 1 ]; then
