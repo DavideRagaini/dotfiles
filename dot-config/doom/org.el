@@ -169,7 +169,7 @@
     ("jp" "Daily Planning" entry (file+olp+datetree "~/Org/Me/Journal.org")
           "* [ ] %<%R> %?"
           :prepend t :empty-lines 1 :empty-lines-after 1)
-    ("jt" "Journal note" entry (file+olp+datetree "~/Org/Me/Thoughts.org")
+    ("jt" "Thoughts" entry (file+olp+datetree "~/Org/Me/Thoughts.org")
           "* %?"
           :empty-lines 1 :empty-lines-after 1)
 

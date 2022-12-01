@@ -2,7 +2,8 @@
 
 # Function to source files if they exist
 function zsh_add_file() {
-    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1" }
+    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
 
 function zsh_add_plugin() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
@@ -33,19 +34,6 @@ function zsh_add_completion() {
 	if [ "$2" = true ] && compinit "${completion_file:1}"
 }
 
-# Use lf to switch directories and bind it to ctrl-o
- lfcd() {
-   tmp="$(mktemp)"
-   tmp="$(mktemp -uq)"
-   trap 'rm -f $tmp >/dev/null 2>&1' HUP INT QUIT TERM PWR EXIT
-   lfub -last-dir-path="$tmp" "$@"
-   if [ -f "$tmp" ]; then
-     dir="$(cat "$tmp")"
-     rm -f "$tmp" >/dev/null
-     [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-   fi
- }
-
 #   CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
 vf () {
@@ -71,6 +59,62 @@ doas-command-line() {
     else
         LBUFFER="doas $LBUFFER"
     fi
+}
+
+# Zoxide
+_z_cd() {
+    cd "$@" || return "$?"
+
+    if [ "$_ZO_ECHO" = "1" ]; then
+        echo "$PWD"
+    fi
+}
+
+z() {
+    if [ "$#" -eq 0 ]; then
+        _z_cd ~
+    elif [ "$#" -eq 1 ] && [ "$1" = '-' ]; then
+        if [ -n "$OLDPWD" ]; then
+            _z_cd "$OLDPWD"
+        else
+            echo 'zoxide: $OLDPWD is not set'
+            return 1
+        fi
+    else
+        _zoxide_result="$(zoxide query -- "$@")" && _z_cd "$_zoxide_result"
+    fi
+}
+
+zi() {
+    _zoxide_result="$(zoxide query -i -- "$@")" && _z_cd "$_zoxide_result"
+}
+
+alias za='zoxide add'
+alias zq='zoxide query'
+alias zqi='zoxide query -i'
+alias zr='zoxide remove'
+zri() {
+    _zoxide_result="$(zoxide query -i -- "$@")" && zoxide remove "$_zoxide_result"
+}
+
+_zoxide_hook() {
+    zoxide add "$(pwd -L)"
+}
+
+chpwd_functions=(${chpwd_functions[@]} "_zoxide_hook")
+
+# LF
+# Use lf to switch directories and bind it to ctrl-o
+lfcd() {
+  tmp="$(mktemp)"
+  tmp="$(mktemp -uq)"
+  trap 'rm -f $tmp >/dev/null 2>&1' HUP INT QUIT TERM PWR EXIT
+  lfub -last-dir-path="$tmp" "$@"
+  if [ -f "$tmp" ]; then
+    dir="$(cat "$tmp")"
+    rm -f "$tmp" >/dev/null
+    [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+  fi
 }
 zle -N doas-command-line
 

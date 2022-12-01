@@ -31,7 +31,8 @@ autoload -U colors && colors
 # # zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
 # zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
 
-PROMPT=" %B%{$fg[magenta]%}%~ %{$fg[blue]%}❯%{$fg[magenta]%}❯%{$fg[red]%}❯%b "
+# PROMPT=" %B%{$fg[magenta]%}%~ %{$fg[blue]%}❯%{$fg[magenta]%}❯%{$fg[red]%}❯%b "
+PROMPT=" %B%{$fg[magenta]%}%~ %{$fg[blue]%}%{$fg[magenta]%}%{$fg[red]%}%b "
 # RPROMPT="%(?:: %F{1}✘ %?) \$vcs_info_msg_0_ "
 SPROMPT="Correct %F{1}%R%f to %F{2}%r%f [nyae]? "
 

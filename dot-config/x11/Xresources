@@ -1,0 +1,35 @@
+! *.alpha: 0.85
+*.font: Fantasque Sans Mono:size=12
+*.cursorColor: magenta
+Xcursor.theme: oreo_purple_cursors
+! Xcursor.size: 32
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.autohint: 0
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+! Xft.dpi: 96
+
+! st.alpha: 0.92
+st.alphaOffset: 0.3
+! st.font: Monospace-11;
+
+! dwm.font: Fantasque Sans Mono:size=14
+! dwm.normbgcolor: #2F0B3A
+! dwm.normbordercolor: #BD93F9
+! dwm.normfgcolor: #FF00FF
+! dwm.selfgcolor: #FFFFFF
+! dwm.selbordercolor: #FF00FF
+! dwm.selbgcolor: #571DC2
+
+dmenu.font: Fantasque Sans Mono:size=14
+dmenu.background: #2F0B3A
+dmenu.foreground: #FF00FF
+dmenu.selbackground: #FFFFF
+dmenu.selforeground: 571DC2
+
+Nsxiv.window.background: #000000
+Nsxiv.window.foreground: #ffffff
+Nsxiv.bar.background: #000000
+Nsxiv.bar.foreground: #ffffff

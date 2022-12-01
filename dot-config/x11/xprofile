@@ -4,12 +4,17 @@ delayed() {
         sleep 10
         LOCK_TIME=5 # Minutes
         NOTIFY=30 # Seconds
-        xautolock -time $LOCK_TIME -notify $NOTIFY -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" -locker 'systemctl suspend' &
+        xautolock \
+                -time $LOCK_TIME \
+                -notify $NOTIFY \
+                -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" \
+                -locker 'systemctl suspend' &
         unclutter-xfixes --jitter 10 --exclude-root --ignore-scrolling --fork &
+        # emacs --daemon &
         # redshift &
 }
 
-xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources" & xrdbpid=$!
+xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources" & xrdbpid=$!
 
 export BROWSER="qutebrowser"
 export BROWSER2="librewolf"
@@ -20,6 +25,7 @@ case $(hostname) in
         # xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
         export BROWSER="librewolf"
         export BROWSER2="qutebrowser"
+        xrdb -merge "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources_HDPI" & xrdbpid=$!
         ;;
     vDR)
         xbacklight -set 20 &
@@ -31,7 +37,8 @@ case $(hostname) in
         export BROWSER2="qutebrowser"
         libinput-gestures-setup start &
         ;;
-    tinkerboard) delayed & ;;
+    tinkerboard)
+            delayed & ;;
 esac
 
 remaps &
@@ -39,6 +46,7 @@ setbg &
 numlockx &
 sysact Start &
 conky -d -c "${XDG_CONFIG_DIR:-$HOME/.config}/conky/$(hostname)-conky.conf" &
+mem-warn &
 
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 xset dpms 0 0 180
