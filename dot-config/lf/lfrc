@@ -234,6 +234,7 @@ cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboar
 cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | rev | head -c-1 | xclip -i -selection clipboard
 
 cmd open-with %"$@" $fx
+cmd open-fork &setsid -f "$@" $fx
 
 # cmd paste $cp-p --lf-paste $id
 
@@ -251,6 +252,7 @@ map I push A<c-a> # at the very beginning
 map J fzf_jump
 map M moveto
 map N chmod
+map O push :open-fork<space>
 map Pa async_paste
 map Pb backup_paste
 map Pp :link

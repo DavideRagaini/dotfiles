@@ -15,7 +15,7 @@ Xft.lcdfilter: lcddefault
 st.alphaOffset: 0.3
 ! st.font: Monospace-11;
 
-! dwm.font: Fantasque Sans Mono:size=14
+! dwm.font: Fantasque Sans Mono:size=14:style=Bold
 ! dwm.normbgcolor: #2F0B3A
 ! dwm.normbordercolor: #BD93F9
 ! dwm.normfgcolor: #FF00FF
