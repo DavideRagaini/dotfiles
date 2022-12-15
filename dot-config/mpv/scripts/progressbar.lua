@@ -276,14 +276,14 @@ the binding `f cycle pause; script-binding progressbar/toggle-inactive-bar`, it
 is possible to have the bar be persistently present only in windowed or
 fullscreen contexts, depending on the default setting.
 ]]
-settings['bar-height-inactive'] = 3
+settings['bar-height-inactive'] = 2
 helpText['bar-height-inactive'] = [[Sets the height of the bar display when the mouse is not in the active zone and
 there is no request-display active. A value of 0 or less will cause bar-hide-
 inactive to be set to true and the bar height to be set to 1. This should result
 in the desired behavior while avoiding annoying debug logging in mpv (libass
 does not like zero-height objects).
 ]]
-settings['bar-height-active'] = 6
+settings['bar-height-active'] = 5
 helpText['bar-height-active'] = [[Sets the height of the bar display when the mouse is in the active zone or
 request-display is active. There is no logic attached to this, so 0 or negative
 values may have unexpected results.
@@ -317,13 +317,13 @@ bar, allowing the display of seek ranges that have already been encountered.
 demuxer cache ranges that are prior to the current playback point will not be
 shown. This matches the previous behavior.
 ]]
-settings['bar-cache-height-inactive'] = 1.5
+settings['bar-cache-height-inactive'] = 2
 helpText['bar-cache-height-inactive'] = [[Sets the height of the cache bar display when the mouse is not in the active
 zone and there is no request-display active. Useful in combination with bar-
 cache-position to control whether or not the cache bar is occluded by (or
 occludes) the progress bar.
 ]]
-settings['bar-cache-height-active'] = 3
+settings['bar-cache-height-active'] = 5
 helpText['bar-cache-height-active'] = [[Sets the height of the cache bar display when the mouse is in the active zone or
 request-display is active. Useful in combination with bar-cache- position to
 control whether or not the cache bar is occluded by (or occludes) the progress
@@ -334,16 +334,16 @@ helpText['bar-default-style'] = [[A string of ASS override tags that get applied
 progress, cache, and background. You probably don't want to remove \bord0 unless
 your default-style includes it.
 ]]
-settings['bar-foreground-style'] = '[[]]'
+settings['bar-foreground-style'] = [[\c&HFF0000&]]
 helpText['bar-foreground-style'] = [[A string of ASS override tags that get applied only to the progress layer of the
 bar.
 ]]
-settings['bar-cache-style'] = [[\c&H5E00FF&]]
+settings['bar-cache-style'] = [[\c&H00FFFF&]]
 helpText['bar-cache-style'] = [[A string of ASS override tags that get applied only to the cache layer of the
 bar, particularly the part of the cache bar that is behind the current playback
 position. The default sets only the color.
 ]]
-settings['bar-cache-background-style'] = [[\c&H5E00FF&]]
+settings['bar-cache-background-style'] = [[\c&H0000FF&]]
 helpText['bar-cache-background-style'] = [[A string of ASS override tags that get applied only to the cache layer of the
 bar, particularly the part of the cache bar that is after the current playback
 position. The tags specified here are applied after bar-cache-style and override
