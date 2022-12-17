@@ -3,10 +3,14 @@
 ;; }}}
 ;; ========= Functions ========= {{{
 (defun dr/eagenda()
-  (find-file "~/Org/Me/Tasks.org")
-  (split-window-horizontally 80)
   (org-agenda-list 21)
-  (+workspace:rename "agenda")
+  (split-window-horizontally -85)
+  (find-file "~/Org/Me/Habits.org")
+  (split-window-vertically -15)
+  (find-file "~/Org/Me/Tasks.org")
+  (split-window-vertically -15)
+  (find-file "~/Org/Me/Learn.org")
+  ;; (+workspace:rename "agenda")
 )
 
 (defun dr/low-resources()
@@ -20,12 +24,6 @@
           ;; org-startup-indented nil
           )))
 
-(defun dr/high-resources()
-  (setq display-line-numbers-type t)
-  (dr/ispell-settings)
-  (global-activity-watch-mode t)
-  )
-
 (defun dr/ispell-settings()
   (after! ispell
     (setq ispell-program-name "hunspell"
@@ -37,6 +35,12 @@
     ;; (remove-hook 'text-mode-hook #'flyspell-mode)
     ;; (remove-hook 'org-mode-hook #'flyspell-mode)
     ))
+
+(defun dr/high-resources()
+  (setq display-line-numbers-type t)
+  (dr/ispell-settings)
+  (global-activity-watch-mode t)
+)
 ;; }}}
 ;; ========= Bootstraps ========= {{{
 (cond
@@ -48,7 +52,7 @@
         (dr/high-resources))
  ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
         (dr/low-resources)
-        (setq dr/font-size 12))
+        (setq dr/font-size 13))
  ((string-equal (system-name) "tinkerboard")
         (dr/low-resources)
         (setq dr/font-size 17))
@@ -61,8 +65,8 @@
       user-mail-address "ragainidavide@gmail.com"
       doom-font (font-spec :family "Fantasque Sans Mono" :size dr/font-size)
       doom-big-font (font-spec :family "Fantasque Sans Mono" :size (* dr/font-size 2))
-      doom-serif-font (font-spec :family "Nimbus Mono PS" :size (+ dr/font-size 2))
-      doom-variable-pitch-font (font-spec :family "Linux Biolinum O" :size (+ dr/font-size 2))
+      doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
+      doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-unicode-font (font-spec :family "DejaVu Serif" :size dr/font-size)
       doom-theme 'doom-dracula
       ;; whitespace-line-column 500

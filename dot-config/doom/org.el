@@ -35,7 +35,7 @@
       ;;   1    2    3    4    5    6    7    8    9    0
          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))
       org-hide-emphasis-markers nil
-      org-habit-graph-column 40
+      ;; org-habit-graph-column 40
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       org-log-done 'time
       ;; org-log-into-drawer t
