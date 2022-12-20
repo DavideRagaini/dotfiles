@@ -2,6 +2,24 @@
 *.font: Fantasque Sans Mono:size=12
 *.cursorColor: magenta
 Xcursor.theme: oreo_purple_cursors
+
+*.color0:  #000000
+*.color1:  #FF5555
+*.color2:  #50FA7B
+*.color3:  #F1FA8C
+*.color4:  #BD93F9
+*.color5:  #FF79C6
+*.color6:  #8BE9FD
+*.color7:  #BFBFBF
+*.color8:  #4D4D4D
+*.color9:  #FF6E67
+*.color10: #5AF78E
+*.color11: #F4F99D
+*.color12: #CAA9FA
+*.color13: #FF92D0
+*.color14: #9AEDFE
+*.color15: #E6E6E6
+
 ! Xcursor.size: 32
 Xft.antialias: 1
 Xft.hinting: 1
@@ -11,10 +29,6 @@ Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
 ! Xft.dpi: 96
 
-! st.alpha: 0.92
-st.alphaOffset: 0.3
-! st.font: Monospace-11;
-
 ! dwm.font: Fantasque Sans Mono:size=14:style=Bold
 ! dwm.normbgcolor: #2F0B3A
 ! dwm.normbordercolor: #BD93F9
@@ -23,13 +37,35 @@ st.alphaOffset: 0.3
 ! dwm.selbordercolor: #FF00FF
 ! dwm.selbgcolor: #571DC2
 
-dmenu.font: Fantasque Sans Mono:size=14
-dmenu.background: #2F0B3A
-dmenu.foreground: #FF00FF
-dmenu.selbackground: #FFFFF
-dmenu.selforeground: 571DC2
+dmenu.font: Fantasque Sans Mono:size=14:style=Bold
+! dmenu.color0: #2F0B3A
+! dmenu.color4: #FF00FF
 
 Nsxiv.window.background: #000000
-Nsxiv.window.foreground: #ffffff
-Nsxiv.bar.background: #000000
-Nsxiv.bar.foreground: #ffffff
+Nsxiv.window.foreground: #FFFFFF
+Nsxiv.bar.background:    #000000
+Nsxiv.bar.foreground:    #FFFFFF
+
+! st.alpha: 0.92
+! st.alphaOffset: 0.3
+st.cursorColor: #ff00ff
+st.highlightColor: #555555
+st.background: #282a36
+st.foreground: #f8f8f2
+st.font: Fantasque Sans Mono:size=12
+! st.color0:  #000000
+! st.color1:  #FF5555
+! st.color2:  #50FA7B
+! st.color3:  #F1FA8C
+! st.color4:  #BD93F9
+! st.color5:  #FF79C6
+! st.color6:  #8BE9FD
+! st.color7:  #BFBFBF
+! st.color8:  #4D4D4D
+! st.color9:  #FF6E67
+! st.color10: #5AF78E
+! st.color11: #F4F99D
+! st.color12: #CAA9FA
+! st.color13: #FF92D0
+! st.color14: #9AEDFE
+! st.color15: #E6E6E6

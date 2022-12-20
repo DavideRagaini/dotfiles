@@ -489,11 +489,11 @@ as a multiplier on the height of the active progress bar. A value greater than 1
 will cause the markers to be taller than the expanded progress bar, whereas a
 value less than 1 will cause them to be shorter.
 ]]
-settings['chapter-marker-before-style'] = [[\c&HFC799E&]]
+settings['chapter-marker-before-style'] = [[\c&H00FF00&]]
 helpText['chapter-marker-before-style'] = [[A string of ASS override tags that get applied only to chapter markers that have
 not yet been passed.
 ]]
-settings['chapter-marker-after-style'] = [[\c&H2D2D2D&]]
+settings['chapter-marker-after-style'] = [[\c&H00FF00&]]
 helpText['chapter-marker-after-style'] = [[A string of ASS override tags that get applied only to chapter markers that have
 already been passed.
 ]]
