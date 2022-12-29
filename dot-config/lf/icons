@@ -213,6 +213,7 @@ config	
 .github/	
 
 # Home Dirs
+~/.cache/	
 ~/.config/	⚙
 ~/.librewolf/	
 ~/.mozilla/	
@@ -228,6 +229,8 @@ config	
 ~/Storage/Music/	
 ~/Storage/Pictures/	
 ~/Storage/Videos/	ﳜ
+~/Sync/	
+~/Uni/	
 ~/Universitá/	
 
 # Ignore

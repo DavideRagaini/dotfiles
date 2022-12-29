@@ -9,6 +9,7 @@ set period 1
 # set hidden
 set relativenumber
 set drawbox
+set autoquit on
 set previewer ~/.config/lf/previewer.sh
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
@@ -28,6 +29,21 @@ cmd open ${{
         application/x-lzip) atool --list -- "$fx" | bat ;;
         application/x-tar) atool --list -- "$fx" | bat ;;
         application/zip) atool --list -- "$fx" | bat ;;
+
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid -f lowriter $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.text) setsid -f lowriter $fx >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) setsid -f localc $fx >/dev/null 2>&1 ;;
+        application/octet-stream) setsid -f localc $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.spreadsheet) setsid -f localc $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.spreadsheet-template) setsid -f localc $fx >/dev/null 2>&1 ;;
+        application/vnd.openxmlformats-officedocument.presentationml.presentation) setsid -f loimpress $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.presentation-template) setsid -f loimpress $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.presentation) setsid -f loimpress $fx >/dev/null 2>&1 ;;
+        application/vnd.ms-powerpoint) setsid -f loimpress $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.graphics) setsid -f lodraw $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.graphics-template) setsid -f lodraw $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
+        application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
 
         audio/*) mpv "$fx" --no-config --term-osd-bar ;;
 
@@ -257,6 +273,7 @@ map Pa async_paste
 map Pb backup_paste
 map Pp :link
 map R push A<a-b> # after extention
+map S $samedir
 map T trash
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 map Yb yank-basename

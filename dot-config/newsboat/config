@@ -32,8 +32,7 @@ color article white default bold
 browser linkhandler
 macro , open-in-browser
 macro t set browser "qndl"; open-in-browser ; set browser linkhandler
-macro d set browser "ts yt-dlp --embed-metadata -ic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
-macro a set browser "ts yt-dlp --embed-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
+macro d set browser "ts yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser linkhandler
 macro a set browser "setsid -f dmpv aplay"; open-in-browser ; set browser linkhandler
 macro e set browser "setsid -f dmpv enqueue"; open-in-browser ; set browser linkhandler
 macro p set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkhandler

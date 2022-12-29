@@ -72,6 +72,11 @@ if [ -n "$FIFO_UEBERZUG" ]; then
         draw "$file" "$@"
       fi
       ;;
+      */epub+zip|*/mobi*)
+        CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/lf/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1)"
+        [ ! -f "$CACHE.jpg" ] && gnome-epub-thumbnailer "$1" "$CACHE.jpg"
+        image "$CACHE.jpg" "$2" "$3" "$4" "$5" "$1"
+        ;;
     # video/*)
       # cache="$(hash "$file").jpg"
       # cache "$cache" "$@"
