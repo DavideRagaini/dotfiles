@@ -10,7 +10,7 @@
   (find-file "~/Org/Me/Tasks.org")
   (split-window-vertically -15)
   (find-file "~/Org/Me/Learn.org")
-  ;; (+workspace:rename "agenda")
+  (+workspace:rename "agenda")
 )
 
 (defun dr/low-resources()

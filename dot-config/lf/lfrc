@@ -261,6 +261,7 @@ map <c-n> push :mkdir<space>
 map <c-r> reload
 map <c-y> up
 map <enter> shell
+map B $vidir
 map C copyto
 map D delete
 map E extract
@@ -274,17 +275,20 @@ map Pb backup_paste
 map Pp :link
 map R push A<a-b> # after extention
 map S $samedir
-map T trash
+map T !bat "$f"
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 map Yb yank-basename
 map Ybe yank-basename-without-extension
 map Yd yank-dirname
 map Yp yank-path
-map b $vidir
+map Ys $printf "%s" "$fx" | xclip -selection clipboard
 map e &em "$fx"
 map gg top
 map gs :fzf_search
-map i !bat "$f"
+map c push r<c-u> # new rename
+map I push r<c-a> # at the very beginning
+map i push r<a-b><a-b><a-f> # before extension
+map a push r<a-b> # after extension
 map o push :open-with<space>
 # map A rename # at the very end
 # map O $mimeopen --ask "$f"
