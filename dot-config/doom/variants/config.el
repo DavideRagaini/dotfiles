@@ -39,13 +39,15 @@
 (defun dr/high-resources()
   (setq display-line-numbers-type t)
   (dr/ispell-settings)
+  (set-frame-parameter (selected-frame) 'alpha '(95 . 80))
+  (add-to-list 'default-frame-alist '(alpha . (95 . 80)))
   (global-activity-watch-mode t)
 )
 ;; }}}
 ;; ========= Bootstraps ========= {{{
 (cond
  ((string-equal (system-name) "VoiD")
-        (setq dr/font-size 30)
+        (setq dr/font-size 16)
         (dr/high-resources))
  ((string-equal (system-name) "vDR")
         (setq dr/font-size 18)

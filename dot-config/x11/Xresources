@@ -1,4 +1,4 @@
-! *.alpha: 0.85
+*.alpha: 0.95
 *.font: Fantasque Sans Mono:size=12
 *.cursorColor: magenta
 Xcursor.theme: oreo_purple_cursors
@@ -27,7 +27,7 @@ Xft.autohint: 0
 Xft.hintstyle: hintslight
 Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
-! Xft.dpi: 96
+Xft.dpi: 96
 
 ! dwm.font: Fantasque Sans Mono:size=14:style=Bold
 ! dwm.normbgcolor: #2F0B3A
@@ -46,7 +46,7 @@ Nsxiv.window.foreground: #FFFFFF
 Nsxiv.bar.background:    #000000
 Nsxiv.bar.foreground:    #FFFFFF
 
-! st.alpha: 0.92
+st.alpha: 0.92
 ! st.alphaOffset: 0.3
 st.cursorColor: #ff00ff
 st.highlightColor: #555555
