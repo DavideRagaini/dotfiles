@@ -1,12 +1,14 @@
 #!/bin/sh
 
-export ALTERNATE_EDITOR="nvim"
+export BROWSER="qutebrowser"
 export EDITOR="ted"
 export FILE="lf"
 export PAGER="bat"
 export READER="zathura"
 export TERMINAL="st"
 export VISUAL="em"
+export ALTERNATE_EDITOR="nvim"
+export ALTERNATE_BROWSER="librewolf"
 
 PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 PATH="$PATH:$HOME/.config/emacs/bin/"

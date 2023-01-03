@@ -30,17 +30,20 @@
       ;; Include current clocking task in clock reports
       org-clock-report-include-clocking-task t
       org-ellipsis " ⤵" ; ▼
+      org-export-in-background t
       org-global-properties
       '(("Effort_ALL" .
       ;;   1    2    3    4    5    6    7    8    9    0
          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))
       org-hide-emphasis-markers nil
+      org-highlight-latex-and-related '(native script entities)
+      org-image-actual-width 600
       ;; org-habit-graph-column 40
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       org-log-done 'time
       ;; org-log-into-drawer t
       ;; Use pretty things for the clocktable
-      org-pretty-entities t
+      org-pretty-entities nil
       org-refile-targets '((org-agenda-files :maxlevel . 3))
       org-tags-column -1)
 
@@ -202,7 +205,7 @@
     ;; ("w" "Workflows")
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-    ("w" "Workout" table-line (file+headline "~/Org/Me/Habits.org" "Workout")
-         "| %^{Type of Workout|Calisthenics|Stretching|Yoga|Swimming|Others}|%^{Exercises}| | |%^{Start Time-Stamps}T|%^{End Time-Stamps}T|"
-          :kill-buffer t)))
+    ("w" "Workout" table-line (file+datetree "~/Org/Me/Workout.org")
+         "| %^{Type of Workout|Calisthenics|Stretching|Yoga|Swimming|Others}|%^{Exercises}| | |%^{Start Time-Stamps}U|%^{End Time-Stamps}U|"
+          :tree-type month :kill-buffer t)))
 ;; }}}

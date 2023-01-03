@@ -16,15 +16,11 @@ delayed() {
 
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources" & xrdbpid=$!
 
-export BROWSER="qutebrowser"
-export BROWSER2="librewolf"
-
 case $(hostname) in
     VoiD)
-        xrandr --output HDMI-0 --off --output DVI-D-0 --auto --scale 2
+        xrandr --output HDMI-0 --off --output DVI-D-0 --auto
+        # xrandr --output HDMI-0 --off --output DVI-D-0 --auto --scale 2
         # xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
-        export BROWSER="librewolf"
-        export BROWSER2="qutebrowser"
         xrdb -merge "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources_HDPI" & xrdbpid=$!
         ;;
     vDR)
@@ -33,8 +29,6 @@ case $(hostname) in
         bluetooth off &
         ;;
     void)
-        export BROWSER="librewolf"
-        export BROWSER2="qutebrowser"
         libinput-gestures-setup start &
         ;;
     tinkerboard)
