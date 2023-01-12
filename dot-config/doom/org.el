@@ -15,7 +15,7 @@
       ;; org-agenda-include-inactive-timestamps t
       ;; org-agenda-show-log 'only
       ;; org-clock-persist 'history
-      ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+     ;; Save the running clock and all clock history when exiting Emacs, load it on startup
       org-clock-persist t
       ;; Resume clocking task on clock-in if the clock is open
       org-clock-in-resume t
@@ -31,6 +31,7 @@
       org-clock-report-include-clocking-task t
       org-ellipsis " ⤵" ; ▼
       org-export-in-background t
+      org-src-fontify-natively t
       org-global-properties
       '(("Effort_ALL" .
       ;;   1    2    3    4    5    6    7    8    9    0

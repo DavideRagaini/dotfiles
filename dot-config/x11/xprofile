@@ -21,7 +21,6 @@ case $(hostname) in
         xrandr --output HDMI-0 --off --output DVI-D-0 --auto
         # xrandr --output HDMI-0 --off --output DVI-D-0 --auto --scale 2
         # xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
-        xrdb -merge "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources_HDPI" & xrdbpid=$!
         ;;
     vDR)
         xbacklight -set 20 &
@@ -32,16 +31,16 @@ case $(hostname) in
         libinput-gestures-setup start &
         ;;
     tinkerboard)
-            delayed & ;;
+        conky -d -c "${XDG_CONFIG_DIR:-$HOME/.config}/conky/$(hostname)-conky.conf" &
+        delayed & ;;
     NT)
-            xbacklight -set 30 & ;;
+        xbacklight -set 30 & ;;
 esac
 
 remaps &
 setbg &
 numlockx &
 sysact Start &
-conky -d -c "${XDG_CONFIG_DIR:-$HOME/.config}/conky/$(hostname)-conky.conf" &
 mem-warn &
 
 [ -n "$xrdbpid" ] && wait "$xrdbpid"

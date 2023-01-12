@@ -1,7 +1,7 @@
 ;; -*- no-byte-compile: t; -*-
-(let ((x (system-name)))
-  (cond ((or (string-equal x "VoiD") (string-equal x "vDR"))
-         (package! activity-watch-mode))))
+;; (let ((x (system-name)))
+;;   (cond ((or (string-equal x "VoiD") (string-equal x "vDR"))
+;;          (package! activity-watch-mode))))
 
 ;; (package! ox-epub)
 ; (package! dired-single)

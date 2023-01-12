@@ -13,17 +13,6 @@
   (+workspace:rename "agenda")
 )
 
-(defun dr/low-resources()
-  (setq display-line-numbers-type nil
-        company-idle-delay 0.5
-        no-native-compile t)
-  (after! org
-    (setq org-fontify-quote-and-verse-blocks nil
-          org-fontify-whole-heading-line nil
-          ;; org-hide-leading-stars nil
-          ;; org-startup-indented nil
-          )))
-
 (defun dr/ispell-settings()
   (after! ispell
     (setq ispell-program-name "hunspell"
@@ -39,9 +28,7 @@
 (defun dr/high-resources()
   (setq display-line-numbers-type t)
   (dr/ispell-settings)
-  (set-frame-parameter (selected-frame) 'alpha '(95 . 80))
-  (add-to-list 'default-frame-alist '(alpha . (95 . 80)))
-  (global-activity-watch-mode t)
+  ;; (global-activity-watch-mode t)
 )
 ;; }}}
 ;; ========= Bootstraps ========= {{{
@@ -70,7 +57,7 @@
       doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-unicode-font (font-spec :family "DejaVu Serif" :size dr/font-size)
-      doom-theme 'doom-dracula
+      doom-theme 'modus-vivendi
       ;; whitespace-line-column 500
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark newline-mark )
       line-spacing 2
@@ -79,6 +66,9 @@
       trash-directory "~/.local/share/Trash/files/"
       auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist)
       confirm-kill-emacs nil)
+
+  (set-frame-parameter (selected-frame) 'alpha '(95 . 85))
+  (add-to-list 'default-frame-alist '(alpha . (95 . 85)))
 ;; }}}
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
@@ -109,8 +99,9 @@
 ;; }}}
 ;; ========= Hooks ========= {{{
 (add-hook! 'doom-load-theme-hook (set-face-foreground 'vertical-border "magenta"))
-(add-hook 'org-mode-hook (lambda () visual-line-mode 0))
-(add-hook 'mixed-pitch-mode-hook (whitespace-mode nil))
+(add-hook! 'org-mode-hook (lambda () visual-line-mode 0))
+(add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
+(add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
 ;; ========= Load Config Files ========= {{{
 (load! "org.el")
