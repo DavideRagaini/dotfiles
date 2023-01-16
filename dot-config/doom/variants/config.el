@@ -28,6 +28,7 @@
 (defun dr/high-resources()
   (setq display-line-numbers-type t)
   (dr/ispell-settings)
+  (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
   ;; (global-activity-watch-mode t)
 )
 ;; }}}
@@ -40,8 +41,10 @@
         (setq dr/font-size 18)
         (dr/high-resources))
  ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
+        (setq display-line-numbers-type nil)
         (setq dr/font-size 13))
  ((string-equal (system-name) "tinkerboard")
+        (setq display-line-numbers-type nil)
         (setq dr/font-size 17))
  ((string-equal (system-name) "bagaro")
         (dr/high-resources)
@@ -65,8 +68,10 @@
       auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist)
       confirm-kill-emacs nil)
 
-  (set-frame-parameter (selected-frame) 'alpha '(95 . 85))
-  (add-to-list 'default-frame-alist '(alpha . (95 . 85)))
+(map! :leader :desc "Blinking cursor binding" :n "r" #'+nav-flash/blink-cursor)
+
+(set-frame-parameter (selected-frame) 'alpha '(95 . 85))
+(add-to-list 'default-frame-alist '(alpha . (95 . 85)))
 ;; }}}
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
@@ -83,6 +88,7 @@
     ("^\\*Edit Formulas*"   :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Help*"            :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Man*"             :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^magit-process:*"     :side right  :size 0.40 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Org Agenda*"      :side left   :size 0.40 :quit t   :slot  3 :vslot  3 :ttl 0 :select t)
     ("^\\*Python*"          :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Inferior Octave*" :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
@@ -98,7 +104,6 @@
 ;; ========= Hooks ========= {{{
 (add-hook! 'doom-load-theme-hook (set-face-foreground 'vertical-border "magenta"))
 (add-hook! 'org-mode-hook (lambda () visual-line-mode 0))
-(add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
 (add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
 ;; ========= Load Config Files ========= {{{
