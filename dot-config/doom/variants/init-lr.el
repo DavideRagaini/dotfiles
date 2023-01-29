@@ -15,7 +15,7 @@
        :ui
        ;;deft              ; notational velocity for Emacs
        ;;doom              ; what makes DOOM look the way it does
-       ; doom-dashboard    ; a nifty splash screen for Emacs
+       ;;doom-dashboard    ; a nifty splash screen for Emacs
        ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;(emoji +unicode)  ; 🙂
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
@@ -130,7 +130,7 @@
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex               ; writing papers in Emacs has never been so fun
+       ;;(latex +lsp +cdlatex +fold)  ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
        ;;markdown          ; writing docs for people to ignore
