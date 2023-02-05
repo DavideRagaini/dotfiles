@@ -1,5 +1,3 @@
-# Sample config file
-
 # The theme colours can be an rgb string of the form "255, 255, 255" or a string that references the colours from your terminal theme: Reset, Black, Red, Green, Yellow, Blue, Magenta, Cyan, Gray, DarkGray, LightRed, LightGreen, LightYellow, LightBlue, LightMagenta, LightCyan, White.
 theme:
   active: Magenta # current playing song in list
@@ -20,11 +18,25 @@ behavior:
   seek_milliseconds: 5000
   volume_increment: 5
   # The lower the number the higher the "frames per second". You can decrease this number so that the audio visualisation is smoother but this can be expensive!
-  tick_rate_milliseconds: 500
+  tick_rate_milliseconds: 250
   # Enable text emphasis (typically italic/bold text styling). Disabling this might be important if the terminal config is otherwise restricted and rendering text escapes interferes with the UI.
   enable_text_emphasis: true
-  # controls whether to show a loading indicator in the top right of the UI whenever communicating with Spotify API
+  # Controls whether to show a loading indicator in the top right of the UI whenever communicating with Spotify API
   show_loading_indicator: true
+  # Disables the responsive layout that makes the search bar smaller on bigger
+  # screens and enforces a wide search bar
+  enforce_wide_search_bar: true
+  # Determines the text icon to display next to "liked" Spotify items, such as
+  # liked songs and albums, or followed artists. Can be any length string.
+  # These icons require a patched nerd font.
+  liked_icon: ♥
+  shuffle_icon: 
+  repeat_track_icon: ↩
+  repeat_context_icon: ⤵
+  playing_icon: ▶
+  paused_icon: ⏸
+  # Sets the window title to "spt - Spotify TUI" via ANSI escape code.
+  set_window_title: true
 
 keybindings:
   # Key stroke can be used if it only uses two keys:
@@ -40,7 +52,7 @@ keybindings:
 
   manage_devices: "d"
   decrease_volume: "-"
-  increase_volume: "="
+  increase_volume: "+"
   toggle_playback: " "
   seek_backwards: "<"
   seek_forwards: ">"
@@ -49,7 +61,7 @@ keybindings:
   copy_song_url: "c"
   copy_album_url: "C"
   help: "?"
-  shuffle: "s"
+  shuffle: "ctrl-s"
   repeat: "r"
   search: "/"
   audio_analysis: "v"
