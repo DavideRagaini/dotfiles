@@ -1,0 +1,20 @@
+[Unit]
+Description=User resume actions
+After=sleep.target
+
+[Service]
+Type=simple
+ExecStart=/home/davide/.local/bin/luke/remaps
+Restart=always
+RestartSec=5s
+
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=
+RestrictRealtime=yes
+TimeoutStopSec=2
+
+[Install]
+WantedBy=sleep.target

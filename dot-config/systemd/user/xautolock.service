@@ -1,0 +1,20 @@
+[Unit]
+Description=xautolock daemon
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sleep 30
+ExecStart=/usr/bin/xautolock -time 5 -notify 30 -notifier "notify-send -u critical -t 30000 'System will be locked' '$NOTIFY seconds left'" -locker 'systemctl suspend'
+Restart=always
+RestartSec=5s
+
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=
+RestrictRealtime=yes
+TimeoutStopSec=2
+
+[Install]
+WantedBy=graphical.target

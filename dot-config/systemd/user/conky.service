@@ -1,0 +1,20 @@
+[Unit]
+Description=Conky Service
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/bin/conky -c "/home/davide/.config/conky/tinkerboard-conky.conf"
+Restart=always
+RestartSec=5s
+
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=
+RestrictRealtime=yes
+TimeoutStopSec=2
+
+[Install]
+WantedBy=graphical.target
