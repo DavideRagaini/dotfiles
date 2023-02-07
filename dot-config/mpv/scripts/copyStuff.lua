@@ -163,6 +163,18 @@ local function copyMetadata()
     end
 end
 
+-- Copy Current Video Org Mode Link
+-- Copy Full Filename Path
+local function copyOrg()
+    org_link = string.format("[[%s][%s]]", mp.get_property_osd("path"), mp.get_property_osd("media-title"))
+    if set_clipboard(org_link) then
+        mp.osd_message(string.format("Full Filename Path Copied to Clipboard: %s", org_link))
+    else
+        mp.osd_message("Failed to copy full filename path to clipboard")
+    end
+end
+
+
 platform = platform_type()
 if platform == UNIX then
     clipboard_cmd = get_clipboard_cmd()
@@ -176,3 +188,4 @@ mp.add_key_binding("Ctrl+e", "copyRelativePath", copyRelativePath)
 mp.add_key_binding("Ctrl+s", "copySubtitle", copySubtitle)
 mp.add_key_binding("Ctrl+d", "copyDuration", copyDuration)
 mp.add_key_binding("Ctrl+m", "copyMetadata", copyMetadata)
+mp.add_key_binding("Ctrl+o", "copyOrg", copyOrg)

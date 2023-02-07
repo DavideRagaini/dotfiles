@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ip link set enp3s0f1 down
+intel-undervolt apply
+tlp start
+powertop --auto-tune
+sleep 30m
+exit
