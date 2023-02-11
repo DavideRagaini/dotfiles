@@ -77,13 +77,13 @@
     separator_height = 2
 
     # Padding between text and separator.
-    padding = 6
+    padding = 20
 
     # Horizontal padding.
-    horizontal_padding = 6
+    horizontal_padding = 20
 
     # Padding between text and icon.
-    text_icon_padding = 0
+    text_icon_padding = 15
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
@@ -155,7 +155,7 @@
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
-    alignment = center
+    alignment = left
 
     # Vertical alignment of message text and icon.
     # Possible values are "top", "center" and "bottom".
