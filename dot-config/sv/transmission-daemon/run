@@ -1,0 +1,4 @@
+#!/bin/sh
+
+LOGFILE="${XDG_CONFIG_DIR:-$HOME/.config}/transmission-daemon/daemon.log"
+exec transmission-daemon -f -e "$LOGFILE"

@@ -88,7 +88,9 @@ alias \
     xu="doas xbps-install -Su"
 
 sxi() {
-    xbps-query -Rs "$1" | fzf | cut -d' ' -f2 | xargs -r -I % doas xbps-install -Sy %
+    LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
+    [ -z $LIST ] && return
+    doas xbps-install -Sy $LIST
 }
 
 # xbps-query
