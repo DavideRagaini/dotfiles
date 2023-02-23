@@ -9,6 +9,7 @@ export TERMINAL="st"
 export VISUAL="em"
 export ALTERNATE_EDITOR="nvim"
 export ALTERNATE_BROWSER="librewolf"
+export ALTERNATE_BROWSER_PRIVATE="librewolf --private-window"
 
 PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 PATH="$PATH:$HOME/.config/emacs/bin/"

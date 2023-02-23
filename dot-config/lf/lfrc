@@ -45,13 +45,13 @@ cmd open ${{
         application/vnd.oasis.opendocument.formula) setsid -f lomath $fx >/dev/null 2>&1 ;;
         application/vnd.oasis.opendocument.database) setsid -f lobase $fx >/dev/null 2>&1 ;;
 
-        audio/*) mpv "$fx" --no-config --term-osd-bar ;;
+        audio/*) mpv "$fx" --no-config --no-audio-display --term-osd-bar ;;
 
         application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
         application/epub+zip) ebook-viewer "$fx" ;;
         application/postscrip) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
         application/pdf) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
-        image/svg+xml) display -- "$fx";;
+        image/svg+xml) setsid -f display -- "$fx";;
         image/vnd.djvu) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
 
         image/x-xcf) setsid -f gimp "$fx" >/dev/null 2>&1 ;;
@@ -261,7 +261,7 @@ map <c-n> push :mkdir<space>
 map <c-r> reload
 map <c-y> up
 map <enter> shell
-map B $vidir
+map B &emacsclient -a 'emacs' .
 map C copyto
 map D delete
 map E extract
@@ -274,9 +274,9 @@ map Pa async_paste
 map Pb backup_paste
 map Pp :link
 map R push A<a-b> # after extention
-map S $samedir
+map S &samedir
 map T !bat "$f"
-map W $setsid -f $TERMINAL >/dev/null 2>&1
+map W & $TERMINAL
 map Yb yank-basename
 map Ybe yank-basename-without-extension
 map Yd yank-dirname
