@@ -11,13 +11,6 @@ export ALTERNATE_EDITOR="nvim"
 export ALTERNATE_BROWSER="librewolf"
 export ALTERNATE_BROWSER_PRIVATE="librewolf --private-window"
 
-PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
-PATH="$PATH:$HOME/.config/emacs/bin/"
-PATH="$PATH:$HOME/.local/share/go/bin/"
-PATH="$PATH:$HOME/.local/share/npm/bin/"
-PATH="$PATH:$HOME/.local/share/cargo/bin/"
-export PATH
-
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -50,6 +43,7 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export OCTAVE_HISTFILE="$XDG_CACHE_HOME/octave-hsts"
 export OCTAVE_SITE_INITFILE="$XDG_CONFIG_HOME/octave/octaverc"
 export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
+export PYTHONUSERBASE="$HOME/.local/share/python"
 # export QT_QPA_PLATFORMTHEME="gtk2"	# Have QT use gtk2 theme.
 export QT_QPA_PLATFORMTHEME="qt5ct"
 # export QT_STYLE_OVERRIDE="gtk3"
@@ -71,6 +65,14 @@ export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
 export XAUTHORITY="$XDG_CONFIG_HOME/Xauthority"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java doesn't understand tiling windows
+
+PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
+PATH="$PATH:$HOME/.config/emacs/bin/"
+PATH="$PATH:$HOME/.local/share/cargo/bin/"
+PATH="$PATH:$HOME/.local/share/go/bin/"
+PATH="$PATH:$HOME/.local/share/npm/bin/"
+PATH="$PATH:$HOME/.local/share/python/bin/"
+export PATH
 
 export FZF_DEFAULT_OPTS="--layout=reverse \
 --info=inline \
