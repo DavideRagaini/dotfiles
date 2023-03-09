@@ -114,8 +114,8 @@ cmd copyto ${{
 }}
 
 cmd fzf_jump ${{
-    res=$(fdfind -td -E octave -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
-    # res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    # res=$(fdfind -td -E octave -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
+    res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
     if [ -d "$res" ]; then
         cmd="cd"
     else
@@ -244,6 +244,109 @@ cmd zi ${{
     lf -remote "send ${id} cd '${result}'"
 }}
 
+cmd follow_link %{{
+  lf -remote "send ${id} select '$(readlink $f)'"
+}}
+
+cmd newfold ${{
+    set -f
+    read newd
+    printf "Directory name: "
+    mkdir -- "$newd"
+    mv -- $fx "$newd"
+}}
+
+cmd cut-add %{{
+    files=$(lf -remote load | tail -n +2)
+    newline=$'\n'
+
+    # change to $fx to add current file when no toggled
+    # files exist.
+    if [ -n "$files" ]; then
+        new_files=$(echo "$files${newline}$fs" | sort | uniq)
+    else
+        new_files=$fs
+    fi
+    # remove empty lines from the file list, because they keep messing
+    # up the selection.
+    new_files=$(echo "$new_files" | sed --quiet -e '/^$/d' -e 'p')
+
+    lf -remote "save${newline}move${newline}${new_files}${newline}"
+    lf -remote "send $id unselect${newline}send $id sync"
+}}
+
+cmd cut-remove %{{
+    files=$(lf -remote load)
+    operation=$(echo "$files" | head -n1)
+
+    if [ "$operation" != "move" ]; then
+        lf -remote "send $id echoerr no files in cut list."
+        exit 1
+    fi
+
+    files=$(echo "$files" | tail -n +2)
+    newline=$'\n'
+
+    # change to $fx to remove current file when no toggled
+    # files exist.
+    if [ -n "$files" ]; then
+        # here we want all files in $files that aren't in $fs, making sure
+        # that none of the entries in $fs are included, even when they aren't
+        # in $files. To do this we concatenate $files and $fs (twice), printing
+        # only the uniqe lines.
+        new_files=$(echo "$files$newline$fs$newline$fs" | sort | uniq -u)
+    else
+        new_files=$files
+    fi
+    new_files=$(echo "$new_files" | sed --quiet -e '/^$/d' -e 'p')
+
+    lf -remote "save${newline}move${newline}${new_files}${newline}"
+    lf -remote "send $id unselect${newline}send $id sync"
+}}
+
+cmd fzf_search ${{
+    res="$( \
+        RG_PREFIX="rg --column --line-number --no-heading --color=always \
+            --smart-case "
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1
+    )"
+    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
+}}
+map gs :fzf_search
+
+cmd on-cd &{{
+    # '&' commands run silently in background (which is what we want here),
+    # but are not connected to stdout.
+    # To make sure our escape sequence still reaches stdout we pipe it to /dev/tty
+    # display git repository status in your prompt
+    source /usr/share/git/completion/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=auto
+    GIT_PS1_SHOWSTASHSTATE=auto
+    GIT_PS1_SHOWUNTRACKEDFILES=auto
+    GIT_PS1_SHOWUPSTREAM=auto
+    GIT_PS1_COMPRESSSPARSESTATE=auto
+    git=$(__git_ps1 " [GIT BRANCH:> %s]") || true
+    fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%w\033[0m\033[33;1m$git\033[0m"
+    lf -remote "send $id set promptfmt \"$fmt\""
+    # printf "\033]0; $PWD\007" > /dev/tty
+}}
+on-cd
+
+cmd git_branch ${{
+    git branch | fzf | xargs git checkout
+    pwd_shell=$(pwd)
+    lf -remote "send $id updir"
+    lf -remote "send $id cd \"$pwd_shell\""
+}}
+map gb :git_branch
+map gp ${{clear; git pull --rebase || true; echo "press ENTER"; read ENTER}}
+map gs ${{clear; git status; echo "press ENTER"; read ENTER}}
+map gl ${{clear; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit}}
+
+cmd async-shell &$@ $fx
 cmd yank-dirname $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
 cmd yank-path $printf '%s' "$fx" | xclip -i -selection clipboard
 cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
@@ -255,11 +358,16 @@ cmd open-fork &setsid -f "$@" $fx
 # cmd paste $cp-p --lf-paste $id
 
 # Bindings
+map <a-n> newfold
+map <a-da> cut-add
+map <a-dr> cut-remove
 map <c-b> $setbg $f
 map <c-e> down
 map <c-n> push :mkdir<space>
 map <c-r> reload
 map <c-y> up
+map <c-z> $ kill -STOP $PPID
+map <a-enter> push :async-shell<space>
 map <enter> shell
 map B &emacsclient -a 'emacs' .
 map C copyto
@@ -285,11 +393,14 @@ map Ys $printf "%s" "$fx" | xclip -selection clipboard
 map e &em "$fx"
 map gg top
 map gs :fzf_search
+map gL follow_link
 map c push r<c-u> # new rename
 map I push r<c-a> # at the very beginning
 map i push r<a-b><a-b><a-f> # before extension
 map a push r<a-b> # after extension
 map o push :open-with<space>
+map zt $ zathura-tabbed "$fx" ZaTab
+map zz $ zathura --fork "$fx"
 # map A rename # at the very end
 # map O $mimeopen --ask "$f"
 # map V push :!nvim<space>

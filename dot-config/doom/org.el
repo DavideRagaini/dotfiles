@@ -43,6 +43,7 @@
       org-list-demote-modify-bullet '(("+" . "*") ("*" . "-") ("-" . "+"))
       org-log-done 'time
       ;; org-log-into-drawer t
+      org-noter-notes-search-path '("~/Org/Notes/")
       ;; Use pretty things for the clocktable
       org-pretty-entities nil
       org-refile-targets '((org-agenda-files :maxlevel . 3))

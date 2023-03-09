@@ -6,7 +6,7 @@
 ;; (package! ox-epub)
 ; (package! dired-single)
 ;; (package! dired-open)
-;; (package! nov)
+(package! nov)
 
 ;; (package! scad-mode
 ;;   :recipe (:host github :repo "openscad/openscad"

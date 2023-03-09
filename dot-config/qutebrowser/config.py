@@ -113,3 +113,14 @@ c.colors.webpage.darkmode.threshold.background = 100
 c.colors.webpage.darkmode.policy.images = "always"
 c.colors.webpage.darkmode.grayscale.images = 0.35
 # }}}
+# ======================= Containers ============= {{{
+c.aliases['container-open'] = 'spawn --userscript container-open'
+c.aliases['container-ls'] = 'spawn --userscript container-ls'
+c.aliases['container-add'] = 'spawn --userscript container-add'
+c.aliases['container-rm'] = 'spawn --userscript container-rm'
+
+config.bind('C','spawn --userscript container-open')
+config.bind('<Alt-c>','set-cmd-text -s :spawn --userscript container-open')
+config.bind('<Alt-f>','hint links userscript container-open')
+config.bind('<Alt-f>','hint links userscript container-open')
+# }}}
