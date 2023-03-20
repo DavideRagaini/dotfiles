@@ -15,7 +15,8 @@ searchurls = {
 }
 
 nmaps = {
-    ",a": "hint -W exclaim_quiet dmpv aplay",
+    ",a": "hint -W exclaim_quiet dmpv2",
+    ",A": "hint -W exclaim_quiet dmpv aplay",
     ",c": "hint -W exclaim_quiet clipf",
     ",e": "hint -W exclaim_quiet dmpv enqueue",
     ",g": "hint -W exclaim_quiet gallery-dl",

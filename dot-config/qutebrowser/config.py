@@ -10,7 +10,8 @@ c.bindings.commands["normal"] = {
     ",dt": "hint links spawn transadd '{hint-url}'",
     ",mm": "hint links spawn --detach dmpv music '{hint-url}'",
     ",ms": "hint links spawn --detach dmpv save_music '{hint-url}'",
-    ",va": "hint links spawn --detach dmpv aplay '{hint-url}'",
+    ",va": "hint links spawn --detach dmpv2 '{hint-url}'",
+    ",vA": "hint links spawn --detach dmpv aplay '{hint-url}'",
     ",ve": "hint links spawn --detach dmpv enqueue '{hint-url}'",
     ",vp": "hint links spawn --detach dmpv eplay '{hint-url}'",
     ",vs": "hint links spawn --detach streamlink --player mpv '{hint-url}' best",
@@ -38,7 +39,7 @@ c.tabs.show = "switching"
 startpage = "file://" + environ["HOME"] + "/.local/src/startpage/index.html"
 c.url.default_page = startpage
 c.url.start_pages = [startpage]
-c.window.title_format = ("{private}{perc}[{scroll_pos}]:{current_url}{title_sep}{current_title}")
+c.window.title_format = ("{private}{perc}[{scroll_pos}]:{current_title} {title_sep} {current_url}")
 # }}}
 # ======================= Search Engines ============= {{{
 c.url.searchengines = {
@@ -121,6 +122,5 @@ c.aliases['container-rm'] = 'spawn --userscript container-rm'
 
 config.bind('C','spawn --userscript container-open')
 config.bind('<Alt-c>','set-cmd-text -s :spawn --userscript container-open')
-config.bind('<Alt-f>','hint links userscript container-open')
 config.bind('<Alt-f>','hint links userscript container-open')
 # }}}

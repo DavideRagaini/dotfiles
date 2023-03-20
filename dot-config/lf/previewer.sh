@@ -18,30 +18,38 @@ cache() {
 file="$1"
 shift
 
-case "$(file -Lb --mime-type -- "$file")" in
-  */xml) bat --paging=never --line-range :50 "$file" ;;
-  *opendocument*) odt2txt "${file}" ;;
-  application/bzip2) atool --list -- "${file}" ;;
-  application/gzip) atool --list -- "${file}" ;;
-  application/json) bat --paging=never --line-range :50 "$file" ;;
-  application/lzma) atool --list -- "${file}" ;;
-  application/lzop) atool --list -- "${file}" ;;
-  application/octet-stream) xxd "$file" ;;
-  application/pdf) pdftotext "${file}" /tmp/pdftotext.txt ;;
-  application/pgp-encrypted) gpg -d -- "${file}" ;;
-  application/x-brotli) atool --list -- "${file}" ;;
-  application/x-iso9660-image) ;;
-  application/x-lzip) atool --list -- "${file}" ;;
-  application/x-tar) atool --list -- "${file}" ;;
-  application/zip) atool --list -- "${file}" ;;
-  text/troff) man ./ "${file}" | col -b ;;
-  text/html) html2text "${file}" ;;
-  text/plain) cat "${file}" ;;
-  text/*) bat --paging=never --line-range :50 "$file" ;;
-  audio/*) mediainfo "$file" ;;
-  image/*) mediainfo "$file" ;;
-  video/*) mediainfo "$file" ;;
-esac
+text_previwer() {
+  case "$(file -Lb --mime-type -- "$file")" in
+    */xml) bat --color always --paging=never --line-range :50 "$file" ;;
+    *opendocument*) odt2txt "${file}" ;;
+    application/bzip2) atool --list -- "${file}" ;;
+    application/gzip) atool --list -- "${file}" ;;
+    application/json) bat --paging=never --line-range :50 "$file" ;;
+    application/lzma) atool --list -- "${file}" ;;
+    application/lzop) atool --list -- "${file}" ;;
+    application/octet-stream) xxd "$file" ;;
+    application/pdf) pdftotext -f 1 -l 5 -layout "${file}" /tmp/pdftotext.txt ;;
+    # application/pdf) pdftotext "${file}" /tmp/pdftotext.txt ;;
+    application/pgp-encrypted) gpg -d -- "${file}" ;;
+    application/x-brotli) atool --list -- "${file}" ;;
+    application/x-iso9660-image) ;;
+    application/x-mobipocket-ebook) ebook-convert "$file" ;;
+    application/x-lzip) atool --list -- "${file}" ;;
+    application/x-tar) atool --list -- "${file}" ;;
+    application/epub+zip) epub2txt "${file}" | head -n 60;;
+    application/zip) atool --list -- "${file}" ;;
+    text/troff) man ./ "${file}" | col -b ;;
+    text/html) html2text "${file}" ;;
+    # text/plain) bat --paging=never --line-range :60 "$file" ;;
+    # text/x-diff) ;;
+    text/*) bat --color always --paging=never --line-range :60 "$file" ;;
+    audio/*) mediainfo "$file" ;;
+    image/*) mediainfo "$file" ;;
+    video/*) mediainfo "$file" ;;
+  esac
+}
+
+text_previwer &
 
 if [ -n "$FIFO_UEBERZUG" ]; then
   case "$(file -Lb --mime-type -- "$file")" in
@@ -51,6 +59,11 @@ if [ -n "$FIFO_UEBERZUG" ]; then
       gs -o "$cache" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
       draw "$cache" "$@"
       ;;
+    application/epub+zip|application/x-mobipocket-ebook)
+      cache="$(hash "$file").png"
+      cache "$cache" "$@"
+      ebook-meta "$file" --get-cover="$cache"
+      draw "$cache" "$@" ;;
     font/sfnt | application/octet-stream)
       PREVIEW_TEXT=${FONTPREVIEW_PREVIEW_TEXT:-"ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n1234567890\n!@#$\%^&*,.;:\n_-=+'\"|\\(){}[]"}
       TEXT_ALIGN=${FONTPREVIEW_TEXT_ALIGN:-center}
@@ -61,6 +74,11 @@ if [ -n "$FIFO_UEBERZUG" ]; then
       -pointsize "72" -font "$file" -gravity "$TEXT_ALIGN" \
       -annotate +${PADDING:-0}+0 "$PREVIEW_TEXT" "$cache"
       draw "$cache" "$@" ;;
+    image/vnd.djvu)
+      cache="$(hash "$file").jpg"
+      cache "$cache" "$@"
+      ddjvu -format=tiff -quality=90 -page=1 "$file" "$cache"
+      draw "$file" "$@" ;;
     image/*)
       orientation="$(identify -format '%[EXIF:Orientation]\n' -- "$file")"
       if [ -n "$orientation" ] && [ "$orientation" != 1 ]; then
@@ -92,5 +110,6 @@ if [ -n "$FIFO_UEBERZUG" ]; then
   esac
 fi
 
+wait
 file -Lb -- "$1" | fold -s -w "$width"
 exit 0

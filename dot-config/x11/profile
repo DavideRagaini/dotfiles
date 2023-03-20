@@ -18,14 +18,14 @@ export XDG_DOCUMENTS_DIR="$HOME/Documents"
 export XDG_DOWNLOAD_DIR="$HOME/Downloads"
 export XDG_MUSIC_DIR="$HOME/Storage/Music"
 export XDG_PICTURES_DIR="$HOME/Storage/Pictures"
-XDG_RUNTIME_DIR="/run/user/$(id -u)"
-export XDG_RUNTIME_DIR
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 export XDG_VIDEOS_DIR="$HOME/Storage/Videos"
 
 # export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java"
 # export ALSA_CONFIG_PATH="$XDG_CONFIG_HOME/alsa/asoundrc"
 export AWT_TOOLKIT="MToolkit wmname LG3D" #May have to install wmname
 export CALIBRE_USE_DARK_PALETTE=1
+export CALIBRE_USE_SYSTEM_THEME=1
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CUDA_CACHE_PATH="$XDG_CONFIG_HOME/nv"
 # export DIGESTIF_HOME="$XDG_DATA_HOME/digestif"
@@ -79,7 +79,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse \
 --height=100% \
 --multi \
 --preview-window=:hidden \
---preview 'bat --paging=never --line-range :45 {}' \
+--preview 'bat --paging=never --line-range :80 {}' \
 --prompt='» ' \
 --pointer='▶' \
 --marker='✓' \

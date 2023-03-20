@@ -1,0 +1,2 @@
+#!/bin/sh
+snooze -H /1 sh -c 'echo "\a" >/dev/tty5' # beep

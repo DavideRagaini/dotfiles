@@ -33,7 +33,8 @@ browser linkhandler
 macro , open-in-browser
 macro t set browser "qndl"; open-in-browser ; set browser linkhandler
 macro d set browser "ts yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser linkhandler
-macro a set browser "setsid -f dmpv aplay"; open-in-browser ; set browser linkhandler
+macro a set browser "setsid -f dmpv2"; open-in-browser ; set browser linkhandler
+macro A set browser "setsid -f dmpv aplay"; open-in-browser ; set browser linkhandler
 macro e set browser "setsid -f dmpv enqueue"; open-in-browser ; set browser linkhandler
 macro p set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkhandler
 macro s set browser "setsid -f streamlink"; open-in-browser ; set browser linkhandler

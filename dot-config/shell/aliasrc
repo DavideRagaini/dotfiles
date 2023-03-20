@@ -28,7 +28,6 @@ alias \
 # Abbreviations
 alias \
     2f="tmux split -h lfcd; lfcd" \
-    c.="cd .." \
     e="\$EDITOR" \
     E="\$VISUAL" \
     f="lfcd" \
@@ -38,6 +37,7 @@ alias \
     smi="doas make install" \
     v="nvim" \
     trr="transmission-remote" \
+    udc="udisksctl" \
     x="sxiv -ft *" \
     xclip="xclip -selection clipboard" \
 	yt="yt-dlp --embed-metadata -i" \

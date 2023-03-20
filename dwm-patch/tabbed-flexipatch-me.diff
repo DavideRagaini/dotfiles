@@ -1,0 +1,110 @@
+diff --git a/config.def.h b/config.def.h
+index 7f4961d..23bf598 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -93,10 +93,10 @@ static const Key keys[] = {
+ 	{ MODKEY|ShiftMask,     XK_Return,    focusonce,   { 0 } },
+ 	{ MODKEY|ShiftMask,     XK_Return,    spawn,       { 0 } },
+ 
+-	{ MODKEY|ShiftMask,     XK_l,         rotate,      { .i = +1 } },
+-	{ MODKEY|ShiftMask,     XK_h,         rotate,      { .i = -1 } },
+-	{ MODKEY|ShiftMask,     XK_j,         movetab,     { .i = -1 } },
+-	{ MODKEY|ShiftMask,     XK_k,         movetab,     { .i = +1 } },
++	{ MODKEY|ShiftMask,     XK_k,         rotate,      { .i = +1 } },
++	{ MODKEY|ShiftMask,     XK_j,         rotate,      { .i = -1 } },
++	{ MODKEY|ShiftMask,     XK_h,         movetab,     { .i = -1 } },
++	{ MODKEY|ShiftMask,     XK_l,         movetab,     { .i = +1 } },
+ 	{ MODKEY,               XK_Tab,       rotate,      { .i = 0 } },
+ 
+ 	{ MODKEY,               XK_grave,     spawn,       SETPROP("_TABBED_SELECT_TAB") },
+@@ -118,8 +118,7 @@ static const Key keys[] = {
+ 
+ 	{ 0,                    XK_F11,       fullscreen,  { 0 } },
+ 	#if HIDETABS_PATCH
+-	{ MODKEY,               XK_Shift_L,   showbar,     { .i = 1 } },
+-	{ ShiftMask,            XK_Control_L, showbar,     { .i = 1 } },
++	{ MODKEY,               XK_c,         showbar,     { .i = 1 } },
+ 	#endif // HIDETABS_PATCH
+ };
+ #endif // KEYCODE_PATCH
+@@ -128,11 +127,11 @@ static const Key keys[] = {
+ static const Key keyreleases[] = {
+ 	/* modifier             key             function     argument */
+ 	#if HIDETABS_PATCH
+-	{ MODKEY|ShiftMask,     XK_Shift_L,     showbar,     { .i = 0 } },
+-	{ MODKEY|ShiftMask,     XK_Control_L,   showbar,     { .i = 0 } },
++	{ MODKEY|ShiftMask,     XK_c,     showbar,     { .i = 0 } },
++	/* { MODKEY|ShiftMask,     XK_Control_L,   showbar,     { .i = 0 } }, */
+ 	#else
+ 	{ 0,                    XK_Shift_L,     NULL,        { 0 } },
+ 	#endif // HIDETABS_PATCH
+ 
+ };
+-#endif // KEYRELEASE_PATCH
+\ No newline at end of file
++#endif // KEYRELEASE_PATCH
+diff --git a/patches.def.h b/patches.def.h
+index 72f36b9..386bf4a 100644
+--- a/patches.def.h
++++ b/patches.def.h
+@@ -14,7 +14,7 @@
+  * when including this patch.
+  * https://tools.suckless.org/tabbed/patches/alpha/
+  */
+-#define ALPHA_PATCH 0
++#define ALPHA_PATCH 1
+ 
+ /* This patch hides the tab bar if only one tab is open.
+  * https://tools.suckless.org/tabbed/patches/autohide/
+@@ -24,7 +24,7 @@
+ /* Named after the window title bar patch for dwm this patch divides the
+  * tab bar space evenly between the tabbed windows.
+  */
+-#define AWESOMEBAR_PATCH 0
++#define AWESOMEBAR_PATCH 1
+ 
+ /* This patch allows the height of the bar to be manually specified.
+  * https://tools.suckless.org/tabbed/patches/bar-height/
+@@ -34,18 +34,18 @@
+ /* This patch moves the tabs / bar to the bottom of the tabbed window.
+  * https://github.com/bakkeby/patches/blob/master/tabbed/tabbed-bottomtabs-0.6-20200512-dabf6a2.diff
+  */
+-#define BOTTOM_TABS_PATCH 0
++#define BOTTOM_TABS_PATCH 1
+ 
+ /* This patch centers the tab text.
+  * https://www.reddit.com/r/suckless/comments/oi4zjl/tabbed_text_alignment/
+  * https://github.com/bakkeby/patches/blob/master/tabbed/tabbed-center-0.6-20200512-dabf6a2.diff
+  */
+-#define CENTER_PATCH 0
++#define CENTER_PATCH 1
+ 
+ /* This patch prints the position number of the client before the window title.
+  * https://tools.suckless.org/tabbed/patches/clientnumber/
+  */
+-#define CLIENTNUMBER_PATCH 0
++#define CLIENTNUMBER_PATCH 1
+ 
+ /* This patch hides all the tabs and only shows them when Mod+Shift is pressed. All functions
+  * with switching, rotating, and creating tabs involve Mod+Shift. When not doing one of these
+@@ -53,7 +53,7 @@
+  * This patch relies on the keyrelease patch to support show/hide on keypress/keyrelease.
+  * https://tools.suckless.org/tabbed/patches/hidetabs/
+  */
+-#define HIDETABS_PATCH 0
++#define HIDETABS_PATCH 1
+ 
+ /* This patch gives tabbed an icon. This icon is the currently selected tab's icon.
+  * If the selected tab has no icon (or no tab is selected), use a (admittedly ugly) default icon.
+@@ -75,9 +75,9 @@
+  * For example usage see: hidetabs
+  * https://tools.suckless.org/tabbed/patches/keyrelease/
+  */
+-#define KEYRELEASE_PATCH 0
++#define KEYRELEASE_PATCH 1
+ 
+ /* This patch allows tabbed colors to be defined via Xresources.
+  * https://tools.suckless.org/tabbed/patches/xresources/
+  */
+-#define XRESOURCES_PATCH 0
++#define XRESOURCES_PATCH 1

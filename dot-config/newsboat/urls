@@ -7,6 +7,7 @@ https://yewtu.be/feed/channel/UCUkJ4Ue84_RxoRwDY7cctww "~ivan"
 https://yewtu.be/feed/channel/UCrdEJmK5bgFte04-UF7o29Q "~Liberi Oltre"
 https://yewtu.be/feed/channel/UCNSFH6m4JlzexDWxJSniqMg "~Agorà"
 https://yewtu.be/feed/channel/UCWKJtC_ekM-CUg3kB9-5gZw "~Stem"
+https://www.omnycontent.com/d/playlist/b92c52c1-f970-472d-8d97-ac9f008bd59f/2d4af355-a108-4fa6-8c4d-aca00094d203/b8b0f6a9-b865-4117-82d4-aca00098a8c4/podcast.rss
 "---Linux---"
 https://yewtu.be/feed/channel/UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw"
 https://yewtu.be/feed/channel/UCld68syR8Wi-GY_n4CaoJGA "~BrodieRobertson"
@@ -29,6 +30,8 @@ https://yewtu.be/feed/channel/UC6mIxFTvXkWQVEHPsEdflzQ "~GreatScott"
 https://yewtu.be/feed/channel/UCJ0-OtVpF0wOKEqT2Z1HEtA "~ElectroBOOM"
 https://yewtu.be/feed/channel/UC1O0jDlG51N3jGf6_9t-9mw "~Marco Reps"
 https://yewtu.be/feed/channel/UCj1VqrHhDte54oLgPG4xpuQ "~Stuff Made Here"
+https://yewtu.be/feed/channel/UCv0nF8zWevEsSVcmz6mlw6A
+https://yewtu.be/feed/channel/UCrlZs71h3mTR45FgQNINfrg
 https://yewtu.be/feed/channel/UC1_uAIS3r8Vu6JjXWvastJg "~Mathologer"
 https://yewtu.be/feed/channel/UCqYPhGiB9tkShZorfgcL2lA "~What I've Learned"
 https://yewtu.be/feed/channel/UCvBqzzvUBLCs8Y7Axb-jZew "~Sixty Symbols"
@@ -61,11 +64,13 @@ https://yewtu.be/feed/channel/UCFNLUhl6K-zVILHawerpDDA "~Passione Motori"
 "---Misc---"
 https://yewtu.be/feed/channel/UC9RM-iSvTu1uPJb8X5yp3EQ "~Wendover Productions"
 https://yewtu.be/feed/channel/UCR1D15p_vdP3HkrH8wgjQRw "~Internet Historian"
-# "---Void-Linux---"
-# https://voidlinux.org/atom.xml
-# https://github.com/void-linux/xbps/commits/master.atom
-# "---Software---"
-# https://blog.qutebrowser.org/feeds/all.rss.xml
+"---Void-Linux---"
+https://voidlinux.org/atom.xml
+https://github.com/void-linux/xbps/commits/master.atom
+"---Software---"
+https://blog.qutebrowser.org/feeds/all.rss.xml
+https://nyxt.atlas.engineer/feed
+https://keepassxc.org/blog/feed.xml
 # https://github.com/LukeSmithxyz/voidrice/commits.atom
 # https://github.com/LukeSmithxyz/dwm/commits.atom
 # https://github.com/LukeSmithxyz/dwmblocks/commits.atom

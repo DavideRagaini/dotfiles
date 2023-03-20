@@ -22,7 +22,7 @@ cmd open ${{
         application/json) "$EDITOR" "$fx" ;;
         application/lzma) atool --list -- "$fx" | bat ;;
         application/lzop) atool --list -- "$fx" | bat ;;
-        application/octet-stream) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
+        application/octet-stream) zathura --fork "$fx" >/dev/null 2>&1 ;;
         application/pgp-encrypted) "$EDITOR" "$fx" ;;
         application/x-brotli) atool --list -- "$fx" | bat ;;
         application/x-iso9660-image) ;;
@@ -49,10 +49,10 @@ cmd open ${{
 
         application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
         application/epub+zip) ebook-viewer "$fx" ;;
-        application/postscrip) setsid -f "$READER" $fx >/dev/null 2>&1 ;;
-        application/pdf) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
+        application/postscrip) zathura --fork $fx >/dev/null 2>&1 ;;
+        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
         image/svg+xml) setsid -f display -- "$fx";;
-        image/vnd.djvu) setsid -f "$READER" "$fx" >/dev/null 2>&1 ;;
+        image/vnd.djvu) zathura --fork "$fx" >/dev/null 2>&1 ;;
 
         image/x-xcf) setsid -f gimp "$fx" >/dev/null 2>&1 ;;
         image/*) rotdir "$fx" |
@@ -399,8 +399,8 @@ map I push r<c-a> # at the very beginning
 map i push r<a-b><a-b><a-f> # before extension
 map a push r<a-b> # after extension
 map o push :open-with<space>
-map zt $ zathura-tabbed "$fx" ZaTab
-map zz $ zathura --fork "$fx"
+map zt & zathura-tabbed "$fx" ZaTab
+map zz & zathura --fork "$fx"
 # map A rename # at the very end
 # map O $mimeopen --ask "$f"
 # map V push :!nvim<space>
