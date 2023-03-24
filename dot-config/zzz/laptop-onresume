@@ -2,5 +2,5 @@
 
 sysact Resume
 # doas sv restart NetworkManager
-doas intel-undervolt apply
-doas tlp start
+# doas intel-undervolt apply
+# doas tlp start

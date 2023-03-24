@@ -38,8 +38,10 @@ Xft.dpi: 96
 ! dwm.selbgcolor: #571DC2
 
 dmenu.font: Fantasque Sans Mono:size=14:style=Bold
-! dmenu.color0: #2F0B3A
-! dmenu.color4: #FF00FF
+dmenu.background:     #2F0B3A
+dmenu.foreground:     #FF00FF
+dmenu.selbackground : #BD93F9
+dmenu.selforeground : #571DC2
 
 Nsxiv.window.background: #000000
 Nsxiv.window.foreground: #FFFFFF

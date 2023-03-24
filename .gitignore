@@ -1,3 +1,5 @@
+dot-config/conky/conky.conf
+
 dot-config/doom/config.el
 dot-config/doom/custom.el
 dot-config/doom/init.el
@@ -10,6 +12,7 @@ dot-config/mpd/**
 !dot-config/mpd/mpd.conf
 !dot-config/mpd/playlists/
 
+dot-config/mpv/disabled
 dot-config/mpv/last
 dot-config/mpv/playlists
 dot-config/mpv/watch_later
@@ -58,8 +61,6 @@ dot-config/transmission-daemon/**
 
 dot-config/transmission/**
 !dot-config/transmission/settings.json
-
-dot-config/x11/xresources
 
 dot-config/zsh/plugins
 dot-config/zsh/.z*
