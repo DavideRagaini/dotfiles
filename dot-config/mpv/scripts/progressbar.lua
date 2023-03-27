@@ -263,7 +263,7 @@ Here are some useful ASS override tags (omit square brackets):
                \3a&H[AA]& controls the outline opacity, and \4a&H[AA]& controls
                the shadow opacity.
 ]]
-settings['enable-bar'] = true
+settings['enable-bar'] = false
 helpText['enable-bar'] = [[Controls whether or not the progress bar is drawn at all. If this is disabled,
 it also (naturally) disables the click-to-seek functionality.
 ]]

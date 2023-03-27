@@ -1,21 +1,26 @@
+# ======================= Font ============= {{{
 font:
   normal:
-    family: Iosevka
-    style: Regular
+    # family: Iosevka
+    family: CaskaydiaCove Nerd Font Mono
+    style: Bold
   bold:
-    family: Iosevka
+    # family: Iosevka
+    family: CaskaydiaCove Nerd Font Mono
     style: Bold
   italic:
-    family: Iosevka
+    # family: Iosevka
+    family: CaskaydiaCove Nerd Font Mono
     style: Italic
-  size: 11.0
+  size: 10.0
   offset:
     x: 1
     y: 1
   glyph_offset:
     x: 0
     y: 0
-
+# }}}
+# ======================= Window ============= {{{
 window:
   padding:
     x: 2
@@ -23,20 +28,31 @@ window:
   dimensions:
     columns: 150
     lines: 40
-  opacity: 0.80
-
+  opacity: 0.90
+  decorations: None
+# }}}
+# ======================= Shell ============= {{{
+# shell:
+#   program: bin/zsh
+#   args:
+#     - -c
+#     - "tmux attach || tmux"
+# }}}
+# ======================= Scrolling ============= {{{
 scrolling:
   history: 10000
   multiplier: 10
-
-draw_bold_text_with_bright_colors: true
-
+# }}}
+# ======================= Cursor ============= {{{
+cursor:
+  unfocused_hollow: true
+# }}}
+# ======================= Selection ============= {{{
 selection:
   semantic_escape_chars: ',│`|:"'' ()[]{}<>'
   save_to_clipboard: false
-
-live_config_reload: true
-
+# }}}
+# ======================= Key Bindings ============= {{{
 key_bindings:
   - { key: V, mods: Alt, action: Paste }
   - { key: C, mods: Alt, action: Copy }
@@ -47,27 +63,12 @@ key_bindings:
   - { key: Minus, mods: Control, action: DecreaseFontSize }
   - { key: N, mods: Control|Alt, action: SpawnNewInstance }
 
-
-# Colors (Dracula)
-colors:
-  primary:
-    background: "#282a36"
-    foreground: "#f8f8f2"
-  normal:
-    black: "#000000"
-    red: "#ff5555"
-    green: "#50fa7b"
-    yellow: "#f1fa8c"
-    blue: "#caa9fa"
-    magenta: "#ff79c6"
-    cyan: "#8be9fd"
-    white: "#bfbfbf"
-  bright:
-    black: "#575b70"
-    red: "#ff6e67"
-    green: "#5af78e"
-    yellow: "#f4f99d"
-    blue: "#caa9fa"
-    magenta: "#ff92d0"
-    cyan: "#9aedfe"
-    white: "#e6e6e6"
+# }}}
+# ======================= Misc ============= {{{
+draw_bold_text_with_bright_colors: false
+live_config_reload: true
+# }}}
+# ======================= Colors ============= {{{
+import:
+  - ~/.config/alacritty/dark.yml
+# }}}

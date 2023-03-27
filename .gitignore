@@ -38,6 +38,9 @@ dot-config/peaclock/**
 dot-config/pipe-viewer/**
 dot-config/pipe-viewer/pipe-viewer.conf
 
+dot-config/qtile/**
+!dot-config/qtile/config.py
+
 dot-config/qutebrowser/__pycache__
 dot-config/qutebrowser/autoconfig.yml
 dot-config/qutebrowser/greasemonkey/disabled
