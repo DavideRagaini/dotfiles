@@ -445,7 +445,7 @@ screens = [
                     active=colors[2],
                     inactive=colors[1],
                     highlight_color=[backgroundColor, workspaceColor],
-                    highlight_method="block",
+                    highlight_method="line",
                     hide_unused=True,
                 ),
                 widget.TextBox(
@@ -471,7 +471,7 @@ screens = [
                     # background = foregroundColorTwo,
                 ),
                 widget.WindowName(
-                    foreground=colors[5],
+                    foreground=colors[8],
                 ),
                 widget.Chord(
                     chords_colors={
@@ -523,6 +523,7 @@ screens = [
                 #         ),
                 widget.Memory(
                     update_interval=10,
+                    format='{MemUsed: .0f}{ms}/{SwapUsed: .0f}{ms}',
                     fontsize=10,
                     foreground=colors[6],
                     background=foregroundColorTwo,
