@@ -82,6 +82,15 @@ alias pip='function _pip(){
     fi;
 };_pip'
 
+pip_upgrade_all() {
+    cd ~/.local/share/python/bin
+    for i in *
+    do
+        pip install "$i" --upgrade
+    done
+    cd -
+}
+
 # xbps-install & upgrade
 alias \
     xbi="doas xbps-install -S" \
