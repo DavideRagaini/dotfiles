@@ -61,11 +61,11 @@ bindkey -M visual '^[[P' vi-delete
 bindkey -r "^d"
 bindkey -r "^u"
 bindkey '^[[28;5;9~' autosuggest-execute
-bindkey -s '^b' '"$(xclip -o)"'
+bindkey -s '^v' '"$(xclip -o)"'
 bindkey -s '^o' '^ulfcd^M'
 bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 # bindkey -s '^v' 'nvim $(fzf)^M'
-bindkey -s '^v' 'vf^M'
+bindkey -s '^b' 'vf^M'
 bindkey -s '^z' 'zi^M'
 bindkey -v '^?' backward-delete-char
 
