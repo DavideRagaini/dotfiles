@@ -28,7 +28,7 @@ window:
   dimensions:
     columns: 150
     lines: 40
-  opacity: 0.90
+  opacity: 0.95
   decorations: None
 # }}}
 # ======================= Shell ============= {{{

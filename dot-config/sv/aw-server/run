@@ -1,3 +1,3 @@
 #!/bin/sh
 sleep 3m
-exec "$HOME/Packages/activitywatch-mod/aw-server/aw-server"
+exec "$HOME/Packages/activitywatch/aw-server/aw-server"

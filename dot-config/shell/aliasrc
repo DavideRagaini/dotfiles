@@ -129,7 +129,7 @@ alias \
     dwmrefresh="kill -HUP \$(pidof -s dwm)" \
     ffmpeg="ffmpeg -hide_banner" \
     ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
-    zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+    zsh-update-plugins="find \"$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
 # mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 
 [ -f "$XINITRC" ] && alias startx="startx \$XINITRC"
