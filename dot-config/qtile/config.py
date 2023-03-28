@@ -246,8 +246,8 @@ keys = [
     Key([mod, "control"], "l", lazy.layout.grow(), desc="Grow window to the left"),
     Key([mod, "control"], "j", lazy.layout.shrink_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.shrink_up(), desc="Grow window up"),
-    Key([mod, "shift"], "space", lazy.layout.flip()),
-    Key([mod, "control"], "space", lazy.window.toggle_floating(), desc="Toggle Current Window Floating"),
+    Key([mod], "space", lazy.layout.flip()),
+    Key([mod, "shift"], "space", lazy.window.toggle_floating(), desc="Toggle Current Window Floating"),
     Key([mod], "u", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod, "shift"], "Tab",
         lazy.run_extension(
@@ -610,6 +610,9 @@ screens = [
                     foreground=colors[4],
                     background=foregroundColorTwo,
                     fmt=" {}",
+                widget.Systray(
+                    background=foregroundColorTwo,
+                    foreground=backgroundColor
                 ),
                 widget.TextBox(
                     text="\u25e2",
@@ -618,7 +621,6 @@ screens = [
                     background=foregroundColorTwo,
                     foreground=backgroundColor,
                 ),
-                widget.Systray(),
                 widget.Clock(
                     format=" %V %a %d/%B/%y",
                     update_interval=86400,
