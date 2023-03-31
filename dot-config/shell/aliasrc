@@ -82,15 +82,6 @@ alias pip='function _pip(){
     fi;
 };_pip'
 
-pip_upgrade_all() {
-    cd ~/.local/share/python/bin
-    for i in *
-    do
-        pip install "$i" --upgrade
-    done
-    cd -
-}
-
 # xbps-install & upgrade
 alias \
     xbi="doas xbps-install -S" \
@@ -129,7 +120,7 @@ alias \
     dwmrefresh="kill -HUP \$(pidof -s dwm)" \
     ffmpeg="ffmpeg -hide_banner" \
     ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
-    zsh-update-plugins="find \"$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
+    zsh-update-plugins="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
 # mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 
 [ -f "$XINITRC" ] && alias startx="startx \$XINITRC"

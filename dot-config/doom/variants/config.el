@@ -68,10 +68,11 @@
       auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist)
       confirm-kill-emacs nil)
 
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 (map! :leader :desc "Blinking cursor binding" :n "r" #'+nav-flash/blink-cursor)
 
-(set-frame-parameter (selected-frame) 'alpha '(95 . 85))
-(add-to-list 'default-frame-alist '(alpha . (95 . 85)))
+(set-frame-parameter (selected-frame) 'alpha '(97 . 85))
+(add-to-list 'default-frame-alist '(alpha . (97 . 85)))
 ;; }}}
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)

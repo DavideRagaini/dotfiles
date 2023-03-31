@@ -267,7 +267,7 @@ settings['enable-bar'] = true
 helpText['enable-bar'] = [[Controls whether or not the progress bar is drawn at all. If this is disabled,
 it also (naturally) disables the click-to-seek functionality.
 ]]
-settings['bar-hide-inactive'] = true
+settings['bar-hide-inactive'] = false
 helpText['bar-hide-inactive'] = [[Causes the bar to not be drawn unless the mouse is hovering over it or a
 request-display call is active. This is somewhat redundant with setting bar-
 height-inactive=0, except that it can allow for very rudimentary context-
@@ -276,14 +276,14 @@ the binding `f cycle pause; script-binding progressbar/toggle-inactive-bar`, it
 is possible to have the bar be persistently present only in windowed or
 fullscreen contexts, depending on the default setting.
 ]]
-settings['bar-height-inactive'] = 2
+settings['bar-height-inactive'] = 1
 helpText['bar-height-inactive'] = [[Sets the height of the bar display when the mouse is not in the active zone and
 there is no request-display active. A value of 0 or less will cause bar-hide-
 inactive to be set to true and the bar height to be set to 1. This should result
 in the desired behavior while avoiding annoying debug logging in mpv (libass
 does not like zero-height objects).
 ]]
-settings['bar-height-active'] = 5
+settings['bar-height-active'] = 3
 helpText['bar-height-active'] = [[Sets the height of the bar display when the mouse is in the active zone or
 request-display is active. There is no logic attached to this, so 0 or negative
 values may have unexpected results.

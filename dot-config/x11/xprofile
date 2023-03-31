@@ -20,9 +20,10 @@ case $(hostname) in
         ;;
     tinkerboard)
         systemctl --user import-environment DISPLAY XAUTHORITY &
-	;;
+        ;;
     NT)
-        xbacklight -set 30 & ;;
+        xbacklight -set 30 &
+        ;;
 esac
 
 remaps &

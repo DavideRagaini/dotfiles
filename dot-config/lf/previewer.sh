@@ -31,10 +31,11 @@ text_previwer() {
     application/pdf) pdftotext -f 1 -l 5 -layout "${file}" /tmp/pdftotext.txt ;;
     # application/pdf) pdftotext "${file}" /tmp/pdftotext.txt ;;
     application/pgp-encrypted) gpg -d -- "${file}" ;;
-    application/x-brotli) atool --list -- "${file}" ;;
-    application/x-iso9660-image) ;;
-    application/x-mobipocket-ebook) ebook-convert "$file" ;;
+    application/x-iso9660-image) { isoinfo -d -i "$FILE_PATH"; printf "\nContent:"; isoinfo -l -i "$FILE_PATH"; } | $PAGER ;;
     application/x-lzip) atool --list -- "${file}" ;;
+    application/x-mobipocket-ebook) ebook-convert "$file" ;;
+    application/x-object) nm "${FILE_PATH}" | $PAGER ;;
+    application/x-brotli) atool --list -- "${file}" ;;
     application/x-tar) atool --list -- "${file}" ;;
     application/epub+zip) epub2txt "${file}" | head -n 60;;
     application/zip) atool --list -- "${file}" ;;

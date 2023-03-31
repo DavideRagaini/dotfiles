@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIR="$HOME/.cache/snooze"
+snooze -H 7 -s 7h -t "$DIR/light-theme" -- sh -c \
+    "sed -i 's/dark/light/' ~/.config/alacritty/alacritty.yml; \
+    xrdb -load ~/.config/x11/Xresources_Light; \
+    emacsclient --eval '(load-theme (quote doom-one-light))'"
+
+exec snooze -H 18 -s 7h -t "$DIR/dark-theme" -- sh -c \
+    "sed -i 's/light/dark/' ~/.config/alacritty/alacritty.yml; \
+    xrdb -load ~/.config/x11/Xresources; \
+    emacsclient --eval '(load-theme (quote doom-dracula))'"

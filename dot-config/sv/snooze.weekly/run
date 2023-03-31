@@ -1,0 +1,8 @@
+#!/bin/sh
+
+DIR="$HOME/.cache/snooze"
+SCRIPTS_DIR="$HOME/.local/bin/snooze/weekly"
+mkdir -p "$DIR"
+sleep 9m
+exec snooze -w 0 -s 7d -R 10m -t "$DIR/weekly" -- sh -c \
+	"test -d $SCRIPTS_DIR/weekly && run-parts --lsbsysinit $SCRIPTS_DIR/weekly; : > $DIR/weekly"

@@ -44,9 +44,9 @@ dmenu.selbackground : #BD93F9
 dmenu.selforeground : #571DC2
 
 Nsxiv.window.background: #000000
-Nsxiv.window.foreground: #FFFFFF
+Nsxiv.window.foreground: #AAAAAA
 Nsxiv.bar.background:    #000000
-Nsxiv.bar.foreground:    #FFFFFF
+Nsxiv.bar.foreground:    #AAAAAA
 
 st.alpha: 0.92
 ! st.alphaOffset: 0.3
