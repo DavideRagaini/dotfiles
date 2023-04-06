@@ -230,12 +230,12 @@ settingsMeta.__index = settingsMeta
 setmetatable(settings, settingsMeta)
 settings:_migrate()
 local helpText = { }
-settings['hover-zone-height'] = 40
+settings['hover-zone-height'] = 10
 helpText['hover-zone-height'] = [[Sets the height of the rectangular area at the bottom of the screen that expands
 the progress bar and shows playback time information when the mouse is hovered
 over it.
 ]]
-settings['top-hover-zone-height'] = 40
+settings['top-hover-zone-height'] = 10
 helpText['top-hover-zone-height'] = [[Sets the height of the rectangular area at the top of the screen that shows the
 file name and system time when the mouse is hovered over it.
 ]]
@@ -317,13 +317,13 @@ bar, allowing the display of seek ranges that have already been encountered.
 demuxer cache ranges that are prior to the current playback point will not be
 shown. This matches the previous behavior.
 ]]
-settings['bar-cache-height-inactive'] = 2
+settings['bar-cache-height-inactive'] = 1
 helpText['bar-cache-height-inactive'] = [[Sets the height of the cache bar display when the mouse is not in the active
 zone and there is no request-display active. Useful in combination with bar-
 cache-position to control whether or not the cache bar is occluded by (or
 occludes) the progress bar.
 ]]
-settings['bar-cache-height-active'] = 5
+settings['bar-cache-height-active'] = 3
 helpText['bar-cache-height-active'] = [[Sets the height of the cache bar display when the mouse is in the active zone or
 request-display is active. Useful in combination with bar-cache- position to
 control whether or not the cache bar is occluded by (or occludes) the progress
@@ -502,7 +502,7 @@ helpText['request-display-duration'] = [[Sets the amount of time in seconds that
 receives a request-display signal. A value of 0 will keep the display on screen
 only as long as the key bound to it is held down.
 ]]
-settings['redraw-period'] = 0.05
+settings['redraw-period'] = 0.02
 helpText['redraw-period'] = [[Controls how often the display is redrawn, in seconds. This does not seem to
 significantly affect the smoothness of animations, and it is subject to the
 accuracy limits imposed by the scheduler mpv uses. Probably not worth changing

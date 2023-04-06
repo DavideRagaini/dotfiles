@@ -1,5 +1,6 @@
 *.alpha: 0.95
-*.font: Fantasque Sans Mono:size=12
+! *.font: Fantasque Sans Mono:size=12
+*.font: CaskaydiaCove Nerd Font Mono:size=12
 *.cursorColor: magenta
 *.color0:  #000000
 *.color1:  #FF5555
@@ -37,7 +38,8 @@ Xft.dpi: 96
 ! dwm.selbordercolor: #FF00FF
 ! dwm.selbgcolor: #571DC2
 
-dmenu.font: Fantasque Sans Mono:size=14:style=Bold
+! dmenu.font: Fantasque Sans Mono:size=14:style=Bold
+dmenu.font: CaskaydiaCove Nerd Font Mono:size=12:style=Bold
 dmenu.background:     #2F0B3A
 dmenu.foreground:     #FF00FF
 dmenu.selbackground : #BD93F9

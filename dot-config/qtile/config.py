@@ -1,3 +1,6 @@
+# ======================= TODOs ============= {{{
+# TODO Keychord to resize floating windows
+# }}}
 # ======================= Imports ============= {{{
 from typing import List
 
@@ -24,7 +27,7 @@ browser_alt = "librewolf"
 browser_priv = "librewolf --private-window"
 terminal = "alacritty"
 text_editor = "em"
-file_manager = terminal + " -e lf"
+file_manager = terminal + " -e tmux new-session -A -s 'files'"
 launcher = "run"
 process_viewer = terminal + " -e htop"
 # }}}
@@ -68,7 +71,7 @@ groups = [
         # label="1",
         layout="monadtall",
         exclusive=True,
-        matches=[Match(wm_class="Emacs"),
+        matches=[Match(wm_instance_class="emacs"),
                  Match(wm_class="Alacritty")],
     ),
     Group(
@@ -87,7 +90,7 @@ groups = [
         # label="3",
         layout="max",
         exclusive=True,
-        matches=[Match(wm_instance_class="Zathura"),
+        matches=[Match(wm_class="Zathura"),
                  Match(wm_class="ebook-viewer")],
     ),
     Group(
@@ -140,28 +143,7 @@ groups = [
 dgroups_key_binder = simple_key_binder(mod)
 # }}}
 # ======================= Functions ============= {{{
-floating_window_index = 0
-def float_cycle(qtile, forward: bool):
-    global floating_window_index
-    floating_windows = []
-    for window in qtile.current_group.windows:
-        if window.floating:
-            floating_windows.append(window)
-    if not floating_windows:
-        return
-    floating_window_index = min(floating_window_index, len(floating_windows) - 1)
-    if forward:
-        floating_window_index += 1
-    else:
-        floating_window_index += 1
-    if floating_window_index >= len(floating_windows):
-        floating_window_index = 0
-    if floating_window_index < 0:
-        floating_window_index = len(floating_windows) - 1
-    win = floating_windows[floating_window_index]
-    win.cmd_bring_to_front()
-    win.cmd_focus()
-# }}}
+## }}}
 # ======================= Hooks ============= {{{
 # Programms to start on log in
 # @hook.subscribe.startup_once
@@ -174,15 +156,6 @@ def float_cycle(qtile, forward: bool):
 # def startup_once():
 #     subprocess.Popen(["nm-applet"])
 
-
-@lazy.function
-def float_cycle_backward(qtile):
-    float_cycle(qtile, False)
-
-
-@lazy.function
-def float_cycle_forward(qtile):
-    float_cycle(qtile, True)
 
 @lazy.function
 def floating_bottom_right_window(qtile, window=None):
@@ -227,7 +200,7 @@ def remove_sticky_windows(window):
 
 @lazy.function
 def float_to_front(qtile):
-    logging.info("bring floating windows to front")
+    # logging.info("bring floating windows to front")
     for group in qtile.groups:
         for window in group.windows:
             if window.floating:
@@ -276,7 +249,7 @@ groups.append(
                 on_focus_lost_hide = False
             ),
             DropDown(
-                "file_manager",
+                "file manager",
                 file_manager,
                 width=0.8,
                 height=0.8,
@@ -351,29 +324,24 @@ groups.append(
 # }}}
 # ======================= Mouse ============= {{{
 mouse = [
-    Drag(
-        [mod],
-        "Button1",
-        lazy.window.set_position_floating(),
-        start=lazy.window.get_position(),
-    ),
-    Drag(
-        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
-    ),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click([mod],"Button2", lazy.window.bring_to_front()),
 ]
 # }}}
 # ======================= Keybindings ============= {{{
 keys = [
     # Switch between windows
-    Key([mod, "control"], "backslash", floating_bottom_right_window()),
-    Key([mod], "backslash", float_cycle_forward),
-    Key([mod, "shift"], "backslash", float_cycle_backward),
-    Key( [mod], "s", toggle_sticky_windows(), desc="Toggle state of sticky for current window",),
+    Key([mod], "backslash", floating_bottom_right_window()),
+    Key([mod], "s", toggle_sticky_windows(), desc="Toggle state of sticky for current window",),
+    #
     Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups"),
     Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups"),
-    # Key([mod, 'shift'], "g", lazy.window.togroup("scratchpad"), desc="Move Window to scratchpad"),
-    # Key([mod], "g", lazy.group["scratchpad"].toscreen(toggle=True), desc="Toggle scratchpad group"),
+    #
+    Key([mod, "shift"], "t", lazy.window.toggle_minimize(), desc="Toggle Minimize"),
+    Key([mod], "g", lazy.group["scratchpad"].toscreen(toggle=True), desc="Toggle scratchpad group"),
+    Key([mod, 'shift'], "g", lazy.window.togroup("scratchpad"), desc="Move Window to scratchpad"),
+    #
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -411,9 +379,9 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "backspace", lazy.spawn("sysact Shutdown"), desc="Shutdown"),
     Key([mod, "shift"], "backspace", lazy.spawn("sysact"), desc="System Actions"),
-    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle Current Window Fullscreen"),
-    # Key([mod, "shift"], "f", lazy.function(toggle_fullscreen_state)),
-    Key([mod, "control"], "f", float_to_front),
+    Key([mod], "f", lazy.window.toggle_maximize(), desc="Toggle maximize"),
+    Key([mod, "shift"], "f", lazy.window.toggle_fullscreen(), desc="Toggle Current Window Fullscreen"),
+    Key([mod, "control"], "f", float_to_front()),
     Key([mod], "b", lazy.hide_show_bar("top"), desc="Toggle Top Bar"),
     # EzKey("M-<comma>", lazy.prev_screen()),
     # EzKey("M-<period>", lazy.next_screen()),
@@ -426,7 +394,7 @@ keys = [
     Key([mod, "shift"], "w", lazy.spawn(browser_alt), desc="Launch Browser"),
     Key([mod, "control"], "w", lazy.spawn(browser), desc="Launch Browser"),
     Key([mod, "shift"], "e", lazy.spawn(text_editor), desc="Launch Text Editor"),
-    Key([mod], "d", lazy.spawn("dmenu_run_history"), desc="Run Prompt"),
+    Key([mod], "d", lazy.spawn("dmenu_run_history"), desc="Dmenu Run History Prompt"),
     Key([mod, "shift"], "d", lazy.spawn("via -r"), desc="Document Search"),
     Key([mod, "control"], "t", lazy.spawn("switch-theme"), desc="Global Theme Toggle"),
     Key([mod, "shift"], "r", lazy.spawn("via -a"), desc="Global Search"),
@@ -454,9 +422,7 @@ keys = [
     Key([mod], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
     Key([mod], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
-    Key([mod, "shift"], "m",
-        lazy.spawn("pkill mp; pkill librespot; pkill spotifyd"),
-        desc="Kill Spotify Music"),
+    # Key([mod, "shift"], "m", lazy.spawn("mp down"), desc="Kill Spotify Music"),
     Key([mod, "shift"], "period", lazy.spawn("tppctl invert"), desc="Inverte Playing MPVs"),
     Key([mod, "control"], "period", lazy.spawn("tppctl pauseall"), desc="Pause All MPVs"),
     # Scratchpads
@@ -464,7 +430,7 @@ keys = [
     Key([mod], "Return", lazy.group["scratchpad"].dropdown_toggle("Dropdown")),
     Key([mod], "Escape", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
     Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("agenda")),
-    Key([mod], "r", lazy.group["scratchpad"].dropdown_toggle("file_manager")),
+    Key([mod], "r", lazy.group["scratchpad"].dropdown_toggle("file manager")),
     Key([mod], "n", lazy.group["scratchpad"].dropdown_toggle("news")),
     Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
     Key([mod], "apostrophe", lazy.group["scratchpad"].dropdown_toggle("calculator")),

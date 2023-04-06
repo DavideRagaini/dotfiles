@@ -1,8 +1,8 @@
 #!/bin/sh
 
-DIR="$HOME/.cache/snooze"
+TIMESTAMP="$HOME/.cache/snooze/daily"
 SCRIPTS_DIR="$HOME/.local/bin/snooze/daily"
-mkdir -p "$DIR"
-sleep 5m
-exec snooze -s 1d -R 10m -t "$DIR/daily" -- sh -c \
-	"test -d $SCRIPTS_DIR/daily && run-parts --lsbsysinit $SCRIPTS_DIR/daily; : > $DIR/daily"
+mkdir -p "$TIMESTAMP"
+sleep 8m
+exec snooze -s 1d -R 10m -t "$DIR" -- sh -c \
+	"test -d $SCRIPTS_DIR && run-parts --lsbsysinit $SCRIPTS_DIR; : > $DIR"
