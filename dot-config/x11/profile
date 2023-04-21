@@ -4,6 +4,7 @@ export BROWSER="qutebrowser"
 export EDITOR="nvim"
 export FILE="lf"
 export PAGER="bat"
+export MANPAGER="less"
 export READER="zathura"
 export TERMINAL="alacritty"
 export VISUAL="em"
@@ -80,7 +81,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse \
 --height=100% \
 --multi \
 --preview-window=:hidden \
---preview 'bat --paging=never --line-range :80 {}' \
+--preview 'bat  --color=always --style=numbers --paging=never --line-range :80 {}' \
 --prompt='» ' \
 --pointer='▶' \
 --marker='✓' \
@@ -118,7 +119,9 @@ fi
 
 # Start graphical server on user's current tty if not already running.
 # [[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx
-[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 &&
+    mkdir -p /tmp/thumbfast &&
+    exec startx "$XINITRC"
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.config/shell/ttymaps.kmap 2>/dev/null

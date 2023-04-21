@@ -364,6 +364,7 @@ map <a-dr> cut-remove
 map <c-b> $setbg $f
 map <c-e> down
 map <c-n> push :mkdir<space>
+map <c-o> &opener "$f"
 map <c-r> reload
 map <c-y> up
 map <c-z> $ kill -STOP $PPID

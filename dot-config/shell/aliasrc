@@ -32,6 +32,8 @@ alias \
     E="\$VISUAL" \
     f="lfcd" \
     pw="pipe-viewer" \
+    pip="python3 -m pip" \
+    pips="python3 -m pip_search" \
     q="exit" \
     s="doas" \
     smi="doas make install" \
@@ -58,6 +60,10 @@ fzfopen() {
     xdg-open "$f"
 }
 
+batdiff() {
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
 # git
 # alias \
     # g="git" \
@@ -74,13 +80,6 @@ fzfopen() {
 gcl() {
     git clone "$(xclip -selection clipboard -o)"
 }
-
-alias pip='function _pip(){
-    if [ $1 = "search" ]; then
-        pip_search "$2";
-    else pip "$@";
-    fi;
-};_pip'
 
 # xbps-install & upgrade
 alias \

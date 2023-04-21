@@ -1,6 +1,19 @@
 #!/bin/sh
 
-xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources" & xrdbpid=$!
+autostart() {
+    case "$(readlink /sbin/init | cut -f3 -d'/')" in
+        systemd)
+            systemctl --user import-environment DISPLAY XAUTHORITY &
+            ;;
+        runit-init)
+            runsvdir "$HOME/.local/service" &
+            ;;
+        *) printf "[ %s ]: xprofile: INIT SYSTEM not recognised" "$(date)" >> errors.log ;;
+    esac
+}
+
+xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources" &
+xrdbpid=$!
 
 case $(hostname) in
     VoiD)
@@ -19,18 +32,22 @@ case $(hostname) in
         cbatticon &
         ;;
     tinkerboard)
-        systemctl --user import-environment DISPLAY XAUTHORITY &
+        {
+            sleep 30
+            emacsclient -c -e '(doom/quickload-session)' -a emacs &
+        } &
         ;;
     NT)
         xbacklight -set 30 &
         ;;
 esac
 
-remaps &
-setbg &
-numlockx &
+COMMON_AUTOSTART='remaps setbg numlockx mem-warn'
+for program in $COMMON_AUTOSTART; do
+    pidof -sx "$program" ||
+        "$program" &
+done >/dev/null 2>&1
 sysact Start &
-mem-warn &
 
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 xset dpms 0 0 180

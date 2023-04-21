@@ -50,7 +50,7 @@ Nsxiv.window.foreground: #AAAAAA
 Nsxiv.bar.background:    #000000
 Nsxiv.bar.foreground:    #AAAAAA
 
-st.alpha: 0.92
+st.alpha: 0.95
 ! st.alphaOffset: 0.3
 ! st.cursorColor: #FF00FF
 st.highlightColor: #555555

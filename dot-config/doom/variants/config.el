@@ -45,7 +45,7 @@
         (setq dr/font-size 13))
  ((string-equal (system-name) "tinkerboard")
         (setq display-line-numbers-type nil)
-        (setq dr/font-size 17))
+        (setq dr/font-size 16))
  ((string-equal (system-name) "bagaro")
         (dr/high-resources)
         (setq dr/font-size 14)))
