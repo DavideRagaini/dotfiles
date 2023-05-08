@@ -29,13 +29,14 @@
   (setq display-line-numbers-type t)
   (dr/ispell-settings)
   (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
-  ;; (global-activity-watch-mode t)
 )
 ;; }}}
 ;; ========= Bootstraps ========= {{{
 (cond
  ((string-equal (system-name) "VoiD")
-        (setq dr/font-size 16)
+        (setq dr/font-size 14)
+        (load! "load/matlab-setup.el")
+        (global-activity-watch-mode t)
         (dr/high-resources))
  ((string-equal (system-name) "vDR")
         (setq dr/font-size 18)
@@ -73,6 +74,8 @@
 
 (set-frame-parameter (selected-frame) 'alpha '(97 . 85))
 (add-to-list 'default-frame-alist '(alpha . (97 . 85)))
+
+(setq auth-sources '("~/.local/share/authinfo.gpg"))
 ;; }}}
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
@@ -109,7 +112,7 @@
 (add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
 ;; ========= Load Config Files ========= {{{
-(load! "org.el")
+(load! "load/org.el")
 ;; }}}
 ;; ========= Manual ========= {{{
 ;; - `load!' for loading external *.el files relative to this one

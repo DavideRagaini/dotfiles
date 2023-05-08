@@ -38,6 +38,7 @@ text_previwer() {
     application/x-brotli) atool --list -- "${file}" ;;
     application/x-tar) atool --list -- "${file}" ;;
     application/epub+zip) epub2txt "${file}" | head -n 60;;
+    application/x-xz) atool --list -- "${file}";;
     application/zip) atool --list -- "${file}" ;;
     text/troff) man ./ "${file}" | col -b ;;
     text/html) html2text "${file}" ;;

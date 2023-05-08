@@ -91,7 +91,7 @@ groups = [
         layout="max",
         exclusive=True,
         matches=[Match(wm_class="Zathura"),
-                 Match(wm_class="ebook-viewer")],
+                 Match(wm_class="ebook-viewer")]
     ),
     Group(
         name="4",
@@ -100,42 +100,43 @@ groups = [
         layout="max",
         matches=[Match(wm_class="VirtualBox Machine"),
                  Match(wm_class="MATLAB R2021b - academic use"),
-                 Match(wm_class="Nsxiv")],
+                 Match(wm_class="MATLAB R2023a - academic use"),
+                 Match(wm_class="MATLABWindow"),
+                 Match(wm_class="Matlab-GLEE"),
+                 Match(wm_class="Nsxiv")]
     ),
     Group(
         name="5",
         position=5,
         # label="5",
         layout="bsp",
-        # matches=[Match(title='irc'), Match(wm_class='Skype'), Match(wm_class='microsoft teams - preview'), Match(wm_class='discord')]
     ),
     Group(
         name="6",
         position=6,
         # label="6",
         layout="bsp",
-        # matches=[Match(title='updates'), Match(wm_class='Gnome-system-monitor'), Match(wm_class='VirtualBox Manager')]
     ),
     Group(
         name="7",
         position=7,
         # label="7",
-        layout="bsp",
-        # matches=[Match(title='updates'), Match(wm_class='Gnome-system-monitor'), Match(wm_class='VirtualBox Manager')]
+        layout="max",
+        matches=[Match(wm_class='calibre-gui')]
     ),
     Group(
         name="8",
         position=8,
         # label="8",
-        layout="bsp",
-        # matches=[Match(title='updates'), Match(wm_class='Gnome-system-monitor'), Match(wm_class='VirtualBox Manager')]
+        layout="max",
+        matches=[Match(wm_class='Ferdium')]
     ),
     Group(
         name="9",
         position=9,
         # label="9",
         layout="max",
-        exclusive=True,
+        # exclusive=True,
         matches=[Match(wm_class="mpv")],
     ),
 ]
@@ -205,6 +206,17 @@ def float_to_front(qtile):
         for window in group.windows:
             if window.floating:
                 window.cmd_bring_to_front()
+
+
+# @hook.subscribe.client_new
+# def disable_floating(window):
+#     rules = [
+#         Match(wm_class="mpv")
+#     ]
+
+#     if any(window.match(rule) for rule in rules):
+#         window.togroup(qtile.current_group.name)
+#         window.cmd_disable_floating()
 # }}}
 # ======================= Floating Windows Rules ============= {{{
 floating_layout = layout.Floating(
@@ -214,7 +226,7 @@ floating_layout = layout.Floating(
         *layout.Floating.default_float_rules,
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(wm_class="fzfmenu"),
-        # Match(wm_instance_class="mpvFloat"),
+        Match(wm_instance_class="mpvFloat"),
         Match(title="Eagenda"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
@@ -318,6 +330,17 @@ groups.append(
                 opacity=0.9,
                 on_focus_lost_hide = False
             ),
+            DropDown(
+                "mpvfloat",
+                "mpv --x11-name=mpvFloat --geometry=15%-5-5 --player-operation-mode=pseudo-gui",
+                x=0.848,
+                y=0.845,
+                width=0.15,
+                height=0.15,
+                opacity=1,
+                match=Match(wm_instance_class="mpvFloat"),
+                on_focus_lost_hide = False
+            ),
         ],
     )
 )
@@ -334,6 +357,7 @@ keys = [
     # Switch between windows
     Key([mod], "backslash", floating_bottom_right_window()),
     Key([mod], "s", toggle_sticky_windows(), desc="Toggle state of sticky for current window",),
+    Key([mod], "z", lazy.screen.togglegroup()),
     #
     Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups"),
     Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups"),
@@ -391,8 +415,8 @@ keys = [
     Key([mod, "shift"], "grave", lazy.spawn("dunstctl history-pop"), desc="Dunst History Pop"),
     Key([mod, "shift"], "Return", lazy.spawn(terminal + " -e tmux"), desc="Launch Terminal"),
     Key([mod], "w", lazy.spawn(browser), desc="Launch Browser"),
-    Key([mod, "shift"], "w", lazy.spawn(browser_alt), desc="Launch Browser"),
-    Key([mod, "control"], "w", lazy.spawn(browser), desc="Launch Browser"),
+    Key([mod, "shift"], "w", lazy.spawn(browser_alt), desc="Launch Alternative Browser"),
+    Key([mod, "control"], "w", lazy.spawn(browser_priv), desc="Launch Private Browser"),
     Key([mod, "shift"], "e", lazy.spawn(text_editor), desc="Launch Text Editor"),
     Key([mod], "d", lazy.spawn("dmenu_run_history"), desc="Dmenu Run History Prompt"),
     Key([mod, "shift"], "d", lazy.spawn("via -r"), desc="Document Search"),
@@ -408,7 +432,8 @@ keys = [
     Key([mod, "shift"], "F12",
         lazy.spawn('maim ~/Storage/F$(date \'+%y%m%d-%H%M-%S\').png'),
         desc="Maim Fullscreen Screenshot"),
-#    Key([], "XF86Favourites", lazy.spawn("remaps")),
+    Key([], "XF86Favorites", lazy.spawn("remaps"), desc="Remaps script"),
+    Key([], "XF86Mail", lazy.spawn("ferdium"), desc="Emails & Chatting"),
     # Media
     Key([], "XF86AudioPlay", lazy.spawn("dmpc toggle")),
     Key([mod], "XF86AudioPlay", lazy.spawn("tppctl toggle")),
@@ -416,9 +441,24 @@ keys = [
     Key([], "XF86AudioNext", lazy.spawn("dmpc next")),
     Key([mod], "XF86AudioNext", lazy.spawn("tppctl seek 10")),
     Key([mod], "XF86Launch8", lazy.spawn("tppctl seek -10")),
-    Key([], "XF86AudioPrev", lazy.spawn("dmpc previous")),
+    Key([], "XF86AudioPrev", lazy.spawn("dmpc prev")),
     Key([mod], "XF86AudioPrev", lazy.spawn("tppctl seek -10")),
     Key([mod], "XF86Launch9", lazy.spawn("tppctl seek 10")),
+    Key([], "XF86Launch5", lazy.spawn("tppctl invert")),
+    Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calculator")),
+    Key([], "XF86Explorer", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
+    Key([], "XF86Back", lazy.spawn("tppctl seek -10")),
+    Key([mod], "XF86Back", lazy.spawn("dmpc prev")),
+    Key([mod, "shift"], "XF86Back", lazy.spawn("dmpc seekp")),
+    Key([], "XF86Forward", lazy.spawn("tppctl seek 10")),
+    Key([mod], "XF86Forward", lazy.spawn("dmpc next")),
+    Key([mod, "shift"], "XF86Forward", lazy.spawn("dmpc seekf")),
+    Key([], "cancel", lazy.spawn("tppctl invert")),
+    Key([mod], "cancel", lazy.spawn("tppctl pauseall")),
+    Key([mod, "shift"], "cancel", lazy.spawn("dmpc toggle")),
+    # Key([], "XF86Search", lazy.spawn("")),
+    # Key([], "XF86HomePage", lazy.spawn("")),
+
     Key([mod], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
     Key([mod], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
@@ -431,17 +471,23 @@ keys = [
     Key([mod], "Escape", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
     Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("agenda")),
     Key([mod], "r", lazy.group["scratchpad"].dropdown_toggle("file manager")),
+    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("mpvfloat")),
     Key([mod], "n", lazy.group["scratchpad"].dropdown_toggle("news")),
     Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
     Key([mod], "apostrophe", lazy.group["scratchpad"].dropdown_toggle("calculator")),
     Key([mod], "y", lazy.group["scratchpad"].dropdown_toggle("qtile_shell")),
     # Hardware/system control
     Key([mod], "up", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
+    Key([mod, "shift"], "up", lazy.spawn("output-audio")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
+    Key([mod], "down", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
+    Key([mod, "shift"], "down", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([mod], "down", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
     Key([mod], "XF86AudioMute", lazy.spawn("output-audio")),
     Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+    Key([mod], "left", lazy.spawn("tppctl seek -10")),
+    Key([mod], "right", lazy.spawn("tppctl seek 10")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -set +10%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -set -10%")),
 ]
@@ -561,7 +607,7 @@ screens = [
                 widget.Volume(
                     foreground=colors[4],
                     background=foregroundColorTwo,
-                    fmt=" {}"
+                    # fmt=" {}"
                     ),
                 widget.Systray(
                     background=foregroundColorTwo,

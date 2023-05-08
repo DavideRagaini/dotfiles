@@ -33,6 +33,7 @@ export CUDA_CACHE_PATH="$XDG_CONFIG_HOME/nv"
 # export DIGESTIF_HOME="$XDG_DATA_HOME/digestif"
 # export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
 # export GDK_DPI_SCALE=1.5
+export GEM_HOME="$XDG_DATA_HOME/gem"
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME"/go
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
@@ -69,11 +70,12 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java doesn't understand tiling windows
 
 PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
-PATH="$PATH:$HOME/.config/emacs/bin/"
-PATH="$PATH:$HOME/.local/share/cargo/bin/"
-PATH="$PATH:$HOME/.local/share/go/bin/"
-PATH="$PATH:$HOME/.local/share/npm/bin/"
-PATH="$PATH:$HOME/.local/share/python/bin/"
+PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin/"
+PATH="$PATH:$XDG_DATA_HOME/cargo/bin/"
+PATH="$PATH:$XDG_DATA_HOME/go/bin/"
+PATH="$PATH:$XDG_DATA_HOME/npm/bin/"
+PATH="$PATH:$XDG_DATA_HOME/python/bin/"
+PATH="$PATH:$XDG_DATA_HOME/gem/bin"
 export PATH
 
 export FZF_DEFAULT_OPTS="--layout=reverse \
@@ -119,9 +121,7 @@ fi
 
 # Start graphical server on user's current tty if not already running.
 # [[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx
-[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 &&
-    mkdir -p /tmp/thumbfast &&
-    exec startx "$XINITRC"
+# [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.config/shell/ttymaps.kmap 2>/dev/null

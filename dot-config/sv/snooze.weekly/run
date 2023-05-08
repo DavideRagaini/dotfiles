@@ -5,4 +5,4 @@ SCRIPTS_DIR="$HOME/.local/bin/snooze/weekly"
 mkdir -p "$TIMESTAMP"
 sleep 20m
 exec snooze -w 0 -s 7d -R 10m -t "$TIMESTAMP" -- sh -c \
-	"test -d $SCRIPTS_DIR && run-parts --lsbsysinit $SCRIPTS_DIR; : > $TIMESTAMP"
+	"test -d $SCRIPTS_DIR && run-parts $SCRIPTS_DIR; : > $TIMESTAMP"

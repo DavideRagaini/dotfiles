@@ -1,53 +1,61 @@
 #!/bin/sh
 
-autostart() {
-    case "$(readlink /sbin/init | cut -f3 -d'/')" in
-        systemd)
-            systemctl --user import-environment DISPLAY XAUTHORITY &
-            ;;
-        runit-init)
-            runsvdir "$HOME/.local/service" &
-            ;;
-        *) printf "[ %s ]: xprofile: INIT SYSTEM not recognised" "$(date)" >> errors.log ;;
-    esac
-}
-
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources" &
 xrdbpid=$!
 
 case $(hostname) in
     VoiD)
-        xrandr --output HDMI-0 --off --output DVI-D-0 --auto
-        # xrandr --output HDMI-0 --off --output DVI-D-0 --auto --scale 2
-        # xrandr --output HDMI-0 --primary --auto --output DVI-D-0 --off
-        ;;
+        export LIBVA_DRIVER_NAME=vdpau
+        export VDPAU_DRIVER=nvidia
+        # xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --mode 3840x2160 --scale 0.5 --pos 3840x0 --rotate normal
+          ;;
     vDR)
         xbacklight -set 20 &
         libinput-gestures-setup start &
         bluetooth off &
         ;;
     void)
+        xbacklight -set 20 &
         libinput-gestures-setup start &
-        nm-tray &
-        cbatticon &
+        mem-warn &
         ;;
-    tinkerboard)
-        {
-            sleep 30
-            emacsclient -c -e '(doom/quickload-session)' -a emacs &
-        } &
+    tinkerboard) mem-warn &
         ;;
-    NT)
-        xbacklight -set 30 &
+    NT) mem-warn &
         ;;
 esac
 
-COMMON_AUTOSTART='remaps setbg numlockx mem-warn'
-for program in $COMMON_AUTOSTART; do
-    pidof -sx "$program" ||
-        "$program" &
-done >/dev/null 2>&1
-sysact Start &
+remaps &
+setbg &
+numlockx &
 
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 xset dpms 0 0 180
+
+case "$(readlink /sbin/init | cut -f3 -d'/')" in
+    systemd)
+        systemctl --user import-environment DISPLAY XAUTHORITY &
+        ;;
+    runit-init)
+        {
+        sleep 10
+        runsvdir "$HOME/.local/service" &
+        } &
+        ;;
+    *) printf "[ %s ]: xprofile: INIT SYSTEM not recognised" "$(date)" >> errors.log ;;
+esac
+
+{
+    sleep 65
+    emacsclient -c -e '(doom/quickload-session)' &
+    sleep 10
+    qutebrowser &
+} &
+
+{
+    [ "$(stat -c %y \"\$HOME/.cache/snooze/daily\" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
+        {
+            sleep 10m
+            run-parts "$HOME/.local/bin/snooze/daily" > "$HOME/.cache/snooze/daily" 2>&1
+        }
+} &
