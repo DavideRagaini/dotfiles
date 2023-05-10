@@ -29,7 +29,6 @@ remaps &
 setbg &
 numlockx &
 
-[ -n "$xrdbpid" ] && wait "$xrdbpid"
 xset dpms 0 0 180
 
 case "$(readlink /sbin/init | cut -f3 -d'/')" in
@@ -46,9 +45,9 @@ case "$(readlink /sbin/init | cut -f3 -d'/')" in
 esac
 
 {
-    sleep 65
+    sleep 60
     emacsclient -c -e '(doom/quickload-session)' &
-    sleep 10
+    sleep 25
     qutebrowser &
 } &
 
@@ -59,3 +58,5 @@ esac
             run-parts "$HOME/.local/bin/snooze/daily" > "$HOME/.cache/snooze/daily" 2>&1
         }
 } &
+
+[ -n "$xrdbpid" ] && wait "$xrdbpid"
