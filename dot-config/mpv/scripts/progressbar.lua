@@ -239,7 +239,7 @@ settings['top-hover-zone-height'] = 10
 helpText['top-hover-zone-height'] = [[Sets the height of the rectangular area at the top of the screen that shows the
 file name and system time when the mouse is hovered over it.
 ]]
-settings['default-style'] = [[\fnFantesque Sans Mono\b1\bord2\shad0\fs22\c&HFC799E&\3c&H2D2D2D&]]
+settings['default-style'] = [[\fnFantesque Sans Mono\b1\bord2\shad0\fs30\c&HFC799E&\3c&H2D2D2D&]]
 helpText['default-style'] = [[Default style that is applied to all UI elements. A string of ASS override tags.
 Individual elements have their own style settings which override the tags here.
 Changing the font will likely require changing the hover-time margin settings

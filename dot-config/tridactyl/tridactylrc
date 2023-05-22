@@ -1,45 +1,46 @@
+sanitise tridactyllocal tridactylsync
+
 set allowautofocus false
 set smoothscroll false
 set theme midnight
-colourscheme --url https://raw.githubusercontent.com/bezmi/base16-tridactyl/master/base16-dracula.css dracula
+set modeindicatorshowkeys true
+colourscheme dracula
 
 set searchengine https://searx.be/search?q=%s
 searchurls = {
     a: "https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s",
     d: "https://duckduckgo.com/?t=hd&va=u&q=%s",
     g: "https://www.google.com/search?q=%s",
-    gw: "https://wiki.gentoo.org/wiki/%s"
+    G: "https://wiki.gentoo.org/wiki/%s"
     i: "https://searx.be/search?q=%s&language=it-IT",
     y: "https://yewtu.be/search?q=%s",
-    w: "https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s",
+    w: "https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s"
 }
 
-nmaps = {
-    ",a": "hint -W exclaim_quiet dmpv2",
-    ",A": "hint -W exclaim_quiet dmpv aplay",
-    ",c": "hint -W exclaim_quiet clipf",
-    ",e": "hint -W exclaim_quiet dmpv enqueue",
-    ",g": "hint -W exclaim_quiet gallery-dl",
-    ",p": "hint -W exclaim_quiet dmpv eplay",
-    ",s": "hint -W exclaim_quiet streamlink",
-    ",t": "hint -W exclaim_quiet transadd",
-}
+unbind t
+bind t fillcmdline taball
+unbind O
+bind O fillcmdline tabopen
 
-" Git{Hub,Lab} git clone via SSH yank
-bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+alias mpvsafe js -p tri.excmds.shellescape(JS_ARG).then(url => tri.excmds.exclaim_quiet('mpv --no-terminal ' + url))
+bind ;v hint -W mpvsafe
 
-" Allow Ctrl-a to select all in the commandline
-unbind --mode=ex <C-a>
+# bind D composite tabclose | tab # -> close current tab and switch to most recent previous tab
+bind ;v hint -W exclaim_quiet mpv
+bind ,a hint -W exclaim_quiet dmpv2
+bind ,A hint -W exclaim_quiet dmpv aplay
+bind ,Z zoom 200
+bind ,z zoom 100
+bind ,s hint -W exclaim_quiet streamlink best --player mpv
+bind ,c hint -W exclaim_quiet clipf
+bind ,dg hint -W exclaim_quiet gallery-dl
+bind ,dt hint -W exclaim_quiet transadd
+bind ,mm hint -W exclaim_quiet dmpv music
+bind ,ms hint -W exclaim_quiet dmpv save_music
+bind ,ve hint -W exclaim_quiet dmpv enqueue
+bind ,vp hint -W exclaim_quiet dmpv eplay
 
-" Allow Ctrl-c to copy in the commandline
-unbind --mode=ex <C-c>
-
-js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "st lvim" : "auto"; tri.config.set("editorcmd", editorcmd)})
-
-alias playAllVideos js tri.native.run("mpv --really-quiet --ontop --keepaspect-window --profile=protocol.http " + Array.from(document.querySelectorAll("a, iframe, video")).reduce((s, e) => {let r=(/^https?:\/\/((www.)?youtu((\.be\/)|(be\.com\/((embed\/)|(watch\?v=))))[^ ]+)|(.+\.webm)$/);let l="";if(e.tagName=="IFRAME")l=e.src.match(r);else if(e.tagName=="A")l=e.href.match(r)||e.innerText.match(r);else if(e.tagName=="VIDEO")l=[e.currentSrc?e.currentSrc:e.src];console.log(l);return s+(l && l.length > 0 && s.indexOf(l[0])<0?"'"+l[0]+"' ":"")},""))
-bind <A-v> playAllVideos
-
-alias rsssave jsb -p tri.native.run('cat >> ~/.config/newsboat/urls', JS_ARG + "\n")
-set rsscmd rsssave %u
-
-" vim: filetype=tridactyl
+bind / fillcmdline find
+bind n findnext
+bind N findnext -1
+bind <Escape> composite mode normal ; hidecmdline ; nohlsearch

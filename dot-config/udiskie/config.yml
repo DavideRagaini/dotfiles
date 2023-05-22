@@ -57,16 +57,20 @@ device_config:
 #   ignore:  true             # [action] ignore all FAT devices
 # - id_type: ntfs             # [filter] (optional)
 #   skip: true                # [action] skip all further (even builtin) rules
-- id_uuid: 2542-5EA1    # [filter]
-  ignore:      true         # [action] never ignore this device
-- id_uuid: d98c2c93-6eb7-4aac-9769-d44a677dd88b    # [filter]
-  ignore:      true         # [action] never ignore this device
-- id_uuid: 05275cfd-e994-4712-b56c-31fb11299045    # [filter]
-  ignore:      true         # [action] never ignore this device
-- id_uuid: c90288ef-87e9-452f-98fc-597d282d95db    # [filter]
-  ignore:      true         # [action] never ignore this device
-- device_file: /dev/loop*   # [filter]
-  ignore:      true         # [action] never ignore this device
+- id_uuid: 2542-5EA1
+  ignore:      true
+- id_uuid: d98c2c93-6eb7-4aac-9769-d44a677dd88b
+  ignore:      true
+- id_uuid: 05275cfd-e994-4712-b56c-31fb11299045
+  ignore:      true
+- id_uuid: c90288ef-87e9-452f-98fc-597d282d95db
+  ignore:      true
+- device_id: usb-Generic_MassStorageClass_000000002402-0:0
+  ignore:      true
+- is_systeminternal:
+  ignore:      true
+- device_file: /dev/loop*
+  ignore:      true
                             # for all matched devices, and resolve action result
                             # on parent device
 

@@ -47,8 +47,8 @@ esac
 {
     sleep 60
     emacsclient -c -e '(doom/quickload-session)' &
-    sleep 25
-    qutebrowser &
+    sleep 30
+    librewolf &
 } &
 
 {

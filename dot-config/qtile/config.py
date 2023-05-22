@@ -22,8 +22,8 @@ from libqtile.lazy import lazy
 # ======================= Variables ============= {{{
 mod = "mod4"
 mod1 = "mod1"
-browser = "qutebrowser"
-browser_alt = "librewolf"
+browser = "librewolf"
+browser_alt = "qutebrowser"
 browser_priv = "librewolf --private-window"
 terminal = "alacritty"
 text_editor = "em"
@@ -80,9 +80,11 @@ groups = [
         # label="2",
         layout="monadtall",
         exclusive=True,
-        matches=[Match(wm_class="qutebrowser"),
-                 Match(wm_class="librewolf"),
-                 Match(wm_class="LibreWolf")],
+        matches=Match(wm_class= [
+                       "qutebrowser",
+                       "librewolf",
+                       "LibreWolf"
+                    ])
     ),
     Group(
         name="3",
@@ -90,20 +92,23 @@ groups = [
         # label="3",
         layout="max",
         exclusive=True,
-        matches=[Match(wm_class="Zathura"),
-                 Match(wm_class="ebook-viewer")]
+        matches=Match(wm_class= [
+                        "Zathura",
+                        "ebook-viewer",
+                    ])
     ),
     Group(
         name="4",
         position=4,
         # label="4",
         layout="max",
-        matches=[Match(wm_class="VirtualBox Machine"),
-                 Match(wm_class="MATLAB R2021b - academic use"),
-                 Match(wm_class="MATLAB R2023a - academic use"),
-                 Match(wm_class="MATLABWindow"),
-                 Match(wm_class="Matlab-GLEE"),
-                 Match(wm_class="Nsxiv")]
+        matches=Match(wm_class= [
+                        "VirtualBox Machine",
+                        "MATLAB R2021b - academic use",
+                        "MATLAB R2023a - academic use",
+                        "MATLABWindow",
+                        "Matlab-GLEE",
+                        "Nsxiv"])
     ),
     Group(
         name="5",
@@ -332,13 +337,13 @@ groups.append(
             ),
             DropDown(
                 "mpvfloat",
-                "mpv --x11-name=mpvFloat --geometry=15%-5-5 --player-operation-mode=pseudo-gui",
+                "mpv --x11-name=mpvFloat --player-operation-mode=pseudo-gui",
+                match=Match(wm_instance_class=["mpvFloat"]),
                 x=0.848,
                 y=0.845,
                 width=0.15,
                 height=0.15,
                 opacity=1,
-                match=Match(wm_instance_class="mpvFloat"),
                 on_focus_lost_hide = False
             ),
         ],
@@ -460,6 +465,7 @@ keys = [
     # Key([], "XF86HomePage", lazy.spawn("")),
 
     Key([mod], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
+    Key([mod, "shift"], "p", lazy.spawn("dmpv2"), desc="Dmpv2 Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
     Key([mod], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
     # Key([mod, "shift"], "m", lazy.spawn("mp down"), desc="Kill Spotify Music"),
@@ -490,22 +496,25 @@ keys = [
     Key([mod], "right", lazy.spawn("tppctl seek 10")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -set +10%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -set -10%")),
+
+    Key([mod], "F8", lazy.spawn("dmenumount")),
+    Key([mod, "shift"], "F8", lazy.spawn("dmenuumount")),
 ]
 # }}}
 # ======================= Groups ============= {{{
 layouts = [
-    layout.Columns(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.Max(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Columns(  border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Max(      border_focus=colors[7], border_normal=colors[8], border_width=0, margin=0 ),
     layout.MonadTall(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.Bsp(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Bsp(      border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.RatioTile(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.TreeTab(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.Tile(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.Stack(num_stacks=2, border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20,),
-    layout.Bsp(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.Matrix(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.TreeTab(  border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Tile(     border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Stack(    border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20,num_stacks=2),
+    layout.Bsp(      border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Matrix(   border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.MonadWide(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.TreeTab(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.TreeTab(  border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
@@ -642,7 +651,7 @@ screens = [
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = 'floating_only'
-cursor_warp = True
+cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = False
