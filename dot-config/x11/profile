@@ -125,7 +125,10 @@ fi
 
 # Start graphical server on user's current tty if not already running.
 # [[ -n "$(tty)" && -z $(pgrep -u $USER "\bXorg$") ]] && exec startx
-# [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+[ "$(tty)" = "/dev/tty1" ] &&
+    ! pidof -s Xorg >/dev/null 2>&1 &&
+    awk '{ exit ($1 > 250) }' /proc/uptime &&
+    exec startx "$XINITRC"
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.config/shell/ttymaps.kmap 2>/dev/null

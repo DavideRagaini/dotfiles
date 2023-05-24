@@ -127,7 +127,11 @@ groups = [
         position=7,
         # label="7",
         layout="max",
-        matches=[Match(wm_class='calibre-gui')]
+        matches=Match(wm_class= [
+                        'calibre-gui',
+                        'teams-for-linux',
+                        'microsoft teams - preview',
+                        'discord' ]),
     ),
     Group(
         name="8",
@@ -494,9 +498,12 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
     Key([mod], "left", lazy.spawn("tppctl seek -10")),
     Key([mod], "right", lazy.spawn("tppctl seek 10")),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -set +10%")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -set -10%")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5")),
+    Key([mod], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 15")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
+    Key([mod], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 15")),
 
+    Key([mod], "F3", lazy.spawn("wifi-toggle")),
     Key([mod], "F8", lazy.spawn("dmenumount")),
     Key([mod, "shift"], "F8", lazy.spawn("dmenuumount")),
 ]
@@ -521,8 +528,8 @@ layouts = [
 # }}}
 # ======================= Bar & Widgets ============= {{{
 widget_defaults = dict(
-    font='Anonymice Nerd Font Bold',
-    fontsize=12,
+    font='3270 Nerd Font Mono Bold',
+    fontsize=16,
     padding=4,
     background=colors[0]
 )
@@ -564,6 +571,11 @@ screens = [
                 widget.WindowName(
                     foreground=colors[8],
                 ),
+                # widget.WindowTabs(
+                #     selected=('<b>« ',' »</b>'),
+                #     separator='    ',
+                #     foreground=colors[8],
+                # ),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
@@ -579,45 +591,79 @@ screens = [
                     foreground=foregroundColorTwo,
                 ),
                 widget.Prompt(
-                    foreground=colors[2],
-                    background=foregroundColorTwo
-                ),
-                widget.Pomodoro(
-                    update_interval=1,
-                    foreground=colors[3],
-                    background=foregroundColorTwo,
-                    color_active=colors[3],
-                    color_inactive=colors[0]
-                ),
-                widget.Load(
-                    update_interval=10,
-                    format="({time}):{load:.2f}",
-                    foreground=colors[4],
+                    bell_style='visual',
+                    cursorblink=0.5,
+                    fontsize=18,
+                    prompt='&:',
+                    foreground=colors[9],
                     background=foregroundColorTwo
                 ),
                 widget.CPU(
-                    update_interval=10,
-                    format="{load_percent}% {freq_current}",
-                    # fontsize=10,
+                    format="{load_percent:-2.1f}% {freq_current}GHz",
+                    update_interval=3,
                     foreground=colors[5],
                     background=foregroundColorTwo
                 ),
+                widget.Load(
+                    update_interval=3,
+                    format="{time}:{load:.2f}",
+                    foreground=colors[4],
+                    background=foregroundColorTwo
+                ),
                 widget.ThermalSensor(
-                    update_interval=10,
+                    update_interval=30,
+                    format=' {temp:.0f}{unit}',
+                    tag_sensor='Package id 0',
                     foreground=colors[6],
                     background=foregroundColorTwo
                 ),
                 widget.Memory(
-                    update_interval=10,
-                    format='{MemUsed: .0f}{ms}/{SwapUsed: .0f}{ms}',
+                    update_interval=15,
+                    format=' {MemUsed:.0f}{mm}/{SwapUsed:.0f}{mm}',
                     foreground=colors[7],
                     background=foregroundColorTwo
                 ),
                 widget.Volume(
+                    fmt='🔈{}',
+                    update_interval=1,
                     foreground=colors[4],
                     background=foregroundColorTwo,
                     # fmt=" {}"
                     ),
+                # widget.Backlight(
+                #     update_interval = 15,
+                #     foreground=colors[8],
+                #     background=foregroundColorTwo,
+                #     ),
+                widget.Battery(
+                    update_interval=15,
+                    format='{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W',
+                    low_precentage=0.35,
+                    charge_char='',
+                    discharge_char='',
+                    empty_char='',
+                    foreground=colors[6],
+                    background=foregroundColorTwo,
+                     ),
+                # widget.Net(
+                #     fmt='☁{}',
+                #     # update_interval=2,
+                #     foreground=colors[7],
+                #     background=foregroundColorTwo,
+                # ),
+                # widget.HDDBusyGraph(
+                #     frequency=5,
+                #     start_pos='top',
+                #     graph_color=colors[8],
+                #     background=foregroundColorTwo,
+                # ),
+                # widget.Wlan(
+                #     disconnected_message='❌',
+                #     format='{essid} {percent:2.0%}',
+                #     update_interval=10,
+                #     foreground=colors[4],
+                #     background=foregroundColorTwo,
+                # ),
                 widget.Systray(
                     background=foregroundColorTwo,
                     foreground=backgroundColor
@@ -630,17 +676,24 @@ screens = [
                     foreground=backgroundColor
                 ),
                 widget.Clock(
-                    format=" %V %a %d/%B/%y",
+                    format="🗓 %V %a %d/%B/%y",
                     update_interval=86400,
                     foreground=colors[10],
                     background=backgroundColor
                 ),
                 widget.Clock(
-                    format=" %T",
+                    format="🕓 %T",
                     update_interval=1,
                     foreground=colors[5],
                     background=backgroundColor
                 ),
+                # widget.Pomodoro(
+                #     # update_interval=1,
+                #     foreground=colors[3],
+                #     background=backgroundColor,
+                #     color_active=colors[4],
+                #     color_inactive=colors[0]
+                # ),
             ],
             20,
         ),
