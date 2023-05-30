@@ -3,7 +3,6 @@ Description=xautolock daemon
 
 [Service]
 Type=simple
-ExecStartPre=/bin/sleep 30
 ExecStart=/usr/bin/xautolock -time 5 -notify 30 -notifier "notify-send -u critical -t 30000 'System will be locked' '30 seconds left'" -locker 'systemctl suspend'
 Restart=always
 RestartSec=5s

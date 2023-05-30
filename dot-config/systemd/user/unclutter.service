@@ -3,7 +3,6 @@ Description=unclutter daemon
 
 [Service]
 Type=simple
-ExecStartPre=/bin/sleep 30
 ExecStart=/usr/bin/unclutter --jitter 10 --exclude-root --ignore-scrolling
 Restart=always
 RestartSec=5s

@@ -43,7 +43,9 @@ case $(hostname) in
         libinput-gestures-setup start &
         mem-warn &
         ;;
-    tinkerboard) mem-warn &
+    tinkerboard)
+        mem-warn &
+        autostart 15 10 &
         ;;
     NT) mem-warn &
         ;;

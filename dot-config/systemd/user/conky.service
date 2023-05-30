@@ -3,7 +3,6 @@ Description=Conky Service
 
 [Service]
 Type=simple
-ExecStartPre=/bin/sleep 10
 ExecStart=/usr/bin/conky -c "/home/davide/.config/conky/tinkerboard-conky.conf"
 Restart=always
 RestartSec=5s
