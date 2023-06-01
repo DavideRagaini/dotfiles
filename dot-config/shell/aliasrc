@@ -48,6 +48,14 @@ alias \
 # trem="transmission-remote" \
 # sudo="doas" \
 
+lynxs() {
+    lynx -cfg="$HOME/.config/lynx/lynx.cfg" "https://searx.be/search?q=$1"
+}
+
+lynxa() {
+    lynx -cfg="$HOME/.config/lynx/lynx.cfg" "$*"
+}
+
 # fuzzy find
 # alias \
 #     vfc="find \$HOME/.config/ -maxdepth 1 | fzf | xargs -r -I % \$EDITOR %" \

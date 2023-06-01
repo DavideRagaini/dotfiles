@@ -43,6 +43,7 @@ export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export LESSHISTFILE="-"
 # export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/mbsync/config"
 # export MESA_LOADER_DRIVER_OVERRIDE="i965"
+export MOZ_DBUS_REMOTE="1" # Mozilla smooth scrolling/touchpads.
 export MOZ_USE_XINPUT2="1" # Mozilla smooth scrolling/touchpads.
 export MYPY_CACHE_DIR="$XDG_CACHE_HOME/mypy"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"

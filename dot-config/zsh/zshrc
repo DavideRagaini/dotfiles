@@ -53,6 +53,7 @@ bindkey "^n" down-line-or-beginning-search # Down
 bindkey "^p" up-line-or-beginning-search # Up
 bindkey '^[[P' delete-char
 bindkey '^[[3~' delete-char
+bindkey "^h" autosuggest-accept
 bindkey '^H' delete-char
 bindkey '^s' doas-command-line
 bindkey -M vicmd '^[[P' vi-delete-char

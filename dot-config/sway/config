@@ -9,7 +9,7 @@ set $term footclient
 gaps inner 10
 gaps outer 10
 smart_gaps on
-default_border pixel 3
+default_border pixel 2
 smart_borders on
 # hide_edge_borders both
 
@@ -29,13 +29,12 @@ exec_always sh "~/.config/wayland/wprofile"
 input * {
 	xkb_layout "us"
 	xkb_variant "altgr-intl"
-	xkb_options "caps:ctrl_modifier,ctrl:escape,alt:escape,altwin:swap_alt_win"
-	# xkb_options "ctrl:nocaps,alt:esc,altwin:swap_alt_win"
+	xkb_options "ctrl:swapcaps,altwin:swap_alt_win,altwin:escape,altwin:menu_win"
+}
+input type:keyboard {
 	repeat_delay 300
 	repeat_rate 50
 }
-# input type:keyboard {
-# }
 
 include /etc/sway/config-vars.d/*
 
@@ -51,9 +50,9 @@ output * bg /home/davide/.local/share/bg fill
 #
 exec swayidle -w \
          timeout 180 'swaylock -f -c 000000 -i ~/.local/share/bg' \
-         timeout 185 'swaymsg "output * dpms off"' after-resume 'swaymsg "output * dpms on"' \
-         timeout 300 'sysact Suspend' resume 'swaymsg "output * dpms on"' \
+         timeout 200 'sysact Suspend' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000 -i ~/.local/share/bg' \
+         after-sleep 'swaymsg "output * dpms on"' \
          lock 'swaylock -f -c 000000 -i ~/.local/share/bg'
 bindsym --release XF86Sleep exec swaylock && systemctl suspend
 
@@ -68,7 +67,10 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
 
 ### Programs
 #
-    bindsym $mod+w exec qutebrowser
+    bindsym $mod+w exec librewolf
+    # bindsym $mod+Shift+w exec librewolf --private-window
+    bindsym $mod+Shift+w exec footclient -T lynx-browser -e lynx -cfg="$HOME/.config/lynx/lynx.cfg"
+    bindsym $mod+e exec $term -e emacsclient -nw
     bindsym $mod+Shift+e exec emacsclient -c
     bindsym $mod+p exec dmpv
     bindsym $mod+Shift+Backspace exec sysact
@@ -80,6 +82,8 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym $mod+bracketleft workspace prev
     bindsym $mod+bracketright workspace next
 
+    bindsym $mod+Insert exec clipmenu
+
     bindsym $mod+comma exec dmpc toggle
     bindsym $mod+period exec tppctl toggle
     bindsym $mod+Shift+period exec tppctl invert
@@ -90,6 +94,11 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym XF86AudioPrev exec dmpc prev
     bindsym $mod+XF86AudioPrev exec tppctl seek -10
 
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym $mod+XF86AudioMute exec output-audio
+
     bindsym XF86Sleep exec cpugov -D
     bindsym XF86Favorites exec cpugov -D
     bindsym Shift+XF86Favorites exec cpugov -C
@@ -98,10 +107,12 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
 #
 # Basics:
 #
+    floating_modifier $mod normal
     bindsym $mod+Shift+Return exec $term tmux
     bindsym $mod+q kill
     bindsym $mod+d exec tofi-run
-    floating_modifier $mod normal
+    bindsym $mod+Shift+d exec via -r
+    bindsym $mod+Ctrl+d exec via -a
     bindsym $mod+Ctrl+r reload
     # bindsym $mod+Ctrl+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
     bindsym $mod+Ctrl+q exec swaymsg exit
@@ -116,6 +127,7 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
 
     bindsym $mod+Up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym $mod+Shift+Up exec output-audio
+    bindsym $mod+Ctrl+Up exec $term -e pulsemixer
     bindsym $mod+Down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym $mod+Shift+Down exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym $mod+Left exec tppctl seek -10
@@ -178,18 +190,19 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     }
     bindsym $mod+Return exec swaymsg [title="dropdown"] scratchpad show || $term -T dropdown -e tmux new-session -A -s dropdown
 
-    for_window [title="emacs"] {
-    move scratchpad
-    resize set 1500 900
-    scratchpad show
-    }
-    bindsym $mod+m exec swaymsg [title="music"] scratchpad show || $term -T music -e mp
+    # for_window [title="emacs"] {
+    # move scratchpad
+    # resize set 1500 900
+    # scratchpad show
+    # }
+    # bindsym $mod+e exec swaymsg [title="float-emacs"] scratchpad show || $term -T float-emacs -e emacsclient -nw
+
     for_window [title="music"] {
     move scratchpad
     resize set 1700 1000
     scratchpad show
     }
-    bindsym $mod+e exec swaymsg [title="float-emacs"] scratchpad show || $term -T float-emacs -e emacsclient -nw
+    bindsym $mod+m exec swaymsg [title="music"] scratchpad show || $term -T music -e mp
 
     for_window [title="news"] {
     move scratchpad
@@ -220,9 +233,11 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     resize set 720 480
     }
 
-assign [class="emacs"] workspace 1
-assign [class="qutebrowser"] workspace 2
-assign [class="mpv"] workspace 9
+    assign [class="emacs"] workspace 1
+    assign [class="qutebrowser"] workspace 2
+    assign [title="lynx-browser"] workspace 2
+    assign [app_id="org.pwmt.zathura"] workspace 3
+    assign [app_id="mpv"] workspace 9
 
     bindsym $mod+Shift+minus move scratchpad
     bindsym $mod+minus scratchpad show
@@ -261,8 +276,12 @@ bar {
 
 # include /etc/sway/config.d/*
 
+for_window [shell=".*"] title_format "%title :: %shell"
+
 # exec_always systemctl --user start sway-session.target
 exec export QT_QPA_PLATFORM="wayland"
+exec export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+exec xrdb -load "$HOME/.config/x11/Xresources"
 exec systemctl --user import-environment DISPLAY XAUTHORITY
 exec mem-warn
 exec foot --server
