@@ -126,8 +126,8 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym $mod+$right focus right
 
     bindsym $mod+Up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym $mod+Shift+Up exec output-audio
-    bindsym $mod+Ctrl+Up exec $term -e pulsemixer
+    bindsym $mod+Shift+Up exec $term -e pulsemixer
+    bindsym $mod+Ctrl+Up exec output-audio
     bindsym $mod+Down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym $mod+Shift+Down exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym $mod+Left exec tppctl seek -10

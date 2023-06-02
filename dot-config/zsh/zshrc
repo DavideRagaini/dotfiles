@@ -53,7 +53,6 @@ bindkey "^n" down-line-or-beginning-search # Down
 bindkey "^p" up-line-or-beginning-search # Up
 bindkey '^[[P' delete-char
 bindkey '^[[3~' delete-char
-bindkey "^h" autosuggest-accept
 bindkey '^H' delete-char
 bindkey '^s' doas-command-line
 bindkey -M vicmd '^[[P' vi-delete-char
@@ -69,6 +68,9 @@ bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 bindkey -s '^b' 'vf^M'
 bindkey -s '^z' 'zi^M'
 bindkey -v '^?' backward-delete-char
+
+bindkey "^y" autosuggest-accept
+bindkey "^h" autosuggest-execute
 
 # FZF
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
