@@ -40,6 +40,7 @@ startpage = "file://" + environ["HOME"] + "/.local/src/startpage/index.html"
 c.url.default_page = startpage
 c.url.start_pages = [startpage]
 c.window.title_format = ("{private}{perc}[{scroll_pos}]:{current_title} {title_sep} {current_url}")
+c.window.hide_decoration = True
 # }}}
 # ======================= Search Engines ============= {{{
 c.url.searchengines = {
@@ -48,6 +49,9 @@ c.url.searchengines = {
     "d": "https://duckduckgo.com/?q={}",
     "g": "https://www.google.com/search?q={}",
     "i": "https://searx.be/search?q={}&language=it-IT",
+    "l": "https://libgen.is/search.php?req={}&open=0&res=100&view=detailed&phrase=1&column=title",
+    "no": "https://search.nixos.org/options?channel=23.05&from=0&size=50&sort=relevance&type=packages&query={}",
+    "np": "https://search.nixos.org/packages?channel=23.05&show=dracula-theme&from=0&size=50&sort=relevance&type=packages&query={}",
     "s": "https://startpage.com/sp/search?query={}",
     "u": "https://www.urbandictionary.com/define.php?term={}",
     "w": "https://en.wikipedia.org/?search={}",
@@ -94,7 +98,7 @@ c.content.geolocation = False
 c.content.headers.accept_language = "en-US,en;q=0.5"
 c.content.headers.custom = { "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" }
 c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
-c.content.javascript.can_access_clipboard = False
+c.content.javascript.clipboard = "none"
 c.content.pdfjs = False
 c.content.webgl = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
