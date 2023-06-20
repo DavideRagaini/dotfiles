@@ -9,3 +9,4 @@ https://docs.voidlinux.org/config/external-applications.html External Applicatio
 https://github.com/qtile/qtile GitHub - qtile/qtile: A full-featured, hackable tiling window manager written and configured in Python (X11 + Wayland)
 https://nix-community.github.io/home-manager/options.html Appendix A. Configuration Options
 https://qutebrowser.org/doc/help/settings.html | qutebrowser
+https://nixos.wiki/wiki/Power_Management Power Management - NixOS Wiki

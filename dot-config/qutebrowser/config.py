@@ -52,6 +52,7 @@ c.url.searchengines = {
     "l": "https://libgen.is/search.php?req={}&open=0&res=100&view=detailed&phrase=1&column=title",
     "no": "https://search.nixos.org/options?channel=23.05&from=0&size=50&sort=relevance&type=packages&query={}",
     "np": "https://search.nixos.org/packages?channel=23.05&show=dracula-theme&from=0&size=50&sort=relevance&type=packages&query={}",
+    "nw": "https://nixos.wiki/index.php?search={}&title=Special%3ASearch&profile=default&fulltext=1",
     "s": "https://startpage.com/sp/search?query={}",
     "u": "https://www.urbandictionary.com/define.php?term={}",
     "w": "https://en.wikipedia.org/?search={}",

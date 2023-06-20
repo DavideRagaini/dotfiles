@@ -79,7 +79,7 @@
         // INSTANCES //
         invidious = 'yewtu.be',
         searx = 'search.mdosch.de',
-        libreddit = 'reddit.invak.id',
+        libreddit = 'r.nf',
         nitter = 'nitter.snopyta.org',
         bibliogram = 'bibliogram.pussthecat.org',
         wikiless = 'wikiless.org',
