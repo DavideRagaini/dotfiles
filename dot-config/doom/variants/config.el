@@ -59,7 +59,7 @@
       doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-unicode-font (font-spec :family "DejaVu Serif" :size dr/font-size)
-      doom-theme 'modus-vivendi
+      doom-theme 'catppuccin
       ;; whitespace-line-column 500
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark newline-mark )
       line-spacing 2

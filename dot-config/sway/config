@@ -26,14 +26,27 @@ font pango: Fantasque Sans Mono 12
 
 exec_always sh "~/.config/wayland/wprofile"
 
+### Input configuration
+#
 input * {
 	xkb_layout "us"
 	xkb_variant "altgr-intl"
 	xkb_options "ctrl:swapcaps,altwin:swap_alt_win,altwin:escape,altwin:menu_win"
 }
+
 input type:keyboard {
 	repeat_delay 300
 	repeat_rate 50
+}
+
+input "1267:12351:ELAN0511:01_04F3:303F_Touchpad" {
+    tap enable
+    natural_scroll disable
+    natural_scroll enabled
+    dwt enable
+    middle_emulation enabled
+    # accel_profile "flat"
+    # pointer_accel 0.5
 }
 
 include /etc/sway/config-vars.d/*
@@ -50,26 +63,17 @@ output * bg /home/davide/.local/share/bg fill
 #
 exec swayidle -w \
          timeout 180 'swaylock -f -c 000000 -i ~/.local/share/bg' \
-         timeout 200 'sysact Suspend' resume 'swaymsg "output * dpms on"' \
+         timeout 200 'sysact Suspend' resume 'swaymsg "output - dpms on"' \
          before-sleep 'swaylock -f -c 000000 -i ~/.local/share/bg' \
-         after-sleep 'swaymsg "output * dpms on"' \
+         after-sleep 'swaymsg "output - dpms on"' \
          lock 'swaylock -f -c 000000 -i ~/.local/share/bg'
 bindsym --release XF86Sleep exec swaylock && systemctl suspend
-
-### Input configuration
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
 
 ### Programs
 #
     bindsym $mod+w exec librewolf
-    # bindsym $mod+Shift+w exec librewolf --private-window
-    bindsym $mod+Shift+w exec footclient -T lynx-browser -e lynx -cfg="$HOME/.config/lynx/lynx.cfg"
+    bindsym $mod+Shift+w exec librewolf --private-window
+    # bindsym $mod+Shift+w exec footclient -T lynx-browser -e lynx -cfg="$HOME/.config/lynx/lynx.cfg"
     bindsym $mod+e exec $term -e emacsclient -nw
     bindsym $mod+Shift+e exec emacsclient -c
     bindsym $mod+p exec dmpv
@@ -83,6 +87,7 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym $mod+bracketright workspace next
 
     bindsym $mod+Insert exec clipmenu
+    bindsym $mod+Shift+Insert exec notify-send "Clipboard" "$(wl-paste)"
 
     bindsym $mod+comma exec dmpc toggle
     bindsym $mod+period exec tppctl toggle
@@ -102,6 +107,13 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym XF86Sleep exec cpugov -D
     bindsym XF86Favorites exec cpugov -D
     bindsym Shift+XF86Favorites exec cpugov -C
+
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+    bindsym $mod+F3 exec wifi-toggle
+    bindsym $mod+F9 exec dmenumount
+    bindsym $mod+Shift+F9 exec dmenuumount
 
 ### Key bindings
 #
@@ -181,6 +193,8 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym $mod+a focus parent
     bindsym $mod+s focus child
 #
+    bindsym $mod+Shift+s sticky enable
+
 # Scratchpad:
 #
     for_window [title="dropdown"] {
@@ -235,6 +249,7 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
 
     assign [class="emacs"] workspace 1
     assign [class="qutebrowser"] workspace 2
+    assign [class="LibreWolf"] workspace 2
     assign [title="lynx-browser"] workspace 2
     assign [app_id="org.pwmt.zathura"] workspace 3
     assign [app_id="mpv"] workspace 9
@@ -280,9 +295,17 @@ for_window [shell=".*"] title_format "%title :: %shell"
 
 # exec_always systemctl --user start sway-session.target
 exec export QT_QPA_PLATFORM="wayland"
+exec export MOZ_ENABLE_WAYLAND=1
 exec export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 exec xrdb -load "$HOME/.config/x11/Xresources"
-exec systemctl --user import-environment DISPLAY XAUTHORITY
-exec mem-warn
-exec foot --server
-exec mako
+
+# TINKERBOARD
+# exec systemctl --user import-environment DISPLAY XAUTHORITY
+# exec mem-warn
+# exec foot --server
+# exec mako
+
+# LAPTOP
+exec bluetooth off
+exec brightnessctl set 20%
+exec runsvdir "$HOME/.local/service-wayland"

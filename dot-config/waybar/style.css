@@ -3,7 +3,7 @@
     border: none;
     border-radius: 4;
     font-family: Fantasque Sans Mono;
-    font-size: 14;
+    font-size: 15;
     min-height: 0;
 }
 
@@ -74,7 +74,10 @@ window#waybar.solo {
 #backlight,
 #network,
 #pulseaudio,
+#wireplumber,
 #custom-weather,
+#bluetooth,
+#bluetooth.diabled,
 #tray,
 #mode,
 #idle_inhibitor,
@@ -102,17 +105,25 @@ window#waybar.solo {
 }
 
 #clock {
-    background-color: #ff5555;
+    background-color: #ff9545;
     color: #282a36;
 }
 
 #battery {
     background-color: #44475a;
-    color: #f8f8f2;
+    color: #282a36;
+    /* color: #f8f8f2; */
+}
+
+#battery.discharging {
+    background-color: #ff5555;
+    color: #282a36;
+    /* color: #f8f8f2; */
 }
 
 #battery.charging, #battery.plugged {
-    color: #ffffff;
+    /* color: #ffffff; */
+    color: #282a36;
     background-color: #26A65B;
 }
 
@@ -143,12 +154,27 @@ label:focus {
 }
 
 #memory {
-    background-color: #f1fa8c;
+    background-color: #31aa8c;
     color: #282a36;
+}
+
+#bluethooth {
+    background-color: #342375;
+    color: #44475a;
+}
+
+#bluethooth.disabled {
+    background-color: #342375;
+    color: #44475a;
+}
+#bluethooth.off {
+    background-color: #342375;
+    color: #44475a;
 }
 
 #backlight {
     background-color: #90b1b1;
+    color: #282a36;
 }
 
 #network {
@@ -158,6 +184,11 @@ label:focus {
 
 #network.disconnected {
     background-color: #50fa7b;
+    color: #282a36;
+}
+
+#wireplumber {
+    background-color: #bd93f9;
     color: #282a36;
 }
 
@@ -190,7 +221,9 @@ label:focus {
 }
 
 #tray {
-    background-color: #bd93f9
+    background-color: #44475a;
+    background-color: #282a36;
+    /* background-color: #bd93f9 */
 }
 
 #tray > .passive {
