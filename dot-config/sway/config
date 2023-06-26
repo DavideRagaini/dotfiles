@@ -66,7 +66,7 @@ exec swayidle -w \
          timeout 200 'sysact Suspend' resume 'swaymsg "output - dpms on"' \
          before-sleep 'swaylock -f -c 000000 -i ~/.local/share/bg' \
          after-sleep 'swaymsg "output - dpms on"' \
-         lock 'swaylock -f -c 000000 -i ~/.local/share/bg'
+         lock 'swaylock -f -c ffffff -i ~/.local/share/bg'
 bindsym --release XF86Sleep exec swaylock && systemctl suspend
 
 ### Programs
@@ -112,6 +112,8 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 
     bindsym $mod+F3 exec wifi-toggle
+    bindsym $mod+F5 exec swaymsg "output - power on"
+    bindsym $mod+Shift+F5 exec swaymsg "output - power off"
     bindsym $mod+F9 exec dmenumount
     bindsym $mod+Shift+F9 exec dmenuumount
 
