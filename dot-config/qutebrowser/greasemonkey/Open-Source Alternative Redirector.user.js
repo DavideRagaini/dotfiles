@@ -52,7 +52,6 @@
 // @include *reddit.com/*
 // @include *twitter.com/*
 // @include *instagram.com/*
-// @include *wikipedia.org/*
 // @include *medium.com/*
 // @include *towardsdatascience.com/*
 // @include *i.imgur.com/*
@@ -76,6 +75,7 @@
 
     let { host, href, search } = location,
 
+// @include *wikipedia.org/*
         // INSTANCES //
         invidious = 'yewtu.be',
         searx = 'search.mdosch.de',
@@ -99,7 +99,7 @@
             [['bing.com'], bingRedirect],
             [['reddit.com'], redditRedirect],
             [['twitter.com'], twitterRedirect],
-            [['wikipedia.org'], wikipediaRedirect],
+            // [['wikipedia.org'], wikipediaRedirect],
             [['medium.com', 'towardsdatascience.com'], mediumRedirect],
             [['i.imgur.com'], imgurRedirect],
             [['odysee.com'], odyseeRedirect],
