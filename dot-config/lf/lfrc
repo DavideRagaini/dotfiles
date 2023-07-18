@@ -9,7 +9,7 @@ set period 1
 # set hidden
 set relativenumber
 set drawbox
-set autoquit on
+set autoquit true
 set previewer ~/.config/lf/previewer.sh
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
@@ -401,8 +401,6 @@ map I push r<c-a> # at the very beginning
 map i push r<a-b><a-b><a-f> # before extension
 map a push r<a-b> # after extension
 map o push :open-with<space>
-map zt & zathura-tabbed "$fx" ZaTab
-map zz & zathura --fork "$fx"
 # map A rename # at the very end
 # map O $mimeopen --ask "$f"
 # map V push :!nvim<space>

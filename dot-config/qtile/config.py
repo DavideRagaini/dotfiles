@@ -127,7 +127,7 @@ groups = [
         position=7,
         # label="7",
         layout="max",
-        matches=Match(wm_class= [
+        matches=Match(wm_class=[
                         'calibre-gui',
                         'teams-for-linux',
                         'microsoft teams - preview',
@@ -138,7 +138,9 @@ groups = [
         position=8,
         # label="8",
         layout="max",
-        matches=[Match(wm_class='Ferdium')]
+        matches=Match(wm_class=[
+            'Transmission-remote-gtk',
+            'Ferdium' ]),
     ),
     Group(
         name="9",
@@ -664,15 +666,22 @@ screens = [
                 #     foreground=colors[4],
                 #     background=foregroundColorTwo,
                 # ),
-                widget.Systray(
+                widget.TextBox(
+                    text="\u25e2",
+                    padding=0,
+                    fontsize=50,
                     background=foregroundColorTwo,
+                    foreground=workspaceColor
+                ),
+                widget.Systray(
+                    background=workspaceColor,
                     foreground=backgroundColor
                 ),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
                     fontsize=50,
-                    background=foregroundColorTwo,
+                    background=workspaceColor,
                     foreground=backgroundColor
                 ),
                 widget.Clock(

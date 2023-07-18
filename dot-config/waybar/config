@@ -9,7 +9,7 @@
     "modules-left": ["sway/workspaces", "idle_inhibitor", "sway/scratchpad", "tray"],
     "modules-center": ["sway/window"],
     "fixed-center": false,
-    "modules-right": [ "cpu", "temperature", "memory", "bluetooth", "backlight","pulseaudio", "battery", "clock"],
+    "modules-right": [ "cpu", "temperature", "memory", "bluetooth", "backlight", "pulseaudio", "network", "battery", "clock"],
     // Modules configuration
      "sway/workspaces": {
          "disable-scroll": true,

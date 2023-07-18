@@ -6,6 +6,8 @@ set $down j
 set $up k
 set $right l
 set $term footclient
+set $drun tofi-run | xargs swaymsg exec --
+# set $drun tofi-drun --drun-launch=true
 gaps inner 10
 gaps outer 10
 smart_gaps on
@@ -124,7 +126,7 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     floating_modifier $mod normal
     bindsym $mod+Shift+Return exec $term tmux
     bindsym $mod+q kill
-    bindsym $mod+d exec tofi-run
+    bindsym $mod+d exec $drun
     bindsym $mod+Shift+d exec via -r
     bindsym $mod+Ctrl+d exec via -a
     bindsym $mod+Ctrl+r reload
@@ -195,7 +197,7 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     bindsym $mod+a focus parent
     bindsym $mod+s focus child
 #
-    bindsym $mod+Shift+s sticky enable
+    bindsym $mod+Shift+s sticky toggle
 
 # Scratchpad:
 #
@@ -254,6 +256,7 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     assign [class="LibreWolf"] workspace 2
     assign [title="lynx-browser"] workspace 2
     assign [app_id="org.pwmt.zathura"] workspace 3
+    assign [class="Ferdium"] workspace 8
     assign [app_id="mpv"] workspace 9
 
     bindsym $mod+Shift+minus move scratchpad
