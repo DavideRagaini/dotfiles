@@ -1,6 +1,11 @@
 #show-read-feeds no
 auto-reload yes
-reload-threads 5
+max-items 50
+reload-threads 10
+prepopulate-query-feeds yes
+confirm-mark-feed-read no
+wrap-scroll yes
+
 # external-url-viewer "urlscan -dc -r 'linkhandler {}'"
 
 bind-key j down
@@ -41,6 +46,7 @@ macro s set browser "setsid -f streamlink"; open-in-browser ; set browser linkha
 macro w set browser "lynx"; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
 macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
+macro r set browser " nix-shell -p \"python311.withPackages (ps: with ps; [ requests readability-lxml ])\" --run 'python3 -m readability.readability -u \"%u\" | lynx -stdin'" ; open-in-browser ; set browser linkhandler
 
 highlight all "---.*---" yellow default bold
 highlight feedlist ".*0/0.." default default invis
@@ -54,3 +60,9 @@ highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
 highlight article ":.*\\(link\\)$" cyan default
 highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
+
+# Podcasts
+download-path "~/Storage/Podcasts/New/%h/%n"
+max-downloads 5
+player "setsid -f mpv --no-terminal"
+# player "mpv --vid=no --"

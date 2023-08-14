@@ -336,6 +336,11 @@ cmd on-cd &{{
 }}
 on-cd
 
+cmd follow_link %{{
+  lf -remote "send ${id} select '$(readlink $f)'"
+}}
+map gL follow_link
+
 cmd git_branch ${{
     git branch | fzf | xargs git checkout
     pwd_shell=$(pwd)
@@ -359,6 +364,7 @@ cmd open-fork &setsid -f "$@" $fx
 # cmd paste $cp-p --lf-paste $id
 
 # Bindings
+map . :read; cmd-history-prev; cmd-enter
 map <a-n> newfold
 map <a-da> cut-add
 map <a-dr> cut-remove
@@ -375,8 +381,10 @@ map B &emacsclient -a 'emacs' .
 map C copyto
 map D delete
 map E extract
-map I push A<c-a> # at the very beginning
-map J fzf_jump
+# map I push A<c-a> # at the very beginning
+map U fzf_jump
+map J :updir; set dironly true; down; set dironly false; open
+map K :updir; set dironly true; up; set dironly false; open
 map M moveto
 map N chmod
 map O push :open-fork<space>
@@ -385,7 +393,8 @@ map Pb backup_paste
 map Pp :link
 map R push A<a-b> # after extention
 map S &samedir
-map T !bat "$f"
+map Tt !bat "$f"
+map Ti !mediainfo "$f" | bat
 map W & $TERMINAL
 map Yb yank-basename
 map Ybe yank-basename-without-extension
@@ -394,18 +403,16 @@ map Yp yank-path
 map Ys $printf "%s" "$fx" | xclip -selection clipboard
 map e &em "$fx"
 map gg top
-map gs :fzf_search
+map gf :fzf_search
 map gL follow_link
-map c push r<c-u> # new rename
-map I push r<c-a> # at the very beginning
-map i push r<a-b><a-b><a-f> # before extension
-map a push r<a-b> # after extension
 map o push :open-with<space>
-# map A rename # at the very end
+# unmap the default rename keybinding
+map r
+map i rename
+map I :rename; cmd-home
+map A :rename; cmd-end
+map c :rename; cmd-delete-home
+map C :rename; cmd-end; cmd-delete-home
 # map O $mimeopen --ask "$f"
 # map V push :!nvim<space>
-# map X !$f
-# map c push A<c-u> # new rename
-# map i push A<a-b><a-b><a-f> # before extention
-# map o &mimeopen $f
-# map x $$f
+map X !$f

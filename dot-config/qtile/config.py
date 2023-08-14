@@ -26,7 +26,7 @@ browser = "librewolf"
 browser_alt = "qutebrowser"
 browser_priv = "librewolf --private-window"
 terminal = "alacritty"
-text_editor = "em"
+text_editor = "emacsclient -c"
 file_manager = terminal + " -e tmux new-session -A -s 'files'"
 launcher = "run"
 process_viewer = terminal + " -e htop"
@@ -90,10 +90,11 @@ groups = [
         name="3",
         position=3,
         # label="3",
-        layout="max",
+        layout="treetab",
         exclusive=True,
         matches=Match(wm_class= [
                         "Zathura",
+                        "Evince",
                         "ebook-viewer",
                     ])
     ),
@@ -101,11 +102,12 @@ groups = [
         name="4",
         position=4,
         # label="4",
-        layout="max",
+        layout="treetab",
         matches=Match(wm_class= [
                         "VirtualBox Machine",
                         "MATLAB R2021b - academic use",
                         "MATLAB R2023a - academic use",
+                        "MATLAB R2023a",
                         "MATLABWindow",
                         "Matlab-GLEE",
                         "Nsxiv"])
@@ -237,12 +239,12 @@ floating_layout = layout.Floating(
         *layout.Floating.default_float_rules,
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(wm_class="fzfmenu"),
-        Match(wm_instance_class="mpvFloat"),
-        Match(title="Eagenda"),
+        # Match(wm_instance_class="mpvFloat"),
+        # Match(title="Eagenda"),
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-        # Match(func=lambda c: c.has_fixed_size()),
-        # Match(func=lambda c: c.has_fixed_ratio()),
+        Match(func=lambda c: c.has_fixed_size()),
+        Match(func=lambda c: c.has_fixed_ratio()),
     ],
 )
 # }}}
@@ -261,16 +263,16 @@ groups.append(
                 opacity=0.90,
                 on_focus_lost_hide = False
             ),
-            DropDown(
-                "agenda",
-                "Eagenda",
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide = False
-            ),
+            # DropDown(
+            #     "agenda",
+            #     "Eagenda",
+            #     width=0.8,
+            #     height=0.8,
+            #     x=0.1,
+            #     y=0.1,
+            #     opacity=0.9,
+            #     on_focus_lost_hide = False
+            # ),
             DropDown(
                 "file manager",
                 file_manager,
@@ -302,8 +304,28 @@ groups.append(
                 on_focus_lost_hide = True
             ),
             DropDown(
+                "podcasts",
+                terminal + " -e podboat",
+                width=0.8,
+                height=0.8,
+                x=0.1,
+                y=0.1,
+                opacity=0.9,
+                on_focus_lost_hide = True
+            ),
+            DropDown(
                 "music",
-                terminal + " -e mp",
+                terminal + " -e ncmpcpp",
+                width=0.8,
+                height=0.8,
+                x=0.1,
+                y=0.1,
+                opacity=0.9,
+                on_focus_lost_hide = True
+            ),
+            DropDown(
+                "spotify",
+                terminal + " -e spt",
                 width=0.8,
                 height=0.8,
                 x=0.1,
@@ -339,17 +361,6 @@ groups.append(
                 width=0.9,
                 height=0.6,
                 opacity=0.9,
-                on_focus_lost_hide = False
-            ),
-            DropDown(
-                "mpvfloat",
-                "mpv --x11-name=mpvFloat --player-operation-mode=pseudo-gui",
-                match=Match(wm_instance_class=["mpvFloat"]),
-                x=0.848,
-                y=0.845,
-                width=0.15,
-                height=0.15,
-                opacity=1,
                 on_focus_lost_hide = False
             ),
         ],
@@ -443,8 +454,10 @@ keys = [
     Key([mod, "shift"], "F12",
         lazy.spawn('maim ~/Storage/F$(date \'+%y%m%d-%H%M-%S\').png'),
         desc="Maim Fullscreen Screenshot"),
-    Key([], "XF86Favorites", lazy.spawn("remaps"), desc="Remaps script"),
+    # Key([], "XF86Favorites", lazy.spawn("remaps"), desc="Remaps script"),
     Key([], "XF86Mail", lazy.spawn("ferdium"), desc="Emails & Chatting"),
+    # Key([], "XF86Search", lazy.spawn("ferdium"), desc="Emails & Chatting"),
+    Key([], "XF86HomePage", lazy.screen.toggle_group(), desc="Switch to group 1"),
     # Media
     Key([], "XF86AudioPlay", lazy.spawn("dmpc toggle")),
     Key([mod], "XF86AudioPlay", lazy.spawn("tppctl toggle")),
@@ -470,8 +483,8 @@ keys = [
     # Key([], "XF86Search", lazy.spawn("")),
     # Key([], "XF86HomePage", lazy.spawn("")),
 
-    Key([mod], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
-    Key([mod, "shift"], "p", lazy.spawn("dmpv2"), desc="Dmpv2 Prompt"),
+    Key([mod], "p", lazy.spawn("dmpv2"), desc="Dmpv2"),
+    Key([mod, "shift"], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
     Key([mod], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
     # Key([mod, "shift"], "m", lazy.spawn("mp down"), desc="Kill Spotify Music"),
@@ -481,11 +494,13 @@ keys = [
     Key([], "XF86Launch7", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([mod], "Return", lazy.group["scratchpad"].dropdown_toggle("Dropdown")),
     Key([mod], "Escape", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
-    Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("agenda")),
+    # Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("agenda")),
     Key([mod], "r", lazy.group["scratchpad"].dropdown_toggle("file manager")),
-    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("mpvfloat")),
+    # Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("mpvfloat")),
     Key([mod], "n", lazy.group["scratchpad"].dropdown_toggle("news")),
+    Key([mod, "Shift"], "n", lazy.group["scratchpad"].dropdown_toggle("podcasts")),
     Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
+    Key([mod, "Shift"], "m", lazy.group["scratchpad"].dropdown_toggle("spotify")),
     Key([mod], "apostrophe", lazy.group["scratchpad"].dropdown_toggle("calculator")),
     Key([mod], "y", lazy.group["scratchpad"].dropdown_toggle("qtile_shell")),
     # Hardware/system control
@@ -517,21 +532,39 @@ layouts = [
     layout.MonadTall(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.Bsp(      border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.RatioTile(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.TreeTab(  border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    # layout.TreeTab(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.TreeTab(
+            # font='Liberation Sans',
+            # name="looking good",
+            bg_color=backgroundColor,
+            inactive_bg="151515",
+            fontsize=12,
+            panel_width=300,
+            # margin_left=10,
+            # margin_y=10,
+            sections=['Tree View'],
+            section_left=0,
+            previous_on_rm=True,
+            # padding_x=4,
+            active_bg=colors[3],
+            rounded=True,
+            border_focus=colors[7],
+            border_normal=colors[8],
+            border_width=2,
+            margin=20
+    ),
     layout.Tile(     border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.Stack(    border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20,num_stacks=2),
-    layout.Bsp(      border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.Matrix(   border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.MonadWide(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.TreeTab(  border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     # layout.VerticalTile(),
-    # layout.Zoomy(),
+    # layout.Zoomy(columnwidth=500),
 ]
 # }}}
 # ======================= Bar & Widgets ============= {{{
 widget_defaults = dict(
     font='3270 Nerd Font Mono Bold',
-    fontsize=16,
+    fontsize=14,
     padding=4,
     background=colors[0]
 )
@@ -600,6 +633,12 @@ screens = [
                     foreground=colors[9],
                     background=foregroundColorTwo
                 ),
+                widget.Mpd2(
+                    idle_format="{play_status}",
+                    foreground=colors[9],
+                    background=foregroundColorTwo,
+                    # update_interval=10
+                ),
                 widget.CPU(
                     format="{load_percent:-2.1f}% {freq_current}GHz",
                     update_interval=3,
@@ -637,16 +676,16 @@ screens = [
                 #     foreground=colors[8],
                 #     background=foregroundColorTwo,
                 #     ),
-                widget.Battery(
-                    update_interval=15,
-                    format='{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W',
-                    low_precentage=0.35,
-                    charge_char='',
-                    discharge_char='',
-                    empty_char='',
-                    foreground=colors[6],
-                    background=foregroundColorTwo,
-                     ),
+                # widget.Battery(
+                #     update_interval=15,
+                #     format='{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W',
+                #     low_precentage=0.35,
+                #     charge_char='',
+                #     discharge_char='',
+                #     empty_char='',
+                #     foreground=colors[6],
+                #     background=foregroundColorTwo,
+                #      ),
                 # widget.Net(
                 #     fmt='☁{}',
                 #     # update_interval=2,
@@ -696,13 +735,13 @@ screens = [
                     foreground=colors[5],
                     background=backgroundColor
                 ),
-                # widget.Pomodoro(
-                #     # update_interval=1,
-                #     foreground=colors[3],
-                #     background=backgroundColor,
-                #     color_active=colors[4],
-                #     color_inactive=colors[0]
-                # ),
+                widget.Pomodoro(
+                    # update_interval=1,
+                    foreground=colors[3],
+                    background=backgroundColor,
+                    color_active=colors[4],
+                    color_inactive=foregroundColorTwo
+                ),
             ],
             20,
         ),

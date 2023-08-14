@@ -34,7 +34,7 @@
     geometry = "0x0-35+80"
 
     # Offset from the origin
-    offset = 15x49
+    offset = 15x50
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
