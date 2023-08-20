@@ -1,12 +1,21 @@
 #show-read-feeds no
 auto-reload yes
-max-items 50
+max-items 10
 reload-threads 10
 prepopulate-query-feeds yes
 confirm-mark-feed-read no
 wrap-scroll yes
-
 # external-url-viewer "urlscan -dc -r 'linkhandler {}'"
+save-path "~/Documents/Articles"
+
+feedlist-format     "%4i) %n %8u  |  %-30t %S %L"
+articlelist-format  "%4i) %f %-1F [ %D ]   %25a | %4L | %t"
+notify-format       "%d new articles (%n unread articles, %f unread feeds)"
+podlist-format      "%4i) [%-5p %%] %K %-12S %F"
+
+max-downloads 5
+download-path "~/Storage/Podcasts/New/%n/%F_%t"
+player "setsid -f mpv --no-terminal"
 
 bind-key j down
 bind-key k up
@@ -27,26 +36,33 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
-color listnormal cyan default
-color listfocus black yellow standout bold
-color listnormal_unread blue default
-color listfocus_unread yellow default bold
-color info red black bold
-color article white default bold
+# color background            white    black
+# color title                 red      blue      bold
+color listnormal            cyan     default
+color listfocus             black    yellow    standout   bold
+color listnormal_unread     blue     default
+color listfocus_unread      yellow   default   bold
+color info                  red      black     bold
+color article               white    default   bold
+# color hint-key              yellow   blue      bold
+# color hint-keys-delimiter   yellow   white
+# color hint-separator        yellow   white     bold
+# color hint-description      yellow   white
 
 browser linkhandler
 macro , open-in-browser
-macro t set browser "qndl"; open-in-browser ; set browser linkhandler
-macro d set browser "ts yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser linkhandler
+macro d set browser "ts yt-dlp --embed-metadata -xic -f bestaudio/best \"$HOME/Storage/Podcasts/New/youtube\" --restrict-filenames" ; open-in-browser ; set browser linkhandler
+macro D set browser "ts yt-dlp --embed-metadata -P \"$HOME/Videos/Download\"" ; open-in-browser ; set browser linkhandler
 macro a set browser "setsid -f dmpv2"; open-in-browser ; set browser linkhandler
 macro A set browser "setsid -f dmpv aplay"; open-in-browser ; set browser linkhandler
 macro e set browser "setsid -f dmpv enqueue"; open-in-browser ; set browser linkhandler
 macro p set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkhandler
-macro s set browser "setsid -f streamlink"; open-in-browser ; set browser linkhandler
+macro s set browser "setsid -f streamlink --quiet %u 480p"; open-in-browser ; set browser linkhandler
+macro S set browser "setsid -f streamlink --quiet %u best"; open-in-browser ; set browser linkhandler
 macro w set browser "lynx"; open-in-browser ; set browser linkhandler
+macro r set browser "nix-shell -p \"python311.withPackages (ps: with ps; [ requests readability-lxml ])\" --run 'python3 -m readability.readability -u \"%u\" | lynx -stdin'" ; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
 macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
-macro r set browser " nix-shell -p \"python311.withPackages (ps: with ps; [ requests readability-lxml ])\" --run 'python3 -m readability.readability -u \"%u\" | lynx -stdin'" ; open-in-browser ; set browser linkhandler
 
 highlight all "---.*---" yellow default bold
 highlight feedlist ".*0/0.." default default invis
@@ -60,9 +76,3 @@ highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
 highlight article ":.*\\(link\\)$" cyan default
 highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
-
-# Podcasts
-download-path "~/Storage/Podcasts/New/%h/%n"
-max-downloads 5
-player "setsid -f mpv --no-terminal"
-# player "mpv --vid=no --"

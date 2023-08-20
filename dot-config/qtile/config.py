@@ -221,6 +221,28 @@ def float_to_front(qtile):
                 window.cmd_bring_to_front()
 
 
+previous_focused = []
+@hook.subscribe.client_focus
+def client_focused(window):
+    global previous_focused
+    if len(previous_focused) < 2:
+        previous_focused.append(window)
+    elif previous_focused[1] != window:
+        previous_focused[0] = previous_focused[1]
+        previous_focused[1] = window
+    # logger.info(f"FOCUSED {window}, {previous_focused}")
+
+
+@lazy.function
+def focus_previous_window(qtile):
+    global previous_focused
+    if len(previous_focused) == 2:
+        group = previous_focused[0].group
+        qtile.current_screen.set_group(group)
+        # logger.info(f"FOCUS PREVIOUS {previous_focused[0]}")
+        group.focus(previous_focused[0])
+
+
 # @hook.subscribe.client_new
 # def disable_floating(window):
 #     rules = [
@@ -363,6 +385,16 @@ groups.append(
                 opacity=0.9,
                 on_focus_lost_hide = False
             ),
+            DropDown(
+                "mails",
+                "ferdium",
+                width=0.9,
+                height=0.9,
+                x=0.04,
+                y=0.04,
+                opacity=0.9,
+                on_focus_lost_hide = False
+            ),
         ],
     )
 )
@@ -406,6 +438,7 @@ keys = [
     Key([mod, "shift"], "space", lazy.window.toggle_floating(), desc="Toggle Current Window Floating"),
     Key([mod], "u", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod], "Tab", lazy.screen.toggle_group(), desc="Reset all window sizes"),
+    # Key([mod], "Tab", focus_previous_window()),
     Key([mod, "shift"], "Tab",
         lazy.run_extension(WindowList(
             # item_format="{id}: {group} {window}",
@@ -455,7 +488,6 @@ keys = [
         lazy.spawn('maim ~/Storage/F$(date \'+%y%m%d-%H%M-%S\').png'),
         desc="Maim Fullscreen Screenshot"),
     # Key([], "XF86Favorites", lazy.spawn("remaps"), desc="Remaps script"),
-    Key([], "XF86Mail", lazy.spawn("ferdium"), desc="Emails & Chatting"),
     # Key([], "XF86Search", lazy.spawn("ferdium"), desc="Emails & Chatting"),
     Key([], "XF86HomePage", lazy.screen.toggle_group(), desc="Switch to group 1"),
     # Media
@@ -471,12 +503,12 @@ keys = [
     Key([], "XF86Launch5", lazy.spawn("tppctl invert")),
     Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calculator")),
     Key([], "XF86Explorer", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
-    Key([], "XF86Back", lazy.spawn("tppctl seek -10")),
-    Key([mod], "XF86Back", lazy.spawn("dmpc prev")),
-    Key([mod, "shift"], "XF86Back", lazy.spawn("dmpc seekp")),
-    Key([], "XF86Forward", lazy.spawn("tppctl seek 10")),
-    Key([mod], "XF86Forward", lazy.spawn("dmpc next")),
-    Key([mod, "shift"], "XF86Forward", lazy.spawn("dmpc seekf")),
+    Key([mod, "shift"], "XF86Back", lazy.spawn("tppctl seek -10")),
+    Key([mod, "control"], "XF86Back", lazy.spawn("dmpc prev")),
+    # Key([mod, "shift"], "XF86Back", lazy.spawn("dmpc seekp")),
+    Key([mod, "shift"], "XF86Forward", lazy.spawn("tppctl seek 10")),
+    Key([mod, "control"], "XF86Forward", lazy.spawn("dmpc next")),
+    # Key([mod, "shift"], "XF86Forward", lazy.spawn("dmpc seekf")),
     Key([], "cancel", lazy.spawn("tppctl invert")),
     Key([mod], "cancel", lazy.spawn("tppctl pauseall")),
     Key([mod, "shift"], "cancel", lazy.spawn("dmpc toggle")),
@@ -490,6 +522,7 @@ keys = [
     # Key([mod, "shift"], "m", lazy.spawn("mp down"), desc="Kill Spotify Music"),
     Key([mod, "shift"], "period", lazy.spawn("tppctl invert"), desc="Inverte Playing MPVs"),
     Key([mod, "control"], "period", lazy.spawn("tppctl pauseall"), desc="Pause All MPVs"),
+    Key([mod], "semicolon", focus_previous_window(), desc="Switch to last group"),
     # Scratchpads
     Key([], "XF86Launch7", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([mod], "Return", lazy.group["scratchpad"].dropdown_toggle("Dropdown")),
@@ -503,6 +536,7 @@ keys = [
     Key([mod, "Shift"], "m", lazy.group["scratchpad"].dropdown_toggle("spotify")),
     Key([mod], "apostrophe", lazy.group["scratchpad"].dropdown_toggle("calculator")),
     Key([mod], "y", lazy.group["scratchpad"].dropdown_toggle("qtile_shell")),
+    Key([], "XF86Mail", lazy.group["scratchpad"].dropdown_toggle("mails")),
     # Hardware/system control
     Key([mod], "up", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
     Key([mod, "shift"], "up", lazy.spawn("output-audio")),
@@ -564,7 +598,7 @@ layouts = [
 # ======================= Bar & Widgets ============= {{{
 widget_defaults = dict(
     font='3270 Nerd Font Mono Bold',
-    fontsize=14,
+    fontsize=13,
     padding=4,
     background=colors[0]
 )
@@ -603,14 +637,15 @@ screens = [
                 widget.WindowCount(
                     foreground=colors[7]
                 ),
-                widget.WindowName(
-                    foreground=colors[8],
-                ),
-                # widget.WindowTabs(
-                #     selected=('<b>« ',' »</b>'),
-                #     separator='    ',
+                # widget.WindowName(
                 #     foreground=colors[8],
                 # ),
+                widget.WindowTabs(
+                    selected=('<u>« ',' »</u>'),
+                    separator='      ',
+                    foreground=colors[8],
+                    # background=colors[2],
+                ),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
@@ -635,6 +670,7 @@ screens = [
                 ),
                 widget.Mpd2(
                     idle_format="{play_status}",
+                    color_progress="#9497aa",
                     foreground=colors[9],
                     background=foregroundColorTwo,
                     # update_interval=10
@@ -667,7 +703,7 @@ screens = [
                 widget.Volume(
                     fmt='🔈{}',
                     update_interval=1,
-                    foreground=colors[4],
+                    foreground=colors[8],
                     background=foregroundColorTwo,
                     # fmt=" {}"
                     ),
@@ -689,7 +725,7 @@ screens = [
                 # widget.Net(
                 #     fmt='☁{}',
                 #     # update_interval=2,
-                #     foreground=colors[7],
+                #     foreground=colors[9],
                 #     background=foregroundColorTwo,
                 # ),
                 # widget.HDDBusyGraph(
@@ -732,7 +768,7 @@ screens = [
                 widget.Clock(
                     format="🕓 %T",
                     update_interval=1,
-                    foreground=colors[5],
+                    foreground=colors[2],
                     background=backgroundColor
                 ),
                 widget.Pomodoro(

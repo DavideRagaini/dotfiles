@@ -37,6 +37,16 @@ alias \
     q="exit" \
     s="doas" \
     smi="doas make install" \
+    spd="librespot \
+            --c ~/.cache/librespot \
+            --backend alsa \
+            --cache-size-limit 1G \
+            --name \"$(hostname)\" \
+            --device-type computer \
+            --initial-volume 100 \
+            --enable-volume-normalisation \
+            --normalisation-pregain -5 \
+            --bitrate 320" \
     v="nvim" \
     trr="transmission-remote" \
     udc="udisksctl" \
