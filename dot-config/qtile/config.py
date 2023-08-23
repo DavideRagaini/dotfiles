@@ -68,20 +68,18 @@ groups = [
     Group(
         name="1",
         position=1,
-        # label="1",
         layout="monadtall",
         exclusive=True,
-        matches=[Match(wm_instance_class="emacs"),
-                 Match(wm_class="Alacritty")],
+        matches=[
+            Match(wm_instance_class="emacs"),
+        ],
     ),
     Group(
         name="2",
         position=2,
-        # label="2",
-        layout="monadtall",
+        layout="max",
         exclusive=True,
         matches=Match(wm_class= [
-                       "qutebrowser",
                        "librewolf",
                        "LibreWolf"
                     ])
@@ -89,20 +87,26 @@ groups = [
     Group(
         name="3",
         position=3,
-        # label="3",
-        layout="treetab",
+        layout="max",
         exclusive=True,
         matches=Match(wm_class= [
                         "Zathura",
                         "Evince",
                         "ebook-viewer",
+                        "Nsxiv",
                     ])
     ),
     Group(
         name="4",
-        position=4,
-        # label="4",
         layout="treetab",
+        position=4,
+        # matches=Match(wm_class= [
+        #                 ])
+    ),
+    Group(
+        name="5",
+        position=5,
+        layout="max",
         matches=Match(wm_class= [
                         "VirtualBox Machine",
                         "MATLAB R2021b - academic use",
@@ -110,47 +114,45 @@ groups = [
                         "MATLAB R2023a",
                         "MATLABWindow",
                         "Matlab-GLEE",
-                        "Nsxiv"])
-    ),
-    Group(
-        name="5",
-        position=5,
-        # label="5",
-        layout="bsp",
+                        ])
     ),
     Group(
         name="6",
         position=6,
-        # label="6",
-        layout="bsp",
+        layout="bps",
+        # matches=Match(wm_class=[
+        #                 ]),
     ),
     Group(
         name="7",
         position=7,
-        # label="7",
+        layout="monadtall",
+        matches=Match(wm_class=[
+                       "qutebrowser",
+                        "Alacritty",
+                        ]),
+    ),
+    Group(
+        name="8",
+        position=8,
         layout="max",
         matches=Match(wm_class=[
                         'calibre-gui',
                         'teams-for-linux',
                         'microsoft teams - preview',
-                        'discord' ]),
-    ),
-    Group(
-        name="8",
-        position=8,
-        # label="8",
-        layout="max",
-        matches=Match(wm_class=[
-            'Transmission-remote-gtk',
-            'Ferdium' ]),
+                        ]),
     ),
     Group(
         name="9",
         position=9,
-        # label="9",
         layout="max",
         # exclusive=True,
         matches=[Match(wm_class="mpv")],
+    ),
+    Group(
+        name="0",
+        position=10,
+        layout="max",
     ),
 ]
 # dgroups_key_binder = None

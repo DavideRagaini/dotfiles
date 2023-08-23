@@ -1,23 +1,18 @@
 #!/bin/sh
 
-# xinitrc runs automatically when you run startx.
-
-# There are some small but important commands that need to be run when we start
-# the graphical environment. I keep those commands in ~/config/xprofile because
-# that file is run automatically if someone uses a display manager (login
-# screen) and so they are needed there. To prevent doubling up commands, I
-# source them here with the line below.
-
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
 	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
 else
 	. "$HOME/.xprofile"
 fi
 
-# test for an existing bus daemon, just to be safe
-if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
-  # if not found, launch a new one
-  # dwmblocks &
-  # eval "$(dbus-run-session --sh-syntax --exit-with-session)" ssh-agent dwm
-  eval "$(dbus-run-session --sh-syntax --exit-with-session)" ssh-agent qtile start
+if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+	eval "$(dbus-launch --exit-with-session --sh-syntax)"
 fi
+systemctl --user import-environment DISPLAY XAUTHORITY
+
+if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+        dbus-update-activation-environment DISPLAY XAUTHORITY
+fi
+# ssh-agent &
+exec qtile start
