@@ -1,179 +1,47 @@
 {
-    // "output": "HDMI-1", // Waybar output
-    "layer": "top", // Waybar at top layer
-    "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 2560, // Waybar width
-    "spacing": 2, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "idle_inhibitor", "sway/scratchpad", "tray"],
-    "modules-center": ["sway/window"],
-    "fixed-center": false,
-    "modules-right": [ "cpu", "temperature", "memory", "bluetooth", "backlight", "pulseaudio", "network", "battery", "clock"],
-    // Modules configuration
-     "sway/workspaces": {
-         "disable-scroll": true,
-         "all-outputs": true,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-        }
-    },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
-    "wireplumber": {
-        "format": "{volume}% {icon}",
-        "format-muted": "",
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "format-icons": ["", "", ""]
-    },
-    "upower": {
-        "icon-size": 20,
-        "hide-if-empty": true,
-        "tooltip": true,
-        "tooltip-spacing": 20
-    },
-    "sway/language": {
-            "format": "{short}",
-            "tooltip-format": "{long}"
-    },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
+	"layer": "top",
+	"position": "bottom",
+
+	"modules-left": [
+		"sway/mode",
+		"sway/workspaces",
+		"sway/scratchpad",
+		"sway/window"
+	],
+
+	"modules-right": [
+		"cpu",
+		"temperature",
+		"memory",
+		"network",
+		"bluetooth",
+		"pulseaudio",
+		"backlight",
+		"battery",
+		"tray",
+		"clock#date",
+		"clock#time"
+	],
+
+	// Modules 🔰
+
     "sway/scratchpad": {
-        "format": "{icon} {count}",
+        "format": " 🔳 {count}",
         "show-empty": false,
-        "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
-    "mpd": {
-    	// "server": "192.168.1.159",
-    	// "port": "6694",
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    },
-    "clock": {
-        "timezone": "Europe/Rome",
-        "format-alt": "{:%A, %B %d, %Y (%R)}  ",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "interval": 2,
-        "tooltip": true
-    },
-    "memory": {
-        "interval": 10,
-        "format": "{used:0.1f}G/{total:0.1f}G "
-    },
-    "temperature": {
-        "thermal-zone": 3,
-        // "hwmon-path": "/sys/class/hwmon/hwmon1/temp7_input",
-        "critical-threshold": 90,
-        "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""],
-        "interval": 30
-    },
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", ""]
-    },
-    "battery": {
-        "interval": 60,
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""],
-        "max-length": 25
-        "states": {
-            "good": 75,
-            "warning": 35,
-            "critical": 25
-        },
-        // "adapter": "/sys/class/power_supply/hid-dc:2c:26:26:48:e8-battery",
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "disk": {
-        "interval": 30,
-        "format": "{path} {free}",
-        "path": "/",
-        "tooltip": true,
-        "warning": 80,
-        "critical": 90
-    },
-    "network": {
-        # "interface": "enp1s0", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "format-ethernet": "DIGI 1000 ",
-        "format-linked": "DIGI (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
+
     "bluetooth": {
         "format": " {status}",
         "format-connected": " {device_alias}",
         "format-connected-battery": " {device_alias} {device_battery_percentage}%",
-        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
         "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
     },
+
     "pulseaudio": {
         "scroll-step": 5, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
@@ -191,5 +59,149 @@
             "car": "",
             // "default": ["", "", ""]
         },
-    }
+    },
+
+    "backlight": {
+        "device": "acpi_video",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", ""]
+    },
+
+	"battery": {
+		"interval": 60,
+		"states": {
+			"warning": 40,
+			"critical": 30,
+		},
+		"format-time": "{H}:{M:02}",
+		"format": "{icon}  {capacity}% ({time})",
+		"format-charging": "🔌 {capacity}% ({time})",
+		"format-charging-full": "♻ {capacity}%",
+		"format-full": "{icon} {cap️acity}%",
+		"format-alt": "{icon} {power}W",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		],
+		"tooltip": false
+	},
+
+	"clock#time": {
+		"interval": 1,
+		"format": "️{:%H:%M}",
+		"tooltip": false
+	},
+
+	"clock#date": {
+		"interval": 3600,
+		"format": "🗓 {:%e %b %Y}",
+		"tooltip": false
+		//"tooltip-format": "{:%e %B %Y}"
+	},
+
+    "wireplumber": {
+        "format": "{volume}% {icon}",
+        "format-muted": "",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "format-icons": ["", "", ""]
+    },
+
+	"cpu": {
+		"interval": 5,
+		"tooltip": false,
+		"format": " {usage}%",
+		"format-alt": " {load}",
+		"states": {
+			"warning": 50,
+			"critical": 75
+		}
+	},
+
+    "disk": {
+        "interval": 30,
+        "format": "{path} {free}",
+        "path": "/",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
+    },
+
+	"memory": {
+		"interval": 15,
+		"format": "💠 {used:0.1f}G/{total:0.1f}G",
+		"states": {
+			"warning": 50,
+			"critical": 70
+		},
+		"tooltip": false
+	},
+
+	"network": {
+		"interval": 5,
+		"format-wifi": "📡 {essid} ({signalStrength}%)",
+		"format-ethernet": "💻 {ifname}",
+		"format-disconnected": "No connection",
+		"format-alt": "💻 {ipaddr}/{cidr}",
+		"tooltip": false
+	},
+
+	"sway/mode": {
+		"format": "{}",
+		"tooltip": false
+	},
+
+	"sway/window": {
+		"format": "{}",
+		"max-length": 30,
+		"tooltip": false
+	},
+
+	"sway/workspaces": {
+		"disable-scroll-wraparound": true,
+		"smooth-scrolling-threshold": 4,
+		"enable-bar-scroll": true,
+		"format": "{name}"
+	},
+
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-bluetooth": "{icon} {volume}%",
+		"format-muted": "🔇",
+		"format-icons": {
+			"headphone": "🎧",
+			"hands-free": "",
+			"headset": "🎧",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["🔉", "🔊"]
+		},
+		"scroll-step": 1,
+		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"tooltip": false
+	},
+
+	"temperature": {
+		"critical-threshold": 70,
+		"interval": 5,
+		"format": "{icon} {temperatureC}°",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		],
+		"tooltip": false
+	},
+
+"tray": {
+		"icon-size": 18
+		//"spacing": 10
+	},
 }
+
+// vi:ft=jsonc

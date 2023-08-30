@@ -1,303 +1,210 @@
+/* Keyframes */
+
+@keyframes blink-critical {
+	to {
+		/*color: @white;*/
+		background-color: @critical;
+	}
+}
+
+
+/* Styles */
+@define-color black	#000000;
+@define-color red	#ff5555;
+@define-color green	#50fa7b;
+@define-color yellow	#f1fa8c;
+@define-color blue	#BD93F9;
+@define-color purple	#FF79C6;
+@define-color aqua	#8be9fd;
+@define-color gray	#BFBFBF;
+@define-color brgray	#4D4D4D;
+@define-color brred	#FF6E67;
+@define-color brgreen	#5AF78E;
+@define-color bryellow	#F4F99D;
+@define-color brblue	#CAA9FA;
+@define-color brpurple	#FF92D0;
+@define-color braqua	#9AEDFE;
+@define-color white	#E6E6E6;
+@define-color bg2	#282a36;
+
+@define-color warning 	@bryellow;
+@define-color critical	@red;
+@define-color mode	@black;
+@define-color unfocused	@bg2;
+@define-color focused	@braqua;
+@define-color inactive	@purple;
+@define-color sound	@yellow;
+@define-color network	@red;
+@define-color memory	@blue;
+@define-color cpu	@green;
+@define-color temp	@brgreen;
+@define-color layout	@bryellow;
+@define-color battery	@aqua;
+@define-color backlight	@purple;
+@define-color bluetooth	@purple;
+@define-color date	@bg2;
+@define-color time	@brgray;
+
+/* Reset all styles */
 * {
-    all: unset;
-    border: none;
-    border-radius: 4;
-    font-family: Fantasque Sans Mono;
-    font-size: 15;
-    min-height: 0;
+	border: none;
+	border-radius: 10px;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	text-shadow: none;
+	-gtk-icon-shadow: none;
 }
 
-window#waybar {
-    background: @theme_base_color;
-    background-color: rgba(43, 48, 59, 0.9);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-    color: @theme_text_color;
-    transition-property: background-color;
-    transition-duration: .5s;
-    border-radius: 0;
+/* The whole bar */
+#waybar {
+	background: rgba(40, 40, 40, 0.8784313725); /* #282828e0 */
+	color: @white;
+	font-family: Fantasque Sans Mono;
+	font-size: 9pt;
+	/*font-weight: bold;*/
 }
 
-window#waybar.hidden {
-    opacity: 0.8;
-}
-
-tooltip {
-  background: rgba(43, 48, 59, 0.5);
-  border: 1px solid rgba(100, 114, 125, 0.5);
-}
-
-tooltip label {
-  color: @theme_text_color;
-}
-
-/*
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
-#workspaces button {
-    padding: 0 0.7em;
-    background-color: transparent;
-    color: #f8f8f2;
-    box-shadow: inset 0 -3px transparent;
-}
-
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 -3px #ffffff;
-}
-
-#workspaces button.focused {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #f8f8f2;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-
-#mode {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
-}
-
-#clock,
+/* Each module */
 #battery,
+#clock,
 #cpu,
+#language,
 #memory,
-#disk,
-#temperature,
-#backlight,
+#mode,
 #network,
 #pulseaudio,
-#wireplumber,
-#custom-weather,
-#bluetooth,
-#bluetooth.diabled,
+#temperature,
 #tray,
-#mode,
+#backlight,
 #idle_inhibitor,
-#custom-notification,
-#sway-scratchpad,
-#mpd {
-    padding: 0 10px;
-    margin: 6px 3px;
-    color: #f8f8f2;
+#disk,
+#user,
+#mpris {
+	padding-left: 8pt;
+	padding-right: 8pt;
 }
 
-#window,
-#workspaces {
-    margin: 0 4px;
+/* Each critical module */
+#mode,
+#memory.critical,
+#cpu.critical,
+#temperature.critical,
+#battery.critical.discharging {
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-name: blink-critical;
+	animation-duration: 1s;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
+/* Each warning */
+#network.disconnected,
+#memory.warning,
+#cpu.warning,
+#temperature.warning,
+#battery.warning.discharging {
+	color: @warning;
 }
 
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
+/* And now modules themselves in their respective order */
+
+/* Current sway mode (resize etc) */
+#mode {
+	color: @white;
+	background: @mode;
 }
 
-#clock {
-    background-color: #ff9545;
-    color: #282a36;
+/* Workspaces stuff */
+#workspaces button {
+	/*font-weight: bold;*/
+	padding-left: 2pt;
+	padding-right: 2pt;
+	color: @white;
+	background: @bg2;
 }
 
-#battery {
-    background-color: #44475a;
-    color: #282a36;
-    /* color: #f8f8f2; */
+/* Inactive (on unfocused output) */
+#workspaces button.visible {
+	color: @white;
+	background: @inactive;
 }
 
-#battery.discharging {
-    background-color: #ff5555;
-    color: #282a36;
-    /* color: #f8f8f2; */
+/* Active (on focused output) */
+#workspaces button.focused {
+	color: @black;
+	background: @focused;
 }
 
-#battery.charging, #battery.plugged {
-    /* color: #ffffff; */
-    color: #282a36;
-    background-color: #26A65B;
+/* Contains an urgent window */
+#workspaces button.urgent {
+	color: @black;
+	background: @warning;
 }
 
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
+/* Style when cursor is on the button */
+#workspaces button:hover {
+	background: @black;
+	color: @white;
 }
 
-#battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+#window {
+	margin-right: 35pt;
+	margin-left: 35pt;
 }
 
-label:focus {
-    background-color: #000000;
-}
-
-#cpu {
-    background-color: #f1fa8c;
-    color: #282a36;
-}
-
-#memory {
-    background-color: #31aa8c;
-    color: #282a36;
-}
-
-#bluethooth {
-    background-color: #342375;
-    color: #44475a;
-}
-
-#bluethooth.disabled {
-    background-color: #342375;
-    color: #44475a;
-}
-#bluethooth.off {
-    background-color: #342375;
-    color: #44475a;
-}
 
 #backlight {
-    background-color: #90b1b1;
-    color: #282a36;
-}
-
-#network {
-    background-color: #50fa7b;
-    color: #282a36;
-}
-
-#network.disconnected {
-    background-color: #50fa7b;
-    color: #282a36;
-}
-
-#wireplumber {
-    background-color: #bd93f9;
-    color: #282a36;
+	background: @backlight;
+	color: @black;
 }
 
 #pulseaudio {
-    background-color: #bd93f9;
-    color: #282a36;
+	background: @sound;
+	color: @black;
 }
 
-#pulseaudio.muted {
-    background-color: #44475a;
-    color: #f8f8f2;
+#network {
+	background: @network;
+	color: @black;
 }
 
-#custom-media.custom-spotify {
-    background-color: #66cc99;
+#memory {
+	background: @memory;
+	color: @black;
 }
 
-#custom-media.custom-vlc {
-    background-color: #ffa000;
+#cpu {
+	background: @cpu;
+	color: @black;
 }
 
 #temperature {
-    background-color: #ff79c6;
-    color: #282a36;
-}
-
-#temperature.critical {
-    background-color: #ff5555;
-    color: #282a36;
-}
-
-#tray {
-    background-color: #44475a;
-    background-color: #282a36;
-    /* background-color: #bd93f9 */
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
-}
-
-#idle_inhibitor {
-    background-color: #44475a;
-    color: #f8f8f2;
-}
-
-#idle_inhibitor.activated {
-    background-color: #f8f8f2;
-    color: #44475a;
-}
-
-#mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
-}
-
-#mpd.disconnected {
-    background-color: #f53c3c;
-}
-
-#mpd.stopped {
-    background-color: #90b1b1;
-}
-
-#mpd.paused {
-    background-color: #51a37a;
+	background: @temp;
+	color: @black;
 }
 
 #language {
-    background-color: #f8f8f2;
-    color: #282a36;
-    padding: 0 5px;
-    margin: 6px 3px;
-    min-width: 16px;
+	background: @layout;
+	color: @black;
 }
 
-#keyboard-state {
-    background-color: #97e1ad;
-    color: #000000;
-    padding: 0 0px;
-    margin: 0 5px;
-    min-width: 16px;
+#battery {
+	background: @battery;
+	color: @black;
 }
 
-#keyboard-state > label {
-    padding: 0 5px;
+#tray {
+	background: @date;
 }
 
-#keyboard-state > label.locked {
-    background: rgba(0, 0, 0, 0.2);
+#clock.date {
+	background: @date;
+	color: @white;
 }
 
-#custom-weather {
-    background-color: #8be9fd;
-    color: #282a36;
-    margin-right: 5px;
-}
-
-#disk {
-    background-color: #ffb86c;
-    color: #282a36;
-}
-
-#sway-scratchpad {
-    background-color: #50fa7b;
-    color: #282a36;
+#clock.time {
+	background: @time;
+	color: @white;
 }
