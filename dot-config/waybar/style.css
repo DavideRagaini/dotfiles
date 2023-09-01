@@ -1,69 +1,69 @@
 /* Keyframes */
 
 @keyframes blink-critical {
-	to {
-		/*color: @white;*/
-		background-color: @critical;
-	}
+    to {
+        color: @white;
+        background-color: @critical;
+    }
 }
 
 
 /* Styles */
-@define-color black	#000000;
-@define-color red	#ff5555;
-@define-color green	#50fa7b;
-@define-color yellow	#f1fa8c;
-@define-color blue	#BD93F9;
-@define-color purple	#FF79C6;
-@define-color aqua	#8be9fd;
-@define-color gray	#BFBFBF;
-@define-color brgray	#4D4D4D;
-@define-color brred	#FF6E67;
-@define-color brgreen	#5AF78E;
-@define-color bryellow	#F4F99D;
-@define-color brblue	#CAA9FA;
-@define-color brpurple	#FF92D0;
-@define-color braqua	#9AEDFE;
-@define-color white	#E6E6E6;
-@define-color bg2	#282a36;
+@define-color black     #000000;
+@define-color red       #ff5555;
+@define-color green     #50fa7b;
+@define-color yellow    #f1fa8c;
+@define-color blue      #BD93F9;
+@define-color purple    #FF79C6;
+@define-color aqua      #8be9fd;
+@define-color gray      #BFBFBF;
+@define-color brgray    #4D4D4D;
+@define-color brred     #FF6E67;
+@define-color brgreen   #5AF78E;
+@define-color bryellow  #F4F99D;
+@define-color brblue    #CAA9FA;
+@define-color brpurple  #FF92D0;
+@define-color braqua    #9AEDFE;
+@define-color white     #E6E6E6;
+@define-color bg2       #282a36;
 
-@define-color warning 	@bryellow;
-@define-color critical	@red;
-@define-color mode	@black;
-@define-color unfocused	@bg2;
-@define-color focused	@braqua;
-@define-color inactive	@purple;
-@define-color sound	@yellow;
-@define-color network	@red;
-@define-color memory	@blue;
-@define-color cpu	@green;
-@define-color temp	@brgreen;
-@define-color layout	@bryellow;
-@define-color battery	@aqua;
-@define-color backlight	@purple;
-@define-color bluetooth	@purple;
-@define-color date	@bg2;
-@define-color time	@brgray;
+@define-color warning    @bryellow;
+@define-color critical   @red;
+@define-color mode       @black;
+@define-color unfocused  @bg2;
+@define-color focused    @braqua;
+@define-color inactive   @purple;
+@define-color sound      @yellow;
+@define-color network    @red;
+@define-color memory     @blue;
+@define-color cpu        @green;
+@define-color temp       @brgreen;
+@define-color layout     @bryellow;
+@define-color battery    @aqua;
+@define-color backlight  @purple;
+@define-color bluetooth  @purple;
+@define-color date       @bg2;
+@define-color time       @brgray;
 
 /* Reset all styles */
 * {
-	border: none;
-	border-radius: 10px;
-	min-height: 0;
-	margin: 0;
-	padding: 0;
-	box-shadow: none;
-	text-shadow: none;
-	-gtk-icon-shadow: none;
+    border: none;
+    border-radius: 10px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
 }
 
 /* The whole bar */
 #waybar {
-	background: rgba(40, 40, 40, 0.8784313725); /* #282828e0 */
-	color: @white;
-	font-family: Fantasque Sans Mono;
-	font-size: 9pt;
-	/*font-weight: bold;*/
+    background: rgba(40, 40, 40, 0.8784313725); /* #282828e0 */
+    color: @white;
+    font-family: Fantasque Sans Mono;
+    font-size: 8pt;
+    font-weight: bold;
 }
 
 /* Each module */
@@ -75,6 +75,7 @@
 #mode,
 #network,
 #pulseaudio,
+#wireplumber,
 #temperature,
 #tray,
 #backlight,
@@ -82,8 +83,8 @@
 #disk,
 #user,
 #mpris {
-	padding-left: 8pt;
-	padding-right: 8pt;
+    padding-left: 8pt;
+    padding-right: 8pt;
 }
 
 /* Each critical module */
@@ -92,11 +93,11 @@
 #cpu.critical,
 #temperature.critical,
 #battery.critical.discharging {
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-name: blink-critical;
-	animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: blink-critical;
+    animation-duration: 1s;
 }
 
 /* Each warning */
@@ -105,106 +106,111 @@
 #cpu.warning,
 #temperature.warning,
 #battery.warning.discharging {
-	color: @warning;
+    color: #aa2327;
 }
 
 /* And now modules themselves in their respective order */
 
 /* Current sway mode (resize etc) */
 #mode {
-	color: @white;
-	background: @mode;
+    color: @white;
+    background: @mode;
 }
 
 /* Workspaces stuff */
 #workspaces button {
-	/*font-weight: bold;*/
-	padding-left: 2pt;
-	padding-right: 2pt;
-	color: @white;
-	background: @bg2;
+    /*font-weight: bold;*/
+    padding-left: 2pt;
+    padding-right: 2pt;
+    color: @white;
+    background: @bg2;
 }
 
 /* Inactive (on unfocused output) */
 #workspaces button.visible {
-	color: @white;
-	background: @inactive;
+    color: @white;
+    background: @inactive;
 }
 
 /* Active (on focused output) */
 #workspaces button.focused {
-	color: @black;
-	background: @focused;
+    color: @black;
+    background: @focused;
 }
 
 /* Contains an urgent window */
 #workspaces button.urgent {
-	color: @black;
-	background: @warning;
+    color: @black;
+    background: @warning;
 }
 
 /* Style when cursor is on the button */
 #workspaces button:hover {
-	background: @black;
-	color: @white;
+    background: @black;
+    color: @white;
 }
 
 #window {
-	margin-right: 35pt;
-	margin-left: 35pt;
+    margin-right: 35pt;
+    margin-left: 35pt;
 }
 
 
 #backlight {
-	background: @backlight;
-	color: @black;
+    background: @backlight;
+    color: @black;
+}
+
+#wireplumber {
+    background: @sound;
+    color: @black;
 }
 
 #pulseaudio {
-	background: @sound;
-	color: @black;
+    background: @sound;
+    color: @black;
 }
 
 #network {
-	background: @network;
-	color: @black;
+    background: @network;
+    color: @black;
 }
 
 #memory {
-	background: @memory;
-	color: @black;
+    background: @memory;
+    color: @black;
 }
 
 #cpu {
-	background: @cpu;
-	color: @black;
+    background: @cpu;
+    color: @black;
 }
 
 #temperature {
-	background: @temp;
-	color: @black;
+    background: @temp;
+    color: @black;
 }
 
 #language {
-	background: @layout;
-	color: @black;
+    background: @layout;
+    color: @black;
 }
 
 #battery {
-	background: @battery;
-	color: @black;
+    background: @battery;
+    color: @black;
 }
 
 #tray {
-	background: @date;
+    background: @date;
 }
 
 #clock.date {
-	background: @date;
-	color: @white;
+    background: @date;
+    color: @white;
 }
 
 #clock.time {
-	background: @time;
-	color: @white;
+    background: @time;
+    color: @white;
 }

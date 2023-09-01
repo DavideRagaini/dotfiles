@@ -1,32 +1,32 @@
 {
-	"layer": "top",
-	"position": "bottom",
+    "layer": "top",
+    "position": "bottom",
 
-	"modules-left": [
-		"sway/mode",
-		"sway/workspaces",
-		"sway/scratchpad",
-		"sway/window"
-	],
+    "modules-left": [
+        "sway/mode",
+        "sway/workspaces",
+        "sway/scratchpad",
+        "sway/window"
+    ],
 
-	"modules-right": [
-		"cpu",
-		"temperature",
-		"memory",
-		"network",
-		"bluetooth",
-		"pulseaudio",
-		"backlight",
-		"battery",
-		"tray",
-		"clock#date",
-		"clock#time"
-	],
+    "modules-right": [
+        "cpu",
+        "temperature",
+        "memory",
+        "network",
+        "bluetooth",
+        "wireplumber",
+        "backlight",
+        "battery",
+        "tray",
+        "clock#date",
+        "clock#time"
+    ],
 
-	// Modules 🔰
+    // Modules 🔰
 
     "sway/scratchpad": {
-        "format": " 🔳 {count}",
+        "format": " 💠 {count}",
         "show-empty": false,
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
@@ -67,58 +67,69 @@
         "format-icons": ["", ""]
     },
 
-	"battery": {
-		"interval": 60,
-		"states": {
-			"warning": 40,
-			"critical": 30,
-		},
-		"format-time": "{H}:{M:02}",
-		"format": "{icon}  {capacity}% ({time})",
-		"format-charging": "🔌 {capacity}% ({time})",
-		"format-charging-full": "♻ {capacity}%",
-		"format-full": "{icon} {cap️acity}%",
-		"format-alt": "{icon} {power}W",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		],
-		"tooltip": false
-	},
-
-	"clock#time": {
-		"interval": 1,
-		"format": "️{:%H:%M}",
-		"tooltip": false
-	},
-
-	"clock#date": {
-		"interval": 3600,
-		"format": "🗓 {:%e %b %Y}",
-		"tooltip": false
-		//"tooltip-format": "{:%e %B %Y}"
-	},
-
-    "wireplumber": {
-        "format": "{volume}% {icon}",
-        "format-muted": "",
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "format-icons": ["", "", ""]
+    "battery": {
+        "interval": 60,
+        "states": {
+            "warning": 50,
+            "critical": 40,
+        },
+        "format-time": "{H}:{M:02}",
+        "format": "{icon}  {capacity}% ({time})",
+        "format-charging": "🔌 {capacity}% ({time})",
+        "format-charging-full": "♻ {capacity}%",
+        "format-full": "{icon} {cap️acity}%",
+        "format-alt": "{icon} {power}W",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "tooltip": false
     },
 
-	"cpu": {
-		"interval": 5,
-		"tooltip": false,
-		"format": " {usage}%",
-		"format-alt": " {load}",
-		"states": {
-			"warning": 50,
-			"critical": 75
-		}
-	},
+    "clock#time": {
+        "interval": 1,
+        "format": "️{:%H:%M:%S}",
+        "tooltip": false
+    },
+
+    "clock#date": {
+        "interval": 3600,
+        "format": "📆{:%e %b %Y}",
+        "tooltip": false
+        //"tooltip-format": "{:%e %B %Y}"
+    },
+
+    "wireplumber": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-muted": "🔇",
+        "format-icons": {
+            "headphone": "🎧",
+            "hands-free": "",
+            "headset": "🎧",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["🔉", "🔊"]
+        },
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "tooltip": false
+    },
+
+    "cpu": {
+        "interval": 5,
+        "tooltip": false,
+        "format": " {usage}%",
+        "format-alt": " {load}",
+        "states": {
+            "warning": 50,
+            "critical": 75
+        }
+    },
 
     "disk": {
         "interval": 30,
@@ -129,79 +140,77 @@
         "critical": 90
     },
 
-	"memory": {
-		"interval": 15,
-		"format": "💠 {used:0.1f}G/{total:0.1f}G",
-		"states": {
-			"warning": 50,
-			"critical": 70
-		},
-		"tooltip": false
-	},
+    "memory": {
+        "interval": 15,
+        "format": "💠 {used:0.1f}G/{total:0.1f}G",
+        "states": {
+            "warning": 50,
+            "critical": 70
+        },
+        "tooltip": false
+    },
 
-	"network": {
-		"interval": 5,
-		"format-wifi": "📡 {essid} ({signalStrength}%)",
-		"format-ethernet": "💻 {ifname}",
-		"format-disconnected": "No connection",
-		"format-alt": "💻 {ipaddr}/{cidr}",
-		"tooltip": false
-	},
+    "network": {
+        "interval": 5,
+        "format-wifi": "📡 {essid} ({signalStrength}%)",
+        "format-ethernet": "💻 {ifname}",
+        "format-disconnected": "🚫",
+        "format-alt": "💻 {ipaddr}/{cidr}",
+        "tooltip": false
+    },
 
-	"sway/mode": {
-		"format": "{}",
-		"tooltip": false
-	},
+    "sway/mode": {
+        "format": "{}",
+        "tooltip": false
+    },
 
-	"sway/window": {
-		"format": "{}",
-		"max-length": 30,
-		"tooltip": false
-	},
+    "sway/window": {
+        "format": "{}",
+        "max-length": 80,
+        "tooltip": false
+    },
 
-	"sway/workspaces": {
-		"disable-scroll-wraparound": true,
-		"smooth-scrolling-threshold": 4,
-		"enable-bar-scroll": true,
-		"format": "{name}"
-	},
+    "sway/workspaces": {
+        "disable-scroll-wraparound": true,
+        "smooth-scrolling-threshold": 4,
+        "enable-bar-scroll": true,
+        "format": "{name}"
+    },
 
-	"pulseaudio": {
-		"format": "{icon} {volume}%",
-		"format-bluetooth": "{icon} {volume}%",
-		"format-muted": "🔇",
-		"format-icons": {
-			"headphone": "🎧",
-			"hands-free": "",
-			"headset": "🎧",
-			"phone": "",
-			"portable": "",
-			"car": "",
-			"default": ["🔉", "🔊"]
-		},
-		"scroll-step": 1,
-		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-		"tooltip": false
-	},
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-muted": "🔇",
+        "format-icons": {
+            "headphone": "🎧",
+            "hands-free": "",
+            "headset": "🎧",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["🔉", "🔊"]
+        },
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "tooltip": false
+    },
 
-	"temperature": {
-		"critical-threshold": 70,
-		"interval": 5,
-		"format": "{icon} {temperatureC}°",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		],
-		"tooltip": false
-	},
+    "temperature": {
+        "critical-threshold": 70,
+        "interval": 5,
+        "format": "{icon} {temperatureC}°",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "tooltip": false
+    },
 
 "tray": {
-		"icon-size": 18
-		//"spacing": 10
-	},
+        "icon-size": 18
+        //"spacing": 10
+    },
 }
-
-// vi:ft=jsonc
