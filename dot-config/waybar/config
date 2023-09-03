@@ -33,17 +33,17 @@
     },
 
     "battery": {
-        "interval": 60,
+        "interval": 10,
         "states": {
             "warning": 50,
             "critical": 40,
         },
         "format-time": "{H}:{M:02}",
-        "format": "{icon}  {capacity}% ({time})",
-        "format-charging": "🔌 {capacity}% ({time})",
-        "format-charging-full": "♻ {capacity}%",
+        "format": "{icon}  {capacity}% ({time}) {power:2.1f}W",
+        "format-charging": "🔌 {capacity}% ({time}) {power:2.1f}W",
+        "format-charging-full": "♻ {capacity}% {power:2.1f}W",
         "format-full": "{icon} {cap️acity}%",
-        "format-alt": "{icon} {power}W",
+        "format-alt": "{icon} {power:2.1f}W",
         "format-icons": [
             "",
             "",
@@ -99,10 +99,10 @@
     },
 
     "cpu": {
-        "interval": 5,
+        "interval": 1,
         "tooltip": false,
-        "format": " {usage}%",
-        "format-alt": " {load}",
+        "format": "{icon0}{icon1} {load} {usage:>2}% {avg_frequency:1.1f}",
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
         "states": {
             "warning": 50,
             "critical": 75
@@ -128,7 +128,7 @@
 
     "memory": {
         "interval": 30,
-        "format": "💠 {used:1.2f}/{total:1.2f}",
+        "format": "💠 {percentage}%/{swapPercentage}%",
         "states": {
             "warning": 50,
             "critical": 70
@@ -193,7 +193,6 @@
 
     "temperature": {
         "critical-threshold": 70,
-        "interval": 5,
         "format": "{icon} {temperatureC}°",
         "format-icons": [
             "",
@@ -202,6 +201,8 @@
             "",
             ""
         ],
+        "interval": 5,
+        // "hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input", "/sys/class/thermal/thermal_zone0/temp"],
         "tooltip": false
     },
 
@@ -224,7 +225,7 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["🔉", "🔊"]
+            "default": ["🔈", "🔊"]
         },
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "scroll-step": 5,

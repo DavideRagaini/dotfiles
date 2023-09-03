@@ -71,9 +71,9 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
 ### Programs
 #
     bindsym $mod+w               exec librewolf
-    bindsym $mod+Shift+w         exec footclient -T lynx-browser -e lynx -cfg="$HOME/.config/lynx/lynx.cfg"
+    bindsym $mod+Shift+w         exec $term -T lynx -e lynx -cfg="$HOME/.config/lynx/lynx.cfg"
     # bindsym $mod+Shift+w         exec librewolf --private-window
-    bindsym $mod+e               exec $term -e emacs -nw
+    bindsym $mod+e               exec $term -T emacs -e emacs -nw
     bindsym $mod+Shift+e         exec emacs -c
     bindsym $mod+p               exec dmpv
     bindsym $mod+Shift+Backspace exec sysact
@@ -243,7 +243,7 @@ bindsym --release XF86Sleep exec swaylock && systemctl suspend
     assign [class="emacs"]                workspace 1
     assign [class="qutebrowser"]          workspace 2
     assign [class="LibreWolf"]            workspace 2
-    assign [title="lynx-browser"]         workspace 2
+    assign [title="lynx"]                 workspace 2
     assign [app_id="org.pwmt.zathura"]    workspace 3
     assign [class="Ferdium"]              workspace 8
     assign [app_id="mpv"]                 workspace 9
