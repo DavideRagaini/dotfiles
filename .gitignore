@@ -54,6 +54,8 @@ dot-config/spotify-tui/**
 
 dot-config/sv/**/supervise
 
+dot-config/systemd/**
+
 !dot-config/timewarrior/timewarrior.cfg
 dot-config/timewarrior/data
 

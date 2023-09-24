@@ -1,14 +1,22 @@
 #show-read-feeds no
 auto-reload yes
 max-items 10
+auto-reload yes
+reload-time 60
 reload-threads 10
+max-items 10
+download-retries 4
+download-timeout 10
 prepopulate-query-feeds yes
 confirm-mark-feed-read no
 wrap-scroll yes
-# external-url-viewer "urlscan -dc -r 'linkhandler {}'"
+bookmark-autopilot yes
+# bookmark-cmd "~/.config/newsboat/bookmark.sh"
+ # external-url-viewer "urlscan -dc -r 'linkhandler {}'"
 save-path "~/Documents/Articles"
 
-feedlist-format     "%4i) %n %8u  |  %-30t %S %L"
+# feedlist-format     "%4i) %n %9u  |  %-30t %S %L"
+feedlist-format     "%4i) %n %9u | %10T | %-50t %S | %L"
 articlelist-format  "%4i) %f %-1F [ %D ]   %25a | %4L | %t"
 notify-format       "%d new articles (%n unread articles, %f unread feeds)"
 podlist-format      "%4i) [%-5p %%] %K %-12S %F"

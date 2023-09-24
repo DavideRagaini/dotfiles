@@ -1,0 +1,42 @@
+{
+    "/home/davide/Downloads": {
+        "add_torrent_params": {
+            "category": "",
+            "content_layout": "Original",
+            "download_limit": -1,
+            "download_path": "/home/davide/Downloads/temp",
+            "operating_mode": "AutoManaged",
+            "ratio_limit": -2,
+            "save_path": "/home/davide/Downloads",
+            "seeding_time_limit": -2,
+            "skip_checking": false,
+            "stopped": false,
+            "tags": [
+            ],
+            "upload_limit": -1,
+            "use_auto_tmm": false,
+            "use_download_path": false
+        },
+        "recursive": false
+    },
+    "/home/davide/Storage/Archive/Torrents/New": {
+        "add_torrent_params": {
+            "category": "",
+            "content_layout": "Original",
+            "download_limit": -1,
+            "download_path": "/home/davide/Downloads/temp",
+            "operating_mode": "AutoManaged",
+            "ratio_limit": -2,
+            "save_path": "/home/davide/Storage/Archive/Torrents/New",
+            "seeding_time_limit": -2,
+            "skip_checking": false,
+            "stopped": false,
+            "tags": [
+            ],
+            "upload_limit": -1,
+            "use_auto_tmm": false,
+            "use_download_path": false
+        },
+        "recursive": true
+    }
+}
