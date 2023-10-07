@@ -22,8 +22,8 @@ alias \
     fgrep='fgrep --color=auto' \
     grep="grep --color=auto" \
     ip='ip -color=auto' \
-    l='exa -l' \
-    ll='exa -la'
+    l='exa -l --icons --group-directories-first' \
+    ll='exa -la --icons --group-directories-first'
 
 # Abbreviations
 alias \
@@ -55,8 +55,18 @@ alias \
 	yt="yt-dlp --embed-metadata -i" \
     zt="zathura"
 # samedir="setsid -f $TERMINAL >/dev/null 2>&1" \
-# trem="transmission-remote" \
 # sudo="doas" \
+
+alias librespot="librespot \
+			--c ~/.cache/librespot \
+			--backend alsa \
+			--cache-size-limit 1G \
+			--name \"$(hostname)\" \
+			--device-type computer \
+			--initial-volume 100 \
+			--enable-volume-normalisation \
+			--normalisation-pregain -5 \
+			--bitrate 320"
 
 lynxs() {
     lynx -cfg="$HOME/.config/lynx/lynx.cfg" "https://searx.be/search?q=$1"

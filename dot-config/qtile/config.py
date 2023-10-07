@@ -11,6 +11,8 @@ from libqtile.dgroups import simple_key_binder
 from libqtile.extension import WindowList
 from libqtile.lazy import lazy
 
+from datetime import datetime
+
 # from libqtile.utils import guess_terminal
 # from libqtile.widget import Spacer, Backlight
 # from libqtile.widget.image import Image
@@ -21,7 +23,7 @@ from libqtile.lazy import lazy
 # }}}
 # ======================= Variables ============= {{{
 mod = "mod4"
-mod1 = "mod1"
+alt = "mod1"
 browser = "librewolf"
 browser_alt = "qutebrowser"
 browser_priv = "librewolf --private-window"
@@ -81,7 +83,8 @@ groups = [
         exclusive=True,
         matches=Match(wm_class= [
                        "librewolf",
-                       "LibreWolf"
+                       "LibreWolf",
+                       "Brave-browser"
                     ])
     ),
     Group(
@@ -119,17 +122,23 @@ groups = [
     Group(
         name="6",
         position=6,
-        layout="bps",
-        # matches=Match(wm_class=[
-        #                 ]),
+        layout="bsp",
+        matches=Match(wm_class=[
+                        "qBittorrent"
+                        ],
+                      title=[
+                        "LibreWolf Private Browsing"
+                        ]),
     ),
     Group(
         name="7",
         position=7,
         layout="monadtall",
         matches=Match(wm_class=[
-                       "qutebrowser",
+                        "qutebrowser",
                         "Alacritty",
+                        "KeePassXC",
+                        "qBittorrent",
                         ]),
     ),
     Group(
@@ -140,6 +149,7 @@ groups = [
                         'calibre-gui',
                         'teams-for-linux',
                         'microsoft teams - preview',
+                        'Ferdium',
                         ]),
     ),
     Group(
@@ -155,8 +165,6 @@ groups = [
         layout="max",
     ),
 ]
-# dgroups_key_binder = None
-dgroups_key_binder = simple_key_binder(mod)
 # }}}
 # ======================= Functions ============= {{{
 ## }}}
@@ -179,6 +187,30 @@ def floating_bottom_right_window(qtile, window=None):
         window = qtile.current_screen.group.current_window
         window.toggle_floating()
         window.place(1597,897,320,180,1,'#FF00FF',True,None,True)
+    return window
+
+@lazy.function
+def floating_top_right_window(qtile, window=None):
+    if window is None:
+        window = qtile.current_screen.group.current_window
+        window.toggle_floating()
+        window.place(1597,20,320,180,1,'#FF00FF',True,None,True)
+    return window
+
+@lazy.function
+def floating_bottom_left_window(qtile, window=None):
+    if window is None:
+        window = qtile.current_screen.group.current_window
+        window.toggle_floating()
+        window.place(0,897,320,180,1,'#FF00FF',True,None,True)
+    return window
+
+@lazy.function
+def floating_top_left_window(qtile, window=None):
+    if window is None:
+        window = qtile.current_screen.group.current_window
+        window.toggle_floating()
+        window.place(5,20,320,180,1,'#FF00FF',True,None,True)
     return window
 
 
@@ -245,6 +277,25 @@ def focus_previous_window(qtile):
         group.focus(previous_focused[0])
 
 
+def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
+    i = qtile.screens.index(qtile.current_screen)
+    if i != 0:
+        group = qtile.screens[i-1].group.name
+        qtile.current_window.togroup(group, switch_group=switch_group)
+        if switch_screen == True:
+            qtile.cmd_to_screen(i-0)
+    elif i + 1 != len(qtile.screens):
+        group = qtile.screens[i + 1].group.name
+        qtile.current_window.togroup(group, switch_group=switch_group)
+        if switch_screen == True:
+            qtile.cmd_to_screen(i + 1)
+
+# Allows you to input a name when adding treetab section.
+# @lazy.layout.function
+# def add_treetab_section(layout):
+#     prompt = qtile.widgets_map["prompt"]
+#     prompt.start_input("Section name: ", layout.cmd_add_section)
+
 # @hook.subscribe.client_new
 # def disable_floating(window):
 #     rules = [
@@ -266,6 +317,8 @@ floating_layout = layout.Floating(
         # Match(wm_instance_class="mpvFloat"),
         # Match(title="Eagenda"),
         Match(title="branchdialog"),  # gitk
+        Match(wm_class='pinentry-gtk-2'), # GPG key password entry
+        Match(wm_class='pinentry-qt'), # GPG key password entry
         Match(title="pinentry"),  # GPG key password entry
         Match(func=lambda c: c.has_fixed_size()),
         Match(func=lambda c: c.has_fixed_ratio()),
@@ -412,9 +465,15 @@ mouse = [
 keys = [
     # Switch between windows
     Key([mod], "backslash", floating_bottom_right_window()),
+    Key([mod, "shift"], "backslash", floating_top_right_window()),
+    Key([mod, "control"], "backslash", floating_bottom_left_window()),
+    Key([mod, "shift", "control"], "backslash", floating_top_left_window()),
+
+    Key([mod], "a", lazy.next_screen()),
+    Key([mod, "shift"], "a", lazy.function(window_to_next_screen, switch_screen=True)),
     Key([mod], "s", toggle_sticky_windows(), desc="Toggle state of sticky for current window",),
-    Key([mod], "z", lazy.screen.togglegroup()),
-    #
+    # Key([mod], "z", lazy.screen.togglegroup()),
+
     Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups"),
     Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups"),
     #
@@ -460,10 +519,21 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "backspace", lazy.spawn("sysact Shutdown"), desc="Shutdown"),
     Key([mod, "shift"], "backspace", lazy.spawn("sysact"), desc="System Actions"),
+    Key([mod, "control"], "backspace", lazy.spawn("sysact Suspend"), desc="Suspend"),
     Key([mod], "f", lazy.window.toggle_maximize(), desc="Toggle maximize"),
     Key([mod, "shift"], "f", lazy.window.toggle_fullscreen(), desc="Toggle Current Window Fullscreen"),
     Key([mod, "control"], "f", float_to_front()),
     Key([mod], "b", lazy.hide_show_bar("top"), desc="Toggle Top Bar"),
+
+    # Key([mod, alt], "a", add_treetab_section, desc='Prompt to add new section in treetab'),
+    # Key([mod, alt], "h", lazy.layout.shuffle_left(), lazy.layout.move_left().when(layout=["treetab"]),
+    #     desc="Move window to the left/move tab left in treetab"),
+    # Key([mod, alt], "l", lazy.layout.shuffle_right(), lazy.layout.move_right().when(layout=["treetab"]),
+    #     desc="Move window to the right/move tab right in treetab"),
+    # Key([mod, alt], "j", lazy.layout.shuffle_down(), lazy.layout.section_down().when(layout=["treetab"]),
+    #     desc="Move window down/move down a section in treetab"),
+    # Key([mod, alt], "k", lazy.layout.shuffle_up(), lazy.layout.section_up().when(layout=["treetab"]),
+    #     desc="Move window downup/move up a section in treetab"),
     # EzKey("M-<comma>", lazy.prev_screen()),
     # EzKey("M-<period>", lazy.next_screen()),
 
@@ -489,9 +559,9 @@ keys = [
     Key([mod, "shift"], "F12",
         lazy.spawn('maim ~/Storage/F$(date \'+%y%m%d-%H%M-%S\').png'),
         desc="Maim Fullscreen Screenshot"),
-    # Key([], "XF86Favorites", lazy.spawn("remaps"), desc="Remaps script"),
+    Key([], "XF86Favorites", lazy.spawn("bm s"), desc="Save bookmark script"),
     # Key([], "XF86Search", lazy.spawn("ferdium"), desc="Emails & Chatting"),
-    Key([], "XF86HomePage", lazy.screen.toggle_group(), desc="Switch to group 1"),
+    Key([], "XF86Explorer", lazy.screen.toggle_group(), desc="Switch to group 1"),
     # Media
     Key([], "XF86AudioPlay", lazy.spawn("dmpc toggle")),
     Key([mod], "XF86AudioPlay", lazy.spawn("tppctl toggle")),
@@ -504,7 +574,7 @@ keys = [
     Key([mod], "XF86Launch9", lazy.spawn("tppctl seek 10")),
     Key([], "XF86Launch5", lazy.spawn("tppctl invert")),
     Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calculator")),
-    Key([], "XF86Explorer", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
+    Key([], "XF86HomePage", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
     Key([mod, "shift"], "XF86Back", lazy.spawn("tppctl seek -10")),
     Key([mod, "control"], "XF86Back", lazy.spawn("dmpc prev")),
     # Key([mod, "shift"], "XF86Back", lazy.spawn("dmpc seekp")),
@@ -520,9 +590,9 @@ keys = [
     Key([mod], "p", lazy.spawn("dmpv2"), desc="Dmpv2"),
     Key([mod, "shift"], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
-    Key([mod], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
+    Key([mod], "period", lazy.spawn("tppctl invert"), desc="Inverte Playing MPVs"),
+    Key([mod, "shift"], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
     # Key([mod, "shift"], "m", lazy.spawn("mp down"), desc="Kill Spotify Music"),
-    Key([mod, "shift"], "period", lazy.spawn("tppctl invert"), desc="Inverte Playing MPVs"),
     Key([mod, "control"], "period", lazy.spawn("tppctl pauseall"), desc="Pause All MPVs"),
     Key([mod], "semicolon", focus_previous_window(), desc="Switch to last group"),
     # Scratchpads
@@ -559,40 +629,77 @@ keys = [
     Key([mod], "F3", lazy.spawn("wifi-toggle")),
     Key([mod], "F8", lazy.spawn("dmenumount")),
     Key([mod, "shift"], "F8", lazy.spawn("dmenuumount")),
+
+    # Key([mod], "kp-add", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
+    # Key([mod], "kp-subtract", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
 ]
 # }}}
 # ======================= Groups ============= {{{
+# dgroups_key_binder = None
+
+# for i in groups:
+#     keys.extend(
+#         [
+#             # mod1 + letter of group = switch to group
+#             Key(
+#                 [mod],
+#                 i.name,
+#                 lazy.group[i.name].toscreen(),
+#                 desc="Switch to group {}".format(i.name),
+#             ),
+#             # mod1 + shift + letter of group = move focused window to group
+#             Key(
+#                 [mod, "shift"],
+#                 i.name,
+#                 lazy.window.togroup(i.name, switch_group=False),
+#                 desc="Move focused window to group {}".format(i.name),
+#             ),
+#         ]
+#     )
+dgroups_key_binder = simple_key_binder(mod)
+
 layouts = [
-    layout.Columns(  border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Columns(  border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10),
     layout.Max(      border_focus=colors[7], border_normal=colors[8], border_width=0, margin=0 ),
-    layout.MonadTall(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.Bsp(      border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.RatioTile(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.MonadTall(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10),
+    layout.Bsp(      border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10),
+    layout.RatioTile(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10),
     # layout.TreeTab(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
     layout.TreeTab(
-            # font='Liberation Sans',
+            # font='3270 Nerd Font Mono Bold',
             # name="looking good",
             bg_color=backgroundColor,
             inactive_bg="151515",
-            fontsize=12,
-            panel_width=300,
+            panel_width = 300,
             # margin_left=10,
             # margin_y=10,
-            sections=['Tree View'],
-            section_left=0,
+            sections = ["One", "Two", "Three", "Four", "Five"],
+            section_left=100,
             previous_on_rm=True,
             # padding_x=4,
+            active_fg = colors[5],
             active_bg=colors[3],
             rounded=True,
             border_focus=colors[7],
             border_normal=colors[8],
             border_width=2,
-            margin=20
+            margin=10,
+            fontsize = 12,
+            inactive_fg = colors[2],
+            padding_left = 8,
+            padding_x = 8,
+            padding_y = 6,
+            section_fontsize = 10,
+            section_fg = colors[2],
+            section_top = 15,
+            section_bottom = 15,
+            level_shift = 8,
+            vspace = 3,
     ),
-    layout.Tile(     border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.Stack(    border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20,num_stacks=2),
-    layout.Matrix(   border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
-    layout.MonadWide(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=20),
+    layout.Tile(     border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10),
+    layout.Stack(    border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10,num_stacks=2),
+    layout.Matrix(   border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10),
+    layout.MonadWide(border_focus=colors[7], border_normal=colors[8], border_width=2, margin=10),
     # layout.VerticalTile(),
     # layout.Zoomy(columnwidth=500),
 ]
@@ -632,6 +739,7 @@ screens = [
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
+
                     fontsize=50,
                     background=workspaceColor,
                     foreground=backgroundColor,
@@ -670,13 +778,6 @@ screens = [
                     foreground=colors[9],
                     background=foregroundColorTwo
                 ),
-                widget.Mpd2(
-                    idle_format="{play_status}",
-                    color_progress="#9497aa",
-                    foreground=colors[9],
-                    background=foregroundColorTwo,
-                    # update_interval=10
-                ),
                 widget.CPU(
                     format="{load_percent:-2.1f}% {freq_current}GHz",
                     update_interval=3,
@@ -685,7 +786,7 @@ screens = [
                 ),
                 widget.Load(
                     update_interval=3,
-                    format="{time}:{load:.2f}",
+                    format="{time}:{load:.2f}",
                     foreground=colors[4],
                     background=foregroundColorTwo
                 ),
@@ -702,8 +803,15 @@ screens = [
                     foreground=colors[7],
                     background=foregroundColorTwo
                 ),
+                # widget.Wlan(
+                #     disconnected_message='❌',
+                #     format='{essid} {percent:2.0%}',
+                #     update_interval=10,
+                #     foreground=colors[4],
+                #     background=foregroundColorTwo,
+                # ),
                 widget.Volume(
-                    fmt='🔈{}',
+                    fmt=' {}',
                     update_interval=1,
                     foreground=colors[8],
                     background=foregroundColorTwo,
@@ -724,25 +832,6 @@ screens = [
                 #     foreground=colors[6],
                 #     background=foregroundColorTwo,
                 #      ),
-                # widget.Net(
-                #     fmt='☁{}',
-                #     # update_interval=2,
-                #     foreground=colors[9],
-                #     background=foregroundColorTwo,
-                # ),
-                # widget.HDDBusyGraph(
-                #     frequency=5,
-                #     start_pos='top',
-                #     graph_color=colors[8],
-                #     background=foregroundColorTwo,
-                # ),
-                # widget.Wlan(
-                #     disconnected_message='❌',
-                #     format='{essid} {percent:2.0%}',
-                #     update_interval=10,
-                #     foreground=colors[4],
-                #     background=foregroundColorTwo,
-                # ),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
@@ -762,18 +851,142 @@ screens = [
                     foreground=backgroundColor
                 ),
                 widget.Clock(
-                    format="🗓 %V %a %d/%B/%y",
+                    format=" %V %a %d/%B/%y",
                     update_interval=86400,
                     foreground=colors[10],
                     background=backgroundColor
                 ),
                 widget.Clock(
-                    format="🕓 %T",
+                    format=" %T",
                     update_interval=1,
                     foreground=colors[2],
                     background=backgroundColor
                 ),
+            ],
+            20,
+        ),
+    ),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(
+                    padding=4,
+                    active=colors[2],
+                    inactive=colors[1],
+                    highlight_color=[backgroundColor, workspaceColor],
+                    highlight_method="line",
+                    hide_unused=True,
+                ),
+                widget.TextBox(
+                    text="\u25e2",
+                    padding=0,
+                    fontsize=60,
+                    background=backgroundColor,
+                    foreground=workspaceColor,
+                ),
+                widget.CurrentLayout(
+                    scale=0.7,
+                    background=workspaceColor,
+                ),
+                widget.TextBox(
+                    text="\u25e2",
+                    padding=0,
+
+                    fontsize=50,
+                    background=workspaceColor,
+                    foreground=backgroundColor,
+                ),
+                widget.WindowCount(
+                    foreground=colors[7]
+                ),
+                # widget.WindowName(
+                #     foreground=colors[8],
+                # ),
+                widget.WindowTabs(
+                    selected=('<u>« ',' »</u>'),
+                    separator='      ',
+                    foreground=colors[8],
+                    # background=colors[2],
+                ),
+                widget.TextBox(
+                    text="\u25e2",
+                    padding=0,
+                    fontsize=50,
+                    background=backgroundColor,
+                    foreground=foregroundColorTwo,
+                ),
+                widget.TextBox(
+                    text="\u25e2",
+                    padding=0,
+                    fontsize=14,
+                    background=foregroundColorTwo,
+                    foreground=foregroundColorTwo,
+                ),
+                widget.Prompt(
+                    bell_style='visual',
+                    cursorblink=0.5,
+                    fontsize=18,
+                    prompt='&:',
+                    foreground=colors[9],
+                    background=foregroundColorTwo
+                ),
+                widget.Countdown(
+                    # format='{D}d {H}h {M}m {S}s',
+                    date=datetime(2023, 10, 5, 0, 0, 0, 0),
+                    foreground=colors[3],
+                    background=foregroundColorTwo,
+                    color_active=colors[4],
+                    color_inactive=foregroundColorTwo
+                ),
+                widget.Mpd2(
+                    idle_format="{play_status}",
+                    color_progress="#9497aa",
+                    foreground=colors[9],
+                    background=foregroundColorTwo,
+                    # update_interval=10
+                ),
+                # widget.Backlight(
+                #     update_interval = 15,
+                #     foreground=colors[8],
+                #     background=foregroundColorTwo,
+                #     ),
+                # widget.Battery(
+                #     update_interval=15,
+                #     format='{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W',
+                #     low_precentage=0.35,
+                #     charge_char='',
+                #     discharge_char='',
+                #     empty_char='',
+                #     foreground=colors[6],
+                #     background=foregroundColorTwo,
+                #      ),
+                widget.Net(
+                    fmt=' {}',
+                    update_interval=2,
+                    foreground=colors[9],
+                    background=foregroundColorTwo,
+                ),
+                widget.HDDBusyGraph(
+                    frequency=5,
+                    start_pos='top',
+                    graph_color=colors[8],
+                    background=foregroundColorTwo,
+                ),
+                widget.TextBox(
+                    text="\u25e2",
+                    padding=0,
+                    fontsize=50,
+                    background=foregroundColorTwo,
+                    foreground=backgroundColor
+                ),
                 widget.Pomodoro(
+                    # update_interval=1,
+                    foreground=colors[3],
+                    background=backgroundColor,
+                    color_active=colors[4],
+                    color_inactive=foregroundColorTwo
+                ),
+                widget.Clipboard(
                     # update_interval=1,
                     foreground=colors[3],
                     background=backgroundColor,
@@ -790,7 +1003,7 @@ screens = [
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = 'floating_only'
-cursor_warp = False
+cursor_warp = True
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = False

@@ -16,7 +16,7 @@ bookmark-autopilot yes
 save-path "~/Documents/Articles"
 
 # feedlist-format     "%4i) %n %9u  |  %-30t %S %L"
-feedlist-format     "%4i) %n %9u | %10T | %-50t %S | %L"
+feedlist-format     "%4i) %n %10u | %10T | %-50t %S | %L"
 articlelist-format  "%4i) %f %-1F [ %D ]   %25a | %4L | %t"
 notify-format       "%d new articles (%n unread articles, %f unread feeds)"
 podlist-format      "%4i) [%-5p %%] %K %-12S %F"

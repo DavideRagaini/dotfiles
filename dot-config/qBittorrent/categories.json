@@ -1,0 +1,14 @@
+{
+    "Anime": {
+        "save_path": "/home/davide/Storage/Videos/Anime"
+    },
+    "Films": {
+        "save_path": "/home/davide/Storage/Videos/Films"
+    },
+    "Music": {
+        "save_path": "/home/davide/Storage/Music"
+    },
+    "Series": {
+        "save_path": "/home/davide/Storage/Videos/Series"
+    }
+}

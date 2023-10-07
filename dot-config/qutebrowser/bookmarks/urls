@@ -10,3 +10,7 @@ https://github.com/qtile/qtile GitHub - qtile/qtile: A full-featured, hackable t
 https://nix-community.github.io/home-manager/options.html Appendix A. Configuration Options
 https://qutebrowser.org/doc/help/settings.html | qutebrowser
 https://nixos.wiki/wiki/Power_Management Power Management - NixOS Wiki
+http://localhost:8686/ Lidarr
+http://localhost:7878/ Radarr
+http://localhost:8989/ Sonarr
+https://wiki.servarr.com/ Servarr | Servarr Wiki
