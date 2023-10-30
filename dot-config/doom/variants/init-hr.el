@@ -32,7 +32,7 @@
        ;;tabs              ; a tab bar for Emacs
        ;;(treemacs +lsp)   ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
-       (vc-gutter +pretty) ; vcs diff in the fringe
+       ;;(vc-gutter +pretty)  ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
        workspaces          ; tab emulation, persistence & separate workspaces
@@ -54,10 +54,10 @@
 
        :emacs
        dired               ; making dired pretty [functional]
-       electric          ; smarter, keyword-based electric-indent
+       ;;electric          ; smarter, keyword-based electric-indent
        ibuffer             ; interactive buffer management
        (undo +tree)        ; persistent, smarter undo for your inevitable mistakes
-       vc                  ; version-control and Emacs, sitting in a tree
+       ;;vc                ; version-control and Emacs, sitting in a tree
 
        :term
        eshell              ; the elisp shell that works everywhere
@@ -82,10 +82,10 @@
        ;;gist              ; interacting with github gists
        (lookup +dictionary +offline)  ; navigate your code and its documentation
        (lsp +eglot)
-       (magit +forge)      ; a git porcelain for Emacs
+       magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
-       pdf                 ; pdf enhancements
+       ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
@@ -139,7 +139,7 @@
        ;;nim               ; python + lisp at the speed of c
        nix                 ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pretty +noter +roam2)  ; organize your plain life in plain text
+       (org +pretty)       ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional

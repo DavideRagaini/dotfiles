@@ -32,34 +32,19 @@
 )
 ;; }}}
 ;; ========= Bootstraps ========= {{{
-(cond
- ((string-equal (system-name) "VoiD")
-        (setq dr/font-size 14)
-        (load! "load/matlab-setup.el")
-        (global-activity-watch-mode t)
-        (dr/high-resources))
- ((string-equal (system-name) "vDR")
-        (setq dr/font-size 18)
-        (dr/high-resources))
- ((or (string-equal (system-name) "void") (string-equal (system-name) "NT"))
-        (setq display-line-numbers-type nil)
-        (setq dr/font-size 13))
- ((string-equal (system-name) "tinkerboard")
-        (setq display-line-numbers-type nil)
-        (setq dr/font-size 16))
- ((string-equal (system-name) "bagaro")
-        (dr/high-resources)
-        (setq dr/font-size 14)))
+(setq dr/font-size 14
+      display-line-numbers-type nil)
+;; (dr/high-resources))
 ;; }}}
 ;; ========= Common ========= {{{
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
-      doom-font (font-spec :family "Fantasque Sans Mono" :size dr/font-size)
-      doom-big-font (font-spec :family "Fantasque Sans Mono" :size (* dr/font-size 2))
+      doom-font (font-spec :family "Fantasque Sans Propo" :size dr/font-size)
+      doom-big-font (font-spec :family "Fantasque Sans Propo" :size (* dr/font-size 2))
       doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-unicode-font (font-spec :family "DejaVu Serif" :size dr/font-size)
-      doom-theme 'catppuccin
+      doom-theme 'modus-vivendi
       ;; whitespace-line-column 500
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark newline-mark )
       line-spacing 2

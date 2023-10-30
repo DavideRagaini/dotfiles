@@ -2,8 +2,17 @@
     "Anime": {
         "save_path": "/home/davide/Storage/Videos/Anime"
     },
+    "Books": {
+        "save_path": "/home/davide/Storage/Books/New"
+    },
+    "Cinecave": {
+        "save_path": "/home/davide/Storage/Videos/Cinecave"
+    },
     "Films": {
         "save_path": "/home/davide/Storage/Videos/Films"
+    },
+    "Lectures": {
+        "save_path": "/home/davide/Storage/Videos/Lectures"
     },
     "Music": {
         "save_path": "/home/davide/Storage/Music"

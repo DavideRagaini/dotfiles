@@ -12,7 +12,7 @@ font:
     # family: Iosevka
     family: CaskaydiaCove Nerd Font Mono
     style: Italic
-  size: 10.0
+  size: 9
   offset:
     x: 1
     y: 1
@@ -65,7 +65,7 @@ hints:
              [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
      hyperlinks: true
      command:
-       program: qutebrowser
+       program: $BROWSER
        # args: ["--private-window", "$0"]
      post_processing: true
      mouse:

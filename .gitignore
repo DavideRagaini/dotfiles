@@ -38,6 +38,10 @@ dot-config/peaclock/**
 dot-config/pipe-viewer/**
 dot-config/pipe-viewer/pipe-viewer.conf
 
+dot-config/qBittorrent/*
+!dot-config/qBittorrent/categories.json
+!dot-config/qBittorrent/qBittorrent.conf
+
 dot-config/qtile/**
 !dot-config/qtile/config.py
 

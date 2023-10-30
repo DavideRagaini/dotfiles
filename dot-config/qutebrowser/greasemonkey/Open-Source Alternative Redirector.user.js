@@ -49,7 +49,6 @@
 // @include *google.*
 // @include *yahoo.com/*
 // @include *bing.com/*
-// @include *reddit.com/*
 // @include *twitter.com/*
 // @include *instagram.com/*
 // @include *medium.com/*
@@ -76,10 +75,12 @@
     let { host, href, search } = location,
 
 // @include *wikipedia.org/*
+// @include *reddit.com/*
+
         // INSTANCES //
         invidious = 'yewtu.be',
         searx = 'search.mdosch.de',
-        libreddit = 'r.nf',
+        // libreddit = 'r.nf',
         nitter = 'nitter.snopyta.org',
         bibliogram = 'bibliogram.pussthecat.org',
         wikiless = 'wikiless.org',
@@ -97,7 +98,7 @@
             [['google.'], googleRedirect],
             [['search.yahoo.com'], yahooRedirect],
             [['bing.com'], bingRedirect],
-            [['reddit.com'], redditRedirect],
+            // [['reddit.com'], redditRedirect],
             [['twitter.com'], twitterRedirect],
             // [['wikipedia.org'], wikipediaRedirect],
             [['medium.com', 'towardsdatascience.com'], mediumRedirect],

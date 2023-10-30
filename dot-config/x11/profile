@@ -32,10 +32,12 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CM_HISTLENGTH="12"
 export CUDA_CACHE_PATH="$XDG_CONFIG_HOME/nv"
 # export DIGESTIF_HOME="$XDG_DATA_HOME/digestif"
+export DVDCSS_CACHE="$XDG_DATA_HOME"/dvdcss
 # export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
 # export GDK_DPI_SCALE=1.5
 export GEM_HOME="$XDG_DATA_HOME/gem"
-export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+gpg2 --homedir "$XDG_DATA_HOME"/gnupg &
 export GOPATH="$XDG_DATA_HOME/go"
 export GRIPHOME="$XDG_CONFIG_HOME/grip"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
@@ -70,6 +72,8 @@ export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config"
 # export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+export XCOMPOSEFILE="$XDG_CONFIG_HOME"/xcompose
+export XCOMPOSECACHE="$XDG_CACHE_HOME"/xcompose
 export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
@@ -127,7 +131,7 @@ fi
 
 [ "$(tty)" = "/dev/tty1" ] &&
     ! pidof -s Xorg >/dev/null 2>&1 &&
-    awk '{ exit ($1 > 120) }' /proc/uptime &&
+    awk '{ exit ($1 > 40) }' /proc/uptime &&
     exec startx "$XINITRC"
 
 # [ "$(tty)" = "/dev/tty1" ] &&

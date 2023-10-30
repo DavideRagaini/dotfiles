@@ -45,11 +45,16 @@ alias \
             --device-type computer \
             --initial-volume 100 \
             --enable-volume-normalisation \
-            --normalisation-pregain -5 \
+            --normalisation-pregain -3 \
             --bitrate 320" \
     v="nvim" \
     trr="transmission-remote" \
     udc="udisksctl" \
+    updatedb="updatedb \
+        --localuser=davide \
+        --localpaths=\"\$HOME\" --output=\"\$HOME/.local/updatedb\" \
+        --prunepaths=\"\$HOME/Packages \$HOME/MATLAB \$HOME/sources .*/\..*\"" \
+    locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
     x="sxiv -ft *" \
     xclip="xclip -selection clipboard" \
 	yt="yt-dlp --embed-metadata -i" \
@@ -57,6 +62,19 @@ alias \
 # samedir="setsid -f $TERMINAL >/dev/null 2>&1" \
 # sudo="doas" \
 
+sbmks() {
+    input="$(xclip  -selection clipboard -o)"
+    content="$(echo "$input" | grep -oP '(?<=\[\[).*?(?=\]\])')"
+    echo "$content"
+    echo "$content" | sed 's/\]\[/ /' >> "$HOME/.config/qutebrowser/bookmarks/urls2"
+
+}
+bmks() {
+    bookmark_file="$HOME/.config/qutebrowser/bookmarks/urls2"
+    description="$(cut -d' ' -f2- "$bookmark_file" | fzf)"
+    link="$(grep "$description" "$bookmark_file" | cut -d ' ' -f1)"
+    setsid -f "$BROWSER" "$link" &
+}
 alias librespot="librespot \
 			--c ~/.cache/librespot \
 			--backend alsa \
@@ -65,7 +83,7 @@ alias librespot="librespot \
 			--device-type computer \
 			--initial-volume 100 \
 			--enable-volume-normalisation \
-			--normalisation-pregain -5 \
+			--normalisation-pregain -2 \
 			--bitrate 320"
 
 lynxs() {

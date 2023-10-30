@@ -1,36 +1,38 @@
 #!/bin/sh
 
-case "$(readlink /sbin/init | cut -f3 -d'/')" in
-    systemd)
-        systemctl --user import-environment DISPLAY XAUTHORITY &
-        ;;
-    runit-init)
-        {
-        sleep 10
-        runsvdir "$HOME/.local/service" &
-        } &
-        ;;
-    *) printf "[ %s ]: xprofile: INIT SYSTEM not recognised" "$(date)" >> ~/errors.log ;;
-esac
-
 autostart(){
     sleep "$1"
-    emacsclient -c -e '(doom/quickload-session)' &
+    alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
     sleep "$2"
-    librewolf &
+    "$HOME/.local/bin/nix/thorium" &
+    systemctl start --user clipmenu.service
+    sleep 10
+    qbittorrent &
+}
+
+locker(){
+    LOCK_TIME=5 # Minutes
+    NOTIFY=45 # Seconds
+    xautolock \
+        -time "$LOCK_TIME" \
+        -notify "$NOTIFY" \
+        -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" \
+        -locker 'systemctl suspend'
 }
 
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources" &
 xrdbpid=$!
 
 case $(hostname) in
-    VoiD)
+    Apollo)
         export LIBVA_DRIVER_NAME=vdpau
         export VDPAU_DRIVER=nvidia
         # xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --mode 3840x2160 --scale 0.5 --pos 3840x0 --rotate normal
-        autostart 60 30 &
-        mem-warn -i 60 -t 1000 &
-          ;;
+        xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off
+        autostart 10 10 &
+        conky &
+        locker &
+        ;;
     vDR)
         xbacklight -set 20 &
         libinput-gestures-setup start &
@@ -55,13 +57,5 @@ remaps &
 setbg &
 numlockx &
 xset dpms 0 0 180
-
-{
-    [ "$(stat -c %y \"\$HOME/.cache/snooze/daily\" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] ||
-        {
-            sleep 10m
-            run-parts "$HOME/.local/bin/snooze/daily" > "$HOME/.cache/snooze/daily" 2>&1
-        }
-} &
 
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
