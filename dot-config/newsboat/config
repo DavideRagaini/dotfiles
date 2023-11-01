@@ -1,10 +1,8 @@
 #show-read-feeds no
-auto-reload yes
-max-items 10
-auto-reload yes
-reload-time 60
-reload-threads 10
-max-items 10
+auto-reload no
+reload-time 120
+reload-threads 5
+max-items 100
 download-retries 4
 download-timeout 10
 prepopulate-query-feeds yes
@@ -44,6 +42,7 @@ bind-key N prev-unread
 bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
+bind-key y sort
 
 # color background            white    black
 # color title                 red      blue      bold

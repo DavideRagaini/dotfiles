@@ -95,7 +95,7 @@ groups = [
     Group(
         name="3",
         position=3,
-        layout="treetab",
+        layout="max",
         exclusive=True,
         matches=Match(wm_class= [
                         "Zathura",
@@ -512,16 +512,16 @@ mouse = [
 # }}}
 # ======================= Keybindings ============= {{{
 keys = [
-    Key([mod, ctrl], "1", lazy.group.setlayout('max')),
-    Key([mod, ctrl], "2", lazy.group.setlayout('monadtall')),
-    Key([mod, ctrl], "3", lazy.group.setlayout('treetab')),
-    Key([mod, ctrl], "4", lazy.group.setlayout('bsp')),
-    Key([mod, ctrl], "5", lazy.group.setlayout('matrix')),
-    Key([mod, ctrl], "6", lazy.group.setlayout('ratiotile')),
-    Key([mod, ctrl], "7", lazy.group.setlayout('tile')),
-    Key([mod, ctrl], "8", lazy.group.setlayout('stack')),
-    Key([mod, ctrl], "9", lazy.group.setlayout('monadwide')),
-    Key([mod, ctrl], "0", lazy.group.setlayout('max')),
+    Key([alt, ctrl], "1", lazy.group.setlayout('max')),
+    Key([alt, ctrl], "2", lazy.group.setlayout('monadtall')),
+    Key([alt, ctrl], "3", lazy.group.setlayout('treetab')),
+    Key([alt, ctrl], "4", lazy.group.setlayout('bsp')),
+    Key([alt, ctrl], "5", lazy.group.setlayout('matrix')),
+    Key([alt, ctrl], "6", lazy.group.setlayout('ratiotile')),
+    Key([alt, ctrl], "7", lazy.group.setlayout('tile')),
+    Key([alt, ctrl], "8", lazy.group.setlayout('stack')),
+    Key([alt, ctrl], "9", lazy.group.setlayout('monadwide')),
+    Key([alt, ctrl], "0", lazy.group.setlayout('max')),
     # Switch between windows
     Key([mod], "backslash", floating_bottom_right_window()),
     Key([mod, shift], "backslash", floating_top_right_window()),

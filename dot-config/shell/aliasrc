@@ -36,6 +36,7 @@ alias \
     pips="python3 -m pip_search" \
     q="exit" \
     s="doas" \
+    scl="systemctl" \
     smi="doas make install" \
     spd="librespot \
             --c ~/.cache/librespot \
@@ -45,7 +46,7 @@ alias \
             --device-type computer \
             --initial-volume 100 \
             --enable-volume-normalisation \
-            --normalisation-pregain -3 \
+            --normalisation-pregain -2 \
             --bitrate 320" \
     v="nvim" \
     trr="transmission-remote" \
@@ -75,16 +76,6 @@ bmks() {
     link="$(grep "$description" "$bookmark_file" | cut -d ' ' -f1)"
     setsid -f "$BROWSER" "$link" &
 }
-alias librespot="librespot \
-			--c ~/.cache/librespot \
-			--backend alsa \
-			--cache-size-limit 1G \
-			--name \"$(hostname)\" \
-			--device-type computer \
-			--initial-volume 100 \
-			--enable-volume-normalisation \
-			--normalisation-pregain -2 \
-			--bitrate 320"
 
 lynxs() {
     lynx -cfg="$HOME/.config/lynx/lynx.cfg" "https://searx.be/search?q=$1"
