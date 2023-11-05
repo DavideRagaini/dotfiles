@@ -69,6 +69,10 @@
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
 ;; }}}
+;; ========= Bindings ========= {{{
+(global-set-key [f5] 'alarm-clock-set)
+(global-set-key [f6] 'alarm-clock-list-view)
+;; }}}
 ;; ========= Popups Rules ========= {{{
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)

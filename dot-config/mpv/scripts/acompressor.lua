@@ -8,7 +8,7 @@ local mp = require 'mp'
 local options = require 'mp.options'
 
 local o = {
-	default_enable = true,
+	default_enable = false,
 	show_osd = true,
 	osd_timeout = 4000,
 	filter_label = mp.get_script_name(),
@@ -27,11 +27,11 @@ local o = {
 	key_increase_release = 'F6',
 	key_decrease_release = 'Shift+F6',
 
-	default_threshold = -25.0,
+	default_threshold = -17.0,
 	default_ratio = 3.0,
 	default_knee = 2.0,
-	default_makeup = 8.0,
-	default_attack = 20.0,
+	default_makeup = 10.0,
+	default_attack = 10.0,
 	default_release = 250.0,
 
 	step_threshold = -2.5,

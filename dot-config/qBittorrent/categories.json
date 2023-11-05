@@ -17,6 +17,9 @@
     "Music": {
         "save_path": "/home/davide/Storage/Music"
     },
+    "Pictures": {
+        "save_path": "/home/davide/Storage/Pictures"
+    },
     "Series": {
         "save_path": "/home/davide/Storage/Videos/Series"
     }

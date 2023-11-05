@@ -12,6 +12,10 @@ bookmark-autopilot yes
 # bookmark-cmd "~/.config/newsboat/bookmark.sh"
  # external-url-viewer "urlscan -dc -r 'linkhandler {}'"
 save-path "~/Documents/Articles"
+always-display-description yes
+# html-renderer "lynx -dump -force_html"
+notify-beep yes
+notify-program "notify-send \"Newsboat New Articles\""
 
 # feedlist-format     "%4i) %n %9u  |  %-30t %S %L"
 feedlist-format     "%4i) %n %10u | %10T | %-50t %S | %L"
@@ -69,6 +73,7 @@ macro s set browser "setsid -f streamlink --quiet %u 480p"; open-in-browser ; se
 macro S set browser "setsid -f streamlink --quiet %u best"; open-in-browser ; set browser linkhandler
 macro w set browser "lynx"; open-in-browser ; set browser linkhandler
 macro r set browser "nix-shell -p \"python311.withPackages (ps: with ps; [ requests readability-lxml ])\" --run 'python3 -m readability.readability -u \"%u\" | lynx -stdin'" ; open-in-browser ; set browser linkhandler
+macro t set browser "newsboat_last_update.sh" ; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
 macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
 

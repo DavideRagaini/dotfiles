@@ -8,6 +8,7 @@
 ;; (package! ox-epub)
 ; (package! dired-single)
 ;; (package! dired-open)
+(package! alarm-clock)
 (package! nov)
 
 ;; (package! scad-mode

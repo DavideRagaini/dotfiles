@@ -110,15 +110,6 @@ groups = [
         layout="max",
         position=4,
         matches=[
-            Match(wm_class= [
-                        "VirtualBox Machine",
-                        regex("MATLAB R202[0-9][a-b] - academic use"),
-                        regex("MATLAB R202[0-9][a-b]"),
-                        "MATLABWindow",
-                        "Matlab-GLEE",
-            ],
-                    wm_instance_class = ["sun-awt-X11-XDialogPeer"],
-                  ),
             Match(
                     wm_instance_class = "sun-awt-X11-XDialogPeer",
                     title="MATLAB Editor",
@@ -139,20 +130,29 @@ groups = [
                     wm_instance_class="MATLABWindow",
                     title="Control System Designer",
             ),
+            Match(
+                    wm_class= [
+                        "VirtualBox Machine",
+                        regex("MATLAB R202[0-9][a-b] - academic use"),
+                        regex("MATLAB R202[0-9][a-b]"),
+                        "MATLABWindow",
+                        "Matlab-GLEE",
+                    ],
+                    wm_instance_class = ["sun-awt-X11-XDialogPeer"],
+            ),
         ],
     ),
     Group(
         name="5",
         position=5,
-        layout="treetab",
+        layout="max",
         matches=[
-            Match(wm_instance_class = ["sun-awt-X11-XFramePeer"]
-                  ),
             Match(
-                    wm_instance_class = "sun-awt-X11-XFramePeer",
-                    title = " ",
-                ),
-            ],
+                wm_instance_class = "MATLABWindow",
+                wm_class = "MATLABWindow",
+                title = "Variable-references - Signal Editor",
+            ),
+        ],
     ),
     Group(
         name="6",
@@ -160,9 +160,13 @@ groups = [
         layout="ratiotile",
         matches=[
             Match(
+                    wm_instance_class = "sun-awt-X11-XFramePeer",
+                    title = " ",
+                ),
+            Match(
                 wm_instance_class = "MATLABWindow",
-                wm_class = "MATLABWindow",
-                title = "Variable-references - Signal Editor",
+                wm_class =  "MATLABWindow",
+                title = "Variable-references - Signal Editor"
             ),
             Match(
                 title = "asbQuadcopter/Command/Signal Editor * - Simulink academic use",
@@ -175,15 +179,12 @@ groups = [
                 wm_class = regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
             ),
             Match(
-                wm_instance_class = "MATLABWindow",
-                wm_class =  "MATLABWindow",
-                title = "Variable-references - Signal Editor"
-            ),
-            Match(
                 title = "Block Parameters: Position/Attitude Reference",
                 wm_instance_class = "Matlab-GLEE",
                 wm_class = regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
             ),
+            Match(wm_instance_class = ["sun-awt-X11-XFramePeer"]
+                  ),
         ],
     ),
     Group(
@@ -521,7 +522,7 @@ keys = [
     Key([alt, ctrl], "7", lazy.group.setlayout('tile')),
     Key([alt, ctrl], "8", lazy.group.setlayout('stack')),
     Key([alt, ctrl], "9", lazy.group.setlayout('monadwide')),
-    Key([alt, ctrl], "0", lazy.group.setlayout('max')),
+    Key([alt, ctrl], "0", lazy.group.setlayout('monadthreecol')),
     # Switch between windows
     Key([mod], "backslash", floating_bottom_right_window()),
     Key([mod, shift], "backslash", floating_top_right_window()),
@@ -708,9 +709,10 @@ layout_defaults = dict(
 layouts = [
     layout.Columns(**layout_defaults, border_width=2, margin=10),
     layout.Max(**layout_defaults, border_width=0, margin=0),
-    layout.MonadTall(**layout_defaults, border_width=2, margin=10),
+    layout.MonadTall(**layout_defaults, border_width=2, margin=10,single_border_width = None,single_margin = None),
     layout.Bsp(**layout_defaults, border_width=2, margin=10),
     layout.RatioTile(**layout_defaults, border_width=2, margin=2),
+    layout.MonadThreeCol(**layout_defaults),
     layout.TreeTab(
             **layout_defaults,
             active_bg=colors[3],

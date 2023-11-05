@@ -2,12 +2,11 @@
 
 autostart(){
     sleep "$1"
-    alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
-    sleep "$2"
     "$HOME/.local/bin/nix/thorium" &
-    systemctl start --user clipmenu.service
-    sleep 10
+    sleep "$2"
     qbittorrent &
+    sleep 60
+    alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
 }
 
 locker(){
@@ -32,6 +31,8 @@ case $(hostname) in
         autostart 10 10 &
         conky &
         locker &
+        systemctl start --user clipmenu.service
+        systemctl start --user picom.service
         ;;
     vDR)
         xbacklight -set 20 &
