@@ -60,11 +60,7 @@ alias \
         --prunepaths=\"\$HOME/Packages \$HOME/MATLAB \$HOME/sources .*/\..*\"" \
     locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
     x="sxiv -ft *" \
-    xclip="xclip -selection clipboard" \
-	yt="yt-dlp --embed-metadata -i" \
     zt="zathura"
-# samedir="setsid -f $TERMINAL >/dev/null 2>&1" \
-# sudo="doas" \
 
 sbmks() {
     xclip  -selection clipboard -o >> "$HOME/.config/qutebrowser/quickmarks"
@@ -86,79 +82,51 @@ lynxa() {
     lynx -cfg="$HOME/.config/lynx/lynx.cfg" "$*"
 }
 
-# fuzzy find
-# alias \
-#     vfc="find \$HOME/.config/ -maxdepth 1 | fzf | xargs -r -I % \$EDITOR %" \
-#     vfd="find \$HOME/.local/src/dotfiles/ | fzf | xargs -r -I % \$EDITOR %" \
-#     vfs="find \$HOME/.local/bin/ | fzf | xargs -r -I % \$EDITOR %" \
-#     vfz="find \$HOME/.config/zsh/ | fzf | xargs -r -I % \$EDITOR %"
-
-fzfopen() {
-    f="$(locate -i "$HOME/$1" | fzf)"
-    xdg-open "$f"
-}
-
 batdiff() {
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
 }
 
-# git
-# alias \
-    # g="git" \
-    # ga="git add" \
-    # gc="git commit -m" \
-    # gd="git pull" \
-    # gs="git status" \
-    # gu="git push" \
-    # scommitf="fzf --multi --ansi --preview='head -20 {+}' &&
-	# 	git log --oneline |
-	# 	fzf --multi --ansi --preview='git show {+1}'"
-# gua="git remote | xargs -L1 git push --all"
-
-gcl() {
-    git clone "$(xclip -selection clipboard -o)"
-}
-
-# xbps-install & upgrade
 alias \
-    xbi="doas xbps-install -S" \
-    xu="doas xbps-install -Su"
+    search_commit="fzf --multi --ansi --preview='head -20 {+}' &&
+		git log --oneline |
+		fzf --multi --ansi --preview='git show {+1}'" \
 
-sxi() {
-    LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
-    [ -z $LIST ] && return
-    doas xbps-install -Sy $LIST
-}
+case "$(cat /etc/os-release | grep "^NAME=" | cut -f2 -d'=')" in
+    Void)
+        alias \
+            xbi="doas xbps-install -S" \
+            xu="doas xbps-install -Su" \
+            xr="doas xbps-remove -R" \
+            sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
 
-# xbps-query
-alias \
-    xq="xbps-query -Rs" \
-    xgot="xbps-query -l | fzf"
+        sxi() {
+            LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
+            [ -z $LIST ] && return
+            doas xbps-install -Sy $LIST
+        }
 
-sxq() {
-    xbps-query -Rs "$1" | fzf
-}
+        xbps-query
+        alias \
+            xq="xbps-query -Rs" \
+            xgot="xbps-query -l | fzf"
 
-tso(){
-    setsid -f "$(ts |
-        awk -v n=6 '{ for (i=n; i<=NF; i++) printf "%s%s", $i, (i<NF ? OFS : ORS)}' |
-        fzf |
-        cut -d']' -f2)"
-}
-
-# xbps-remove
-alias \
-    xr="doas xbps-remove -R" \
-    sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
+        sxq() {
+            xbps-query -Rs "$1" | fzf
+        }
+        ;;
+    NixOs)
+        alias animdl="~/Packages/python/ani/bin/animdl"
+        ;;
+    Ubuntu|Armbian)
+        ;;
+esac
 
 # Miscellaneous
 alias \
-    cleanupdates="doas vkpurge rm all; xr -Ooy" \
-    dwmrefresh="kill -HUP \$(pidof -s dwm)" \
     ffmpeg="ffmpeg -hide_banner" \
     ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
-    zsh-update-plugins="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
-# mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
+    zsh-update-plugins="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull" \
+modules_update="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull origin master"
 
 [ -f "$XINITRC" ] && alias startx="startx \$XINITRC"
 

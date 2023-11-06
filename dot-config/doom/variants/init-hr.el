@@ -24,7 +24,7 @@
        ;;indent-guides     ; highlighted indent columns
        ;;minimap           ; show a map of the code on the side
        ;;(ligatures +extra +iosevka)  ; ligatures and symbols to make your code pretty again
-       modeline            ; snazzy, Atom-inspired modeline, plus API
+       ;;modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash           ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints             ; highlight the region an operation acts on
@@ -32,7 +32,7 @@
        ;;tabs              ; a tab bar for Emacs
        ;;(treemacs +lsp)   ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
-       ;;(vc-gutter +pretty)  ; vcs diff in the fringe
+       (vc-gutter +pretty)  ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
        workspaces          ; tab emulation, persistence & separate workspaces
@@ -74,7 +74,7 @@
        ;;ansible
        ;;biblio            ; Writes a PhD for you (citation needed)
        ;;debugger          ; FIXME stepping through code, to help you add bugs
-       ;;direnv
+       direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
@@ -91,11 +91,11 @@
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
-       ;;tree-sitter       ; syntax and parsing, sitting in a tree...
+       tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       ;;(:if IS-MAC macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang
@@ -139,7 +139,7 @@
        ;;nim               ; python + lisp at the speed of c
        nix                 ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pretty)       ; organize your plain life in plain text
+       org                 ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -159,7 +159,7 @@
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;(web +lsp)        ; the tubes
-       yaml              ; JSON, but readable
+       yaml                ; JSON, but readable
        ;;zig               ; C, but simpler
 
        :email
