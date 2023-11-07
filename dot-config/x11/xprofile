@@ -4,7 +4,8 @@ autostart(){
     sleep "$1"
     "$HOME/.local/bin/nix/thorium" &
     sleep "$2"
-    qbittorrent &
+    systemctl is-active --quiet openvpn-europe.service &&
+        qbittorrent &
     sleep 60
     alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
 }

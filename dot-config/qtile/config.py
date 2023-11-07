@@ -359,6 +359,10 @@ def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
         if switch_screen == True:
             qtile.cmd_to_screen(i + 1)
 
+@hook.subscribe.client_focus
+def set_hint(window):
+    window.window.set_property("IS_FLOATING_WINDOW", str(window.floating), type="STRING", format=8)
+
 # Allows you to input a name when adding treetab section.
 # @lazy.layout.function
 # def add_treetab_section(layout):

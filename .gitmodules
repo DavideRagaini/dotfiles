@@ -13,3 +13,12 @@
 [submodule "dot-config/mpv/modules/thumbfast"]
 	path = dot-config/mpv/modules/thumbfast
 	url = https://github.com/po5/thumbfast.git
+[submodule "dot-config/mpv/modules/autosubsync-mpv"]
+	path = dot-config/mpv/modules/autosubsync-mpv
+	url = https://github.com/joaquintorres/autosubsync-mpv.git
+[submodule "command_palette"]
+	path = dot-config/mpv/modules/command_palette
+	url = https://github.com/stax76/mpv-scripts.git
+[submodule "Meta_x"]
+	path = dot-config/mpv/modules/mpv-scripts
+	url = https://github.com/Seme4eg/mpv-scripts.git

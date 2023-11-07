@@ -181,7 +181,7 @@ if platform == UNIX then
 end
 
 -- Key-Bindings
-mp.add_key_binding("Ctrl+y", "copyTime", copyTime)
+mp.add_key_binding("Ctrl+t", "copyTime", copyTime)
 mp.add_key_binding("Ctrl+g", "copyFilename", copyFilename)
 mp.add_key_binding("Ctrl+p", "copyFullPath", copyFullPath)
 mp.add_key_binding("Ctrl+e", "copyRelativePath", copyRelativePath)
