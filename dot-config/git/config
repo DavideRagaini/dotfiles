@@ -4,7 +4,7 @@
 	email = ragainidavide@gmail.com
 	name = Davide Ragaini
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = git diff --name-only --relative --diff-filter=d | xargs bat --diff
 [color]
 	ui = true
 [color "diff-highlight"]
