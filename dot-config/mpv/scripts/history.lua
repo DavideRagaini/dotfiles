@@ -148,7 +148,7 @@ function history()
         local line = os.date("%d.%m.%Y %H:%M ") .. "\t" ..
             minutes  .. "\t" ..
             title .. "\t" ..
-            path .. "\t"
+            path .. "\n"
         file_append(o.storage_path, line)
     end
 
