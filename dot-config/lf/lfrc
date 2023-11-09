@@ -377,7 +377,7 @@ map <c-y> up
 map <c-z> $ kill -STOP $PPID
 map <a-enter> push :async-shell<space>
 map <enter> shell
-map B &emacsclient -a 'emacs' .
+map B &footclient -T emacs -e emacsclient -nw .
 map C copyto
 map D delete
 map E extract

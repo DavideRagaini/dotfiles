@@ -22,8 +22,8 @@ alias \
     fgrep='fgrep --color=auto' \
     grep="grep --color=auto" \
     ip='ip -color=auto' \
-    l='exa -l --icons --group-directories-first' \
-    ll='exa -la --icons --group-directories-first'
+    l='eza -l --icons --group-directories-first' \
+    ll='eza -la --icons --group-directories-first'
 
 # Abbreviations
 alias \
@@ -55,7 +55,6 @@ alias \
     trr="transmission-remote" \
     udc="udisksctl" \
     updatedb="updatedb \
-        --localuser=davide \
         --localpaths=\"\$HOME\" --output=\"\$HOME/.local/updatedb\" \
         --prunepaths=\"\$HOME/Packages \$HOME/MATLAB \$HOME/sources .*/\..*\"" \
     locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
@@ -91,7 +90,7 @@ alias \
 		git log --oneline |
 		fzf --multi --ansi --preview='git show {+1}'" \
 
-case "$(cat /etc/os-release | grep "^NAME=" | cut -f2 -d'=')" in
+case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'"')" in
     Void)
         alias \
             xbi="doas xbps-install -S" \
@@ -105,7 +104,6 @@ case "$(cat /etc/os-release | grep "^NAME=" | cut -f2 -d'=')" in
             doas xbps-install -Sy $LIST
         }
 
-        xbps-query
         alias \
             xq="xbps-query -Rs" \
             xgot="xbps-query -l | fzf"

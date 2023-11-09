@@ -1,1 +1,1 @@
-../modules/M_x/script-modules/leader.lua
+../modules/meta_x/script-modules/leader.lua

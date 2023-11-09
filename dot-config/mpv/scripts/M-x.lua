@@ -1,1 +1,1 @@
-../modules/M_x/M-x.lua
+../modules/meta_x/M-x.lua
