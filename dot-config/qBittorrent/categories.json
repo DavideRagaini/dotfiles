@@ -22,5 +22,9 @@
     },
     "Series": {
         "save_path": "/home/davide/Storage/Videos/Series"
+    },
+    "Workout": {
+        "save_path": "/home/davide/Storage/Workout"
+    },
     }
 }

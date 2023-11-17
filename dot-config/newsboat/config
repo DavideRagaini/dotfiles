@@ -72,6 +72,7 @@ macro p set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkha
 macro s set browser "setsid -f streamlink --quiet %u 480p"; open-in-browser ; set browser linkhandler
 macro S set browser "setsid -f streamlink --quiet %u best"; open-in-browser ; set browser linkhandler
 macro w set browser "lynx"; open-in-browser ; set browser linkhandler
+macro v set browser "setsid -f mpv --no-terminal"; open-in-browser ; set browser linkhandler
 macro r set browser "nix-shell -p \"python311.withPackages (ps: with ps; [ requests readability-lxml ])\" --run 'python3 -m readability.readability -u \"%u\" | lynx -stdin'" ; open-in-browser ; set browser linkhandler
 macro t set browser "newsboat_last_update.sh" ; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
