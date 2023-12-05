@@ -1,6 +1,8 @@
 # ======================= TODOs ============= {{{
 # TODO Keychord to resize floating windows
 # TODO when group switch focus, then unfocus floating
+# TODO Swap window witch master
+# TODO MPD widget empty string when paused
 # }}}
 # ======================= Imports ============= {{{
 from typing import List
@@ -27,7 +29,7 @@ alt = "mod1"
 shift = "shift"
 ctrl = "control"
 
-browser = "thorium"
+browser = "brave"
 browser_alt = "qutebrowser"
 browser_priv = "librewolf --private-window"
 terminal = "alacritty"
@@ -89,7 +91,8 @@ groups = [
                        "librewolf",
                        "LibreWolf",
                        "Brave-browser",
-                       "Thorium-browser"
+                       "Thorium-browser",
+                        "qutebrowser",
                     ])
     ),
     Group(
@@ -102,6 +105,7 @@ groups = [
                         "Evince",
                         "okular",
                         "ebook-viewer",
+                        "calibre-ebook-viewer",
                         "Nsxiv",
                     ])
     ),
@@ -190,22 +194,22 @@ groups = [
     Group(
         name="7",
         position=7,
-        layout="max",
-        matches=Match(wm_class=[
-                        "KeePassXC",
-                        "qBittorrent",
-                        'calibre-gui',
-                        ]),
+        layout="monadtall",
+        # matches=Match(wm_class=[
+        #                 ]),
     ),
     Group(
         name="8",
         position=8,
         layout="max",
         matches=Match(wm_class=[
-                        "qutebrowser",
                         'teams-for-linux',
                         'microsoft teams - preview',
                         'Ferdium',
+                        'KeePassXC',
+                        'qBittorrent',
+                        'calibre-gui',
+                        'calibre',
                         ]),
     ),
     Group(
@@ -537,6 +541,7 @@ keys = [
     Key([mod, shift], "a", lazy.function(window_to_next_screen, switch_screen=True)),
     Key([mod], "s", toggle_sticky_windows(), desc="Toggle state of sticky for current window",),
     # Key([mod], "z", lazy.screen.togglegroup()),
+    Key([mod], "x", lazy.spawn("alm -d")),
 
     Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups"),
     Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups"),
@@ -613,20 +618,16 @@ keys = [
     Key([mod, ctrl], "w", lazy.spawn(browser_priv), desc="Launch Private Browser"),
     Key([mod], "e", lazy.spawn(text_editor), desc="Launch Text Editor"),
     Key([mod, shift], "e", lazy.spawn("alacritty -e emacsclient -c"), desc="Launch Text Editor"),
-    Key([mod], "d", lazy.spawn("dmenu_run_history"), desc="Dmenu Run History Prompt"),
+    Key([mod], "d", lazy.spawn("dmenu_run"), desc="Dmenu Run History Prompt"),
     Key([mod, shift], "d", lazy.spawn("via -r"), desc="Document Search"),
     Key([mod, ctrl], "t", lazy.spawn("switch-theme"), desc="Global Theme Toggle"),
     Key([mod, shift], "r", lazy.spawn("via -a"), desc="Global Search"),
     Key([mod, ctrl], "d", lazy.spawncmd(launcher), desc="Run Prompt"),
     Key([mod], "equal", lazy.spawn("dmenuunicode"), desc="Unicode Search Prompt"),
     Key([mod], "Insert", lazy.spawn("clipmenu -i"), desc="Clipmenu Prompt"),
-    # Key([mod, shift], "Insert",
-    #     lazy.spawn('notify-send " Clipboard contents:" "$(xclip -o -selection clipboard)"'),
-    #     desc="Clipboard Current"),
+    Key([mod, shift], "Insert", lazy.spawn('clipboard-content.sh')),
     Key([mod], "F12", lazy.spawn("maimpick"), desc="MaimPick Prompt"),
-    Key([mod, shift], "F12",
-        lazy.spawn('maim ~/Storage/F$(date \'+%y%m%d-%H%M-%S\').png'),
-        desc="Maim Fullscreen Screenshot"),
+    Key([mod, shift], "F12", lazy.spawn('maim ~/Storage/F$(date \'+%y%m%d-%H%M-%S\').png')),
     Key([], "XF86Favorites", lazy.spawn("bm s"), desc="Save bookmark script"),
     # Key([], "XF86Search", lazy.spawn("ferdium"), desc="Emails & Chatting"),
     Key([], "XF86Explorer", lazy.screen.toggle_group(), desc="Switch to group 1"),
@@ -657,6 +658,7 @@ keys = [
 
     Key([mod], "p", lazy.spawn("dmpv2"), desc="Dmpv2"),
     Key([mod, shift], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
+    Key([mod, ctrl], "p", lazy.spawn("dmpv aplay "), desc="Dmpv Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
     Key([mod], "period", lazy.spawn("tppctl invert"), desc="Inverte Playing MPVs"),
     Key([mod, shift], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
@@ -675,17 +677,18 @@ keys = [
     Key([mod, shift], "n", lazy.group["scratchpad"].dropdown_toggle("podcasts")),
     Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
     Key([mod, shift], "m", lazy.group["scratchpad"].dropdown_toggle("spotify")),
+    Key([mod, ctrl], "m", lazy.spawn("mpc-notify")),
     Key([mod], "apostrophe", lazy.group["scratchpad"].dropdown_toggle("calculator")),
     Key([mod], "y", lazy.group["scratchpad"].dropdown_toggle("qtile_shell")),
     Key([], "XF86Mail", lazy.group["scratchpad"].dropdown_toggle("mails")),
     # Hardware/system control
-    Key([mod], "up", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
-    Key([mod, shift], "up", lazy.spawn("output-audio")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
-    Key([mod], "down", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
-    Key([mod, shift], "down", lazy.group["scratchpad"].dropdown_toggle("mixer")),
-    Key([mod], "down", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
+    Key([mod], "up", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
+    Key([mod, shift], "up", lazy.group["scratchpad"].dropdown_toggle("mixer")),
+    Key([mod, ctrl], "up", lazy.spawn("output-audio")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
+    Key([mod], "down", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
+    Key([mod, shift], "down", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
     Key([mod], "XF86AudioMute", lazy.spawn("output-audio")),
     Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
     Key([mod], "left", lazy.spawn("tppctl seek -10")),
@@ -699,8 +702,8 @@ keys = [
     Key([mod], "F8", lazy.spawn("dmenumount")),
     Key([mod, shift], "F8", lazy.spawn("dmenuumount")),
 
-    # Key([mod], "kp-add", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
-    # Key([mod], "kp-subtract", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
+    # Key([mod], "kp-add", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
+    # Key([mod], "kp-subtract", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
 ]
 # }}}
 # ======================= Groups ============= {{{
@@ -837,13 +840,17 @@ screens = [
                     foreground=colors[9],
                     background=foregroundColorTwo
                 ),
+                # widget.GenPollText( # sb-music
+                #     update_interval=10,
+                #     func=lambda: subprocess.check_output(os.path.expanduser("~/.local/bin/statusbar/sb-music")),
+                # ),
                 # widget.Mpd2(
-                #     status_format='{play_status} {artist}/{album}/{title}',
-                #     idle_message="empty list",
+                #     status_format='{play_status} [{artist:.15s}]-[{album:.15s}]-[{title:.30s}]',
+                #     idle_message="mpd",
                 #     color_progress="#9497aa",
+                #     update_interval=10,
                 #     foreground=colors[9],
                 #     background=foregroundColorTwo,
-                #     # update_interval=10
                 # ),
                 widget.CPU(
                     format="{load_percent:-2.1f}% {freq_current}GHz",

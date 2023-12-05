@@ -1,18 +1,15 @@
 # ======================= Font ============= {{{
 font:
   normal:
-    # family: Iosevka
-    family: CaskaydiaCove Nerd Font Mono
+    family: IosevkaTerm Nerd Font Propo
     style: Bold
   bold:
-    # family: Iosevka
-    family: CaskaydiaCove Nerd Font Mono
-    style: Bold
+    family: IosevkaTerm Nerd Font Propo
+    style: ExtraBold
   italic:
-    # family: Iosevka
-    family: CaskaydiaCove Nerd Font Mono
+    family: IosevkaTerm Nerd Font Propo
     style: Italic
-  size: 9
+  size: 10
   offset:
     x: 1
     y: 1

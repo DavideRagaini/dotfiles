@@ -1,5 +1,55 @@
 #!/bin/sh
 
+case "$(printenv XDG_SESSION_TYPE)" in
+    wayland)
+        alias \
+            cclip="wl-copy" \
+            pclip="wl-paste"
+        ;;
+    tty | x11)
+        alias \
+            cclip="xclip -selection clipboard" \
+            pclip="xclip -selection clipboard -o"
+        ;;
+esac
+
+case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
+    Void)
+        alias \
+            xbi="doas xbps-install -S" \
+            xu="doas xbps-install -Su" \
+            xr="doas xbps-remove -R" \
+            sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
+
+        sxi() {
+            LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
+            [ -z $LIST ] && return
+            doas xbps-install -Sy $LIST
+        }
+
+        alias \
+            xq="xbps-query -Rs" \
+            xgot="xbps-query -l | fzf"
+
+        sxq() {
+            xbps-query -Rs "$1" | fzf
+        }
+        ;;
+    NixOS)
+        alias \
+            animdl="~/Packages/python/ani/bin/animdl" \
+            hm='home-manager'
+        hmu() {
+            cd ~/.config/home-manager &&
+                nix flake update &&
+                home-manager switch 2>&1 |
+                    tee "$HOME/.local/hm_last.log"
+        }
+        ;;
+    Ubuntu|Armbian)
+        ;;
+esac
+
 # Override GNU defaults
 alias \
     bc="bc -l" \
@@ -35,6 +85,7 @@ alias \
     cpuperf="sudo cpupower frequency-set --governor performance" \
     cpusave="sudo cpupower frequency-set --governor powersave" \
     pip="python3 -m pip" \
+    irssi="irssi --config=\"\$XDG_CONFIG_HOME\"/irssi/config -- home=\"\$XDG_DATA_HOME\"/irssi" \
     pips="python3 -m pip_search" \
     q="exit" \
     s="doas" \
@@ -43,28 +94,29 @@ alias \
     smi="doas make install" \
     spd="librespot \
             --c ~/.cache/librespot \
-            --backend alsa \
+            --backend pulseaudio \
             --cache-size-limit 1G \
-            --name \"$(hostname)\" \
+            --name \"\$(hostname)\" \
             --device-type computer \
             --initial-volume 100 \
             --enable-volume-normalisation \
-            --normalisation-pregain -7 \
+            --normalisation-pregain -6 \
             --bitrate 320" \
     v="nvim" \
     trr="transmission-remote" \
     udc="udisksctl" \
-    updatedb="updatedb \
-        --localpaths=\"\$HOME\" --output=\"\$HOME/.local/updatedb\" \
-        --prunepaths=\"\$HOME/Packages \$HOME/MATLAB \$HOME/sources .*/\..*\"" \
     locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
     x="sxiv -ft *" \
     zt="zathura"
 
-sbmks() {
-    xclip  -selection clipboard -o >> "$HOME/.config/qutebrowser/quickmarks"
-
+yta() {
+    mpv --force-window=no --ytdl-format=bestaudio ytdl://ytsearch:"$*"
 }
+
+sbmks() {
+    pclip >> "$HOME/.config/qutebrowser/quickmarks"
+}
+
 bmks() {
     bookmark_file="$XDG_CONFIG_HOME/qutebrowser/quickmarks"
     description="$(cut -d' ' -f2- "$bookmark_file" | fzf)"
@@ -73,51 +125,10 @@ bmks() {
     setsid -f "$BROWSER" "$link" >/dev/null 2>&1 &
 }
 
-lynxs() {
-    lynx -cfg="$HOME/.config/lynx/lynx.cfg" "https://searx.be/search?q=$1"
-}
-
-lynxa() {
-    lynx -cfg="$HOME/.config/lynx/lynx.cfg" "$*"
-}
-
-batdiff() {
-    git diff --name-only --relative --diff-filter=d | xargs bat --diff
-}
-
 alias \
     search_commit="fzf --multi --ansi --preview='head -20 {+}' &&
 		git log --oneline |
 		fzf --multi --ansi --preview='git show {+1}'" \
-
-case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'"')" in
-    Void)
-        alias \
-            xbi="doas xbps-install -S" \
-            xu="doas xbps-install -Su" \
-            xr="doas xbps-remove -R" \
-            sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
-
-        sxi() {
-            LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
-            [ -z $LIST ] && return
-            doas xbps-install -Sy $LIST
-        }
-
-        alias \
-            xq="xbps-query -Rs" \
-            xgot="xbps-query -l | fzf"
-
-        sxq() {
-            xbps-query -Rs "$1" | fzf
-        }
-        ;;
-    NixOs)
-        alias animdl="~/Packages/python/ani/bin/animdl"
-        ;;
-    Ubuntu|Armbian)
-        ;;
-esac
 
 # Miscellaneous
 alias \

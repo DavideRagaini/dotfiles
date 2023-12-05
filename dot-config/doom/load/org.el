@@ -1,7 +1,31 @@
 ;;; ../../.local/src/dotfiles/dot-config/doom/org.el -*- lexical-binding: t; -*-
+(setq org-auto-align-tags nil
+      org-startup-folded t
+      org-checkbox-hierarchical-statistics nil
+      org-image-actual-width 1200
+      org-agenda-compact-blocks t
+      org-agenda-restore-windows-after-quit t
+      org-agenda-default-appointment-duration 30
+      org-agenda-span 14
+      org-deadline-warning-days 7
+      org-agenda-window-setup 'reorganize-frame
+      org-agenda-inhibit-startup t
+
+      )
+
+(add-hook 'org-agenda-mode-hook
+          (lambda () (local-set-key [tab] 'org-agenda-tree-to-indirect-buffer)))
+
+(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+(defun place-agenda-tags ()
+  "Put the agenda tags by the right border of the agenda window."
+  (setq org-agenda-tags-column (- 4 (window-width)))
+  (org-agenda-align-tags))
+
 ;; ========= Org Misc ========= {{{
 ;; Resume clocking task when emacs is restarted
 (setq org-directory "~/Org"
+      ;; org-agenda-start-day "-3d"
       org-agenda-files
       '("~/Org/Me/Tasks.org"
         "~/Org/Me/Habits.org"
@@ -11,23 +35,17 @@
       org-agenda-start-with-log-mode t
       org-archive-location "~/Org/Archive/%s_archive::"
       org-columns-default-format "%4TODO(ToDo) %40ITEM(Task) %2PRIORITY %6CLOCKSUM(Clock) %8Effort(Estimated Effort){:} %TAGS(Tags)"
-      ;; org-agenda-include-diary t
+      org-agenda-include-diary t
       ;; org-agenda-include-inactive-timestamps t
       ;; org-agenda-show-log 'only
-      ;; org-clock-persist 'history
-     ;; Save the running clock and all clock history when exiting Emacs, load it on startup
       org-clock-persist t
-      ;; Resume clocking task on clock-in if the clock is open
+      org-clock-persist t
       org-clock-in-resume t
-      ;; Save clock data and state changes and notes in the LOGBOOK drawer
       org-clock-into-drawer t
-      ;; Removes clocked tasks with 0:00 duration
       org-clock-out-remove-zero-time-clocks t
-      ;; Clock out when moving task to a done state
+      org-clock-in-switch-to-state "STRT"
       org-clock-out-when-done t
-      ;; Enable auto clock resolution for finding open clocks
       org-clock-auto-clock-resolution (quote when-no-clock-is-running)
-      ;; Include current clocking task in clock reports
       org-clock-report-include-clocking-task t
       org-ellipsis " ⤵" ; ▼
       org-export-in-background t
@@ -47,7 +65,20 @@
       ;; Use pretty things for the clocktable
       org-pretty-entities nil
       org-refile-targets '((org-agenda-files :maxlevel . 3))
+      ;; org-agenda-include-deadlines
+      ;; org-agenda-skip-deadline-prewarning-if-scheduled
+      ;; org-agenda-todo-ignore-deadlines
+      ;; org-agenda-skip-scheduled-if-deadline-is-shown
+      ;; org-agenda-skip-deadline-if-done
+      ;; org-agenda-skip-scheduled-if-done
       org-tags-column -1)
+
+;; (setq org-todo-keywords
+;;   '((sequence "TODO(t)" "NEXT(n)" "PROG(p)" "INTR(i)" "DONE(d)")))
+
+(setq org-agenda-format-date
+      (lambda (date) (concat "\n" (make-string (- (window-width) 1) 9472) "\n"
+        (org-agenda-format-date-aligned date))))
 
 (org-clock-persistence-insinuate)
 
@@ -111,8 +142,11 @@
          :kill-buffer t :prepend t)
 
     ("b" "Personal Capture")
-    ("bb" "Add Birtday" entry (file+headline "~/Org/Others/Birthdays.org" "Inbox")
-         "* %? %T\n"
+    ("ba" "Add Anniversary" entry (file+headline "~/Org/Others/Recurring.org" "Anniversaries")
+         "%%(org-anniversary %^{Year} %^{Month} %^{Day}) %^{Name} %^{Surname} (%d)"
+         :kill-buffer t :prepend t)
+    ("bb" "Add Birtday" entry (file+headline "~/Org/Others/Recurring.org" "Birthdays")
+         "%%(org-anniversary %^{Year} %^{Month} %^{Day}) %^{Name} (%d)"
          :kill-buffer t :prepend t)
     ("bm" "Add to Music List" entry (file+headline "~/Org/Me/Music.org" "Inbox")
          "* [ ] %^{Title} - %^{Artist}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
@@ -178,17 +212,42 @@
          "* %?"
          :empty-lines 1 :empty-lines-after 1)
 
-    ("s" "Tambreet Capture")
-    ("sd" "Dataset" table-line (file+headline "~/Org/Others/Tambreet.org" "Dataset")
-         "| %^{Players|2|3|4|5} | %^{Color|Blue|Green|Purple|White} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
-         :kill-budder t)
-    ("si" "Tambreet Idea" table-line (file+headline "~/Org/Others/Tambreet.org" "Inbox")
-         "* IDEA %?  %U\n")
-    ("st" "Tambreet Todo" table-line (file+headline "~/Org/Others/Tambreet.org" "Inbox")
-         "* TODO %?  %U\n")
+    ("p" "Add new paper" entry (file+headline "~/Uni/Tirocinio/Readings/Readings.org" "Inbox")
+         "* [ ] [[%link]]
+:PROPERTIES:
+:TITLE: %^{Title|Unknown}
+:AUTHOR: %^{Author|Unknown}
+:CREATED: %U
+:SOURCE: %^{Source|Unknown}
+:CATEGORY: %^{Category|Unknown}
+:LINK: %^{Link|Unknown}
+:RELEASE_DATE: %^{Release Date|Unknown}
+:PUBLISHER: %^{Publisher|Unknown}
+:TAGS: %^{Tags|Unknown}
+:PAGES: %^{Pages}
+:END:"
+         :prepend t)
+
+    ;; ("s" "Tambreet Capture")
+    ;; ("sd" "Dataset" table-line (file+headline "~/Org/Others/Tambreet.org" "Dataset")
+    ;;      "| %^{Players|2|3|4|5} | %^{Color|Blue|Green|Purple|White} | %^{Minutes} | %^{Seconds} | %^{Declared} | %^{Extracted} | %^{Time-Stamp}U | %^{Notes} |"
+    ;;      :kill-budder t)
+    ;; ("si" "Tambreet Idea" table-line (file+headline "~/Org/Others/Tambreet.org" "Inbox")
+    ;;      "* IDEA %?  %U\n")
+    ;; ("st" "Tambreet Todo" table-line (file+headline "~/Org/Others/Tambreet.org" "Inbox")
+    ;;      "* TODO %?  %U\n")
 
     ("t" "Tasks / Projects")
-    ("tc" "Time Journal" entry (file+olp+datetree "~/Org/Me/Tasks.org" "Daily")
+    ("ta" "Scheduled Task" entry (file+headline "~/Org/Me/Tasks.org" "Schedule")
+         "* %^{Task}\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
+         :prepend t)
+    ("td" "Deadline Task" entry (file+headline "~/Org/Me/Tasks.org" "Schedule")
+         "* %^{Task}\nDEADLINE: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
+         :prepend t)
+    ("tb" "Remember Task" entry (file+headline "~/Org/Me/Tasks.org" "Schedule")
+         "* %^{Task}\n%^{When}t\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
+         :prepend t)
+    ("tc" "Today's Tasks" entry (file+olp+datetree "~/Org/Me/Tasks.org" "Daily")
          "* %?"
          :clock-in :clock-resume :prepend t)
     ("ti" "Interrupt" entry (file+headline "~/Org/Me/Tasks.org" "Inbox")
@@ -208,6 +267,6 @@
     ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
     ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
     ("w" "Workout" table-line (file+datetree "~/Org/Me/Workout.org")
-         "| %^{Type of Workout|Calisthenics|Stretching|Yoga|Swimming|Others}|%^{Exercises}| | |%^{Start Time-Stamps}U|%^{End Time-Stamps}U|"
+         "| %^{Type of Workout|Calisthenics|Boldering|Stretching|Yoga|Swimming|Others}|%^{Exercises}| | |%^{Start Time-Stamps}U|%^{End Time-Stamps}U|"
           :tree-type month :kill-buffer t)))
 ;; }}}

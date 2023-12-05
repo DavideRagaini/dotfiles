@@ -60,7 +60,7 @@ bindkey -M visual '^[[P' vi-delete
 bindkey -r "^d"
 bindkey -r "^u"
 bindkey '^[[28;5;9~' autosuggest-execute
-bindkey -s '^v' '"$(xclip -o)"'
+bindkey -s '^v' '"$(pclip)"'
 bindkey -s '^o' '^ulfcd^M'
 bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 # bindkey -s '^v' 'nvim $(fzf)^M'

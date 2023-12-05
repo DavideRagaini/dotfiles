@@ -1,33 +1,3 @@
---[[
-
-    https://github.com/stax76/mpv-scripts
-
-    All this script does is writing to a log file.
-
-    It writes:
-
-    1. The date and time:     10.09.2022 19:50
-    2. How many minutes:      3
-    3. Filename and location: D:\Samples\Big Buck Bunny.mkv
-
-    This is how it looks:
-
-    10.09.2022 19:50  3 D:\Samples\Big Buck Bunny.mkv
-
-    There are two conf options:
-
-    exclude=<list of folders to be excluded, separated via semicolon>
-    storage_path=~~/history.log
-
-    Similar or related scripts:
-    https://github.com/yuukidach/mpv-scripts/blob/master/history-bookmark.lua
-    https://gist.github.com/Abject-Web/3f4f0e85dad73303b9dd1ef1f55c3147
-    https://gist.github.com/garoto/e0eb539b210ee077c980e01fb2daef4a
-    https://github.com/Eisa01/mpv-scripts#simplehistory
-    https://github.com/hacel/recent
-
-]]--
-
 ----- string
 
 function is_empty(input)
@@ -144,9 +114,9 @@ function history()
 
     if not is_empty(path) and seconds > 60 and not discard() then
         -- local minutes = human_time(seconds)
-        local minutes = round(seconds / 60)
-        local line = os.date("%d.%m.%Y %H:%M ") .. "\t" ..
-            minutes  .. "\t" ..
+        -- local minutes = round(seconds / 60)
+        local line = os.date("%X %x") .. "\t" ..
+            -- minutes  .. "\t" ..
             title .. "\t" ..
             path .. "\n"
         file_append(o.storage_path, line)

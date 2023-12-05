@@ -1,12 +1,14 @@
 -- Runs write-watch-later-config periodically
 
 local options = require 'mp.options'
-local o = { save_interval = 60 }
+local o = { save_interval = 120 }
 options.read_options(o)
 
 local function save()
 	if mp.get_property_bool("resume-playback") then
+		mp.commandv("set", "msg-level", "cplayer=warn")
 		mp.command("write-watch-later-config")
+		mp.commandv("set", "msg-level", "cplayer=status")
 	end
 end
 
