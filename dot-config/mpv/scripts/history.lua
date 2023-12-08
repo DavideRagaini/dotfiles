@@ -59,13 +59,6 @@ function round(value)
     return value >= 0 and math.floor(value + 0.5) or math.ceil(value - 0.5)
 end
 
--- function human_time(time)
---     local hours = floor(mod(time, 86400)/3600)
---     local minutes = floor(mod(time,3600)/60)
---     local seconds = floor(mod(time,60))
---     return format("%02d:%02d:%02d",hours,minutes,seconds)
--- end
-
 ----- file
 
 function file_exists(path)
@@ -78,9 +71,24 @@ function file_exists(path)
 end
 
 function file_append(path, content)
-    local h = assert(io.open(path, "ab"))
-    h:write(content)
+    local h = assert(io.open(path, 'r'))
+    local lines = {}
+    for line in h:lines() do
+        table.insert(lines, line)
+    end
     h:close()
+
+    table.insert(lines, 1, content)
+
+    local path_new = path .. ".tmp"
+    local h = io.open(path_new, 'w')
+    for _, line in ipairs(lines) do
+        h:write(line .. "\n")
+    end
+    h:close()
+
+    os.remove(path)
+    os.rename(path_new, path)
 end
 
 ----- history
@@ -113,24 +121,18 @@ function history()
     local seconds = round(os.time() - time)
 
     if not is_empty(path) and seconds > 60 and not discard() then
-        -- local minutes = human_time(seconds)
-        -- local minutes = round(seconds / 60)
+        local minutes = round(seconds / 60)
         local line = os.date("%X %x") .. "\t" ..
-            -- minutes  .. "\t" ..
             title .. "\t" ..
-            path .. "\n"
+            path
         file_append(o.storage_path, line)
     end
 
     path = mp.get_property("path")
     title = mp.get_property("media-title")
 
-    -- if contains(path, "://") then
-    --     path = mp.get_property("media-title")
-    -- end
-
     time = os.time()
 end
 
-mp.register_event("shutdown", history)
 mp.register_event("file-loaded", history)
+mp.register_event("shutdown", history)
