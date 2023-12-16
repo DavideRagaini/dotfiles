@@ -65,7 +65,7 @@ browser linkhandler
 macro , open-in-browser
 macro d set browser "ts dy bestaudio"; open-in-browser ; set browser linkhandler
 macro D set browser "ts dy video"; open-in-browser ; set browser linkhandler
-macro a set browser "setsid -f dmpv2"; open-in-browser ; set browser linkhandler
+macro a set browser "setsid -f dmpv append"; open-in-browser ; set browser linkhandler
 macro A set browser "setsid -f dmpv aplay"; open-in-browser ; set browser linkhandler
 macro e set browser "setsid -f dmpv enqueue"; open-in-browser ; set browser linkhandler
 macro p set browser "setsid -f dmpv eplay"; open-in-browser ; set browser linkhandler
@@ -73,7 +73,7 @@ macro s set browser "setsid -f streamlink --quiet %u 480p"; open-in-browser ; se
 macro S set browser "setsid -f streamlink --quiet %u best"; open-in-browser ; set browser linkhandler
 macro w set browser "lynx"; open-in-browser ; set browser linkhandler
 macro v set browser "setsid -f mpv --no-terminal"; open-in-browser ; set browser linkhandler
-macro r set browser "nix-shell -p \"python311.withPackages (ps: with ps; [ requests readability-lxml ])\" --run 'python3 -m readability.readability -u \"%u\" | lynx -stdin'" ; open-in-browser ; set browser linkhandler
+# macro r set browser "nix-shell -p \"python311.withPackages (ps: with ps; [ requests readability-lxml ])\" --run 'python3 -m readability.readability -u \"%u\" | lynx -stdin'" ; open-in-browser ; set browser linkhandler
 macro t set browser "newsboat_last_update.sh" ; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
 macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler

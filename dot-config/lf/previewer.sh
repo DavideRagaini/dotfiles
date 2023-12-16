@@ -1,117 +1,96 @@
 #!/bin/sh
-draw() {
-  ~/.config/lf/draw_img.sh "$@"
+
+image() {
+  FILE_PATH="$1"
+  X=$4
+  Y=$5
+  MW=$(($2 - 1))
+  MH=$3
+  ueberzugpp cmd -s "$UB_SOCKET" -a add -i PREVIEW -x "$X" -y "$Y" --max-width "$MW" --max-height "$MH" -f "$FILE_PATH"
   exit 1
 }
 
-hash() {
-  printf '%s/.cache/lf/%s' "$HOME" \
-    "$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
-}
-
-cache() {
-  if [ -f "$1" ]; then
-    draw "$@"
+batorcat() {
+  file="$1"
+  shift
+  if command -v bat >/dev/null 2>&1; then
+    bat --color=always --style=plain --pager=never --line-range :60 "$file" "$@"
+  else
+    head -n60 "$file"
   fi
 }
 
-file="$1"
-shift
+CACHE="$HOME/.cache/lf/$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
 
-text_previwer() {
-  case "$(file -Lb --mime-type -- "$file")" in
-    */xml) bat --color always --paging=never --line-range :50 "$file" ;;
-    *opendocument*) odt2txt "${file}" ;;
-    application/bzip2) atool --list -- "${file}" ;;
-    application/gzip) atool --list -- "${file}" ;;
-    application/json) bat --paging=never --line-range :50 "$file" ;;
-    application/lzma) atool --list -- "${file}" ;;
-    application/lzop) atool --list -- "${file}" ;;
-    application/octet-stream) xxd "$file" ;;
-    application/pdf) pdftotext -f 1 -l 5 -layout "${file}" /tmp/pdftotext.txt ;;
-    # application/pdf) pdftotext "${file}" /tmp/pdftotext.txt ;;
-    application/pgp-encrypted) gpg -d -- "${file}" ;;
-    application/x-iso9660-image) { isoinfo -d -i "$FILE_PATH"; printf "\nContent:"; isoinfo -l -i "$FILE_PATH"; } | $PAGER ;;
-    application/x-lzip) atool --list -- "${file}" ;;
-    application/x-mobipocket-ebook) ebook-convert "$file" ;;
-    application/x-object) nm "${FILE_PATH}" | $PAGER ;;
-    application/x-brotli) atool --list -- "${file}" ;;
-    application/x-tar) atool --list -- "${file}" ;;
-    application/epub+zip) epub2txt "${file}" | head -n 60;;
-    application/x-xz) atool --list -- "${file}";;
-    application/zip) atool --list -- "${file}" ;;
-    text/troff) man ./ "${file}" | col -b ;;
-    text/html) html2text "${file}" ;;
-    # text/plain) bat --paging=never --line-range :60 "$file" ;;
-    # text/x-diff) ;;
-    text/*) bat --color always --paging=never --line-range :60 "$file" ;;
-    audio/*) mediainfo "$file" ;;
-    image/*) mediainfo "$file" ;;
-    video/*) mediainfo "$file" ;;
-  esac
-}
-
-text_previwer &
-
-if [ -n "$FIFO_UEBERZUG" ]; then
-  case "$(file -Lb --mime-type -- "$file")" in
-    application/pdf)
-      cache="$(hash "$file").jpg"
-      cache "$cache" "$@"
-      gs -o "$cache" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
-      draw "$cache" "$@"
-      ;;
-    application/epub+zip|application/x-mobipocket-ebook)
-      cache="$(hash "$file").png"
-      cache "$cache" "$@"
-      ebook-meta "$file" --get-cover="$cache"
-      draw "$cache" "$@" ;;
-    font/sfnt | application/octet-stream)
-      PREVIEW_TEXT=${FONTPREVIEW_PREVIEW_TEXT:-"ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n1234567890\n!@#$\%^&*,.;:\n_-=+'\"|\\(){}[]"}
-      TEXT_ALIGN=${FONTPREVIEW_TEXT_ALIGN:-center}
-      [ "$TEXT_ALIGN" = center ] || [ "$TEXT_ALIGN" = south ] || [ "$TEXT_ALIGN" = north ] || PADDING=50
-      cache="$(hash "$file").jpg"
-      cache "$cache" "$@"
-      convert -size "800x800" xc:"#ffffff" -fill "#000000" \
-      -pointsize "72" -font "$file" -gravity "$TEXT_ALIGN" \
-      -annotate +${PADDING:-0}+0 "$PREVIEW_TEXT" "$cache"
-      draw "$cache" "$@" ;;
-    image/vnd.djvu)
-      cache="$(hash "$file").jpg"
-      cache "$cache" "$@"
-      ddjvu -format=tiff -quality=90 -page=1 "$file" "$cache"
-      draw "$file" "$@" ;;
-    image/*)
-      orientation="$(identify -format '%[EXIF:Orientation]\n' -- "$file")"
-      if [ -n "$orientation" ] && [ "$orientation" != 1 ]; then
-        cache="$(hash "$file").jpg"
-        cache "$cache" "$@"
-        convert -- "$file" -auto-orient "$cache"
-        draw "$cache" "$@"
-      else
-        draw "$file" "$@"
-      fi
-      ;;
-      */epub+zip|*/mobi*)
-        CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/lf/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1)"
-        [ ! -f "$CACHE.jpg" ] && gnome-epub-thumbnailer "$1" "$CACHE.jpg"
-        image "$CACHE.jpg" "$2" "$3" "$4" "$5" "$1"
-        ;;
-    # video/*)
-      # cache="$(hash "$file").jpg"
-      # cache "$cache" "$@"
-      # ffmpegthumbnailer -i "$file" -o "$cache" -s 0
-      # draw "$cache" "$@"
-      # ;;
-    text/html)
-      cache="$(hash "$file").jpg"
-      cache "$cache" "$@"
-      wkhtmltoimage --quality 70 -f jpg --height 1000 "${file}" "$cache"
-      draw "$cache" "$@"
-      ;;
-  esac
-fi
-
-wait
-file -Lb -- "$1" | fold -s -w "$width"
+case "$(printf "%s\n" "$(readlink -f "$1")" | tr '[:upper:]' '[:lower:]')" in
+  *.gpg | *.pgp) gpg -d -- "${1}" ;;
+  *.epub | *.mobi | *.azw | *.azw3)
+    [ -f "$CACHE.jpg" ] ||
+      gnome-epub-thumbnailer "$1" "${CACHE}.jpg"
+    image "$CACHE.jpg" "$2" "$3" "$4" "$5" "$1"
+    ;;
+  *.ttf | *.otf)
+    PREVIEW_TEXT=${FONTPREVIEW_PREVIEW_TEXT:-"ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n1234567890\n!@#$\%^&*,.;:\n_-=+'\"|\\(){}[]"}
+    TEXT_ALIGN=${FONTPREVIEW_TEXT_ALIGN:-center}
+    [ "$TEXT_ALIGN" = center ] ||
+      [ "$TEXT_ALIGN" = south ] ||
+      [ "$TEXT_ALIGN" = north ] ||
+      PADDING=50
+    convert -size "800x800" xc:"#ffffff" -fill "#000000" \
+      -pointsize "72" -font "$1" -gravity "$TEXT_ALIGN" \
+      -annotate +${PADDING:-0}+0 "$PREVIEW_TEXT" "${CACHE}.jpg"
+    image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+    ;;
+  *.djvu)
+    ddjvu -format=tiff -quality=80 -page=1 "$1" "${CACHE}.jpg"
+    image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+    ;;
+  *.troff) man ./ "$1" | col -b ;;
+  *.html) html2text "$1" ;;
+  *.tgz | *.tar.gz) tar tzf "$1" ;;
+  *.tar.bz2 | *.tbz2) tar tjf "$1" ;;
+  *.tar.txz | *.txz) xz --list "$1" ;;
+  *.tar) tar tf "$1" ;;
+  *.zip | *.jar | *.war | *.ear | *.oxt) unzip -l "$1" ;;
+  *.rar) unrar l "$1" ;;
+  *.7z) 7z l "$1" ;;
+  *.[1-8]) man "$1" | col -b ;;
+  *.o) nm "$1" ;;
+  *.torrent) transmission-show "$1" ;;
+  *.iso) iso-info --no-header -l "$1" ;;
+  *.odt | *.ods | *.odp | *.sxw) odt2txt "$1" ;;
+  *.doc) catdoc "$1" ;;
+  *.docx) docx2txt "$1" - ;;
+  *.xls | *.xlsx)
+    ssconvert --export-type=Gnumeric_stf:stf_csv "$1" "fd://1" |
+      batorcat --language=csv
+    ;;
+  *.wav | *.mp3 | *.flac | *.m4a | *.wma | *.ape | *.ac3 | *.og[agx] | *.spx | *.opus | *.as[fx] | *.mka)
+    mediainfo "$1" &
+    exiftool "$1"
+    ;;
+  *.pdf)
+    pdftotext "${1}" /tmp/pdftotext.txt &
+    [ -f "${CACHE}.jpg" ] ||
+      pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
+    image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+    ;;
+  *.avi | *.mp4 | *.wmv | *.dat | *.3gp | *.ogv | *.mkv | *.mpg | *.mpeg | *.vob | *.fl[icv] | *.m2v | *.mov | *.webm | *.ts | *.mts | *.m4v | *.r[am] | *.qt | *.divx)
+    mediainfo "$1" &
+    [ -f "${CACHE}.jpg" ] ||
+      ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5 -t 00:00:10
+    image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+    ;;
+  *.bmp | *.jpg | *.jpeg | *.png | *.xpm | *.webp | *.gif | *.jfif)
+    mediainfo "$1" &
+    image "$1" "$2" "$3" "$4" "$5"
+    ;;
+  *.svg)
+    mediainfo "$1" &
+    [ -f "${CACHE}.jpg" ] ||
+      convert "$1" "${CACHE}.jpg"
+    image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
+    ;;
+  *) batorcat "$1" ;;
+esac
 exit 0

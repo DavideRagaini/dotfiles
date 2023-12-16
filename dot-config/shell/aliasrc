@@ -125,6 +125,11 @@ bmks() {
     setsid -f "$BROWSER" "$link" >/dev/null 2>&1 &
 }
 
+modules_update() {
+    find "$1" -type d -exec test -e '{}/.git' ';' -print0 |
+        xargs -I {} -0 git -C {} pull origin master
+}
+
 alias \
     search_commit="fzf --multi --ansi --preview='head -20 {+}' &&
 		git log --oneline |
@@ -134,8 +139,8 @@ alias \
 alias \
     ffmpeg="ffmpeg -hide_banner" \
     ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
-    zsh-update-plugins="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull" \
-modules_update="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull origin master"
+    mpv-update-plugins="find \"\$XDG_CONFIG_HOME/mpv/modules\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull" \
+    zsh-update-plugins="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
 
 [ -f "$XINITRC" ] && alias startx="startx \$XINITRC"
 

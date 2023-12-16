@@ -10,7 +10,7 @@ autostart(){
     systemctl start --user clipmenu.service
     sleep "$2"
     # "$HOME/.local/bin/nix/thorium" &
-    brave &
+    $BROWSER &
     sleep "$3"
     systemctl is-active --quiet openvpn-europe.service &&
         qbittorrent &

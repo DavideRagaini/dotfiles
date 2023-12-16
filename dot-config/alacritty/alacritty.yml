@@ -56,8 +56,8 @@ hints:
        enabled: true
        mods: None
      binding:
-       key: U
-       mods: Alt
+       key: Y
+       mods: Control|Shift
    - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
              [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
      hyperlinks: true
@@ -70,7 +70,7 @@ hints:
        mods: None
      binding:
        key: O
-       mods: Alt
+       mods: Control|Shift
 # }}}
 # ======================= Selection ============= {{{
 selection:
@@ -79,8 +79,6 @@ selection:
 # }}}
 # ======================= Key Bindings ============= {{{
 key_bindings:
-  - { key: V, mods: Alt, action: Paste }
-  - { key: C, mods: Alt, action: Copy }
   - { key: Key0, mods: Alt, action: ResetFontSize }
   - { key: Equals, mods: Alt, action: IncreaseFontSize }
   - { key: Plus, mods: Alt, action: IncreaseFontSize }

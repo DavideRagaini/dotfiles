@@ -13,6 +13,8 @@ set autoquit true
 set previewer ~/.config/lf/previewer.sh
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
+set incsearch
+set incfilter
 
 # cmds/functions
 cmd open ${{
@@ -204,16 +206,24 @@ cmd paste &{{
     lf -remote "send clear"
 }}
 
-cmd recol %{{
-    w=$(tput cols)
-    if [ $w -le 80 ]; then
+cmd on-redraw %{{
+    if [ $lf_width -le 80 ]; then
         lf -remote "send $id set ratios 1:2"
-    elif [ $w -le 160 ]; then
+    elif [ $lf_width -le 160 ]; then
         lf -remote "send $id set ratios 1:2:3"
     else
         lf -remote "send $id set ratios 1:2:3:5"
     fi
 }}
+
+cmd toggle_preview %{{
+    if [ "$lf_preview" = "true" ]; then
+        lf -remote "send $id :set preview false; set ratios 1:5"
+    else
+        lf -remote "send $id :set preview true; set ratios 1:2:3"
+    fi
+}}
+map zp toggle_preview
 
 # y (select for copy) and P to paste soft-link
 # d (select for cut) and P to paste hard-link
@@ -316,7 +326,7 @@ cmd fzf_search ${{
     )"
     [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
 }}
-map gs :fzf_search
+map gr :fzf_search
 
 cmd on-cd &{{
     # '&' commands run silently in background (which is what we want here),
@@ -335,6 +345,56 @@ cmd on-cd &{{
     # printf "\033]0; $PWD\007" > /dev/tty
 }}
 on-cd
+
+cmd compressvideo ${{
+   clear;
+   set -f;
+
+   converted_filenames=""; #notify-send variable
+   converted_files_count=0; #notify-send variable
+
+   echo "Compression Rate? (default: 31, maximum: 50)";
+   read compressionRate;
+
+   #If not a number (e.g. empty), give default 31 value
+   if ! [[ $cr =~ ^[0-5][0-9]$ ]]; then
+      compressionRate="31";
+   fi
+
+   for pickedFilepath in $fx; do
+      #could instead use ffprobe but would get more complicated as the filetype suffix becomes unknown
+      case $pickedFilepath in
+         *.mp4)
+		tempFilepath=$(echo "$pickedFilepath" | sed 's|.mp4|(CONVERTING).mp4|');
+		mv -f "$pickedFilepath" "$tempFilepath";
+
+		ffmpeg -i "$tempFilepath" -vcodec libx265 -crf "$compressionRate" "$pickedFilepath";
+		rm -f -- "$tempFilepath";
+		;;
+         *.webm | *.mkv)
+		newFilepath=$(echo "$pickedFilepath" | sed 's/\(.webm\|.mkv\)/.mp4/');
+		ffmpeg -i "$pickedFilepath" -vcodec libx265 -crf "$compressionRate" "$newFilepath";
+		rm -f -- "$pickedFilepath";
+		;;
+	 *)
+	   continue 1;;
+      esac
+
+      ((converted_files_count=converted_files_count+1));
+      converted_filenames="$converted_filenames"$'\n'"$pickedFilepath";
+
+   done
+
+   #Notify the user of the results
+   if [[ $converted_files_count -gt 0 ]]; then
+      converted_filenames=$(echo "$converted_filenames" | sed 's|.*\/||');
+      notify-send "Compressed Videos($converted_files_count):" "$converted_filenames";
+   fi;
+}}
+
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
 
 cmd follow_link %{{
   lf -remote "send ${id} select '$(readlink $f)'"

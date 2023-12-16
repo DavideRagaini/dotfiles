@@ -69,10 +69,6 @@
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
 ;; }}}
-;; ========= Bindings ========= {{{
-(global-set-key [f5] 'alarm-clock-set)
-(global-set-key [f6] 'alarm-clock-list-view)
-;; }}}
 ;; ========= Popups Rules ========= {{{
 (set-popup-rules!
   '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
@@ -102,6 +98,29 @@
 ;; }}}
 ;; ========= Load Config Files ========= {{{
 (load! "load/org.el")
+;; (load! "load/calibredb.el")
+;; (load! "load/matlab-setup.el")
+;; }}}
+;; ========= Hydra ========= {{{
+(defhydra doom-window-resize-hydra (:hint nil)
+  "
+             _k_ increase height
+_h_ decrease width    _l_ increase width
+             _j_ decrease height
+"
+  ("h" evil-window-decrease-width)
+  ("j" evil-window-increase-height)
+  ("k" evil-window-decrease-height)
+  ("l" evil-window-increase-width)
+  ("q" nil))
+
+;; }}}
+;; ========= Bindings ========= {{{
+(map!
+ (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
+ (:prefix "SPC b" :desc "+format/region" :n "f" #'+format/region)
+ (:prefix "SPC b" :desc "+format/buffer" :n "F" #'+format/buffer)
+)
 ;; }}}
 ;; ========= Manual ========= {{{
 ;; - `load!' for loading external *.el files relative to this one

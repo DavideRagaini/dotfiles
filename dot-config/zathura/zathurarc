@@ -10,6 +10,7 @@ map K zoom in
 map J zoom out
 map i recolor
 map p print
+map y feedkeys ":exec sh -c \"echo $FILE | xclip -i -sel clip\"<Return>"
 
 set sandbox normal
 # set sandbox strict

@@ -1,0 +1,5 @@
+Cabin F v1.0
+
+Changed the font spacing and size to more closely match Gandhi Sans.
+Made the em dash — (id 8212, Unicode U+2014) longer as the default one is very short, changed the width from 480 to 900.
+Replaced the ugly @ (id 64, Unicode U+0040) with the one from Gandhi Sans as the "a" symbol inside is very close to the a character in Cabin and it looks a loot better and less distracting than the inverted colour version Cabin uses.

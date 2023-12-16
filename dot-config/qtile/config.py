@@ -14,6 +14,7 @@ from libqtile.dgroups import simple_key_binder
 from libqtile.extension import WindowList
 from libqtile.lazy import lazy
 
+from os import environ
 from re import compile as regex
 from datetime import datetime
 # from libqtile.log_utils import logger
@@ -29,11 +30,11 @@ alt = "mod1"
 shift = "shift"
 ctrl = "control"
 
-browser = "brave"
-browser_alt = "qutebrowser"
-browser_priv = "librewolf --private-window"
-terminal = "alacritty"
-text_editor = terminal + " --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -nw"
+browser = environ["BROWSER"]
+browser_alt = environ["BROWSER2"]
+browser_priv = environ["BROWSER_PRIVATE"]
+terminal = environ["TERMINAL"]
+text_editor = terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
 file_manager = terminal + " -e tmux new-session -A -s 'files'"
 launcher = "run"
 process_viewer = terminal + " -e htop"
@@ -75,7 +76,7 @@ groups = [
     Group(
         name="1",
         position=1,
-        layout="max",
+        layout="monadtall",
         exclusive=True,
         matches=[
             Match(wm_instance_class="emacs"),
@@ -572,7 +573,7 @@ keys = [
     Key([mod, shift], "Tab",
         lazy.run_extension(WindowList(
             # item_format="{id}: {group} {window}",
-                font="CaskaydiaCove Nerd Font Mono",
+                # font="CaskaydiaCove Nerd Font Mono",
                 fontsize=18,
                 dmenu_ignorecase=True,
                 # selected_background=colors[3]
@@ -617,7 +618,7 @@ keys = [
     Key([mod, shift], "w", lazy.spawn(browser_alt), desc="Launch Alternative Browser"),
     Key([mod, ctrl], "w", lazy.spawn(browser_priv), desc="Launch Private Browser"),
     Key([mod], "e", lazy.spawn(text_editor), desc="Launch Text Editor"),
-    Key([mod, shift], "e", lazy.spawn("alacritty -e emacsclient -c"), desc="Launch Text Editor"),
+    Key([mod, shift], "e", lazy.spawn(terminal + " -e emacsclient -c"), desc="Launch Text Editor"),
     Key([mod], "d", lazy.spawn("dmenu_run"), desc="Dmenu Run History Prompt"),
     Key([mod, shift], "d", lazy.spawn("via -r"), desc="Document Search"),
     Key([mod, ctrl], "t", lazy.spawn("switch-theme"), desc="Global Theme Toggle"),
@@ -656,7 +657,7 @@ keys = [
     # Key([], "XF86Search", lazy.spawn("")),
     # Key([], "XF86HomePage", lazy.spawn("")),
 
-    Key([mod], "p", lazy.spawn("dmpv2"), desc="Dmpv2"),
+    Key([mod], "p", lazy.spawn("dmpv append"), desc="Dmpv append"),
     Key([mod, shift], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
     Key([mod, ctrl], "p", lazy.spawn("dmpv aplay "), desc="Dmpv Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
@@ -716,7 +717,7 @@ layout_defaults = dict(
 layouts = [
     layout.Columns(**layout_defaults, border_width=2, margin=10),
     layout.Max(**layout_defaults, border_width=0, margin=0),
-    layout.MonadTall(**layout_defaults, border_width=2, margin=10,single_border_width = None,single_margin = None),
+    layout.MonadTall(**layout_defaults, border_width=2, margin=10, single_border_width = 0, single_margin = 0),
     layout.Bsp(**layout_defaults, border_width=2, margin=10),
     layout.RatioTile(**layout_defaults, border_width=2, margin=2),
     layout.MonadThreeCol(**layout_defaults),
@@ -768,8 +769,10 @@ layouts = [
 # }}}
 # ======================= Bar & Widgets ============= {{{
 widget_defaults = dict(
-    font='3270 Nerd Font Mono Bold',
-    fontsize=12,
+    # font='3270 Nerd Font Mono Bold',
+    # fontsize=12,
+    font="Iosevka Nerd Font Mono Bold",
+    fontsize=11,
     padding=4,
     background=colors[0]
 )
@@ -795,13 +798,13 @@ screens = [
                     foreground=workspaceColor,
                 ),
                 widget.CurrentLayout(
+                    # font="IosevkaTerm Nerd Font Mono Bold",
                     scale=0.7,
                     background=workspaceColor,
                 ),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
-
                     fontsize=50,
                     background=workspaceColor,
                     foreground=backgroundColor,
@@ -813,6 +816,7 @@ screens = [
                 #     foreground=colors[8],
                 # ),
                 widget.WindowTabs(
+                    font="IosevkaTerm Nerd Font Mono Bold",
                     selected=('<u>« ',' »</u>'),
                     separator='      ',
                     foreground=colors[8],

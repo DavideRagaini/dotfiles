@@ -53,12 +53,6 @@ function pad_left(input, len, char)
     return string.rep(char, len - #input) .. input
 end
 
------ math
-
-function round(value)
-    return value >= 0 and math.floor(value + 0.5) or math.ceil(value - 0.5)
-end
-
 ----- file
 
 function file_exists(path)
@@ -91,9 +85,41 @@ function file_append(path, content)
     os.rename(path_new, path)
 end
 
+----- TODO check if already in file, if positive then skip
+-----       ignore date (first tab)
+-----       check if exist
+----- TODO url ( first column ) as index
+function file_append2(path, content)
+    local h = assert(io.open(path, 'r'))
+    local tbl = {}
+    for line in h:tbl() do
+        local i = 1 -- first column
+        for value in (string.gmatch(line, "[^%s]+")) do  -- tab separated values
+    --  for value in (string.gmatch(line, '%d[%d.]*')) do -- comma separated values
+            tbl[i]=tbl[i]or{} -- if not column then create new one
+            tbl[i][#tbl[i]+1]=tonumber(value) -- adding row value
+            i=i+1 -- column iterator
+        end
+    end
+    h:close()
+
+    -- TODO dont pass date
+    table.find(tlb, content)
+    -- table.insert(table, 1, content)
+
+    -- local path_new = path .. ".tmp"
+    -- local h = io.open(path_new, 'w')
+    -- for _, line in ipairs(tbl) do
+    --     h:write(line .. "\n")
+    -- end
+    -- h:close()
+
+    -- os.remove(path)
+    -- os.rename(path_new, path)
+end
+
 ----- history
 
-time = 0 -- number of seconds since epoch
 path = ""
 
 local o = {
@@ -118,20 +144,22 @@ function discard()
 end
 
 function history()
-    local seconds = round(os.time() - time)
+    path = mp.get_property("path")
+    local uploader = mp.get_property("metadata/by-key/uploader")
+    local title = mp.get_property("media-title")
+    local uploader = ''
 
-    if not is_empty(path) and seconds > 60 and not discard() then
-        local minutes = round(seconds / 60)
-        local line = os.date("%X %x") .. "\t" ..
-            title .. "\t" ..
-            path
-        file_append(o.storage_path, line)
+    if contains(path, "://") then
+        uploader = mp.get_property("metadata/by-key/uploader")
+    else
+        local path_words = split(path, '/')
+        uploader = path_words[#path_words-3] .. '/' ..  path_words[#path_words-2]
     end
 
-    path = mp.get_property("path")
-    title = mp.get_property("media-title")
-
-    time = os.time()
+    if not is_empty(path) and not discard() then
+        local line = string.format("%-14s\t«%-25s»: %-70s\t%s", os.date("%x %X"), uploader, title, path)
+        file_append(o.storage_path, line)
+    end
 end
 
 mp.register_event("file-loaded", history)

@@ -1,0 +1,254 @@
+{
+  "categories": [
+    {
+      "name": [
+        "Uni"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "univpm|outlook|matlab|octave",
+        "ignore_case": true
+      },
+      "data": {
+        "color": "#F44E3B"
+      },
+      "id": 0
+    },
+    {
+      "name": [
+        "Programming"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "GitHub|Stack Overflow|BitBucket|Gitlab|vim|Spyder|Ghidra|Scite",
+        "ignore_case": true
+      },
+      "id": 1,
+      "data": {
+        "color": "#FCDC00"
+      }
+    },
+    {
+      "name": [
+        "Programming",
+        "ActivityWatch"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "ActivityWatch",
+        "ignore_case": true
+      },
+      "id": 2,
+      "data": {
+        "color": "#999999"
+      }
+    },
+    {
+      "name": [
+        "Image"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "Gimp|Inkscape"
+      },
+      "id": 3,
+      "data": {}
+    },
+    {
+      "name": [
+        "Video"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "YouTube|mpv|yewtube|twitch",
+        "ignore_case": true
+      },
+      "data": {
+        "color": "#FE9200"
+      },
+      "id": 4
+    },
+    {
+      "name": [
+        "Comms",
+        "Music"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "spotifyd|ncmpcpp|spotify-tui|^mp$",
+        "ignore_case": true
+      },
+      "data": {
+        "color": "#68BC00"
+      },
+      "id": 5
+    },
+    {
+      "name": [
+        "Comms"
+      ],
+      "rule": {
+        "type": "none"
+      },
+      "data": {
+        "color": "#9FF"
+      },
+      "id": 6
+    },
+    {
+      "name": [
+        "Comms",
+        "IM"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "Telegram|WhatsApp|Ferdium|Discord",
+        "ignore_case": true
+      },
+      "id": 7,
+      "data": {
+        "color": "#0F0"
+      }
+    },
+    {
+      "name": [
+        "Uncategorized"
+      ],
+      "rule": {
+        "type": "none"
+      },
+      "data": {
+        "color": "#CCC"
+      },
+      "id": 8
+    },
+    {
+      "name": [
+        "Comms",
+        "Email"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "Gmail|mu4e",
+        "ignore_case": true
+      },
+      "id": 9,
+      "data": {
+        "color": "#68CCCA"
+      }
+    },
+    {
+      "name": [
+        "Web",
+        "4chan"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "4chan"
+      },
+      "id": 10,
+      "data": {
+        "color": "#FA28FF"
+      }
+    },
+    {
+      "name": [
+        "Programming",
+        "Desktop"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "desktop|config|conf|dwm|dwmblocks|localhost|dotfiles|shell-script",
+        "ignore_case": true
+      },
+      "id": 11,
+      "data": {
+        "color": "#FDA1FF"
+      }
+    },
+    {
+      "name": [
+        "Web"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "LibreWolf|Qutebrowser|Chrome|Chromium|Firefox|Brave",
+        "ignore_case": true
+      },
+      "id": 12,
+      "data": {
+        "color": "#16A5A5"
+      }
+    },
+    {
+      "name": [
+        "Programming",
+        "Emacs"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "Emacs|Org|^.*\\.el$",
+        "ignore_case": true
+      },
+      "id": 13,
+      "data": {
+        "color": "#73D8FF"
+      }
+    },
+    {
+      "name": [
+        "Programming",
+        "Terminal"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "zsh|^St$|^Alacritty$",
+        "ignore_case": true
+      },
+      "id": 14,
+      "data": {
+        "color": "#B0BC00"
+      }
+    },
+    {
+      "name": [
+        "Programming",
+        "Vim"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "nvim|neovim|vim"
+      },
+      "id": 15,
+      "data": {
+        "color": "#999999"
+      }
+    },
+    {
+      "name": [
+        "Documents"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "zathura|Documents|^.*\\.pdf$",
+        "ignore_case": true
+      },
+      "id": 16,
+      "data": {
+        "color": "#FCC400"
+      }
+    },
+    {
+      "name": [
+        "worml"
+      ],
+      "rule": {
+        "type": "regex",
+        "regex": "worml|Iaco|Iacopino|Iaci",
+        "ignore_case": true
+      },
+      "id": 17,
+      "data": {}
+    }
+  ]
+}
