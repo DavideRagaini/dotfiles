@@ -147,13 +147,13 @@ function history()
     path = mp.get_property("path")
     local uploader = mp.get_property("metadata/by-key/uploader")
     local title = mp.get_property("media-title")
-    local uploader = ''
+    local uploader = nil
 
     if contains(path, "://") then
         uploader = mp.get_property("metadata/by-key/uploader")
     else
         local path_words = split(path, '/')
-        uploader = path_words[#path_words-3] .. '/' ..  path_words[#path_words-2]
+        uploader = string.format("%s/%s", path_words[#path_words-3], path_words[#path_words-2])
     end
 
     if not is_empty(path) and not discard() then
