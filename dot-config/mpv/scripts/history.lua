@@ -55,13 +55,35 @@ end
 
 ----- file
 
-function file_exists(path)
-    local f = io.open(path, "r")
+-- function file_exists(path)
+--     local f = io.open(path, "r")
 
-    if f ~= nil then
-        io.close(f)
+--     if f ~= nil then
+--         io.close(f)
+--         return true
+--     end
+-- end
+
+function file_exists(file)
+  -- some error codes:
+  -- 13 : EACCES - Permission denied
+  -- 17 : EEXIST - File exists
+  -- 20	: ENOTDIR - Not a directory
+  -- 21	: EISDIR - Is a directory
+  --
+  local isok, errstr, errcode = os.rename(file, file)
+  if isok == nil then
+     if errcode == 13 then
+        -- Permission denied, but it exists
         return true
-    end
+     end
+     return false
+  end
+  return true
+end
+
+function dir_exists(path)
+  return file_exists(path .. "/")
 end
 
 function file_append(path, content)
@@ -107,6 +129,13 @@ function file_append2(path, content)
     table.find(tlb, content)
     -- table.insert(table, 1, content)
 
+--     for line in io.lines() do -- or or file:lines() if you have a different file
+--    if line:find("123.123.123.123") -- Only lines containing the IP we care about
+--       if (true) -- Whatever other conditions you want to apply
+--          c = c + 1
+--       end
+--    end
+-- end
     -- local path_new = path .. ".tmp"
     -- local h = io.open(path_new, 'w')
     -- for _, line in ipairs(tbl) do
@@ -149,15 +178,26 @@ function history()
     local title = mp.get_property("media-title")
     local uploader = nil
 
-    if contains(path, "://") then
-        uploader = mp.get_property("metadata/by-key/uploader")
-    else
+    if file_exists(path) then
         local path_words = split(path, '/')
         uploader = string.format("%s/%s", path_words[#path_words-3], path_words[#path_words-2])
+    elseif path:match '^%a+://twitch.tv/' or '' then
+        uploader = io.popen('yt-dlp --playlist-end=1 --print "%(uploader,channel)s" ' .. path):read("*all")
+        -- local metadata = io.popen('yt-dlp --flat-playlist -sJ ' .. path):read("*all")
+        -- local json, err = utils.parse_json(metadata)
+        -- uploader = json['_type'] and json['_type'] == 'uploader'
+    -- elseif path:match '^%a+://([^/]+)/' or '' then
+    else
+        uploader = mp.get_property("metadata/by-key/uploader")
     end
 
     if not is_empty(path) and not discard() then
-        local line = string.format("%-14s\t«%-25s»: %-70s\t%s", os.date("%x %X"), uploader, title, path)
+        local line = string.format(
+            "%-14s\t«%-25s»: %-70s\t%s",
+            os.date("%x %X"),
+            string.gsub(uploader,"\n",""),
+            title,
+            path)
         file_append(o.storage_path, line)
     end
 end

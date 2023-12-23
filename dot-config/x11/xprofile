@@ -7,7 +7,7 @@ autostart(){
     sleep "$1"
     # systemctl start --user graphical-session.target
     systemctl start --user picom.service
-    systemctl start --user clipmenu.service
+    clipmenud &
     sleep "$2"
     # "$HOME/.local/bin/nix/thorium" &
     $BROWSER &

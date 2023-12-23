@@ -14,9 +14,9 @@ from libqtile.dgroups import simple_key_binder
 from libqtile.extension import WindowList
 from libqtile.lazy import lazy
 
-from os import environ
+from os import environ, system
 from re import compile as regex
-from datetime import datetime
+# from datetime import datetime
 # from libqtile.log_utils import logger
 
 # from libqtile.utils import guess_terminal
@@ -89,6 +89,8 @@ groups = [
         layout="max",
         exclusive=True,
         matches=Match(wm_class= [
+                       "firefox",
+                       "Firefox",
                        "librewolf",
                        "LibreWolf",
                        "Brave-browser",
@@ -230,37 +232,48 @@ groups = [
 # ======================= Functions ============= {{{
 ## }}}
 # ======================= Hooks ============= {{{
+import subprocess
 @lazy.function
-def floating_bottom_right_window(qtile, window=None):
-    if window is None:
-        window = qtile.current_screen.group.current_window
-        window.toggle_floating()
-        window.place(1597,897,320,180,1,'#FF00FF',True,None,True)
-    return window
+def floating_border_window(qtile, position=1):
+    window = qtile.current_screen.group.current_window
+    xrandr = subprocess.Popen(['xrandr'], stdout=subprocess.PIPE)
+    grep = subprocess.Popen(['grep', '*'], stdin=xrandr.stdout, stdout=subprocess.PIPE)
+    xrandr.stdout.close()
+    resolution_string, junk = grep.communicate()
+    resolution = resolution_string.split()[0]
+    screen_width, screen_height = resolution.decode().split('x')
+    screen_width = int(screen_width)
+    screen_height = int(screen_height)
+    window_width = 320
+    window_height = 180
+    border_padding =3
+    bar_padding = 20
+    window.toggle_floating()
+    match position:
+        case 1: # bottom right
+            window_x = screen_width - window_width - border_padding
+            window_y = screen_height - window_height - border_padding
+        case 2: # top right
+            window_x = screen_width - window_width - border_padding
+            window_y = bar_padding
+        case 3: # bottom left
+            window_x = border_padding
+            window_y = screen_height - window_height - border_padding
+        case 4: # top left
+            window_x = border_padding
+            window_y = bar_padding
+    window.place(window_x, window_y,
+                    window_width, window_height,
+                    1,'#FF00FF',True,None,True)
+
 
 @lazy.function
-def floating_top_right_window(qtile, window=None):
-    if window is None:
-        window = qtile.current_screen.group.current_window
-        window.toggle_floating()
-        window.place(1597,20,320,180,1,'#FF00FF',True,None,True)
-    return window
-
-@lazy.function
-def floating_bottom_left_window(qtile, window=None):
-    if window is None:
-        window = qtile.current_screen.group.current_window
-        window.toggle_floating()
-        window.place(0,897,320,180,1,'#FF00FF',True,None,True)
-    return window
-
-@lazy.function
-def floating_top_left_window(qtile, window=None):
-    if window is None:
-        window = qtile.current_screen.group.current_window
-        window.toggle_floating()
-        window.place(5,20,320,180,1,'#FF00FF',True,None,True)
-    return window
+def window_opacity(qtile, cmd, value):
+    match cmd:
+        case 'inc':
+            system('picom-trans -c +' + str(value))
+        case 'dec':
+            system('picom-trans -c -' + str(value))
 
 
 sticky_windows: List[str] = []
@@ -297,7 +310,7 @@ def float_to_front(qtile):
     for group in qtile.groups:
         for window in group.windows:
             if window.floating:
-                window.cmd_bring_to_front()
+                window.bring_to_front()
 
 
 floating_window_index = 0
@@ -319,8 +332,8 @@ def float_cycle(qtile, forward: bool):
     if floating_window_index < 0:
         floating_window_index = len(floating_windows) - 1
     win = floating_windows[floating_window_index]
-    win.cmd_bring_to_front()
-    win.cmd_focus()
+    win.bring_to_front()
+    win.focus()
 
 @lazy.function
 def float_cycle_backward(qtile):
@@ -357,12 +370,12 @@ def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
         group = qtile.screens[i-1].group.name
         qtile.current_window.togroup(group, switch_group=switch_group)
         if switch_screen == True:
-            qtile.cmd_to_screen(i-0)
+            qtile.to_screen(i-0)
     elif i + 1 != len(qtile.screens):
         group = qtile.screens[i + 1].group.name
         qtile.current_window.togroup(group, switch_group=switch_group)
         if switch_screen == True:
-            qtile.cmd_to_screen(i + 1)
+            qtile.to_screen(i + 1)
 
 @hook.subscribe.client_focus
 def set_hint(window):
@@ -372,7 +385,7 @@ def set_hint(window):
 # @lazy.layout.function
 # def add_treetab_section(layout):
 #     prompt = qtile.widgets_map["prompt"]
-#     prompt.start_input("Section name: ", layout.cmd_add_section)
+#     prompt.start_input("Section name: ", layout.add_section)
 
 # @hook.subscribe.client_new
 # def disable_floating(window):
@@ -382,7 +395,7 @@ def set_hint(window):
 
 #     if any(window.match(rule) for rule in rules):
 #         window.togroup(qtile.current_group.name)
-#         window.cmd_disable_floating()
+#         window.disable_floating()
 # }}}
 # ======================= Scratchpads ============= {{{
 groups.append(
@@ -397,7 +410,7 @@ groups.append(
                 x=0.04,
                 y=0.04,
                 opacity=0.90,
-                on_focus_lost_hide = False
+                on_focus_lost_hide = True
             ),
             # DropDown(
             #     "agenda",
@@ -417,17 +430,17 @@ groups.append(
                 x=0.1,
                 y=0.1,
                 opacity=0.9,
-                on_focus_lost_hide = False
+                on_focus_lost_hide = True
             ),
             DropDown(
                 "process_viewer",
                 process_viewer,
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide = False
+                width=0.9,
+                height=0.9,
+                x=0.04,
+                y=0.04,
+                opacity=0.90,
+                on_focus_lost_hide = True
             ),
             DropDown(
                 "news",
@@ -533,10 +546,10 @@ keys = [
     Key([alt, ctrl], "9", lazy.group.setlayout('monadwide')),
     Key([alt, ctrl], "0", lazy.group.setlayout('monadthreecol')),
     # Switch between windows
-    Key([mod], "backslash", floating_bottom_right_window()),
-    Key([mod, shift], "backslash", floating_top_right_window()),
-    Key([mod, ctrl], "backslash", floating_bottom_left_window()),
-    Key([mod, shift, ctrl], "backslash", floating_top_left_window()),
+    Key([mod], "backslash", floating_border_window(1)),
+    Key([mod,shift], "backslash", floating_border_window(2)),
+    Key([mod,ctrl], "backslash", floating_border_window(3)),
+    Key([mod,ctrl,shift], "backslash", floating_border_window(4)),
 
     Key([mod], "a", lazy.next_screen()),
     Key([mod, shift], "a", lazy.function(window_to_next_screen, switch_screen=True)),
@@ -547,7 +560,7 @@ keys = [
     Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups"),
     Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups"),
     #
-    Key([mod, shift], "t", lazy.window.toggle_minimize(), desc="Toggle Minimize"),
+    Key([mod], "t", lazy.window.toggle_minimize(), desc="Toggle Minimize"),
     Key([mod], "g", lazy.group["scratchpad"].toscreen(toggle=True), desc="Toggle scratchpad group"),
     Key([mod, 'shift'], "g", lazy.window.togroup("scratchpad"), desc="Move Window to scratchpad"),
     #
@@ -573,7 +586,7 @@ keys = [
     Key([mod, shift], "Tab",
         lazy.run_extension(WindowList(
             # item_format="{id}: {group} {window}",
-                # font="CaskaydiaCove Nerd Font Mono",
+                font="IosevkaTerm Nerd Font Mono",
                 fontsize=18,
                 dmenu_ignorecase=True,
                 # selected_background=colors[3]
@@ -585,8 +598,10 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill Focused Window"),
     Key([mod], "o", float_cycle_forward()),
     Key([mod, shift], "o", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod, ctrl], "o", window_opacity('inc', 5)),
     Key([mod], "i", float_cycle_backward()),
     Key([mod, shift], "i", lazy.prev_layout(), desc="Toggle between layouts"),
+    Key([mod, ctrl], "i", window_opacity('dec', 5)),
     Key([mod, ctrl], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, ctrl], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "backspace", lazy.spawn("sysact Shutdown"), desc="Shutdown"),
@@ -658,8 +673,8 @@ keys = [
     # Key([], "XF86HomePage", lazy.spawn("")),
 
     Key([mod], "p", lazy.spawn("dmpv append"), desc="Dmpv append"),
-    Key([mod, shift], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
-    Key([mod, ctrl], "p", lazy.spawn("dmpv aplay "), desc="Dmpv Prompt"),
+    Key([mod, shift], "p", lazy.spawn("dmpv aplay "), desc="Dmpv Prompt"),
+    Key([mod, ctrl], "p", lazy.spawn("dmpv"), desc="Dmpv Prompt"),
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
     Key([mod], "period", lazy.spawn("tppctl invert"), desc="Inverte Playing MPVs"),
     Key([mod, shift], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
@@ -769,9 +784,8 @@ layouts = [
 # }}}
 # ======================= Bar & Widgets ============= {{{
 widget_defaults = dict(
-    # font='3270 Nerd Font Mono Bold',
-    # fontsize=12,
-    font="Iosevka Nerd Font Mono Bold",
+    font="DaddyTimeMono Nerd Font Bold",
+    # font="VictorMono Nerd Font Bold",
     fontsize=11,
     padding=4,
     background=colors[0]
@@ -784,6 +798,7 @@ screens = [
             [
                 widget.GroupBox(
                     padding=4,
+                    fontsize=13,
                     active=colors[2],
                     inactive=colors[1],
                     highlight_color=[backgroundColor, workspaceColor],
@@ -793,13 +808,11 @@ screens = [
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
-                    fontsize=60,
+                    fontsize=50,
                     background=backgroundColor,
                     foreground=workspaceColor,
                 ),
                 widget.CurrentLayout(
-                    # font="IosevkaTerm Nerd Font Mono Bold",
-                    scale=0.7,
                     background=workspaceColor,
                 ),
                 widget.TextBox(
@@ -809,19 +822,21 @@ screens = [
                     background=workspaceColor,
                     foreground=backgroundColor,
                 ),
+                widget.Spacer(
+                    length=20,
+                ),
                 widget.WindowCount(
                     foreground=colors[7]
                 ),
-                # widget.WindowName(
-                #     foreground=colors[8],
-                # ),
-                widget.WindowTabs(
-                    font="IosevkaTerm Nerd Font Mono Bold",
-                    selected=('<u>« ',' »</u>'),
-                    separator='      ',
+                widget.WindowName(
                     foreground=colors[8],
-                    # background=colors[2],
                 ),
+                # widget.WindowTabs(
+                #     selected=('<u>« ',' »</u>'),
+                #     separator='      ',
+                #     foreground=colors[8],
+                #     # background=colors[2],
+                # ),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
@@ -832,7 +847,7 @@ screens = [
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
-                    fontsize=14,
+                    fontsize=50,
                     background=foregroundColorTwo,
                     foreground=foregroundColorTwo,
                 ),
@@ -973,7 +988,7 @@ screens = [
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
-                    fontsize=60,
+                    fontsize=50,
                     background=backgroundColor,
                     foreground=workspaceColor,
                 ),
@@ -984,7 +999,6 @@ screens = [
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
-
                     fontsize=50,
                     background=workspaceColor,
                     foreground=backgroundColor,
@@ -1023,14 +1037,14 @@ screens = [
                     foreground=colors[9],
                     background=foregroundColorTwo
                 ),
-                widget.Countdown(
-                    # format='{D}d {H}h {M}m {S}s',
-                    date=datetime(2023, 10, 5, 0, 0, 0, 0),
-                    foreground=colors[3],
-                    background=foregroundColorTwo,
-                    color_active=colors[4],
-                    color_inactive=foregroundColorTwo
-                ),
+                # widget.Countdown(
+                #     # format='{D}d {H}h {M}m {S}s',
+                #     date=datetime(2023, 10, 5, 0, 0, 0, 0),
+                #     foreground=colors[3],
+                #     background=foregroundColorTwo,
+                #     color_active=colors[4],
+                #     color_inactive=foregroundColorTwo
+                # ),
                 # widget.Backlight(
                 #     update_interval = 15,
                 #     foreground=colors[8],
@@ -1083,7 +1097,7 @@ screens = [
 auto_fullscreen = True
 auto_minimize = True
 bring_front_click = 'floating_only'
-cursor_warp = True
+cursor_warp = False
 dgroups_app_rules = []  # type: List
 floats_kept_above = True
 focus_on_window_activation = "smart"

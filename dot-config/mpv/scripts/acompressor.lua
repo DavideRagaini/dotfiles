@@ -27,10 +27,10 @@ local o = {
 	key_increase_release = 'F6',
 	key_decrease_release = 'Shift+F6',
 
-	default_threshold = -12.0,
-	default_ratio = 8.0,
-	default_knee = 7.0,
-	default_makeup = 6.0,
+	default_threshold = -20.0,
+	default_ratio = 3.0,
+	default_knee = 5.0,
+	default_makeup = 8.0,
 	default_attack = 10.0,
 	default_release = 250.0,
 
@@ -44,11 +44,11 @@ local o = {
 options.read_options(o)
 
 local params = {
-	{ name = 'attack',    min=0.01, max=2000, hide_default=true,  dB=''   },
-	{ name = 'release',   min=0.01, max=9000, hide_default=true,  dB=''   },
+	{ name = 'attack',    min=0.01, max=2000, hide_default=false,  dB=''   },
+	{ name = 'release',   min=0.01, max=9000, hide_default=false,  dB=''   },
 	{ name = 'threshold', min= -30, max=   0, hide_default=false, dB='dB' },
 	{ name = 'ratio',     min=   1, max=  20, hide_default=false, dB=''   },
-	{ name = 'knee',      min=   1, max=  10, hide_default=true,  dB='dB' },
+	{ name = 'knee',      min=   1, max=  10, hide_default=false,  dB='dB' },
 	{ name = 'makeup',    min=   0, max=  24, hide_default=false, dB='dB' },
 }
 

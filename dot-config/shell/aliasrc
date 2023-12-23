@@ -100,7 +100,7 @@ alias \
             --device-type computer \
             --initial-volume 100 \
             --enable-volume-normalisation \
-            --normalisation-pregain -6 \
+            --normalisation-pregain -5 \
             --bitrate 320" \
     v="nvim" \
     trr="transmission-remote" \

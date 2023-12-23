@@ -117,9 +117,8 @@ _h_ decrease width    _l_ increase width
 ;; }}}
 ;; ========= Bindings ========= {{{
 (map!
- (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
- (:prefix "SPC b" :desc "+format/region" :n "f" #'+format/region)
- (:prefix "SPC b" :desc "+format/buffer" :n "F" #'+format/buffer)
+ (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "w" #'doom-window-resize-hydra/body)
+ (:prefix "SPC m" :desc "+format/buffer" :n "y" #'org-todo-yesterday)
 )
 ;; }}}
 ;; ========= Manual ========= {{{

@@ -19,6 +19,7 @@ dot-config/mpv/last
 dot-config/mpv/history.log
 dot-config/mpv/playlists
 dot-config/mpv/watch_later
+!dot-config/mpv/scripts-opts
 !dot-config/mpv/scripts
 !dot-config/mpv/input.conf
 !dot-config/mpv/mpv.conf
