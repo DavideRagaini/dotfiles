@@ -135,9 +135,14 @@ fi
     exec startx "$XINITRC"
 
 # [ "$(tty)" = "/dev/tty1" ] &&
-#     [ -z "${WAYLAND_DISPLAY}" ] &&
-#     [ "${XDG_VTNR}" -eq 1 ] &&
-#     awk '{ exit ($1 > 120) }' /proc/uptime &&
-#     exec sway
+    # [ -z "${WAYLAND_DISPLAY}" ] &&
+    # [ "${XDG_VTNR}" -eq 1 ] &&
+    # awk '{ exit ($1 > 120) }' /proc/uptime &&
+    # export QT_QPA_PLATFORM=wayland &&
+    # export MOZ_ENABLE_WAYLAND=1 &&
+    # export MOZ_WEBRENDER=1 &&
+    # export XDG_SESSION_TYPE=wayland &&
+    # export XDG_CURRENT_DESKTOP=sway &&
+    # exec sway
 
 # sudo -n loadkeys ~/.config/shell/ttymaps.kmap 2>/dev/null
