@@ -109,6 +109,15 @@ local function getCWD(s, delimiter)
     return devided_full_path[#devided_full_path+1-1];
 end
 
+local function copyUrl()
+    local url = mp.get_property("path")
+    if set_clipboard(url) then
+        mp.osd_message("Url Copied to Clipboard:"  .. url)
+    else
+        mp.osd_message("Failed to copy url to clipboard")
+    end
+end
+
 local function copyRelativePath()
     local full_path = string.format("%s", mp.get_property_osd("working-directory"))
 
@@ -184,8 +193,8 @@ end
 mp.add_key_binding("Ctrl+t", "copyTime", copyTime)
 mp.add_key_binding("Ctrl+g", "copyFilename", copyFilename)
 mp.add_key_binding("Ctrl+p", "copyFullPath", copyFullPath)
-mp.add_key_binding("Ctrl+e", "copyRelativePath", copyRelativePath)
 mp.add_key_binding("Ctrl+s", "copySubtitle", copySubtitle)
 mp.add_key_binding("Ctrl+d", "copyDuration", copyDuration)
 mp.add_key_binding("Ctrl+m", "copyMetadata", copyMetadata)
 mp.add_key_binding("Ctrl+o", "copyOrg", copyOrg)
+mp.add_key_binding("Ctrl+e", "copyUrl", copyUrl)

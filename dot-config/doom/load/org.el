@@ -10,7 +10,6 @@
       org-deadline-warning-days 7
       org-agenda-window-setup 'reorganize-frame
       org-agenda-inhibit-startup t
-
       )
 
 (add-hook 'org-agenda-mode-hook

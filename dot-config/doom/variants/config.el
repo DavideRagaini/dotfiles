@@ -65,6 +65,7 @@
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
 (global-auto-revert-mode 1)
+(global-org-modern-mode 1)
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
@@ -117,8 +118,10 @@ _h_ decrease width    _l_ increase width
 ;; }}}
 ;; ========= Bindings ========= {{{
 (map!
- (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "w" #'doom-window-resize-hydra/body)
- (:prefix "SPC m" :desc "+format/buffer" :n "y" #'org-todo-yesterday)
+ (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
+ (:prefix "SPC b" :desc "+format/region" :n "f" #'+format/region)
+ (:prefix "SPC b" :desc "+format/buffer" :n "F" #'+format/buffer)
+ (:prefix "SPC m" :desc "+org-todo-yesterday" :n "y" #'org-todo-yesterday)
 )
 ;; }}}
 ;; ========= Manual ========= {{{

@@ -8,9 +8,10 @@
 ;; (package! ox-epub)
 ; (package! dired-single)
 ;; (package! dired-open)
-(package! alarm-clock)
 (package! nov)
-
+(package! org-ref)
+(package! org-download)
+(package! org-modern)
 ;; (package! scad-mode
 ;;   :recipe (:host github :repo "openscad/openscad"
 ;;            :files ("scad-mode.el" "contrib/scad-mode.el")))
