@@ -38,7 +38,8 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
     NixOS)
         alias \
             animdl="~/Packages/python/ani/bin/animdl" \
-            hm='home-manager'
+            hm='home-manager' \
+            hms='home-manager switch'
         hmu() {
             cd ~/.config/home-manager &&
                 nix flake update &&
@@ -111,18 +112,6 @@ alias \
 
 yta() {
     mpv --force-window=no --ytdl-format=bestaudio ytdl://ytsearch:"$*"
-}
-
-sbmks() {
-    pclip >> "$HOME/.config/qutebrowser/quickmarks"
-}
-
-bmks() {
-    bookmark_file="$XDG_CONFIG_HOME/qutebrowser/quickmarks"
-    description="$(cut -d' ' -f2- "$bookmark_file" | fzf)"
-    link="$(grep "$description" "$bookmark_file")"
-    [ "$(echo "$link" | wc -l )" -gt 1 ] && echo "Nothing selected. Exiting" && return
-    setsid -f "$BROWSER" "$link" >/dev/null 2>&1 &
 }
 
 modules_update() {

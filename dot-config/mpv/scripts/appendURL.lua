@@ -57,10 +57,10 @@ end
 
 function get_clipboard(primary)
   if platform == 'linux' then
-    if os.getenv("$XDG_SESSION_TYPE") == 'x11' then
+    if os.getenv("XDG_SESSION_TYPE") == 'x11' or os.getenv("XDG_SESSION_TYPE") == 'tty' then
       local args = { 'xclip', '-selection', primary and 'primary' or 'clipboard', '-out' }
       return handleres(utils.subprocess({ args = args, cancellable = false }), args, primary)
-    elseif os.getenv("$XDG_SESSION_TYPE") == 'wayland' then
+    elseif os.getenv("XDG_SESSION_TYPE") == 'wayland' then
       local args = { 'wl-paste' }
       return handleres(utils.subprocess({ args = args, cancellable = false }), args, primary)
     end

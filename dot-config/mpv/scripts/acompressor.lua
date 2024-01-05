@@ -30,7 +30,7 @@ local o = {
 	default_threshold = -20.0,
 	default_ratio = 3.0,
 	default_knee = 5.0,
-	default_makeup = 8.0,
+	default_makeup = 2.0,
 	default_attack = 10.0,
 	default_release = 250.0,
 

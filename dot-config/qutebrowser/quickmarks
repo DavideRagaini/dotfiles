@@ -19,4 +19,4 @@ tser http://localhost:8989/
 tmus http://localhost:8686/
 tmov http://localhost:7878/
 tbok http://localhost:8787/
-https://www.researchgate.net/post/How-to-set-a-reference-input-in-a-state-space-controller
+refin https://www.researchgate.net/post/How-to-set-a-reference-input-in-a-state-space-controller

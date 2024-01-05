@@ -52,7 +52,8 @@ cmd open ${{
         application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
         application/epub+zip) ebook-viewer "$fx" ;;
         application/postscrip) zathura --fork $fx >/dev/null 2>&1 ;;
-        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         image/svg+xml) setsid -f display -- "$fx";;
         image/vnd.djvu) zathura --fork "$fx" >/dev/null 2>&1 ;;
 
@@ -68,6 +69,13 @@ cmd open ${{
         text/*) "$EDITOR" "$fx" ;;
 
         video/*) setsid -f mpv "$fx" -no-terminal ;;
+        *) xdg-open "$fx" ;;
+    esac
+}}
+
+cmd alt_open ${{
+    case $(file --mime-type "$(readlink -f $f)" -b) in
+        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
         *) xdg-open "$fx" ;;
     esac
 }}
@@ -437,6 +445,7 @@ map C copyto
 map D delete
 map E extract
 # map I push A<c-a> # at the very beginning
+map L alt_open
 map U fzf_jump
 map J :updir; set dironly true; down; set dironly false; open
 map K :updir; set dironly true; up; set dironly false; open
