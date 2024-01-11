@@ -2,7 +2,7 @@ set shell dash
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 5
-set ratios 1:2
+set ratios 1:2:5
 # set color256
 set icons
 set period 1
@@ -10,6 +10,7 @@ set period 1
 set relativenumber
 set drawbox
 set autoquit true
+set preview false
 set previewer ~/.config/lf/previewer.sh
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
@@ -52,8 +53,7 @@ cmd open ${{
         application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
         application/epub+zip) ebook-viewer "$fx" ;;
         application/postscrip) zathura --fork $fx >/dev/null 2>&1 ;;
-        # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
-        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
+        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
         image/svg+xml) setsid -f display -- "$fx";;
         image/vnd.djvu) zathura --fork "$fx" >/dev/null 2>&1 ;;
 
@@ -75,7 +75,8 @@ cmd open ${{
 
 cmd alt_open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
-        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         *) xdg-open "$fx" ;;
     esac
 }}
@@ -215,18 +216,18 @@ cmd paste &{{
 }}
 
 cmd on-redraw %{{
-    if [ $lf_width -le 80 ]; then
+    if [ $lf_width -le 120 ]; then
         lf -remote "send $id set ratios 1:2"
-    elif [ $lf_width -le 160 ]; then
+    elif [ $lf_width -le 200 ]; then
         lf -remote "send $id set ratios 1:2:3"
     else
-        lf -remote "send $id set ratios 1:2:3:5"
+        lf -remote "send $id set ratios 1:2:5"
     fi
 }}
 
 cmd toggle_preview %{{
     if [ "$lf_preview" = "true" ]; then
-        lf -remote "send $id :set preview false; set ratios 1:5"
+        lf -remote "send $id :set preview false; set ratios 1:2:3"
     else
         lf -remote "send $id :set preview true; set ratios 1:2:3"
     fi
@@ -435,7 +436,7 @@ map <c-b> $setbg $f
 map <c-e> down
 map <c-n> push :mkdir<space>
 map <c-o> &opener "$f"
-map <c-r> reload
+map <c-r> on-redraw; reload
 map <c-y> up
 map <c-z> $ kill -STOP $PPID
 map <a-enter> push :async-shell<space>

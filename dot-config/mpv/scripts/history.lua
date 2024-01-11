@@ -55,32 +55,32 @@ end
 
 ----- file
 
--- function file_exists(path)
---     local f = io.open(path, "r")
+function file_exists(path)
+    local f = io.open(path, "r")
 
---     if f ~= nil then
---         io.close(f)
---         return true
---     end
--- end
-
-function file_exists(file)
-  -- some error codes:
-  -- 13 : EACCES - Permission denied
-  -- 17 : EEXIST - File exists
-  -- 20	: ENOTDIR - Not a directory
-  -- 21	: EISDIR - Is a directory
-  --
-  local isok, errstr, errcode = os.rename(file, file)
-  if isok == nil then
-     if errcode == 13 then
-        -- Permission denied, but it exists
+    if f ~= nil then
+        io.close(f)
         return true
-     end
-     return false
-  end
-  return true
+    end
 end
+
+-- function file_exists(file)
+--   -- some error codes:
+--   -- 13 : EACCES - Permission denied
+--   -- 17 : EEXIST - File exists
+--   -- 20	: ENOTDIR - Not a directory
+--   -- 21	: EISDIR - Is a directory
+--   --
+--   local isok, errstr, errcode = os.rename(file, file)
+--   if isok == nil then
+--      if errcode == 13 then
+--         -- Permission denied, but it exists
+--         return true
+--      end
+--      return false
+--   end
+--   return true
+-- end
 
 function dir_exists(path)
   return file_exists(path .. "/")
@@ -193,7 +193,7 @@ function history()
 
     if not is_empty(path) and not discard() then
         local line = string.format(
-            "%-14s\t«%-25s»: %-70s\t%s",
+            "%-14s\t«%-30s»: %-90s\t%s",
             os.date("%x %X"),
             string.gsub(uploader,"\n",""),
             title,

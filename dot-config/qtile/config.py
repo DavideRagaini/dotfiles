@@ -8,14 +8,14 @@
 from typing import List
 
 from libqtile import bar, hook, layout, widget
-from libqtile.config import (Click, Drag, DropDown, Group, Key, Match,
-                             ScratchPad, Screen)
+from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
 from libqtile.dgroups import simple_key_binder
 from libqtile.extension import WindowList, DmenuRun, CommandSet
 from libqtile.lazy import lazy
 
-from os import environ, system
+from os import environ  # , system
 from re import compile as regex
+
 # from datetime import datetime
 from libqtile.log_utils import logger
 
@@ -34,10 +34,14 @@ browser = environ["BROWSER"]
 browser_alt = environ["BROWSER2"]
 browser_priv = environ["BROWSER_PRIVATE"]
 terminal = environ["TERMINAL"]
-text_editor = terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
+text_editor = (
+    terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
+)
 file_manager = terminal + " -e tmux new-session -A -s 'files'"
 launcher = "run"
 process_viewer = terminal + " -e htop"
+
+
 # }}}
 # ======================= Colors ============= {{{
 def dracula():
@@ -80,7 +84,7 @@ groups = [
         exclusive=True,
         matches=[
             Match(wm_instance_class="emacs"),
-            Match(wm_class = "Alacritty"),
+            Match(wm_class="Alacritty"),
         ],
     ),
     Group(
@@ -88,30 +92,34 @@ groups = [
         position=2,
         layout="max",
         exclusive=True,
-        matches=Match(wm_class= [
-                       "firefox",
-                       "Firefox",
-                       "librewolf",
-                       "LibreWolf",
-                       "Brave-browser",
-                       "Thorium-browser",
-                        "qutebrowser",
-                    ])
+        matches=Match(
+            wm_class=[
+                "firefox",
+                "Firefox",
+                "librewolf",
+                "LibreWolf",
+                "Brave-browser",
+                "Thorium-browser",
+                "qutebrowser",
+            ]
+        ),
     ),
     Group(
         name="3",
         position=3,
         layout="max",
         exclusive=True,
-        matches=Match(wm_class= [
-                        "Zathura",
-                        "sioyek",
-                        "Evince",
-                        "okular",
-                        "ebook-viewer",
-                        "calibre-ebook-viewer",
-                        "Nsxiv",
-                    ])
+        matches=Match(
+            wm_class=[
+                "Zathura",
+                "sioyek",
+                "Evince",
+                "okular",
+                "ebook-viewer",
+                "calibre-ebook-viewer",
+                "Nsxiv",
+            ]
+        ),
     ),
     Group(
         name="4",
@@ -119,34 +127,34 @@ groups = [
         position=4,
         matches=[
             Match(
-                    wm_instance_class = "sun-awt-X11-XDialogPeer",
-                    title="MATLAB Editor",
+                wm_instance_class="sun-awt-X11-XDialogPeer",
+                title="MATLAB Editor",
             ),
             Match(
-                    wm_instance_class = "Matlab-GLEE",
-                    wm_class = regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
+                wm_instance_class="Matlab-GLEE",
+                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
             ),
             Match(
-                    wm_instance_class="sun-awt-X11-XFramePeer",
-                    title = regex("MATLAB R202[0-9][a-b] - academic use"),
+                wm_instance_class="sun-awt-X11-XFramePeer",
+                title=regex("MATLAB R202[0-9][a-b] - academic use"),
             ),
             Match(
-                    title = "MathWorks Product Installer",
+                title="MathWorks Product Installer",
             ),
             Match(
-                    wm_class="MATLABWindow",
-                    wm_instance_class="MATLABWindow",
-                    title="Control System Designer",
+                wm_class="MATLABWindow",
+                wm_instance_class="MATLABWindow",
+                title="Control System Designer*",
             ),
             Match(
-                    wm_class= [
-                        "VirtualBox Machine",
-                        regex("MATLAB R202[0-9][a-b] - academic use"),
-                        regex("MATLAB R202[0-9][a-b]"),
-                        "MATLABWindow",
-                        "Matlab-GLEE",
-                    ],
-                    wm_instance_class = ["sun-awt-X11-XDialogPeer"],
+                wm_class=[
+                    "VirtualBox Machine",
+                    regex("MATLAB R202[0-9][a-b] - academic use"),
+                    regex("MATLAB R202[0-9][a-b]"),
+                    "MATLABWindow",
+                    "Matlab-GLEE",
+                ],
+                wm_instance_class=["sun-awt-X11-XDialogPeer"],
             ),
         ],
     ),
@@ -156,9 +164,9 @@ groups = [
         layout="max",
         matches=[
             Match(
-                wm_instance_class = "MATLABWindow",
-                wm_class = "MATLABWindow",
-                title = "Variable-references - Signal Editor",
+                wm_instance_class="MATLABWindow",
+                wm_class="MATLABWindow",
+                title="Variable-references - Signal Editor",
             ),
         ],
     ),
@@ -168,31 +176,30 @@ groups = [
         layout="ratiotile",
         matches=[
             Match(
-                    wm_instance_class = "sun-awt-X11-XFramePeer",
-                    title = " ",
-                ),
-            Match(
-                wm_instance_class = "MATLABWindow",
-                wm_class =  "MATLABWindow",
-                title = "Variable-references - Signal Editor"
+                wm_instance_class="sun-awt-X11-XFramePeer",
+                title=" ",
             ),
             Match(
-                title = "asbQuadcopter/Command/Signal Editor * - Simulink academic use",
-                wm_instance_class = "Matlab-GLEE",
-                wm_class = regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
+                wm_instance_class="MATLABWindow",
+                wm_class="MATLABWindow",
+                title="Variable-references - Signal Editor",
             ),
             Match(
-                title = "Block Parameters: Position/Attitude Reference",
-                wm_instance_class = "Matlab-GLEE",
-                wm_class = regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
+                title="asbQuadcopter/Command/Signal Editor * - Simulink academic use",
+                wm_instance_class="Matlab-GLEE",
+                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
             ),
             Match(
-                title = "Block Parameters: Position/Attitude Reference",
-                wm_instance_class = "Matlab-GLEE",
-                wm_class = regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
+                title="Block Parameters: Position/Attitude Reference",
+                wm_instance_class="Matlab-GLEE",
+                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
             ),
-            Match(wm_instance_class = ["sun-awt-X11-XFramePeer"]
-                  ),
+            Match(
+                title="Block Parameters: Position/Attitude Reference",
+                wm_instance_class="Matlab-GLEE",
+                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
+            ),
+            Match(wm_instance_class=["sun-awt-X11-XFramePeer"]),
         ],
     ),
     Group(
@@ -206,15 +213,17 @@ groups = [
         name="8",
         position=8,
         layout="max",
-        matches=Match(wm_class=[
-                        'teams-for-linux',
-                        'microsoft teams - preview',
-                        'Ferdium',
-                        'KeePassXC',
-                        'qBittorrent',
-                        'calibre-gui',
-                        'calibre',
-                        ]),
+        matches=Match(
+            wm_class=[
+                "teams-for-linux",
+                "microsoft teams - preview",
+                "Ferdium",
+                "KeePassXC",
+                "qBittorrent",
+                "calibre-gui",
+                "calibre",
+            ]
+        ),
     ),
     Group(
         name="9",
@@ -226,7 +235,7 @@ groups = [
     Group(
         name="0",
         position=10,
-        layout="max",
+        layout="columns",
     ),
 ]
 # }}}
@@ -234,52 +243,56 @@ groups = [
 ## }}}
 # ======================= Hooks ============= {{{
 import subprocess
+
+
 @lazy.function
 def floating_border_window(qtile, position=1):
     window = qtile.current_screen.group.current_window
-    xrandr = subprocess.Popen(['xrandr'], stdout=subprocess.PIPE)
-    grep = subprocess.Popen(['grep', '*'], stdin=xrandr.stdout, stdout=subprocess.PIPE)
+    xrandr = subprocess.Popen(["xrandr"], stdout=subprocess.PIPE)
+    grep = subprocess.Popen(["grep", "*"], stdin=xrandr.stdout, stdout=subprocess.PIPE)
     xrandr.stdout.close()
     resolution_string, junk = grep.communicate()
     resolution = resolution_string.split()[0]
-    screen_width, screen_height = resolution.decode().split('x')
+    screen_width, screen_height = resolution.decode().split("x")
     screen_width = int(screen_width)
     screen_height = int(screen_height)
     window_width = 320
     window_height = 180
-    border_padding =3
+    border_padding = 3
     bar_padding = 20
     window.toggle_floating()
     match position:
-        case 1: # bottom right
+        case 1:  # bottom right
             window_x = screen_width - window_width - border_padding
             window_y = screen_height - window_height - border_padding
-        case 2: # top right
+        case 2:  # top right
             window_x = screen_width - window_width - border_padding
             window_y = bar_padding
-        case 3: # bottom left
+        case 3:  # bottom left
             window_x = border_padding
             window_y = screen_height - window_height - border_padding
-        case 4: # top left
+        case 4:  # top left
             window_x = border_padding
             window_y = bar_padding
-    window.place(window_x, window_y,
-                    window_width, window_height,
-                    1,'#FF00FF',True,None,True)
+    window.place(
+        window_x, window_y, window_width, window_height, 1, "#FF00FF", True, None, True
+    )
 
 
 @lazy.function
-def window_opacity(qtile, cmd, value):
+def window_opacity(qtile, cmd, value=1):
     match cmd:
-        case 'inc':
+        case "inc":
             qtile.current_group.current_window.up_opacity()
-        #     system('picom-trans -c +' + str(value))
-        case 'dec':
+        case "dec":
             qtile.current_group.current_window.down_opacity()
-        #     system('picom-trans -c -' + str(value))
+        case "set":
+            qtile.current_group.current_window.set_opacity(value)
 
 
 sticky_windows: List[str] = []
+
+
 @lazy.function
 def toggle_sticky_windows(qtile, window=None):
     if window is None:
@@ -295,12 +308,15 @@ def toggle_sticky_windows(qtile, window=None):
 def move_sticky_windows():
     for window in sticky_windows:
         window.togroup()
+        # window.keep_below()
     return
+
 
 @hook.subscribe.client_killed
 def remove_sticky_windows(window):
     if window in sticky_windows:
         sticky_windows.remove(window)
+
 
 # @hook.subscribe.client_managed
 # def auto_sticky_windows(window):
@@ -318,6 +334,8 @@ def float_to_front(qtile):
 
 
 floating_window_index = 0
+
+
 def float_cycle(qtile, forward: bool):
     global floating_window_index
     floating_windows = []
@@ -326,7 +344,7 @@ def float_cycle(qtile, forward: bool):
             floating_windows.append(window)
     if not floating_windows:
         return
-    floating_window_index = min(floating_window_index, len(floating_windows) -1)
+    floating_window_index = min(floating_window_index, len(floating_windows) - 1)
     if forward:
         floating_window_index += 1
     else:
@@ -339,9 +357,11 @@ def float_cycle(qtile, forward: bool):
     win.bring_to_front()
     win.focus()
 
+
 @lazy.function
 def float_cycle_backward(qtile):
     float_cycle(qtile, False)
+
 
 @lazy.function
 def float_cycle_forward(qtile):
@@ -349,6 +369,8 @@ def float_cycle_forward(qtile):
 
 
 previous_focused: List[str] = []
+
+
 @hook.subscribe.client_focus
 def client_focused(window):
     global previous_focused
@@ -368,22 +390,38 @@ def focus_previous_window(qtile):
         group.focus(previous_focused[0])
 
 
+# # kick a window to another screen (handy during presentations)
+# def kick_to_next_screen(qtile, direction=1):
+# 	other_scr_index = (qtile.screens.index(qtile.currentScreen) + direction) % len(qtile.screens)
+# 	othergroup = None
+# 	for group in qtile.cmd_groups().values():
+# 		if group['screen'] == other_scr_index:
+# 			othergroup = group['name']
+# 			break
+# 	if othergroup:
+# 		qtile.moveToGroup(othergroup)
+
+
 def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
     i = qtile.screens.index(qtile.current_screen)
     if i != 0:
-        group = qtile.screens[i-1].group.name
+        group = qtile.screens[i - 1].group.name
         qtile.current_window.togroup(group, switch_group=switch_group)
         if switch_screen == True:
-            qtile.to_screen(i-0)
+            qtile.to_screen(i - 0)
     elif i + 1 != len(qtile.screens):
         group = qtile.screens[i + 1].group.name
         qtile.current_window.togroup(group, switch_group=switch_group)
         if switch_screen == True:
             qtile.to_screen(i + 1)
 
+
 @hook.subscribe.client_focus
 def set_hint(window):
-    window.window.set_property("IS_FLOATING_WINDOW", str(window.floating), type="STRING", format=8)
+    window.window.set_property(
+        "IS_FLOATING_WINDOW", str(window.floating), type="STRING", format=8
+    )
+
 
 # Allows you to input a name when adding treetab section.
 # @lazy.layout.function
@@ -414,7 +452,7 @@ groups.append(
                 x=0.04,
                 y=0.04,
                 opacity=0.90,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             # DropDown(
             #     "agenda",
@@ -434,7 +472,7 @@ groups.append(
                 x=0.1,
                 y=0.1,
                 opacity=0.9,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             DropDown(
                 "process_viewer",
@@ -444,7 +482,7 @@ groups.append(
                 x=0.04,
                 y=0.04,
                 opacity=0.90,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             DropDown(
                 "news",
@@ -454,7 +492,7 @@ groups.append(
                 x=0.1,
                 y=0.1,
                 opacity=0.9,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             DropDown(
                 "podcasts",
@@ -464,7 +502,7 @@ groups.append(
                 x=0.1,
                 y=0.1,
                 opacity=0.9,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             DropDown(
                 "music",
@@ -474,7 +512,7 @@ groups.append(
                 x=0.1,
                 y=0.1,
                 opacity=0.9,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             DropDown(
                 "spotify",
@@ -484,7 +522,7 @@ groups.append(
                 x=0.1,
                 y=0.1,
                 opacity=0.9,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             DropDown(
                 "mixer",
@@ -494,7 +532,7 @@ groups.append(
                 x=0.2,
                 y=0.2,
                 opacity=0.9,
-                on_focus_lost_hide = True
+                on_focus_lost_hide=True,
             ),
             DropDown(
                 "calculator",
@@ -504,7 +542,7 @@ groups.append(
                 x=0.1,
                 y=0.1,
                 opacity=0.9,
-                on_focus_lost_hide = False
+                on_focus_lost_hide=False,
             ),
             DropDown(
                 "qtile_shell",
@@ -514,7 +552,7 @@ groups.append(
                 width=0.9,
                 height=0.6,
                 opacity=0.9,
-                on_focus_lost_hide = False
+                on_focus_lost_hide=False,
             ),
             DropDown(
                 "mails",
@@ -524,7 +562,7 @@ groups.append(
                 x=0.04,
                 y=0.04,
                 opacity=0.9,
-                on_focus_lost_hide = False
+                on_focus_lost_hide=False,
             ),
         ],
     )
@@ -532,9 +570,16 @@ groups.append(
 # }}}
 # ======================= Mouse ============= {{{
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([mod],"Button2", lazy.window.bring_to_front()),
+    Drag(
+        [mod],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+    ),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 # }}}
 dmenu_defaults = dict(
@@ -547,34 +592,57 @@ dmenu_defaults = dict(
 )
 # ======================= Keybindings ============= {{{
 keys = [
-    Key([alt, ctrl], "1", lazy.group.setlayout('max')),
-    Key([alt, ctrl], "2", lazy.group.setlayout('monadtall')),
-    Key([alt, ctrl], "3", lazy.group.setlayout('treetab')),
-    Key([alt, ctrl], "4", lazy.group.setlayout('bsp')),
-    Key([alt, ctrl], "5", lazy.group.setlayout('matrix')),
-    Key([alt, ctrl], "6", lazy.group.setlayout('ratiotile')),
-    Key([alt, ctrl], "7", lazy.group.setlayout('tile')),
-    Key([alt, ctrl], "8", lazy.group.setlayout('stack')),
-    Key([alt, ctrl], "9", lazy.group.setlayout('monadwide')),
-    Key([alt, ctrl], "0", lazy.group.setlayout('monadthreecol')),
+    Key([alt, ctrl], "1", lazy.group.setlayout("max")),
+    Key([alt, ctrl], "2", lazy.group.setlayout("monadtall")),
+    Key([alt, ctrl], "3", lazy.group.setlayout("treetab")),
+    Key([alt, ctrl], "4", lazy.group.setlayout("bsp")),
+    Key([alt, ctrl], "5", lazy.group.setlayout("matrix")),
+    Key([alt, ctrl], "6", lazy.group.setlayout("ratiotile")),
+    Key([alt, ctrl], "7", lazy.group.setlayout("tile")),
+    Key([alt, ctrl], "8", lazy.group.setlayout("stack")),
+    Key([alt, ctrl], "9", lazy.group.setlayout("monadwide")),
+    Key([alt, ctrl], "0", lazy.group.setlayout("monadthreecol")),
     # Switch between windows
     Key([mod], "backslash", floating_border_window(1)),
-    Key([mod,shift], "backslash", floating_border_window(2)),
-    Key([mod,ctrl], "backslash", floating_border_window(3)),
-    Key([mod,ctrl,shift], "backslash", floating_border_window(4)),
-
+    Key([mod, shift], "backslash", floating_border_window(2)),
+    Key([mod, ctrl], "backslash", floating_border_window(3)),
+    Key([mod, ctrl, shift], "backslash", floating_border_window(4)),
     Key([mod], "a", lazy.next_screen()),
     Key([mod, shift], "a", lazy.function(window_to_next_screen, switch_screen=True)),
-    Key([mod], "s", toggle_sticky_windows(), desc="Toggle state of sticky for current window",),
+    Key(
+        [mod],
+        "s",
+        toggle_sticky_windows(),
+        desc="Toggle state of sticky for current window",
+    ),
     # Key([mod], "z", lazy.screen.togglegroup()),
     Key([mod], "x", lazy.spawn("alm -d")),
-
-    Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups"),
-    Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups"),
+    Key(
+        [mod],
+        "bracketright",
+        lazy.screen.next_group(skip_empty=True),
+        desc="Cycle Forward to Active Groups",
+    ),
+    Key(
+        [mod],
+        "bracketleft",
+        lazy.screen.prev_group(skip_empty=True),
+        desc="Cycle Backward to Active Groups",
+    ),
     #
     Key([mod], "t", lazy.window.toggle_minimize(), desc="Toggle Minimize"),
-    Key([mod], "g", lazy.group["scratchpad"].toscreen(toggle=True), desc="Toggle scratchpad group"),
-    Key([mod, 'shift'], "g", lazy.window.togroup("scratchpad"), desc="Move Window to scratchpad"),
+    Key(
+        [mod],
+        "g",
+        lazy.group["scratchpad"].toscreen(toggle=True),
+        desc="Toggle scratchpad group",
+    ),
+    Key(
+        [mod, "shift"],
+        "g",
+        lazy.window.togroup("scratchpad"),
+        desc="Move Window to scratchpad",
+    ),
     #
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -582,7 +650,12 @@ keys = [
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     # Move windows between left/right columns or move up/down in current stack.
     Key([mod, shift], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, shift], "l", lazy.layout.shuffle_right(), desc="Move window to the right",),
+    Key(
+        [mod, shift],
+        "l",
+        lazy.layout.shuffle_right(),
+        desc="Move window to the right",
+    ),
     Key([mod, shift], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, shift], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows
@@ -591,7 +664,12 @@ keys = [
     Key([mod, ctrl], "j", lazy.layout.shrink_down(), desc="Grow window down"),
     Key([mod, ctrl], "k", lazy.layout.shrink_up(), desc="Grow window up"),
     Key([mod], "space", lazy.layout.flip(), desc="Flip windows"),
-    Key([mod, shift], "space", lazy.window.toggle_floating(), desc="Toggle Current Window Floating"),
+    Key(
+        [mod, shift],
+        "space",
+        lazy.window.toggle_floating(),
+        desc="Toggle Current Window Floating",
+    ),
     Key([mod], "u", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod], "Tab", lazy.screen.toggle_group(), desc="Reset all window sizes"),
     # Key([mod], "Tab", focus_previous_window()),
@@ -603,55 +681,102 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill Focused Window"),
     Key([mod], "o", float_cycle_forward()),
     Key([mod, shift], "o", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod, ctrl], "o", window_opacity('inc', 5)),
+    Key([mod, ctrl], "o", window_opacity("set", 1)),
+    Key([mod, shift, ctrl], "o", window_opacity("inc")),
     Key([mod], "i", float_cycle_backward()),
     Key([mod, shift], "i", lazy.prev_layout(), desc="Toggle between layouts"),
-    Key([mod, ctrl], "i", window_opacity('dec', 5)),
+    Key([mod, ctrl], "i", window_opacity("set", 0.1)),
+    Key([mod, shift, ctrl], "i", window_opacity("dec")),
     Key([mod, ctrl], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, ctrl], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "backspace", lazy.spawn("sysact Shutdown"), desc="Shutdown"),
     Key([mod, shift], "backspace", lazy.spawn("sysact"), desc="System Actions"),
     Key([mod, ctrl], "backspace", lazy.spawn("sysact Suspend"), desc="Suspend"),
     Key([mod], "f", lazy.window.toggle_maximize(), desc="Toggle maximize"),
-    Key([mod, shift], "f", lazy.window.toggle_fullscreen(), desc="Toggle Current Window Fullscreen"),
+    Key(
+        [mod, shift],
+        "f",
+        lazy.window.toggle_fullscreen(),
+        desc="Toggle Current Window Fullscreen",
+    ),
     Key([mod, ctrl], "f", float_to_front()),
     # Key([mod, alt], "f", focus_floating_window()),
     Key([mod], "v", lazy.spawn("bkms -d")),
     Key([mod, shift], "v", lazy.spawn("bkms -d -s")),
     Key([mod], "b", lazy.hide_show_bar("top"), desc="Toggle Top Bar"),
-
     # Key([mod, alt], "a", add_treetab_section, desc='Prompt to add new section in treetab'),
-    Key([mod, alt], "h", lazy.layout.shuffle_left(), lazy.layout.move_left().when(layout=["treetab"]),
-        desc="Move window to the left/move tab left in treetab"),
-    Key([mod, alt], "l", lazy.layout.shuffle_right(), lazy.layout.move_right().when(layout=["treetab"]),
-        desc="Move window to the right/move tab right in treetab"),
-    Key([mod, alt], "j", lazy.layout.shuffle_down(), lazy.layout.section_down().when(layout=["treetab"]),
-        desc="Move window down/move down a section in treetab"),
-    Key([mod, alt], "k", lazy.layout.shuffle_up(), lazy.layout.section_up().when(layout=["treetab"]),
-        desc="Move window downup/move up a section in treetab"),
-    # EzKey("M-<comma>", lazy.prev_screen()),
-    # EzKey("M-<period>", lazy.next_screen()),
-
+    Key(
+        [mod, alt],
+        "h",
+        lazy.layout.shuffle_left(),
+        lazy.layout.move_left().when(layout=["treetab"]),
+        desc="Move window to the left/move tab left in treetab",
+    ),
+    Key(
+        [mod, alt],
+        "l",
+        lazy.layout.shuffle_right(),
+        lazy.layout.move_right().when(layout=["treetab"]),
+        desc="Move window to the right/move tab right in treetab",
+    ),
+    Key(
+        [mod, alt],
+        "j",
+        lazy.layout.shuffle_down(),
+        lazy.layout.section_down().when(layout=["treetab"]),
+        desc="Move window down/move down a section in treetab",
+    ),
+    Key(
+        [mod, alt],
+        "k",
+        lazy.layout.shuffle_up(),
+        lazy.layout.section_up().when(layout=["treetab"]),
+        desc="Move window downup/move up a section in treetab",
+    ),
+    Key([alt], "comma", lazy.prev_screen()),
+    Key([alt], "period", lazy.next_screen()),
     # Applications
     Key([mod], "grave", lazy.spawn("dunstctl close"), desc="Dunst Close"),
-    Key([mod, shift], "grave", lazy.spawn("dunstctl history-pop"), desc="Dunst History Pop"),
-    Key([mod, shift], "Return", lazy.spawn(terminal + " -e tmux"), desc="Launch Terminal"),
+    Key(
+        [mod, shift],
+        "grave",
+        lazy.spawn("dunstctl history-pop"),
+        desc="Dunst History Pop",
+    ),
+    Key(
+        [mod, shift],
+        "Return",
+        lazy.spawn(terminal + " -e tmux"),
+        desc="Launch Terminal",
+    ),
     Key([mod], "w", lazy.spawn(browser), desc="Launch Browser"),
     Key([mod, shift], "w", lazy.spawn(browser_alt), desc="Launch Alternative Browser"),
     Key([mod, ctrl], "w", lazy.spawn(browser_priv), desc="Launch Private Browser"),
     Key([mod], "e", lazy.spawn(text_editor), desc="Launch Text Editor"),
-    Key([mod, shift], "e", lazy.spawn(terminal + " -e emacsclient -c"), desc="Launch Text Editor"),
+    Key(
+        [mod, shift],
+        "e",
+        lazy.spawn(terminal + " -e emacsclient -c"),
+        desc="Launch Text Editor",
+    ),
     # Key([mod], "d", lazy.spawn("dmenu_run"), desc="Dmenu Run History Prompt"),
-    Key([mod], "d", lazy.run_extension(DmenuRun(**dmenu_defaults)), desc="Windows Selector"),
+    Key(
+        [mod],
+        "d",
+        lazy.run_extension(DmenuRun(**dmenu_defaults)),
+        desc="Windows Selector",
+    ),
     Key([mod, shift], "d", lazy.spawn("via -r"), desc="Document Search"),
     Key([mod, ctrl], "t", lazy.spawn("switch-theme"), desc="Global Theme Toggle"),
     Key([mod, shift], "r", lazy.spawn("via -a"), desc="Global Search"),
     Key([mod, ctrl], "d", lazy.spawncmd(launcher), desc="Run Prompt"),
     Key([mod], "equal", lazy.spawn("dmenuunicode"), desc="Unicode Search Prompt"),
     Key([mod], "Insert", lazy.spawn("clipmenu -i"), desc="Clipmenu Prompt"),
-    Key([mod, shift], "Insert", lazy.spawn('clipboard-content.sh')),
+    Key([mod, shift], "Insert", lazy.spawn("clipboard-content.sh")),
     Key([mod], "F12", lazy.spawn("maimpick"), desc="MaimPick Prompt"),
-    Key([mod, shift], "F12", lazy.spawn('maim ~/Storage/F$(date \'+%y%m%d-%H%M-%S\').png')),
+    Key(
+        [mod, shift], "F12", lazy.spawn("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png")
+    ),
     Key([], "XF86Favorites", lazy.spawn("bm s"), desc="Save bookmark script"),
     # Key([], "XF86Search", lazy.spawn("ferdium"), desc="Emails & Chatting"),
     Key([], "XF86Explorer", lazy.screen.toggle_group(), desc="Switch to group 1"),
@@ -679,7 +804,6 @@ keys = [
     Key([mod, shift], "cancel", lazy.spawn("dmpc toggle")),
     # Key([], "XF86Search", lazy.spawn("")),
     # Key([], "XF86HomePage", lazy.spawn("")),
-
     # Media Control
     Key([mod], "p", lazy.spawn("dmpv append"), desc="Dmpv append"),
     Key([mod, shift], "p", lazy.spawn("dmpv aplay "), desc="Dmpv Prompt"),
@@ -687,45 +811,55 @@ keys = [
     Key([mod], "comma", lazy.spawn("dmpc toggle"), desc="Toggle Music"),
     Key([mod], "period", lazy.spawn("tppctl invert"), desc="Inverte Playing MPVs"),
     Key([mod, shift], "period", lazy.spawn("tppctl toggle"), desc="Toggle MPVs"),
-    Key([mod, ctrl], 'm', lazy.run_extension(CommandSet(
-    commands={
-        'play/pause': 'mpc toggle',
-        'next': 'mpc next',
-        'previous': 'mpc prev',
-        'quit': 'mpc stop',
-        'open': terminal + ' -e ncmpcpp',
-        'shuffle': 'mpc shuffle',
-        'repeat': 'mpc repeat',
-        'volume set': CommandSet(
-            commands={
-                '5': 'mpc volume 5',
-                '10': 'mpc volume 10',
-                '15': 'mpc volume 15',
-                '20': 'mpc volume 20',
-                '25': 'mpc volume 25',
-                '30': 'mpc volume 30',
-                '35': 'mpc volume 35',
-                '40': 'mpc volume 40',
-                '45': 'mpc volume 45',
-                '50': 'mpc volume 50',
-                '55': 'mpc volume 55',
-                '60': 'mpc volume 60',
-                '65': 'mpc volume 65',
-                '70': 'mpc volume 75',
-                '75': 'mpc volume 75',
-                '80': 'mpc volume 85',
-                '85': 'mpc volume 85',
-                '90': 'mpc volume 90',
-                '95': 'mpc volume 95',
-                '100': 'mpc volume 100'
-            }, **dmenu_defaults
+    Key(
+        [mod, ctrl],
+        "m",
+        lazy.run_extension(
+            CommandSet(
+                commands={
+                    "play/pause": "mpc toggle",
+                    "next": "mpc next",
+                    "previous": "mpc prev",
+                    "quit": "mpc stop",
+                    "open": terminal + " -e ncmpcpp",
+                    "shuffle": "mpc shuffle",
+                    "repeat": "mpc repeat",
+                    "volume set": CommandSet(
+                        commands={
+                            "5": "mpc volume 5",
+                            "10": "mpc volume 10",
+                            "15": "mpc volume 15",
+                            "20": "mpc volume 20",
+                            "25": "mpc volume 25",
+                            "30": "mpc volume 30",
+                            "35": "mpc volume 35",
+                            "40": "mpc volume 40",
+                            "45": "mpc volume 45",
+                            "50": "mpc volume 50",
+                            "55": "mpc volume 55",
+                            "60": "mpc volume 60",
+                            "65": "mpc volume 65",
+                            "70": "mpc volume 75",
+                            "75": "mpc volume 75",
+                            "80": "mpc volume 85",
+                            "85": "mpc volume 85",
+                            "90": "mpc volume 90",
+                            "95": "mpc volume 95",
+                            "100": "mpc volume 100",
+                        },
+                        **dmenu_defaults,
+                    ),
+                },
+                pre_commands=["mpc"],
+                **dmenu_defaults,
+            )
         ),
-    },
-    pre_commands=['mpc'], **dmenu_defaults))),
+    ),
     Key([mod, ctrl], "period", lazy.spawn("tppctl pauseall"), desc="Pause All MPVs"),
     Key([mod], "semicolon", focus_previous_window(), desc="Switch to last group"),
-    Key([mod, shift], "semicolon", lazy.group.focus_back(), desc="Switch to last group"),
-
+    Key(
+        [mod, shift], "semicolon", lazy.group.focus_back(), desc="Switch to last group"
+    ),
     # Scratchpads
     Key([], "XF86Launch7", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([mod], "Return", lazy.group["scratchpad"].dropdown_toggle("Dropdown")),
@@ -744,10 +878,18 @@ keys = [
     Key([mod], "up", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
     Key([mod, shift], "up", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([mod, ctrl], "up", lazy.spawn("output-audio")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
+    Key(
+        [],
+        "XF86AudioRaiseVolume",
+        lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+    ),
     Key([mod], "down", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
     Key([mod, shift], "down", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
+    Key(
+        [],
+        "XF86AudioLowerVolume",
+        lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"),
+    ),
     Key([mod], "XF86AudioMute", lazy.spawn("output-audio")),
     Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
     Key([mod], "left", lazy.spawn("tppctl seek -10")),
@@ -756,17 +898,42 @@ keys = [
     Key([mod], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 15")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
     Key([mod], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 15")),
-
     Key([mod], "F3", lazy.spawn("wifi-toggle")),
     Key([mod], "F8", lazy.spawn("dmenumount")),
     Key([mod, shift], "F8", lazy.spawn("dmenuumount")),
-
     # Key([mod], "kp-add", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
     # Key([mod], "kp-subtract", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
 ]
 # }}}
 # ======================= Groups ============= {{{
 dgroups_key_binder = simple_key_binder(mod)
+# https://github.com/qtile/qtile/issues/1271
+# groups = [Group(i) for i in "1234567890"]
+
+# if len(screens) == 2:
+#     for i in groups:
+#         keys.extend([
+#             # Switch to group N
+#             Key(
+#                 [ctrl],
+#                 i.name,
+#                 lazy.to_screen(0) if i.name in '12345' else lazy.to_screen(1),
+#                 lazy.group[i.name].toscreen()
+#             ),
+
+#             # Move window to group N
+#             Key([ctrl, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),),
+#         ])
+
+# else:
+#     for i in groups:
+#         keys.extend([
+#             # Switch to group N
+#             Key([ctrl], i.name, lazy.group[i.name].toscreen()),
+
+#             # Move window to group N
+#             Key([ctrl, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),),
+#         ])
 
 layout_defaults = dict(
     border_focus=colors[7],
@@ -776,41 +943,43 @@ layout_defaults = dict(
 )
 layouts = [
     layout.Columns(**layout_defaults),
-    layout.Max(border_focus=colors[7], border_normal=colors[8], border_width=0, margin=0),
-    layout.MonadTall(**layout_defaults, single_border_width = 0, single_margin = 0),
+    layout.Max(
+        border_focus=colors[7], border_normal=colors[8], border_width=0, margin=0
+    ),
+    layout.MonadTall(**layout_defaults, single_border_width=0, single_margin=0),
     layout.Bsp(**layout_defaults),
     layout.RatioTile(**layout_defaults),
     layout.MonadThreeCol(**layout_defaults),
     layout.TreeTab(
-            **layout_defaults,
-            active_bg=colors[3],
-            active_fg = colors[5],
-            bg_color=backgroundColor,
-            fontsize = 11,
-            inactive_bg="151515",
-            inactive_fg = colors[2],
-            level_shift = 8,
-            padding_left = 4,
-            padding_x = 4,
-            padding_y = 2,
-            panel_width = 250,
-            place_right = False,
-            previous_on_rm=True,
-            section_fg = colors[2],
-            section_fontsize = 10,
-            section_left=100,
-            section_top = 15,
-            sections = ["I","II","III","IV","V","VI","VII","VIII","IX","X"],
+        **layout_defaults,
+        active_bg=colors[3],
+        active_fg=colors[5],
+        bg_color=backgroundColor,
+        fontsize=11,
+        inactive_bg="151515",
+        inactive_fg=colors[2],
+        level_shift=8,
+        padding_left=4,
+        padding_x=4,
+        padding_y=2,
+        panel_width=250,
+        place_right=False,
+        previous_on_rm=True,
+        section_fg=colors[2],
+        section_fontsize=10,
+        section_left=100,
+        section_top=15,
+        sections=["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"],
     ),
     layout.Tile(**layout_defaults),
-    layout.Stack(**layout_defaults,num_stacks=2),
+    layout.Stack(**layout_defaults, num_stacks=2),
     layout.Matrix(**layout_defaults),
     layout.MonadWide(**layout_defaults),
     # layout.VerticalTile(),
     # layout.Zoomy(columnwidth=500),
     layout.Floating(
         border_focus=colors[4],
-        border_width = 2,
+        border_width=2,
         float_rules=[
             *layout.Floating.default_float_rules,
             Match(wm_class="ssh-askpass"),  # ssh-askpass
@@ -818,8 +987,8 @@ layouts = [
             # Match(wm_instance_class="mpvFloat"),
             # Match(title="Eagenda"),
             Match(title="branchdialog"),  # gitk
-            Match(wm_class='pinentry-gtk-2'), # GPG key password entry
-            Match(wm_class='pinentry-qt'), # GPG key password entry
+            Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
+            Match(wm_class="pinentry-qt"),  # GPG key password entry
             Match(title="pinentry"),  # GPG key password entry
             Match(func=lambda c: c.has_fixed_size()),
             Match(func=lambda c: c.has_fixed_ratio()),
@@ -833,14 +1002,14 @@ widget_defaults = dict(
     # font="VictorMono Nerd Font Bold",
     fontsize=13,
     padding=4,
-    background=colors[0]
+    background=colors[0],
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper='~/.local/share/bg',
-        wallpaper_mode='stretch',
+        wallpaper="~/.local/share/bg",
+        wallpaper_mode="stretch",
         top=bar.Bar(
             [
                 widget.GroupBox(
@@ -875,9 +1044,7 @@ screens = [
                 widget.Spacer(
                     length=20,
                 ),
-                widget.WindowCount(
-                    foreground=colors[7]
-                ),
+                widget.WindowCount(foreground=colors[7]),
                 widget.WindowName(
                     foreground=colors[8],
                 ),
@@ -902,12 +1069,12 @@ screens = [
                     foreground=foregroundColorTwo,
                 ),
                 widget.Prompt(
-                    bell_style='visual',
+                    bell_style="visual",
                     cursorblink=0.5,
                     fontsize=18,
-                    prompt='&:',
+                    prompt="&:",
                     foreground=colors[9],
-                    background=foregroundColorTwo
+                    background=foregroundColorTwo,
                 ),
                 # widget.GenPollText( # sb-music
                 #     update_interval=10,
@@ -925,34 +1092,34 @@ screens = [
                     format="{load_percent:-2.1f}% {freq_current}GHz",
                     update_interval=3,
                     foreground=colors[5],
-                    background=foregroundColorTwo
+                    background=foregroundColorTwo,
                 ),
                 widget.Load(
                     update_interval=3,
                     format="{time}:{load:.2f}",
                     foreground=colors[4],
-                    background=foregroundColorTwo
+                    background=foregroundColorTwo,
                 ),
                 widget.ThermalSensor(
                     update_interval=30,
-                    format=' {temp:.0f}{unit}',
-                    tag_sensor='Package id 0',
+                    format=" {temp:.0f}{unit}",
+                    tag_sensor="Package id 0",
                     foreground=colors[6],
-                    background=foregroundColorTwo
+                    background=foregroundColorTwo,
                 ),
                 widget.NvidiaSensors(
                     update_interval=30,
                     # format=' {temp:.0f}{unit}',
-                    gpu_bus_id='01:00.0',
-                    tag_sensor='Package id 0',
+                    gpu_bus_id="01:00.0",
+                    tag_sensor="Package id 0",
                     foreground=colors[6],
-                    background=foregroundColorTwo
+                    background=foregroundColorTwo,
                 ),
                 widget.Memory(
                     update_interval=15,
-                    format=' {MemUsed:.0f}{ms}/{SwapUsed:.0f}{ms}',
+                    format=" {MemUsed:.0f}{ms}/{SwapUsed:.0f}{ms}",
                     foreground=colors[7],
-                    background=foregroundColorTwo
+                    background=foregroundColorTwo,
                 ),
                 # widget.Wlan(
                 #     disconnected_message='❌',
@@ -962,13 +1129,13 @@ screens = [
                 #     background=foregroundColorTwo,
                 # ),
                 widget.Volume(
-                    fmt=' {}',
+                    fmt=" {}",
                     update_interval=1,
                     step=5,
                     foreground=colors[8],
                     background=foregroundColorTwo,
                     # fmt=" {}"
-                    ),
+                ),
                 # widget.Net(
                 #     fmt=' {}',
                 #     update_interval=2,
@@ -995,37 +1162,34 @@ screens = [
                     padding=0,
                     fontsize=50,
                     background=foregroundColorTwo,
-                    foreground=workspaceColor
+                    foreground=workspaceColor,
                 ),
-                widget.Systray(
-                    background=workspaceColor,
-                    foreground=backgroundColor
-                ),
+                widget.Systray(background=workspaceColor, foreground=backgroundColor),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
                     fontsize=50,
                     background=workspaceColor,
-                    foreground=backgroundColor
+                    foreground=backgroundColor,
                 ),
                 widget.Clock(
                     format=" %V %a %d/%B/%y",
                     update_interval=86400,
                     foreground=colors[10],
-                    background=backgroundColor
+                    background=backgroundColor,
                 ),
                 widget.Clock(
                     format=" %T",
                     update_interval=1,
                     foreground=colors[2],
-                    background=backgroundColor
+                    background=backgroundColor,
                 ),
                 widget.Pomodoro(
                     update_interval=1,
-                    prefix_active=' ',
-                    prefix_break='🛑',
-                    prefix_long_break='🛑🛑',
-                    prefix_inactive='🔃',
+                    prefix_active=" ",
+                    prefix_break="🛑",
+                    prefix_long_break="🛑🛑",
+                    prefix_inactive="🔃",
                     # prefix_paused=️'',
                     foreground=colors[1],
                     background=backgroundColor,
@@ -1037,8 +1201,8 @@ screens = [
         ),
     ),
     Screen(
-        wallpaper='~/.local/share/bg',
-        wallpaper_mode='stretch',
+        wallpaper="~/.local/share/bg",
+        wallpaper_mode="stretch",
         top=bar.Bar(
             [
                 widget.GroupBox(
@@ -1071,9 +1235,7 @@ screens = [
                     background=workspaceColor,
                     foreground=backgroundColor,
                 ),
-                widget.WindowCount(
-                    foreground=colors[7]
-                ),
+                widget.WindowCount(foreground=colors[7]),
                 widget.WindowName(
                     foreground=colors[8],
                 ),
@@ -1090,6 +1252,20 @@ screens = [
                     background=backgroundColor,
                     foreground=foregroundColorTwo,
                 ),
+                # widget.Mpd2(
+                #     status_format='{play_status} [{artist:.15s}]-[{album:.15s}]-[{title:.30s}]',
+                #     idle_message="mpd",
+                #     color_progress="#9497aa",
+                #     update_interval=10,
+                #     foreground=colors[9],
+                #     background=foregroundColorTwo,
+                # ),
+                # widget.Net(
+                #     fmt=' {}',
+                #     update_interval=2,
+                #     foreground=colors[9],
+                #     background=foregroundColorTwo,
+                # ),
                 widget.TextBox(
                     text="\u25e2",
                     padding=0,
@@ -1098,12 +1274,12 @@ screens = [
                     foreground=foregroundColorTwo,
                 ),
                 widget.Prompt(
-                    bell_style='visual',
+                    bell_style="visual",
                     cursorblink=0.5,
                     fontsize=18,
-                    prompt='&:',
+                    prompt="&:",
                     foreground=colors[9],
-                    background=foregroundColorTwo
+                    background=foregroundColorTwo,
                 ),
                 # widget.Countdown(
                 #     # format='{D}d {H}h {M}m {S}s',
@@ -1139,14 +1315,14 @@ screens = [
                     padding=0,
                     fontsize=50,
                     background=foregroundColorTwo,
-                    foreground=backgroundColor
+                    foreground=backgroundColor,
                 ),
                 widget.Clipboard(
                     # update_interval=1,
                     foreground=colors[3],
                     background=backgroundColor,
                     color_active=colors[4],
-                    color_inactive=foregroundColorTwo
+                    color_inactive=foregroundColorTwo,
                 ),
             ],
             20,
@@ -1157,7 +1333,7 @@ screens = [
 # ======================= Misc ============= {{{
 auto_fullscreen = True
 auto_minimize = True
-bring_front_click = 'floating_only'
+bring_front_click = "floating_only"
 cursor_warp = False
 dgroups_app_rules = []  # type: List
 floats_kept_above = True

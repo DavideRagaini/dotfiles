@@ -79,6 +79,7 @@ alias \
 # Abbreviations
 alias \
     2f="tmux split -h lfcd; lfcd" \
+    doomupdate="doom sync && doom sync -u && doom upgrade && doom purge > ~/.local/doom-upgrade" \
     e="\$EDITOR" \
     E="\$VISUAL" \
     f="lfcd" \
@@ -122,7 +123,7 @@ modules_update() {
 alias \
     search_commit="fzf --multi --ansi --preview='head -20 {+}' &&
 		git log --oneline |
-		fzf --multi --ansi --preview='git show {+1}'" \
+		fzf --multi --ansi --preview='git show {+1}'"
 
 # Miscellaneous
 alias \
