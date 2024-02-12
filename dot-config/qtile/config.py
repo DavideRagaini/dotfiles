@@ -90,7 +90,7 @@ groups = [
     Group(
         name="2",
         position=2,
-        layout="max",
+        layout="monadtall",
         exclusive=True,
         matches=Match(
             wm_class=[
@@ -617,18 +617,10 @@ keys = [
     ),
     # Key([mod], "z", lazy.screen.togglegroup()),
     Key([mod], "x", lazy.spawn("alm -d")),
-    Key(
-        [mod],
-        "bracketright",
-        lazy.screen.next_group(skip_empty=True),
-        desc="Cycle Forward to Active Groups",
-    ),
-    Key(
-        [mod],
-        "bracketleft",
-        lazy.screen.prev_group(skip_empty=True),
-        desc="Cycle Backward to Active Groups",
-    ),
+    Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups",),
+    Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups",),
+    Key([mod, shift], "bracketleft", lazy.window.move_down()),
+    Key([mod, shift], "bracketright", lazy.window.move_up()),
     #
     Key([mod], "t", lazy.window.toggle_minimize(), desc="Toggle Minimize"),
     Key(
@@ -939,7 +931,7 @@ layout_defaults = dict(
     border_focus=colors[7],
     border_normal=colors[8],
     border_width=1,
-    margin=0,
+    margin=8,
 )
 layouts = [
     layout.Columns(**layout_defaults),
@@ -992,6 +984,22 @@ layouts = [
             Match(title="pinentry"),  # GPG key password entry
             Match(func=lambda c: c.has_fixed_size()),
             Match(func=lambda c: c.has_fixed_ratio()),
+            Match(wm_class='confirm'),
+            Match(wm_class='dialog'),
+            Match(wm_class='download'),
+            Match(wm_class='error'),
+            Match(wm_class='file_progress'),
+            Match(wm_class='notification'),
+            Match(wm_class='splash'),
+            Match(wm_class='toolbar'),
+            Match(wm_class='confirmreset'),
+            Match(wm_class='makebranch'),
+            Match(wm_class='maketag'),
+            Match(title='branchdialog'),
+            Match(title='Xephyr on :1.0 (ctrl+shift grabs mouse and keyboard)'),
+            Match(title='Bitwarden'),
+            Match(wm_class='nextcloud'),
+            Match(wm_class='system-config-printer'),
         ],
     ),
 ]

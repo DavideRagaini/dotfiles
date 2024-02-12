@@ -24,6 +24,8 @@ local function mix(channel, adjustment)
 	mp.osd_message("lavfi=[pan=stereo|\nFL="..cmCenter.."FC+"..cmFront.."FL+"..cmSide.."SL+"..cmBack.."BL+"..cmLFE.."LFE|\nFR="..cmCenter.."FC+"..cmFront.."FR+"..cmSide.."SR+"..cmBack.."BR+"..cmLFE.."LFE]", 5)
 end
 
+function() mix("reset")
+
 mp.add_key_binding("F12", "mReset", function() mix("reset") end)
 
 mp.add_key_binding("F10", "cUp", function() mix("cmCenter",0.1) end)

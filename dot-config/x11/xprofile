@@ -6,12 +6,12 @@ xrdbpid=$!
 autostart(){
     sleep "$1"
     # systemctl start --user graphical-session.target
+    clipmenud &
     systemctl start --user picom.service
     systemctl start --user redshift.service
-    systemctl start --user unlutter.service
-    clipmenud &
     sleep "$2"
     # "$HOME/.local/bin/nix/thorium" &
+    systemctl start --user unlutter.service
     $BROWSER &
     sleep "$3"
     systemctl is-active --quiet openvpn-europe.service &&
@@ -21,15 +21,14 @@ autostart(){
 }
 
 locker(){
-    LOCK_TIME=5 # Minutes
+    LOCK_TIME=3 # Minutes
     NOTIFY=45 # Seconds
     xautolock \
         -time "$LOCK_TIME" \
         -notify "$NOTIFY" \
-        -detectsleep \
-        -lockaftersleep \
         -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" \
-        -locker 'systemclt suspend'
+        -killtime 10 \ -killer 'systemctl suspend' \
+        -detectsleep -lockaftersleep
 }
 
 case $(hostname) in

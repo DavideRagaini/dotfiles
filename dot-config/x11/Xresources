@@ -1,4 +1,6 @@
-*.alpha: 0.95
+! -*- compile-command: "xrdb ${XDG_CONFIG_HOME}/x11/Xresources" -*-
+
+*.alpha: 1
 ! *.font: Fantasque Sans Mono:size=12
 *.font: CaskaydiaCove Nerd Font Mono:size=12
 *.cursorColor: magenta
@@ -19,7 +21,7 @@
 *.color14: #9AEDFE
 *.color15: #E6E6E6
 
-Xcursor.theme: oreo_purple_cursors
+Xcursor.theme: Catppuccin-Macchiato-Dark-Cursors
 ! Xcursor.size: 32
 
 Xft.antialias: 1

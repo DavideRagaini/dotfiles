@@ -10,8 +10,8 @@
 ;; (package! dired-open)
 (package! nov)
 (package! org-ref)
-(package! org-download)
-(package! org-modern)
+;; (package! org-download)
+;; (package! org-modern)
 ;; (package! scad-mode
 ;;   :recipe (:host github :repo "openscad/openscad"
 ;;            :files ("scad-mode.el" "contrib/scad-mode.el")))

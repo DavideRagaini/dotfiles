@@ -12,13 +12,9 @@ dot-config/mpd/**
 !dot-config/mpd/mpd.conf
 !dot-config/mpd/playlists/
 
-dot-config/mpv/disabled
-dot-config/mpv/disabled_scripts
-dot-config/mpv/flake.conf
-dot-config/mpv/last
-dot-config/mpv/history.log
-dot-config/mpv/playlists
-dot-config/mpv/watch_later
+dot-config/mpv/**
+!dot-config/mpv/playlists/
+!dot-config/mpv/watch_later/
 !dot-config/mpv/scripts-opts
 !dot-config/mpv/scripts
 !dot-config/mpv/input.conf

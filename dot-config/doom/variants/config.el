@@ -30,6 +30,14 @@
   (dr/ispell-settings)
   (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
 )
+
+(defun run-with-python ()
+  "Set the default comli-command to run the current file with python"
+  (setq-local compile-command
+              (concat "python "
+                      (when buffer-file-name
+                        (shell-quote-argument buffer-file-name)))))
+(add-hook 'python-mode-hook 'run-with-python)
 ;; }}}
 ;; ========= Bootstraps ========= {{{
 (setq dr/font-size 14
@@ -46,6 +54,7 @@
       doom-symbol-font (font-spec :family "DejaVu Serif" :size dr/font-size)
       doom-theme 'modus-vivendi
       ;; whitespace-line-column 500
+      compilation-scroll-output t
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark newline-mark )
       line-spacing 2
       scroll-margin 3
@@ -104,17 +113,12 @@
 ;; }}}
 ;; ========= Hydra ========= {{{
 (defhydra doom-window-resize-hydra (:hint nil)
-  "
-             _k_ increase height
-_h_ decrease width    _l_ increase width
-             _j_ decrease height
-"
+  "vim motion evil-window-inc/dec-width/height"
   ("h" evil-window-decrease-width)
   ("j" evil-window-increase-height)
   ("k" evil-window-decrease-height)
   ("l" evil-window-increase-width)
   ("q" nil))
-
 ;; }}}
 ;; ========= Bindings ========= {{{
 (map!

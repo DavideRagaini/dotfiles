@@ -39,10 +39,13 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
         alias \
             animdl="~/Packages/python/ani/bin/animdl" \
             hm='home-manager' \
-            hms='home-manager switch'
+            hms='home-manager switch' \
+            tcd='chat_downloader' \
+            wt='wtwitch'
         hmu() {
-            cd ~/.config/home-manager &&
+            cd "$HOME/.config/home-manager" &&
                 nix flake update &&
+                cd "$HOME" &&
                 home-manager switch 2>&1 |
                     tee "$HOME/.local/hm_last.log"
         }
@@ -84,8 +87,6 @@ alias \
     E="\$VISUAL" \
     f="lfcd" \
     pw="pipe-viewer" \
-    cpuperf="sudo cpupower frequency-set --governor performance" \
-    cpusave="sudo cpupower frequency-set --governor powersave" \
     pip="python3 -m pip" \
     irssi="irssi --config=\"\$XDG_CONFIG_HOME\"/irssi/config -- home=\"\$XDG_DATA_HOME\"/irssi" \
     pips="python3 -m pip_search" \

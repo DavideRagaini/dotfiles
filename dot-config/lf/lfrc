@@ -77,6 +77,7 @@ cmd alt_open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
         # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
         application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
+        application/zip) zathura --fork "$fx" >/dev/null 2>&1;;
         *) xdg-open "$fx" ;;
     esac
 }}
@@ -107,7 +108,7 @@ cmd delete ${{
 cmd moveto ${{
 	set -f
     echo "Move to where?"
-    dest=$(fdfind -td -E octave -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
+    dest=$(fd -td -E sources -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" "$HOME" | fzf)
 	for x in $fx; do
 		eval mv -iv \"$x\" \"$dest\"
 	done &&
@@ -117,7 +118,7 @@ cmd moveto ${{
 cmd copyto ${{
 	set -f
     echo "Copy to where?"
-    dest=$(fdfind -td -E octave -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
+    dest=$(fd -td -E sources -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
 	for x in $fx; do
 		eval cp -ivr \"$x\" \"$dest\"
 	done &&
@@ -429,28 +430,36 @@ cmd open-fork &setsid -f "$@" $fx
 
 # Bindings
 map . :read; cmd-history-prev; cmd-enter
-map <a-n> newfold
+map +d push :mkdir<space>
+map +f push :touch<space>
+map <enter> shell
+
 map <a-da> cut-add
 map <a-dr> cut-remove
+map <a-enter> push :async-shell<space>
+map <a-n> newfold
+
 map <c-b> $setbg $f
+map <c-c> copyto
 map <c-e> down
+map <c-m> moveto
 map <c-n> push :mkdir<space>
 map <c-o> &opener "$f"
 map <c-r> on-redraw; reload
+map <c-t> !bat "$f"
+map <c-u> fzf_jump
 map <c-y> up
 map <c-z> $ kill -STOP $PPID
-map <a-enter> push :async-shell<space>
-map <enter> shell
+
+map A :rename; cmd-end
 map B &footclient -T emacs -e emacsclient -nw .
-map C copyto
+map C :rename; cmd-end; cmd-delete-home
 map D delete
 map E extract
-# map I push A<c-a> # at the very beginning
-map L alt_open
-map U fzf_jump
+map I :rename; cmd-home
 map J :updir; set dironly true; down; set dironly false; open
 map K :updir; set dironly true; up; set dironly false; open
-map M moveto
+map L alt_open
 map N chmod
 map O push :open-fork<space>
 map Pa async_paste
@@ -458,26 +467,23 @@ map Pb backup_paste
 map Pp :link
 map R push A<a-b> # after extention
 map S &samedir
-map Tt !bat "$f"
-map Ti !mediainfo "$f" | bat
+map T !mediainfo "$f" | bat
+map U clear
 map W & $TERMINAL
+map X !$f
 map Yb yank-basename
 map Ybe yank-basename-without-extension
 map Yd yank-dirname
 map Yp yank-path
 map Ys $printf "%s" "$fx" | xclip -selection clipboard
-map e &em "$fx"
-map gg top
-map gf :fzf_search
-map gL follow_link
-map o push :open-with<space>
-# unmap the default rename keybinding
-map r
-map i rename
-map I :rename; cmd-home
-map A :rename; cmd-end
-map c :rename; cmd-delete-home
-map C :rename; cmd-end; cmd-delete-home
+# map I push A<c-a> # at the very beginning
 # map O $mimeopen --ask "$f"
 # map V push :!nvim<space>
-map X !$f
+
+map c :rename; cmd-delete-home
+map e !nvim "$fx"
+map gL follow_link
+map gf :fzf_search
+map gg top
+map i rename
+map o push :open-with<space>

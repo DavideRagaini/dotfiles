@@ -10,7 +10,7 @@ local options = require 'mp.options'
 local o = {
 	default_enable = false,
 	show_osd = true,
-	osd_timeout = 4000,
+	osd_timeout = 2000,
 	filter_label = mp.get_script_name(),
 
 	key_toggle = 'n',

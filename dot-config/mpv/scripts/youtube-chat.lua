@@ -9,7 +9,7 @@ local is_windows = package.config:sub(1,1) ~= "/"
 local xdg_data_home = os.getenv("XDG_DATA_HOME") or (os.getenv("HOME") .. "/.local/share")
 
 local opts = {}
-opts['auto-load'] = false
+opts['auto-load'] = true
 opts['live-chat-directory'] = is_windows and 'C:/' or (xdg_data_home .. '/youtube-live-chats')
 opts['yt-dlp-path'] = 'yt-dlp'
 opts['show-author'] = true
