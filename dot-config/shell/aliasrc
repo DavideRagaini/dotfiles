@@ -14,7 +14,7 @@ case "$(printenv XDG_SESSION_TYPE)" in
 esac
 
 case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
-    Void)
+    Void|\"Void\")
         alias \
             xbi="doas xbps-install -S" \
             xu="doas xbps-install -Su" \
@@ -35,7 +35,7 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             xbps-query -Rs "$1" | fzf
         }
         ;;
-    NixOS)
+    NixOS|\"NixOS\")
         alias \
             animdl="~/Packages/python/ani/bin/animdl" \
             hm='home-manager' \
@@ -50,7 +50,7 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
                     tee "$HOME/.local/hm_last.log"
         }
         ;;
-    Ubuntu|Armbian)
+    Ubuntu|Armbian|\"Ubuntu\"|\"Armbian\")
         ;;
 esac
 
