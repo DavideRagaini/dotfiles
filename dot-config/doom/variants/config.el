@@ -1,6 +1,4 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-;; ========= Testing ========= {{{
-;; }}}
 ;; ========= Functions ========= {{{
 (defun dr/eagenda()
   (org-agenda-list 21)
@@ -11,7 +9,7 @@
   (split-window-vertically -15)
   (find-file "~/Org/Me/Learn.org")
   (+workspace:rename "agenda")
-)
+  )
 
 (defun dr/ispell-settings()
   (after! ispell
@@ -29,7 +27,7 @@
   (setq display-line-numbers-type t)
   (dr/ispell-settings)
   (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
-)
+  )
 
 (defun run-with-python ()
   "Set the default comli-command to run the current file with python"
@@ -40,31 +38,31 @@
 (add-hook 'python-mode-hook 'run-with-python)
 ;; }}}
 ;; ========= Bootstraps ========= {{{
-(setq dr/font-size 14
+(setq dr/font-size 13
       display-line-numbers-type nil)
-;; (dr/high-resources))
+(dr/high-resources)
 ;; }}}
 ;; ========= Common ========= {{{
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
-      doom-font (font-spec :family "Fantasque Sans Propo" :size dr/font-size)
-      doom-big-font (font-spec :family "Fantasque Sans Propo" :size (* dr/font-size 2))
+      doom-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size dr/font-size)
+      doom-big-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size (* dr/font-size 2))
       doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-symbol-font (font-spec :family "DejaVu Serif" :size dr/font-size)
-      doom-theme 'modus-vivendi
+      doom-theme 'catppuccin
       ;; whitespace-line-column 500
       compilation-scroll-output t
-      whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark newline-mark )
+      whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark)
       line-spacing 2
       scroll-margin 3
       delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/"
-      auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist)
       confirm-kill-emacs nil)
 
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-(map! :leader :desc "Blinking cursor binding" :n "r" #'+nav-flash/blink-cursor)
+(add-to-list 'auto-mode-alist
+             '("\\.epub\\'" . nov-mode)
+             '("\\.m$" . octave-mode))
 
 (set-frame-parameter (selected-frame) 'alpha '(97 . 85))
 (add-to-list 'default-frame-alist '(alpha . (97 . 85)))
@@ -74,7 +72,6 @@
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
 (global-auto-revert-mode 1)
-(global-org-modern-mode 1)
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
@@ -126,7 +123,8 @@
  (:prefix "SPC b" :desc "+format/region" :n "f" #'+format/region)
  (:prefix "SPC b" :desc "+format/buffer" :n "F" #'+format/buffer)
  (:prefix "SPC m" :desc "+org-todo-yesterday" :n "y" #'org-todo-yesterday)
-)
+ (:prefix "SPC a" :desc "blink cursor" :n "b" #'+nav-flash/blink-cursor)
+ )
 ;; }}}
 ;; ========= Manual ========= {{{
 ;; - `load!' for loading external *.el files relative to this one

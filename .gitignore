@@ -13,10 +13,14 @@ dot-config/mpd/**
 !dot-config/mpd/playlists/
 
 dot-config/mpv/**
+!dot-config/mpv/fonts/
+!dot-config/mpv/modules/
+!dot-config/mpv/watch_later/
+!dot-config/mpv/shaders/
 !dot-config/mpv/playlists/
 !dot-config/mpv/watch_later/
-!dot-config/mpv/scripts-opts
-!dot-config/mpv/scripts
+!dot-config/mpv/scripts-opts/
+!dot-config/mpv/scripts/
 !dot-config/mpv/input.conf
 !dot-config/mpv/mpv.conf
 !dot-config/mpv/music

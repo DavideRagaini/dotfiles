@@ -10,7 +10,8 @@ map K zoom in
 map J zoom out
 map i recolor
 map p print
-map y feedkeys ":exec sh -c \"echo $FILE | xclip -i -sel clip\"<Return>"
+map y focus_inputbar ":exec sh -c \"printf \\\"$FILE\\\" | xclip -selection c\""
+map <C-i> exec "setsid -f sioyek --new-window \"$FILE\" --page \"$PAGE\""
 
 set sandbox normal
 # set sandbox strict
@@ -37,7 +38,7 @@ set statusbar-home-tilde true
 
 # set recolor                     "true"
 #colors
-set font                        "Liberation Mono 10"
+# set font                        "Liberation Mono 10"
 set default-bg                  "#263238"
 set default-fg                  "#222D32"
 

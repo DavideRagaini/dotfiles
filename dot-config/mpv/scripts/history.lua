@@ -1,12 +1,12 @@
 ----- string
 
-function is_empty(input)
+local function is_empty(input)
     if input == nil or input == "" then
         return true
     end
 end
 
-function trim(input)
+local function trim(input)
     if is_empty(input) then
         return ""
     end
@@ -14,13 +14,13 @@ function trim(input)
     return input:match "^%s*(.-)%s*$"
 end
 
-function contains(input, find)
+local function contains(input, find)
     if not is_empty(input) and not is_empty(find) then
         return input:find(find, 1, true)
     end
 end
 
-function replace(str, what, with)
+local function replace(str, what, with)
     if is_empty(str) then return "" end
     if is_empty(what) then return str end
     if with == nil then with = "" end
@@ -29,7 +29,7 @@ function replace(str, what, with)
     return string.gsub(str, what, with)
 end
 
-function split(input, sep)
+local function split(input, sep)
     local tbl = {}
 
     if not is_empty(input) then
@@ -41,21 +41,9 @@ function split(input, sep)
     return tbl
 end
 
-function pad_left(input, len, char)
-    if input == nil then
-        input = ""
-    end
-
-    if char == nil then
-        char = ' '
-    end
-
-    return string.rep(char, len - #input) .. input
-end
-
 ----- file
 
-function file_exists(path)
+local function file_exists(path)
     local f = io.open(path, "r")
 
     if f ~= nil then
@@ -82,26 +70,35 @@ end
 --   return true
 -- end
 
-function dir_exists(path)
-  return file_exists(path .. "/")
-end
+-- local function dir_exists(path)
+--   return file_exists(path .. "/")
+-- end
 
-function file_append(path, content)
-    local h = assert(io.open(path, 'r'))
+local function file_append(path, content)
+    local hr,err = assert(io.open(path, 'r'))
     local lines = {}
-    for line in h:lines() do
-        table.insert(lines, line)
+    if hr == nil then
+        print("Couldn't open file: "..err)
+    else
+        for line in hr:lines() do
+            table.insert(lines, line)
+        end
+        hr:close()
     end
-    h:close()
 
     table.insert(lines, 1, content)
 
     local path_new = path .. ".tmp"
-    local h = io.open(path_new, 'w')
-    for _, line in ipairs(lines) do
-        h:write(line .. "\n")
+    local hw, errw = io.open(path_new, 'w')
+    if hw == nil then
+        print("Couldn't open file: "..errw)
+    else
+        for _, line in ipairs(lines) do
+            hw:write(line .. "\n")
+        end
+        hw:close()
     end
-    h:close()
+
 
     os.remove(path)
     os.rename(path_new, path)
@@ -111,22 +108,22 @@ end
 -----       ignore date (first tab)
 -----       check if exist
 ----- TODO url ( first column ) as index
-function file_append2(path, content)
-    local h = assert(io.open(path, 'r'))
-    local tbl = {}
-    for line in h:tbl() do
-        local i = 1 -- first column
-        for value in (string.gmatch(line, "[^%s]+")) do  -- tab separated values
-    --  for value in (string.gmatch(line, '%d[%d.]*')) do -- comma separated values
-            tbl[i]=tbl[i]or{} -- if not column then create new one
-            tbl[i][#tbl[i]+1]=tonumber(value) -- adding row value
-            i=i+1 -- column iterator
-        end
-    end
-    h:close()
+-- local function file_append2(path, content)
+--     local h = assert(io.open(path, 'r'))
+--     local tbl = {}
+--     for line in h:tbl() do
+--         local i = 1 -- first column
+--         for value in (string.gmatch(line, "[^%s]+")) do  -- tab separated values
+--     --  for value in (string.gmatch(line, '%d[%d.]*')) do -- comma separated values
+--             tbl[i]=tbl[i]or{} -- if not column then create new one
+--             tbl[i][#tbl[i]+1]=tonumber(value) -- adding row value
+--             i=i+1 -- column iterator
+--         end
+--     end
+--     h:close()
 
-    -- TODO dont pass date
-    table.find(tlb, content)
+--     -- TODO dont pass date
+--     table.find(tlb, content)
     -- table.insert(table, 1, content)
 
 --     for line in io.lines() do -- or or file:lines() if you have a different file
@@ -145,23 +142,23 @@ function file_append2(path, content)
 
     -- os.remove(path)
     -- os.rename(path_new, path)
-end
+-- end
 
 ----- history
 
-path = ""
+local path = ""
 
 local o = {
     exclude = "",
     storage_path = "~~/history.log",
 }
 
-opt = require "mp.options"
+local opt = require "mp.options"
 opt.read_options(o)
 
 o.storage_path = mp.command_native({"expand-path", o.storage_path})
 
-function discard()
+local function discard()
     for _, v in pairs(split(o.exclude, ";")) do
         local p = replace(path, "/", "\\")
         v = replace(trim(v), "/", "\\")
@@ -172,17 +169,16 @@ function discard()
     end
 end
 
-function history()
+local function history()
     path = mp.get_property("path")
-    local uploader = mp.get_property("metadata/by-key/uploader")
     local title = mp.get_property("media-title")
     local uploader = nil
 
     if file_exists(path) then
         local path_words = split(path, '/')
         uploader = string.format("%s/%s", path_words[#path_words-3], path_words[#path_words-2])
-    elseif path:match '^%a+://twitch.tv/' or '' then
-        uploader = io.popen('yt-dlp --playlist-end=1 --print "%(uploader,channel)s" ' .. path):read("*all")
+    -- elseif path:match '^%a+://twitch.tv/' or '' then
+    --     uploader = io.popen('yt-dlp --playlist-end=1 --print "%(uploader,channel)s" ' .. path):read("*all")
         -- local metadata = io.popen('yt-dlp --flat-playlist -sJ ' .. path):read("*all")
         -- local json, err = utils.parse_json(metadata)
         -- uploader = json['_type'] and json['_type'] == 'uploader'

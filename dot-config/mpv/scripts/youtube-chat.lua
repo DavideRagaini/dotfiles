@@ -9,7 +9,7 @@ local is_windows = package.config:sub(1,1) ~= "/"
 local xdg_data_home = os.getenv("XDG_DATA_HOME") or (os.getenv("HOME") .. "/.local/share")
 
 local opts = {}
-opts['auto-load'] = true
+opts['auto-load'] = false
 opts['live-chat-directory'] = is_windows and 'C:/' or (xdg_data_home .. '/youtube-live-chats')
 opts['yt-dlp-path'] = 'yt-dlp'
 opts['show-author'] = true
@@ -42,7 +42,7 @@ local function split_string(input)
     return splits
 end
 
-function break_message(message, initial_length)
+local function break_message(message, initial_length)
     if opts['max-message-line-length'] <= 0 then
         return message
     end
@@ -64,7 +64,7 @@ function break_message(message, initial_length)
     return result
 end
 
-function format_message(message)
+local function format_message(message)
     local message_string = chat_message_to_string(message)
     local result = nil
     local lines = message_string:gmatch("([^\n]*)\n?")
@@ -103,7 +103,7 @@ function format_message(message)
     return result or ''
 end
 
-function chat_message_to_string(message)
+local function chat_message_to_string(message)
     if message.type == NORMAL then
         if opts['show-author'] then
             if opts['author-color'] == 'random' then
@@ -157,7 +157,7 @@ function chat_message_to_string(message)
     end
 end
 
-function file_exists(name)
+local function file_exists(name)
     local f = io.open(name, "r")
     if f ~= nil then
         f:close()
@@ -167,7 +167,7 @@ function file_exists(name)
     end
 end
 
-function download_live_chat(url, filename)
+local function download_live_chat(url, filename)
     if file_exists(filename) then return end
     mp.command_native({
         name = "subprocess",
@@ -186,7 +186,7 @@ function download_live_chat(url, filename)
 end
 
 -- TODO: better way to do this that gives more consistent brightness in colors?
-function string_to_color(str)
+local function string_to_color(str)
     local hash = 5381
     for i = 1,str:len() do
         hash = (33 * hash + str:byte(i)) % 16777216
@@ -194,14 +194,14 @@ function string_to_color(str)
     return hash
 end
 
-function swap_color_string(str)
+local function swap_color_string(str)
     local r = str:sub(1, 2)
     local g = str:sub(3, 4)
     local b = str:sub(5, 6)
     return b .. g .. r
 end
 
-function generate_messages(live_chat_json)
+local function generate_messages(live_chat_json)
 
     local result = {}
     for line in io.lines(live_chat_json) do
@@ -296,7 +296,7 @@ function generate_messages(live_chat_json)
     return result
 end
 
-function load_live_chat(filename, interactive)
+local function load_live_chat(filename, interactive)
     reset()
 
     local generating_overlay = mp.create_osd_overlay("ass-events")
@@ -355,7 +355,7 @@ function load_live_chat(filename, interactive)
     update_chat_overlay(mp.get_property_native("time-pos"))
 end
 
-function _load_live_chat(_, filename)
+local function _load_live_chat(_, filename)
     load_live_chat(filename)
 end
 
@@ -389,15 +389,15 @@ function update_chat_overlay(time)
     chat_overlay:update()
 end
 
-function _update_chat_overlay(_, time)
+local function _update_chat_overlay(_, time)
     update_chat_overlay(time)
 end
 
-function load_live_chat_interactive(filename)
+local function load_live_chat_interactive(filename)
     load_live_chat(filename, true)
 end
 
-function set_chat_hidden(state)
+local function set_chat_hidden(state)
     if state == nil then
         chat_hidden = not chat_hidden
     else
@@ -415,7 +415,7 @@ function set_chat_hidden(state)
     end
 end
 
-function set_chat_anchor(anchor)
+local function set_chat_anchor(anchor)
     if anchor == nil then
         opts['anchor'] = (opts['anchor'] % 9) + 1
     else
@@ -426,7 +426,7 @@ function set_chat_anchor(anchor)
     end
 end
 
-function reset()
+local function reset()
     messages = nil
     if chat_overlay then
         chat_overlay:remove()

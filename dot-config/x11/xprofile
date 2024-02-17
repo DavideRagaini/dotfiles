@@ -7,17 +7,17 @@ autostart(){
     sleep "$1"
     # systemctl start --user graphical-session.target
     clipmenud &
-    systemctl start --user picom.service
+    # systemctl start --user picom.service
     systemctl start --user redshift.service
     sleep "$2"
-    # "$HOME/.local/bin/nix/thorium" &
-    systemctl start --user unlutter.service
     $BROWSER &
-    sleep "$3"
-    systemctl is-active --quiet openvpn-europe.service &&
-        qbittorrent &
-    sleep "$4"
-    alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
+    # sleep "$3"
+    # alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
+    emacsclient -e '(doom/quickload-session t)' -c &
+    sleep 1m
+    systemctl start --user unlutter.service
+    # systemctl is-active --quiet openvpn-europe.service &&
+    #     qbittorrent &
 }
 
 locker(){
@@ -27,8 +27,10 @@ locker(){
         -time "$LOCK_TIME" \
         -notify "$NOTIFY" \
         -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" \
-        -killtime 10 \ -killer 'systemctl suspend' \
-        -detectsleep -lockaftersleep
+        -killtime 10 \
+        -killer 'systemctl suspend' \
+        -detectsleep
+        # -lockaftersleep
 }
 
 case $(hostname) in
@@ -37,7 +39,7 @@ case $(hostname) in
         export VDPAU_DRIVER=nvidia
         # xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --mode 3840x2160 --scale 0.5 --pos 3840x0 --rotate normal
         xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off
-        autostart 10 10 10 30 &
+        autostart 10 30 &
         locker &
         conky &
         ;;

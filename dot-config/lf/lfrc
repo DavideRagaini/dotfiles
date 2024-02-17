@@ -52,8 +52,10 @@ cmd open ${{
 
         application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
         application/epub+zip) ebook-viewer "$fx" ;;
+        # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         application/postscrip) zathura --fork $fx >/dev/null 2>&1 ;;
-        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         image/svg+xml) setsid -f display -- "$fx";;
         image/vnd.djvu) zathura --fork "$fx" >/dev/null 2>&1 ;;
 
@@ -75,8 +77,8 @@ cmd open ${{
 
 cmd alt_open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
-        # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
-        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
+        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        # application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         application/zip) zathura --fork "$fx" >/dev/null 2>&1;;
         *) xdg-open "$fx" ;;
     esac
@@ -422,6 +424,7 @@ cmd yank-dirname $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
 cmd yank-path $printf '%s' "$fx" | xclip -i -selection clipboard
 cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
 cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | rev | head -c-1 | xclip -i -selection clipboard
+cmd yank-org-link $printf '[[%s][%s]]' "$fx" "$(basename -a -- $fx)" | xclip -i -selection clipboard
 
 cmd open-with %"$@" $fx
 cmd open-fork &setsid -f "$@" $fx
@@ -474,8 +477,8 @@ map X !$f
 map Yb yank-basename
 map Ybe yank-basename-without-extension
 map Yd yank-dirname
+map Yo yank-org-link
 map Yp yank-path
-map Ys $printf "%s" "$fx" | xclip -selection clipboard
 # map I push A<c-a> # at the very beginning
 # map O $mimeopen --ask "$f"
 # map V push :!nvim<space>

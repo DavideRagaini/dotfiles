@@ -13,11 +13,11 @@ from libqtile.dgroups import simple_key_binder
 from libqtile.extension import WindowList, DmenuRun, CommandSet
 from libqtile.lazy import lazy
 
-from os import environ  # , system
+from os import environ
 from re import compile as regex
 
 # from datetime import datetime
-from libqtile.log_utils import logger
+# from libqtile.log_utils import logger
 
 # from libqtile.utils import guess_terminal
 # from libqtile.widget import Spacer, Backlight
@@ -34,9 +34,8 @@ browser = environ["BROWSER"]
 browser_alt = environ["BROWSER2"]
 browser_priv = environ["BROWSER_PRIVATE"]
 terminal = environ["TERMINAL"]
-text_editor = (
-    terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
-)
+# text_editor = terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
+text_editor = "emacsclient -c"
 file_manager = terminal + " -e tmux new-session -A -s 'files'"
 launcher = "run"
 process_viewer = terminal + " -e htop"
@@ -744,6 +743,10 @@ keys = [
     Key([mod], "w", lazy.spawn(browser), desc="Launch Browser"),
     Key([mod, shift], "w", lazy.spawn(browser_alt), desc="Launch Alternative Browser"),
     Key([mod, ctrl], "w", lazy.spawn(browser_priv), desc="Launch Private Browser"),
+
+    Key([mod, shift], "b", lazy.spawn("bm S"), desc="Bookmarks"),
+    Key([mod, ctrl], "b", lazy.spawn("bm d"), desc="Bookmarks"),
+
     Key([mod], "e", lazy.spawn(text_editor), desc="Launch Text Editor"),
     Key(
         [mod, shift],
