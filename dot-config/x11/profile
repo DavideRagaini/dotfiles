@@ -21,10 +21,18 @@ export XDG_PICTURES_DIR="$HOME/Storage/Pictures"
 export XDG_VIDEOS_DIR="$HOME/Storage/Videos"
 
 case $(hostname) in
-    void|nt)
+    void)
         XDG_RUNTIME_DIR="/run/user/$(id -u)"
         export XDG_RUNTIME_DIR
-        export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+        ;;
+    NT)
+        XDG_RUNTIME_DIR="/run/user/$(id -u)"
+        export XDG_RUNTIME_DIR
+        export WLR_NO_HARDWARE_CURSORS=1
+        {
+            sleep 25
+            kill -TERM "$(pgrep -u "$USER" "\bdwm$")" &
+        } &
         ;;
 esac
 
@@ -138,24 +146,37 @@ fi
 check_startup() {
     [ "$(tty)" = "/dev/tty1" ] &&
         awk '{ exit ($1 > 40) }' /proc/uptime &&
-        return 255
 }
 
-if [ "$HOSTNAME" = 'Apollo' ]; then
-    check_startup &&
-        ! pidof -s Xorg >/dev/null 2>&1 &&
-        exec startx "$XINITRC"
-else
-    check_startup &&
-        [ "${XDG_VTNR}" -eq 1 ] &&
+wayland_exports() {
+     [ "${XDG_VTNR}" -eq 1 ] &&
         [ -z "${WAYLAND_DISPLAY}" ] &&
         export QT_QPA_PLATFORM=wayland &&
         export MOZ_ENABLE_WAYLAND=1 &&
         export TERMINAL="footclient" &&
         export MOZ_WEBRENDER=1 &&
         export XDG_SESSION_TYPE=wayland &&
-        export XDG_CURRENT_DESKTOP=sway &&
+        export XDG_CURRENT_DESKTOP=sway
+}
+
+case "$HOSTNAME" in
+    Apollo)
+        check_startup &&
+        ! pidof -s Xorg >/dev/null 2>&1 &&
+        exec startx "$XINITRC"
+    ;;
+    NT)
+        check_startup &&
+        ! pidof -s Xorg >/dev/null 2>&1 &&
+        startx "$XINITRC"
+        wayland_exports &&
         exec sway
-fi
+    ;;
+    *)
+        check_startup &&
+        wayland_exports &&
+        exec sway
+    ;;
+esac
 
 # sudo -n loadkeys ~/.config/shell/ttymaps.kmap 2>/dev/null
