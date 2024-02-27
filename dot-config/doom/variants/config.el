@@ -38,9 +38,14 @@
 (add-hook 'python-mode-hook 'run-with-python)
 ;; }}}
 ;; ========= Bootstraps ========= {{{
-(setq dr/font-size 13
-      display-line-numbers-type nil)
-(dr/high-resources)
+(setq dr/font-size 13)
+(cond
+ ((string-equal (system-name) "Apollo")
+  (setq dr/font-size 13
+        display-line-numbers-type nil)
+  (global-activity-watch-mode 1)
+  (dr/high-resources)
+   ))
 ;; }}}
 ;; ========= Common ========= {{{
 (setq user-full-name "Davide Ragaini"

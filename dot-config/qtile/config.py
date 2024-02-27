@@ -13,7 +13,7 @@ from libqtile.dgroups import simple_key_binder
 from libqtile.extension import WindowList, DmenuRun, CommandSet
 from libqtile.lazy import lazy
 
-from os import environ
+from os import environ as env
 from re import compile as regex
 
 # from datetime import datetime
@@ -30,10 +30,10 @@ alt = "mod1"
 shift = "shift"
 ctrl = "control"
 
-browser = environ["BROWSER"]
-browser_alt = environ["BROWSER2"]
-browser_priv = environ["BROWSER_PRIVATE"]
-terminal = environ["TERMINAL"]
+browser = env["BROWSER"]
+browser_alt = env["BROWSER2"]
+browser_priv = env["BROWSER_PRIVATE"]
+terminal = env["TERMINAL"]
 # text_editor = terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
 text_editor = "emacsclient -c"
 file_manager = terminal + " -e tmux new-session -A -s 'files'"
@@ -63,6 +63,22 @@ def dracula():
     foregroundColorTwo = "#44475a"
     return colors, backgroundColor, foregroundColor, workspaceColor, foregroundColorTwo
 
+def dmenu_defaults():
+    opts = [
+        "IosevkaTerm Nerd Font Mono:style=bold:size=12",
+        "#181321", # normal backgroun
+        "#6e5e89", # normal foregroun
+        "#4e4262", # selected backgroun
+        "#181321", # selected foregroun
+    ]
+    j = 0
+
+    for i in [ "DMENU_FN", "DMENU_NB", "DMENU_NF", "DMENU_SB", "DMENU_SF" ]:
+        if i in env:
+            opts[j] = env[i]
+        j = j + 1
+
+    return opts
 
 colorscheme = dracula()
 (
@@ -72,6 +88,8 @@ colorscheme = dracula()
     workspaceColor,
     foregroundColorTwo,
 ) = colorscheme
+
+dmenu_options = dmenu_defaults()
 # }}}
 # ======================= Groups ============= {{{
 #  󰇮   󰈙     
@@ -242,8 +260,6 @@ groups = [
 ## }}}
 # ======================= Hooks ============= {{{
 import subprocess
-
-
 @lazy.function
 def floating_border_window(qtile, position=1):
     window = qtile.current_screen.group.current_window
@@ -324,6 +340,46 @@ def remove_sticky_windows(window):
 #         sticky_windows.append(window)
 
 
+last_focus_index = -1
+
+def swap_focus_main(qtile):
+    """
+    https://github.com/qtile/qtile/discussions/3621
+    """
+
+    layout = qtile.current_layout
+
+    if layout.name == "monadtall":
+        global last_focus_index
+        current_index = layout.clients.current_index
+        # 0 is main window
+        if current_index == 0:
+            if last_focus_index < 0:
+                # nothing to swap with
+                return
+            # swap with last
+            target_index = last_focus_index
+        else:
+            # swap subordinates with main
+            target_index = current_index
+            last_focus_index = current_index
+
+        main_window = layout.clients[0]
+        target_window = layout.clients[target_index]
+        # swaps windows and keeps focus on main
+        layout.swap(target_window, main_window)
+
+def focus_main(qtile):
+    layout = qtile.current_layout
+
+    if layout.name == "monadtall":
+        # aligned to right
+        if layout.align == 1:
+            layout.right()
+            return
+
+        layout.left()
+
 @lazy.function
 def float_to_front(qtile):
     for group in qtile.groups:
@@ -393,7 +449,7 @@ def focus_previous_window(qtile):
 # def kick_to_next_screen(qtile, direction=1):
 # 	other_scr_index = (qtile.screens.index(qtile.currentScreen) + direction) % len(qtile.screens)
 # 	othergroup = None
-# 	for group in qtile.cmd_groups().values():
+# 	for group in qtile.groups().values():
 # 		if group['screen'] == other_scr_index:
 # 			othergroup = group['name']
 # 			break
@@ -485,7 +541,7 @@ groups.append(
             ),
             DropDown(
                 "news",
-                terminal + " -e newsboat",
+                terminal + " --class 'newsboat,newsboat' -T 'newsboat' -e newsboat",
                 width=0.8,
                 height=0.8,
                 x=0.1,
@@ -495,7 +551,7 @@ groups.append(
             ),
             DropDown(
                 "podcasts",
-                terminal + " -e podboat",
+                terminal + " --class 'podboat,podboat' -T 'podboat' -e podboat",
                 width=0.8,
                 height=0.8,
                 x=0.1,
@@ -505,7 +561,7 @@ groups.append(
             ),
             DropDown(
                 "music",
-                terminal + " -e ncmpcpp",
+                terminal + " --class 'ncmpcpp,ncmpcpp' -T 'ncmpcpp'  -e ncmpcpp",
                 width=0.8,
                 height=0.8,
                 x=0.1,
@@ -515,7 +571,7 @@ groups.append(
             ),
             DropDown(
                 "spotify",
-                terminal + " -e spt",
+                terminal + " --class 'spotify-tui,spotify-tui' -T 'spotify-tui'  -e spt",
                 width=0.8,
                 height=0.8,
                 x=0.1,
@@ -582,12 +638,12 @@ mouse = [
 ]
 # }}}
 dmenu_defaults = dict(
-    dmenu_font="IosevkaTerm Nerd Font Mono:style=bold:size=14",
-    dmenu_ignorecase=True,
-    background="#2F0B3A",
-    foreground="#FF00FF",
-    selected_background="#BD93F9",
-    selected_foreground="#571DC2",
+    dmenu_font = dmenu_options[0],
+    dmenu_ignorecase = True,
+    background = dmenu_options[1],
+    foreground = dmenu_options[2],
+    selected_background = dmenu_options[3],
+    selected_foreground = dmenu_options[4],
 )
 # ======================= Keybindings ============= {{{
 keys = [
@@ -654,13 +710,15 @@ keys = [
     Key([mod, ctrl], "l", lazy.layout.grow(), desc="Grow window to the left"),
     Key([mod, ctrl], "j", lazy.layout.shrink_down(), desc="Grow window down"),
     Key([mod, ctrl], "k", lazy.layout.shrink_up(), desc="Grow window up"),
-    Key([mod], "space", lazy.layout.flip(), desc="Flip windows"),
+    Key([mod], "space", lazy.function(swap_focus_main)),
+    Key([mod, ctrl], "space", lazy.function(focus_main)),
     Key(
         [mod, shift],
         "space",
         lazy.window.toggle_floating(),
         desc="Toggle Current Window Floating",
     ),
+    Key([mod,alt], "space", lazy.layout.flip(), desc="Flip windows"),
     Key([mod], "u", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod], "Tab", lazy.screen.toggle_group(), desc="Reset all window sizes"),
     # Key([mod], "Tab", focus_previous_window()),

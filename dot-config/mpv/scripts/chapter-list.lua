@@ -1,0 +1,1 @@
+/home/davide/sources/dotfiles/dot-config/mpv/modules/meta_x/chapter-list.lua

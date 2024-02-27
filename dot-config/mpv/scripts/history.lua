@@ -104,46 +104,6 @@ local function file_append(path, content)
     os.rename(path_new, path)
 end
 
------ TODO check if already in file, if positive then skip
------       ignore date (first tab)
------       check if exist
------ TODO url ( first column ) as index
--- local function file_append2(path, content)
---     local h = assert(io.open(path, 'r'))
---     local tbl = {}
---     for line in h:tbl() do
---         local i = 1 -- first column
---         for value in (string.gmatch(line, "[^%s]+")) do  -- tab separated values
---     --  for value in (string.gmatch(line, '%d[%d.]*')) do -- comma separated values
---             tbl[i]=tbl[i]or{} -- if not column then create new one
---             tbl[i][#tbl[i]+1]=tonumber(value) -- adding row value
---             i=i+1 -- column iterator
---         end
---     end
---     h:close()
-
---     -- TODO dont pass date
---     table.find(tlb, content)
-    -- table.insert(table, 1, content)
-
---     for line in io.lines() do -- or or file:lines() if you have a different file
---    if line:find("123.123.123.123") -- Only lines containing the IP we care about
---       if (true) -- Whatever other conditions you want to apply
---          c = c + 1
---       end
---    end
--- end
-    -- local path_new = path .. ".tmp"
-    -- local h = io.open(path_new, 'w')
-    -- for _, line in ipairs(tbl) do
-    --     h:write(line .. "\n")
-    -- end
-    -- h:close()
-
-    -- os.remove(path)
-    -- os.rename(path_new, path)
--- end
-
 ----- history
 
 local path = ""
@@ -169,32 +129,59 @@ local function discard()
     end
 end
 
+local function grep(key, f)
+    local h = assert(io.open(f, 'r'))
+    local i = 1
+    for line in h:lines() do
+        local j = 1
+        for value in (string.gmatch(line, "[^\t]+")) do
+          if j == 4 then
+              if value == key then
+                h:close()
+                return false
+              end
+          end
+          j = j+1
+        end
+        i = i+1
+    end
+    h:close()
+    return true
+end
+
 local function history()
     path = mp.get_property("path")
-    local title = mp.get_property("media-title")
-    local uploader = nil
+    if grep(path, o.storage_path) then
+        local title = mp.get_property("media-title")
+        local uploader = nil
 
-    if file_exists(path) then
-        local path_words = split(path, '/')
-        uploader = string.format("%s/%s", path_words[#path_words-3], path_words[#path_words-2])
-    -- elseif path:match '^%a+://twitch.tv/' or '' then
-    --     uploader = io.popen('yt-dlp --playlist-end=1 --print "%(uploader,channel)s" ' .. path):read("*all")
-        -- local metadata = io.popen('yt-dlp --flat-playlist -sJ ' .. path):read("*all")
-        -- local json, err = utils.parse_json(metadata)
-        -- uploader = json['_type'] and json['_type'] == 'uploader'
-    -- elseif path:match '^%a+://([^/]+)/' or '' then
-    else
-        uploader = mp.get_property("metadata/by-key/uploader")
-    end
+        if file_exists(path) then
+            local path_words = split(path, '/')
+            uploader = string.format(
+                "%s/%s/%s",
+                path_words[#path_words-4],
+                path_words[#path_words-3],
+                path_words[#path_words-2])
+            -- path = string.gsub(path, os.getenv("HOME"), '~')
+        else
+            uploader = mp.get_property("metadata/by-key/uploader")
+        end
 
-    if not is_empty(path) and not discard() then
-        local line = string.format(
-            "%-14s\t«%-30s»: %-90s\t%s",
-            os.date("%x %X"),
-            string.gsub(uploader,"\n",""),
-            title,
-            path)
-        file_append(o.storage_path, line)
+        if not is_empty(path) and not discard() then
+            if #title > 90 then
+                title = string.sub(title, 1, 86) .. " ..."
+            end
+            if #uploader > 30 then
+                uploader = string.sub(uploader, 1, 26) .. " ..."
+            end
+            local line = string.format(
+                "%-14s\t%-30s\t%-90s\t%s",
+                os.date("%x %X"),
+                string.gsub(uploader,"\n",""),
+                title,
+                path)
+            file_append(o.storage_path, line)
+        end
     end
 end
 

@@ -12,15 +12,22 @@ dot-config/mpd/**
 !dot-config/mpd/mpd.conf
 !dot-config/mpd/playlists/
 
+
 dot-config/mpv/**
-!dot-config/mpv/fonts/
-!dot-config/mpv/modules/
+dot-config/mpv/disabled_scripts/**
+dot-config/mpv/flake.conf
+dot-config/mpv/history.log
+dot-config/mpv/last
+dot-config/mpv/test/**
+!dot-config/mpv/fonts/**
+!dot-config/mpv/modules/**
 !dot-config/mpv/watch_later/
-!dot-config/mpv/shaders/
+!dot-config/mpv/shaders/**
 !dot-config/mpv/playlists/
+dot-config/mpv/playlists/**
 !dot-config/mpv/watch_later/
-!dot-config/mpv/scripts-opts/
-!dot-config/mpv/scripts/
+!dot-config/mpv/scripts-opts/**
+!dot-config/mpv/scripts/**
 !dot-config/mpv/input.conf
 !dot-config/mpv/mpv.conf
 !dot-config/mpv/music

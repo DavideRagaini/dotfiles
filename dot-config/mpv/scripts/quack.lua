@@ -10,7 +10,7 @@ local duck_progress = 0
 local duck_timer = nil
 local orig_vol = nil
 
-function update_quack()
+local function update_quack()
     duck_progress = duck_progress + 1
     if duck_progress >= o.ducksecs * 10 then
         duck_timer:kill()
@@ -19,7 +19,7 @@ function update_quack()
     -- print(mp.get_property_number("volume"))
 end
 
-function engage_ducking(name, val)
+local function engage_ducking(name, val)
     pos = mp.get_property_number("time-pos")
     if val == nil or val == false then
         return

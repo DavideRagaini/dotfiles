@@ -39,9 +39,20 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
         alias \
             animdl="~/Packages/python/ani/bin/animdl" \
             hm='home-manager' \
-            hms='home-manager switch' \
-            tcd='chat_downloader' \
+            nsh='nix-shell -p' \
+            qtilelog='tail -f -n 30 /home/davide/.local/share/qtile/qtile.log' \
             wt='wtwitch'
+
+        hms() {
+            DIR="$HOME/.mozilla/firefox/nixhm"
+            rm "$DIR/containers.json"
+            mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
+            mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
+            home-manager switch
+            mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
+            mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
+        }
+
         hmu() {
             cd "$HOME/.config/home-manager" &&
                 nix flake update &&
@@ -112,6 +123,13 @@ alias \
     x="sxiv -ft *" \
     zt="zathura"
 
+alias \
+    bgs="sox -c2 --null -d synth 0:60 brownnoise band -n 210.0 1000.0 tremolo 0.0166 70.0 reverb 40.0 fade q 0.005 0:60 0.005 repeat -"
+
+dict() {
+    curl dict://dict.org/d:\$@
+}
+
 yta() {
     mpv --force-window=no --ytdl-format=bestaudio ytdl://ytsearch:"$*"
 }
@@ -122,7 +140,7 @@ modules_update() {
 }
 
 alias \
-    search_commit="fzf --multi --ansi --preview='head -20 {+}' &&
+    search_commit="fzf --multi --ansi --preview='head -50 {+}' &&
 		git log --oneline |
 		fzf --multi --ansi --preview='git show {+1}'"
 

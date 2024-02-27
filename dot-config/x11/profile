@@ -11,6 +11,12 @@ export VISUAL="emacsclient -c"
 HOSTNAME="$(hostname)"
 export HOSTNAME
 
+export DMENU_FN='IosevkaTerm Nerd Font Mono:style=bold:size=12'
+export DMENU_NB='#181321'
+export DMENU_NF='#6e5e89'
+export DMENU_SB='#4e4262'
+export DMENU_SF='#181321'
+
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -30,7 +36,7 @@ case $(hostname) in
         export XDG_RUNTIME_DIR
         export WLR_NO_HARDWARE_CURSORS=1
         {
-            sleep 25
+            sleep 28
             kill -TERM "$(pgrep -u "$USER" "\bdwm$")" &
         } &
         ;;
@@ -145,7 +151,7 @@ fi
 
 check_startup() {
     [ "$(tty)" = "/dev/tty1" ] &&
-        awk '{ exit ($1 > 40) }' /proc/uptime &&
+        awk '{ exit ($1 > 40) }' /proc/uptime
 }
 
 wayland_exports() {

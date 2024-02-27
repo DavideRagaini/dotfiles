@@ -110,7 +110,7 @@ cmd delete ${{
 cmd moveto ${{
 	set -f
     echo "Move to where?"
-    dest=$(fd -td -E sources -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" "$HOME" | fzf)
+    dest=$(fd -td "^[0-9a-zA-Z]*" "$HOME" | fzf)
 	for x in $fx; do
 		eval mv -iv \"$x\" \"$dest\"
 	done &&
@@ -120,7 +120,7 @@ cmd moveto ${{
 cmd copyto ${{
 	set -f
     echo "Copy to where?"
-    dest=$(fd -td -E sources -E Packages -E "*/lost+found" -E "*/Music/*" "^[0-9a-zA-Z]*" $HOME | fzf)
+    dest=$(fd -td "^[0-9a-zA-Z]*" $HOME | fzf)
 	for x in $fx; do
 		eval cp -ivr \"$x\" \"$dest\"
 	done &&
@@ -437,15 +437,15 @@ map +d push :mkdir<space>
 map +f push :touch<space>
 map <enter> shell
 
+map <a-c> copyto
 map <a-da> cut-add
 map <a-dr> cut-remove
 map <a-enter> push :async-shell<space>
 map <a-n> newfold
+map <a-m> moveto
 
 map <c-b> $setbg $f
-map <c-c> copyto
 map <c-e> down
-map <c-m> moveto
 map <c-n> push :mkdir<space>
 map <c-o> &opener "$f"
 map <c-r> on-redraw; reload

@@ -11,13 +11,12 @@ autostart(){
     systemctl start --user redshift.service
     sleep "$2"
     $BROWSER &
-    # sleep "$3"
     # alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
     emacsclient -e '(doom/quickload-session t)' -c &
     sleep 1m
+    aw-qt &
+    sleep 1m
     systemctl start --user unlutter.service
-    # systemctl is-active --quiet openvpn-europe.service &&
-    #     qbittorrent &
 }
 
 locker(){
@@ -27,10 +26,8 @@ locker(){
         -time "$LOCK_TIME" \
         -notify "$NOTIFY" \
         -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" \
-        -killtime 10 \
-        -killer 'systemctl suspend' \
+        -locker "systemctl suspend" \
         -detectsleep
-        # -lockaftersleep
 }
 
 case $(hostname) in
@@ -41,15 +38,8 @@ case $(hostname) in
         xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off
         autostart 10 30 &
         locker &
-        conky &
+        # conky &
         ;;
-    # vDR)
-    #     xbacklight -set 20 &
-    #     libinput-gestures-setup start &
-    #     bluetooth off &
-    #     mem-warn -i 60 -t 1000 &
-    #     autostart 20 10 &
-    #     ;;
     void)
         xbacklight -set 20 &
         libinput-gestures-setup start &
@@ -64,7 +54,6 @@ case $(hostname) in
 esac
 
 remaps &
-# setbg &
 numlockx &
 xset dpms 0 0 180
 

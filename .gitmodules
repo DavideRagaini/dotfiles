@@ -25,3 +25,6 @@
 [submodule "meta_x"]
 	path = dot-config/mpv/modules/meta_x
 	url = https://github.com/Seme4eg/mpv-scripts.git
+[submodule "mpv-skipsilence"]
+	path = dot-config/mpv/modules/mpv-skipsilence
+	url = https://codeberg.org/ferreum/mpv-skipsilence.git
