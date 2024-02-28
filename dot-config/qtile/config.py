@@ -1,7 +1,7 @@
 # ======================= TODOs ============= {{{
+# TODO Move to Keychord
 # TODO Keychord to resize floating windows
-# TODO when group switch focus, then unfocus floating
-# TODO Swap window witch master
+# TODO STICKY: when group switch focus, then unfocus floating
 # TODO MPD widget empty string when paused
 # }}}
 # ======================= Imports ============= {{{
@@ -38,7 +38,6 @@ terminal = env["TERMINAL"]
 text_editor = "emacsclient -c"
 file_manager = terminal + " -e tmux new-session -A -s 'files'"
 launcher = "run"
-process_viewer = terminal + " -e htop"
 
 
 # }}}
@@ -256,23 +255,17 @@ groups = [
     ),
 ]
 # }}}
-# ======================= Functions ============= {{{
-## }}}
-# ======================= Hooks ============= {{{
+# ======================= Functions / Hooks ============= {{{
 import subprocess
 @lazy.function
 def floating_border_window(qtile, position=1):
     window = qtile.current_screen.group.current_window
-    xrandr = subprocess.Popen(["xrandr"], stdout=subprocess.PIPE)
-    grep = subprocess.Popen(["grep", "*"], stdin=xrandr.stdout, stdout=subprocess.PIPE)
-    xrandr.stdout.close()
-    resolution_string, junk = grep.communicate()
-    resolution = resolution_string.split()[0]
-    screen_width, screen_height = resolution.decode().split("x")
-    screen_width = int(screen_width)
-    screen_height = int(screen_height)
-    window_width = 320
-    window_height = 180
+    current_screen = qtile.current_screen.info()
+    screen_width = current_screen["width"]
+    screen_height = current_screen["height"]
+    div = 6
+    window_width = int(int(screen_width)/div)
+    window_height = int(int(screen_height)/div)
     border_padding = 3
     bar_padding = 20
     window.toggle_floating()
@@ -323,7 +316,6 @@ def toggle_sticky_windows(qtile, window=None):
 def move_sticky_windows():
     for window in sticky_windows:
         window.togroup()
-        # window.keep_below()
     return
 
 
@@ -338,6 +330,47 @@ def remove_sticky_windows(window):
 #     info = window.info()
 #     if info["wm_class"] == ["mpvFloat", "mpv"]:
 #         sticky_windows.append(window)
+
+merged = dict()
+
+def check_merged_already_in(g):
+    global merged
+    if len(merged) <= 0:
+        return False
+    else:
+        for index in list(merged.keys()):
+            w = merged[index]
+            if w['original_group'] == str(g):
+                return True
+        return False
+
+@lazy.function
+def merge_groups(qtile, g=0):
+    global merged
+    len_merged = len(merged)
+    if (check_merged_already_in(g) == True):
+        for index in list(merged.keys()):
+            w = merged[index]
+            if w['original_group'] == str(g):
+                w['window'].togroup(w['original_group'])
+                del merged[index]
+    else:
+        windows_tomerge = qtile.groups[g-1].windows
+        for i in reversed(range(len(windows_tomerge))):
+            j = 0
+            while i != list(merged.keys()) or j<10:
+                index = len_merged + i + j
+                w = windows_tomerge[i]
+                merged[index] = { 'window': w, 'original_group': w.info()['group'] }
+                w.togroup()
+
+@lazy.function
+def restore_merge_all_groups(qtile):
+    global merged
+    for index in range(len(merged)):
+        w = merged[index]
+        w['window'].togroup(w['original_group'])
+        del merged[index]
 
 
 last_focus_index = -1
@@ -371,14 +404,10 @@ def swap_focus_main(qtile):
 
 def focus_main(qtile):
     layout = qtile.current_layout
-
-    if layout.name == "monadtall":
-        # aligned to right
-        if layout.align == 1:
-            layout.right()
-            return
-
-        layout.left()
+    if layout.align == 1:
+        layout.right()
+        return
+    layout.left()
 
 @lazy.function
 def float_to_front(qtile):
@@ -530,8 +559,18 @@ groups.append(
                 on_focus_lost_hide=True,
             ),
             DropDown(
-                "process_viewer",
-                process_viewer,
+                "btop",
+                terminal + " -e btop",
+                width=0.9,
+                height=0.9,
+                x=0.04,
+                y=0.04,
+                opacity=0.90,
+                on_focus_lost_hide=True,
+            ),
+            DropDown(
+                "htop",
+                terminal + " -e btop",
                 width=0.9,
                 height=0.9,
                 x=0.04,
@@ -670,7 +709,9 @@ keys = [
         toggle_sticky_windows(),
         desc="Toggle state of sticky for current window",
     ),
-    # Key([mod], "z", lazy.screen.togglegroup()),
+    Key([mod], "c", lazy.screen.togglegroup()),
+    Key([mod], "z", lazy.window.move_to_top()),
+    Key([mod, shift], "z", lazy.window.move_to_bottom()),
     Key([mod], "x", lazy.spawn("alm -d")),
     Key([mod], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Cycle Forward to Active Groups",),
     Key([mod], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Cycle Backward to Active Groups",),
@@ -750,8 +791,7 @@ keys = [
     ),
     Key([mod, ctrl], "f", float_to_front()),
     # Key([mod, alt], "f", focus_floating_window()),
-    Key([mod], "v", lazy.spawn("bkms -d")),
-    Key([mod, shift], "v", lazy.spawn("bkms -d -s")),
+    Key([mod], "v", restore_merge_all_groups()),
     Key([mod], "b", lazy.hide_show_bar("top"), desc="Toggle Top Bar"),
     # Key([mod, alt], "a", add_treetab_section, desc='Prompt to add new section in treetab'),
     Key(
@@ -845,7 +885,8 @@ keys = [
     Key([mod], "XF86Launch9", lazy.spawn("tppctl seek 10")),
     Key([], "XF86Launch5", lazy.spawn("tppctl invert")),
     Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calculator")),
-    Key([], "XF86HomePage", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
+    Key([], "XF86HomePage", lazy.group["scratchpad"].dropdown_toggle("btop")),
+    Key([mod], "XF86HomePage", lazy.group["scratchpad"].dropdown_toggle("htop")),
     Key([mod, shift], "XF86Back", lazy.spawn("tppctl seek -10")),
     Key([mod, ctrl], "XF86Back", lazy.spawn("dmpc prev")),
     # Key([mod, shift], "XF86Back", lazy.spawn("dmpc seekp")),
@@ -916,7 +957,8 @@ keys = [
     # Scratchpads
     Key([], "XF86Launch7", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([mod], "Return", lazy.group["scratchpad"].dropdown_toggle("Dropdown")),
-    Key([mod], "Escape", lazy.group["scratchpad"].dropdown_toggle("process_viewer")),
+    Key([mod], "Escape", lazy.group["scratchpad"].dropdown_toggle("btop")),
+    Key([mod, shift], "Escape", lazy.group["scratchpad"].dropdown_toggle("btop")),
     # Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("agenda")),
     Key([mod], "r", lazy.group["scratchpad"].dropdown_toggle("file manager")),
     # Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("mpvfloat")),
@@ -959,7 +1001,37 @@ keys = [
 ]
 # }}}
 # ======================= Groups ============= {{{
-dgroups_key_binder = simple_key_binder(mod)
+def dr_key_binder(mod, keynames=None):
+    """Bind keys to mod+group position or to the keys specified as second argument"""
+
+    def func(dgroup):
+        # unbind all
+        for key in dgroup.keys[:]:
+            dgroup.qtile.ungrab_key(key)
+            dgroup.qtile.config.keys.remove(key)
+            dgroup.keys.remove(key)
+
+        if keynames:
+            keys = keynames
+        else:
+            # keys 1 to 9 and 0
+            keys = list(map(str, list(range(1, 10)) + [0]))
+
+        # bind all keys
+        for keyname, group in zip(keys, dgroup.qtile.groups):
+            name = group.name
+            key = Key([mod], keyname, lazy.group[name].toscreen())
+            key_s = Key([mod, shift], keyname, lazy.window.togroup(name))
+            key_c = Key([mod, ctrl], keyname, merge_groups(int(name)))
+            dgroup.keys.extend([key, key_s,key_c])
+            dgroup.qtile.config.keys.extend([key, key_s, key_c])
+            dgroup.qtile.grab_key(key)
+            dgroup.qtile.grab_key(key_s)
+            dgroup.qtile.grab_key(key_c)
+
+    return func
+
+dgroups_key_binder = dr_key_binder(mod)
 # https://github.com/qtile/qtile/issues/1271
 # groups = [Group(i) for i in "1234567890"]
 

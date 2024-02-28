@@ -448,7 +448,7 @@ map <c-b> $setbg $f
 map <c-e> down
 map <c-n> push :mkdir<space>
 map <c-o> &opener "$f"
-map <c-r> on-redraw; reload
+# map <c-r> on-redraw; reload
 map <c-t> !bat "$f"
 map <c-u> fzf_jump
 map <c-y> up
@@ -468,7 +468,7 @@ map O push :open-fork<space>
 map Pa async_paste
 map Pb backup_paste
 map Pp :link
-map R push A<a-b> # after extention
+map R on-redraw
 map S &samedir
 map T !mediainfo "$f" | bat
 map U clear
