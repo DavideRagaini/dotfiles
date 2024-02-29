@@ -63,6 +63,7 @@
       scroll-margin 3
       delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/"
+      +lookup-open-url-fn #'eww
       confirm-kill-emacs nil)
 
 (add-to-list 'auto-mode-alist
@@ -76,7 +77,7 @@
 ;; }}}
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
-(global-auto-revert-mode 1)
+;; (global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
@@ -125,10 +126,11 @@
 ;; ========= Bindings ========= {{{
 (map!
  (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
- (:prefix "SPC b" :desc "+format/region" :n "f" #'+format/region)
- (:prefix "SPC b" :desc "+format/buffer" :n "F" #'+format/buffer)
- (:prefix "SPC m" :desc "+org-todo-yesterday" :n "y" #'org-todo-yesterday)
- (:prefix "SPC a" :desc "blink cursor" :n "b" #'+nav-flash/blink-cursor)
+ (:prefix "SPC b" :desc "+format/region"                :n "f" #'+format/region)
+ (:prefix "SPC b" :desc "+format/buffer"                :n "F" #'+format/buffer)
+ (:prefix "SPC m" :desc "+org-todo-yesterday"           :n "y" #'org-todo-yesterday)
+ (:prefix "SPC a" :desc "blink cursor"                  :n "b" #'+nav-flash/blink-cursor)
+ (:prefix "C-h"   :desc "zeal search"                   :n "z" #'+nav-flash/blink-cursor)
  )
 ;; }}}
 ;; ========= Manual ========= {{{

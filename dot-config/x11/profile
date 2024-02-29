@@ -167,9 +167,11 @@ wayland_exports() {
 
 case "$HOSTNAME" in
     Apollo)
+        MANPATH="$HOME/.nix-profile/share/man:$(manpath -q)"
+        export MANPATH
         check_startup &&
-        ! pidof -s Xorg >/dev/null 2>&1 &&
-        exec startx "$XINITRC"
+            ! pidof -s Xorg >/dev/null 2>&1 &&
+            exec startx "$XINITRC"
     ;;
     NT)
         check_startup &&

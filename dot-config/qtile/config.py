@@ -331,46 +331,31 @@ def remove_sticky_windows(window):
 #     if info["wm_class"] == ["mpvFloat", "mpv"]:
 #         sticky_windows.append(window)
 
-merged = dict()
 
-def check_merged_already_in(g):
-    global merged
-    if len(merged) <= 0:
-        return False
-    else:
-        for index in list(merged.keys()):
-            w = merged[index]
-            if w['original_group'] == str(g):
-                return True
-        return False
+groupsMerged = {1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 0:[]}
 
 @lazy.function
-def merge_groups(qtile, g=0):
+def merge_groups(qtile, g=1):
     global merged
-    len_merged = len(merged)
-    if (check_merged_already_in(g) == True):
-        for index in list(merged.keys()):
-            w = merged[index]
-            if w['original_group'] == str(g):
-                w['window'].togroup(w['original_group'])
-                del merged[index]
-    else:
-        windows_tomerge = qtile.groups[g-1].windows
-        for i in reversed(range(len(windows_tomerge))):
-            j = 0
-            while i != list(merged.keys()) or j<10:
-                index = len_merged + i + j
-                w = windows_tomerge[i]
-                merged[index] = { 'window': w, 'original_group': w.info()['group'] }
-                w.togroup()
+    g = g-1
+    windowsToMerge = qtile.groups[g].windows
+    if len(groupsMerged[g]) == 0: # if empty then append and move to current group
+        for i in reversed(range(len(windowsToMerge))):
+            w = windowsToMerge[i]
+            groupsMerged[g].append(w)
+            w.togroup()
+    else: # if there are some elements then restore the positions
+        for group in groupsMerged[g]:
+            group.togroup(str(g+1))
+        groupsMerged[g].clear()
 
 @lazy.function
-def restore_merge_all_groups(qtile):
-    global merged
-    for index in range(len(merged)):
-        w = merged[index]
-        w['window'].togroup(w['original_group'])
-        del merged[index]
+def restore_all_merged_groups(qtile):
+    global groupsMerged
+    for group in groupsMerged:
+        for window in groupsMerged[i]:
+            window.togroup(str(group+1))
+        groupsMerged[group].clear()
 
 
 last_focus_index = -1
@@ -570,7 +555,7 @@ groups.append(
             ),
             DropDown(
                 "htop",
-                terminal + " -e btop",
+                terminal + " -e htop",
                 width=0.9,
                 height=0.9,
                 x=0.04,
@@ -580,7 +565,7 @@ groups.append(
             ),
             DropDown(
                 "news",
-                terminal + " --class 'newsboat,newsboat' -T 'newsboat' -e newsboat",
+                terminal + " --class 'newsboat,newsboat' -T 'newsboat' -o 'font.size=14' -e newsboat",
                 width=0.8,
                 height=0.8,
                 x=0.1,
@@ -791,7 +776,7 @@ keys = [
     ),
     Key([mod, ctrl], "f", float_to_front()),
     # Key([mod, alt], "f", focus_floating_window()),
-    Key([mod], "v", restore_merge_all_groups()),
+    Key([mod], "v", restore_all_merged_groups()),
     Key([mod], "b", lazy.hide_show_bar("top"), desc="Toggle Top Bar"),
     # Key([mod, alt], "a", add_treetab_section, desc='Prompt to add new section in treetab'),
     Key(
@@ -835,7 +820,7 @@ keys = [
     Key(
         [mod, shift],
         "Return",
-        lazy.spawn(terminal + " -e tmux"),
+        lazy.spawn(terminal + " msg create-window -e tmux"),
         desc="Launch Terminal",
     ),
     Key([mod], "w", lazy.spawn(browser), desc="Launch Browser"),
@@ -1032,33 +1017,6 @@ def dr_key_binder(mod, keynames=None):
     return func
 
 dgroups_key_binder = dr_key_binder(mod)
-# https://github.com/qtile/qtile/issues/1271
-# groups = [Group(i) for i in "1234567890"]
-
-# if len(screens) == 2:
-#     for i in groups:
-#         keys.extend([
-#             # Switch to group N
-#             Key(
-#                 [ctrl],
-#                 i.name,
-#                 lazy.to_screen(0) if i.name in '12345' else lazy.to_screen(1),
-#                 lazy.group[i.name].toscreen()
-#             ),
-
-#             # Move window to group N
-#             Key([ctrl, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),),
-#         ])
-
-# else:
-#     for i in groups:
-#         keys.extend([
-#             # Switch to group N
-#             Key([ctrl], i.name, lazy.group[i.name].toscreen()),
-
-#             # Move window to group N
-#             Key([ctrl, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),),
-#         ])
 
 layout_defaults = dict(
     border_focus=colors[7],
