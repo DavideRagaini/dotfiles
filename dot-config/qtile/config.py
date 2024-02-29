@@ -5,24 +5,18 @@
 # TODO MPD widget empty string when paused
 # }}}
 # ======================= Imports ============= {{{
-from typing import List
-
 from libqtile import bar, hook, layout, widget
-from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
-from libqtile.dgroups import simple_key_binder
+from libqtile.config import Click, Drag, Key, Match, Screen
 from libqtile.extension import WindowList, DmenuRun, CommandSet
 from libqtile.lazy import lazy
-
-from os import environ as env
-from re import compile as regex
-
-# from datetime import datetime
 # from libqtile.log_utils import logger
 
-# from libqtile.utils import guess_terminal
-# from libqtile.widget import Spacer, Backlight
-# from libqtile.widget.image import Image
-# import socket
+from os import environ as env
+from typing import List
+
+from modules.groups import Groups
+from modules.scratchpad import Scratchpad, DropDown_Keys
+# from aesthetics import Layout_Aesthetics, Widget_Aesthetics, Extension_Aesthetics
 # }}}
 # ======================= Variables ============= {{{
 mod = "mod4"
@@ -30,15 +24,21 @@ alt = "mod1"
 shift = "shift"
 ctrl = "control"
 
+terminal = env["TERMINAL"]
 browser = env["BROWSER"]
 browser_alt = env["BROWSER2"]
 browser_priv = env["BROWSER_PRIVATE"]
-terminal = env["TERMINAL"]
 # text_editor = terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
 text_editor = "emacsclient -c"
-file_manager = terminal + " -e tmux new-session -A -s 'files'"
 launcher = "run"
 
+if __name__ in ["config", "__main__"]:
+	obj_groups = Groups()
+
+	obj_scratchpad = Scratchpad()
+	obj_dd_keys = DropDown_Keys()
+
+	groups = obj_groups.init_groups()
 
 # }}}
 # ======================= Colors ============= {{{
@@ -90,173 +90,7 @@ colorscheme = dracula()
 
 dmenu_options = dmenu_defaults()
 # }}}
-# ======================= Groups ============= {{{
-#  󰇮   󰈙     
-groups = [
-    Group(
-        name="1",
-        position=1,
-        layout="monadtall",
-        exclusive=True,
-        matches=[
-            Match(wm_instance_class="emacs"),
-            Match(wm_class="Alacritty"),
-        ],
-    ),
-    Group(
-        name="2",
-        position=2,
-        layout="monadtall",
-        exclusive=True,
-        matches=Match(
-            wm_class=[
-                "firefox",
-                "Firefox",
-                "librewolf",
-                "LibreWolf",
-                "Brave-browser",
-                "Thorium-browser",
-                "qutebrowser",
-            ]
-        ),
-    ),
-    Group(
-        name="3",
-        position=3,
-        layout="max",
-        exclusive=True,
-        matches=Match(
-            wm_class=[
-                "Zathura",
-                "sioyek",
-                "Evince",
-                "okular",
-                "ebook-viewer",
-                "calibre-ebook-viewer",
-                "Nsxiv",
-            ]
-        ),
-    ),
-    Group(
-        name="4",
-        layout="max",
-        position=4,
-        matches=[
-            Match(
-                wm_instance_class="sun-awt-X11-XDialogPeer",
-                title="MATLAB Editor",
-            ),
-            Match(
-                wm_instance_class="Matlab-GLEE",
-                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
-            ),
-            Match(
-                wm_instance_class="sun-awt-X11-XFramePeer",
-                title=regex("MATLAB R202[0-9][a-b] - academic use"),
-            ),
-            Match(
-                title="MathWorks Product Installer",
-            ),
-            Match(
-                wm_class="MATLABWindow",
-                wm_instance_class="MATLABWindow",
-                title="Control System Designer*",
-            ),
-            Match(
-                wm_class=[
-                    "VirtualBox Machine",
-                    regex("MATLAB R202[0-9][a-b] - academic use"),
-                    regex("MATLAB R202[0-9][a-b]"),
-                    "MATLABWindow",
-                    "Matlab-GLEE",
-                ],
-                wm_instance_class=["sun-awt-X11-XDialogPeer"],
-            ),
-        ],
-    ),
-    Group(
-        name="5",
-        position=5,
-        layout="max",
-        matches=[
-            Match(
-                wm_instance_class="MATLABWindow",
-                wm_class="MATLABWindow",
-                title="Variable-references - Signal Editor",
-            ),
-        ],
-    ),
-    Group(
-        name="6",
-        position=6,
-        layout="ratiotile",
-        matches=[
-            Match(
-                wm_instance_class="sun-awt-X11-XFramePeer",
-                title=" ",
-            ),
-            Match(
-                wm_instance_class="MATLABWindow",
-                wm_class="MATLABWindow",
-                title="Variable-references - Signal Editor",
-            ),
-            Match(
-                title="asbQuadcopter/Command/Signal Editor * - Simulink academic use",
-                wm_instance_class="Matlab-GLEE",
-                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
-            ),
-            Match(
-                title="Block Parameters: Position/Attitude Reference",
-                wm_instance_class="Matlab-GLEE",
-                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
-            ),
-            Match(
-                title="Block Parameters: Position/Attitude Reference",
-                wm_instance_class="Matlab-GLEE",
-                wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
-            ),
-            Match(wm_instance_class=["sun-awt-X11-XFramePeer"]),
-        ],
-    ),
-    Group(
-        name="7",
-        position=7,
-        layout="monadtall",
-        # matches=Match(wm_class=[
-        #                 ]),
-    ),
-    Group(
-        name="8",
-        position=8,
-        layout="max",
-        matches=Match(
-            wm_class=[
-                "teams-for-linux",
-                "microsoft teams - preview",
-                "Ferdium",
-                "KeePassXC",
-                "qBittorrent",
-                "calibre-gui",
-                "calibre",
-            ]
-        ),
-    ),
-    Group(
-        name="9",
-        position=9,
-        layout="max",
-        # exclusive=True,
-        matches=[Match(wm_class=["mpv", "Kodi"])],
-    ),
-    Group(
-        name="0",
-        position=10,
-        layout="columns",
-    ),
-]
-# }}}
 # ======================= Functions / Hooks ============= {{{
-import subprocess
 @lazy.function
 def floating_border_window(qtile, position=1):
     window = qtile.current_screen.group.current_window
@@ -268,6 +102,8 @@ def floating_border_window(qtile, position=1):
     window_height = int(int(screen_height)/div)
     border_padding = 3
     bar_padding = 20
+    window_x = 0
+    window_y = 0
     window.toggle_floating()
     match position:
         case 1:  # bottom right
@@ -508,145 +344,6 @@ def set_hint(window):
 #         window.togroup(qtile.current_group.name)
 #         window.disable_floating()
 # }}}
-# ======================= Scratchpads ============= {{{
-groups.append(
-    ScratchPad(
-        "scratchpad",
-        dropdowns=[
-            DropDown(
-                "Dropdown",
-                terminal + " -e tmux new-session -A -s 'dropdown'",
-                width=0.9,
-                height=0.9,
-                x=0.04,
-                y=0.04,
-                opacity=0.90,
-                on_focus_lost_hide=True,
-            ),
-            # DropDown(
-            #     "agenda",
-            #     "Eagenda",
-            #     width=0.8,
-            #     height=0.8,
-            #     x=0.1,
-            #     y=0.1,
-            #     opacity=0.9,
-            #     on_focus_lost_hide = False
-            # ),
-            DropDown(
-                "file manager",
-                file_manager,
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "btop",
-                terminal + " -e btop",
-                width=0.9,
-                height=0.9,
-                x=0.04,
-                y=0.04,
-                opacity=0.90,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "htop",
-                terminal + " -e htop",
-                width=0.9,
-                height=0.9,
-                x=0.04,
-                y=0.04,
-                opacity=0.90,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "news",
-                terminal + " --class 'newsboat,newsboat' -T 'newsboat' -o 'font.size=14' -e newsboat",
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "podcasts",
-                terminal + " --class 'podboat,podboat' -T 'podboat' -e podboat",
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "music",
-                terminal + " --class 'ncmpcpp,ncmpcpp' -T 'ncmpcpp'  -e ncmpcpp",
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "spotify",
-                terminal + " --class 'spotify-tui,spotify-tui' -T 'spotify-tui'  -e spt",
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "mixer",
-                terminal + " -e pulsemixer",
-                width=0.6,
-                height=0.3,
-                x=0.2,
-                y=0.2,
-                opacity=0.9,
-                on_focus_lost_hide=True,
-            ),
-            DropDown(
-                "calculator",
-                terminal + " -e wcalc -P -1 -c -q --ints -C -p -r --remember",
-                width=0.8,
-                height=0.8,
-                x=0.1,
-                y=0.1,
-                opacity=0.9,
-                on_focus_lost_hide=False,
-            ),
-            DropDown(
-                "qtile_shell",
-                terminal + " -e qtile shell",
-                x=0.05,
-                y=0.05,
-                width=0.9,
-                height=0.6,
-                opacity=0.9,
-                on_focus_lost_hide=False,
-            ),
-            DropDown(
-                "mails",
-                "ferdium",
-                width=0.9,
-                height=0.9,
-                x=0.04,
-                y=0.04,
-                opacity=0.9,
-                on_focus_lost_hide=False,
-            ),
-        ],
-    )
-)
-# }}}
 # ======================= Mouse ============= {{{
 mouse = [
     Drag(
@@ -691,7 +388,7 @@ keys = [
     Key(
         [mod],
         "s",
-        toggle_sticky_windows(),
+        lazy.function(toggle_sticky_windows()),
         desc="Toggle state of sticky for current window",
     ),
     Key([mod], "c", lazy.screen.togglegroup()),
@@ -704,19 +401,6 @@ keys = [
     Key([mod, shift], "bracketright", lazy.window.move_up()),
     #
     Key([mod], "t", lazy.window.toggle_minimize(), desc="Toggle Minimize"),
-    Key(
-        [mod],
-        "g",
-        lazy.group["scratchpad"].toscreen(toggle=True),
-        desc="Toggle scratchpad group",
-    ),
-    Key(
-        [mod, "shift"],
-        "g",
-        lazy.window.togroup("scratchpad"),
-        desc="Move Window to scratchpad",
-    ),
-    #
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -869,9 +553,6 @@ keys = [
     Key([mod], "XF86AudioPrev", lazy.spawn("tppctl seek -10")),
     Key([mod], "XF86Launch9", lazy.spawn("tppctl seek 10")),
     Key([], "XF86Launch5", lazy.spawn("tppctl invert")),
-    Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calculator")),
-    Key([], "XF86HomePage", lazy.group["scratchpad"].dropdown_toggle("btop")),
-    Key([mod], "XF86HomePage", lazy.group["scratchpad"].dropdown_toggle("htop")),
     Key([mod, shift], "XF86Back", lazy.spawn("tppctl seek -10")),
     Key([mod, ctrl], "XF86Back", lazy.spawn("dmpc prev")),
     # Key([mod, shift], "XF86Back", lazy.spawn("dmpc seekp")),
@@ -939,24 +620,8 @@ keys = [
     Key(
         [mod, shift], "semicolon", lazy.group.focus_back(), desc="Switch to last group"
     ),
-    # Scratchpads
-    Key([], "XF86Launch7", lazy.group["scratchpad"].dropdown_toggle("mixer")),
-    Key([mod], "Return", lazy.group["scratchpad"].dropdown_toggle("Dropdown")),
-    Key([mod], "Escape", lazy.group["scratchpad"].dropdown_toggle("btop")),
-    Key([mod, shift], "Escape", lazy.group["scratchpad"].dropdown_toggle("btop")),
-    # Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle("agenda")),
-    Key([mod], "r", lazy.group["scratchpad"].dropdown_toggle("file manager")),
-    # Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("mpvfloat")),
-    Key([mod], "n", lazy.group["scratchpad"].dropdown_toggle("news")),
-    Key([mod, shift], "n", lazy.group["scratchpad"].dropdown_toggle("podcasts")),
-    Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("music")),
-    Key([mod, shift], "m", lazy.group["scratchpad"].dropdown_toggle("spotify")),
-    Key([mod], "apostrophe", lazy.group["scratchpad"].dropdown_toggle("calculator")),
-    Key([mod], "y", lazy.group["scratchpad"].dropdown_toggle("qtile_shell")),
-    Key([], "XF86Mail", lazy.group["scratchpad"].dropdown_toggle("mails")),
     # Hardware/system control
     Key([mod], "up", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
-    Key([mod, shift], "up", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([mod, ctrl], "up", lazy.spawn("output-audio")),
     Key(
         [],
@@ -984,6 +649,10 @@ keys = [
     # Key([mod], "kp-add", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
     # Key([mod], "kp-subtract", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
 ]
+
+groups = obj_groups.init_groups()
+groups += obj_scratchpad.init_scratchpad()
+keys += obj_dd_keys.init_dropdown_keybindings()
 # }}}
 # ======================= Groups ============= {{{
 def dr_key_binder(mod, keynames=None):
@@ -1103,7 +772,7 @@ widget_defaults = dict(
     padding=4,
     background=colors[0],
 )
-extension_defaults = widget_defaults.copy()
+# extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
@@ -1440,19 +1109,4 @@ focus_on_window_activation = "smart"
 follow_mouse_focus = True
 reconfigure_screens = True
 wmname = "LG3D"
-# }}}
-# ======================= Autostart ============= {{{
-# import os
-# import subprocess
-
-# Programms to start on log in
-# @hook.subscribe.startup_once
-# def autostart ():
-#     home = os.path.expanduser('~/.config/qtile/autostart.sh')
-#     subprocess.call([home])
-
-
-# @hook.subscribe.startup_once
-# def startup_once():
-#     subprocess.Popen(["nm-applet"])
 # }}}

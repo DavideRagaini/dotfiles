@@ -1,0 +1,11 @@
+{
+    "executionEnvironments": [
+        {
+            "root": ".",
+            "extraPaths": [
+                "/home/store/842aw9p8r28dgglg6qywfjxr3z5lfba6-python3.11-qtile-0.23.0"
+            ]
+        }
+    ],
+    "verboseOutput": true
+}
