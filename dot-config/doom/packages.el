@@ -4,7 +4,6 @@
  ((string-equal (system-name) "Apollo")
   (package! activity-watch-mode)
   (package! matlab-mode)
-  (package! zeal-at-point)
   ))
 
 ;; (package! ox-epub)

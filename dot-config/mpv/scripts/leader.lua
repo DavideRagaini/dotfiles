@@ -40,36 +40,32 @@ mp.add_timeout(0.3, function()
   leader:set_leader_bindings(
   -- key, name (must be unique!), comment, [follower bindings]
     {
-      -- Scripts
       { 'x', 'M-x', 'execute-extended-command' },
       { 't', 'script-message-to console type "set time-pos "', 'time-pos' },
 
-      -- Playback
       { '<', 'seek -60', 'seek 1 minute backward' },
       { '>', 'seek 60', 'seek 1 minute forward' },
       -- { '.', 'frame-step', 'advance one frame and pause' },
       -- { ',', 'frame-back-step', 'go back by one frame and pause' },
       { 'N', 'playlist-next', 'skip to the next file' },
       { 'P', 'playlist-previous', 'skip to the previous file' },
+      { 'b', 'script-binding sponsorblock_minimal/toggle', 'toggle sponsorblock' },
 
-      -- Other
       { 'l', 'ab-loop', 'set/clear A-B loop points' },
       { 'L', 'cycle-values loop-file "inf" "no"', 'toggle infinite looping' },
       { '.', 'show-text ${playlist}', 'show the playlist' },
       { '/', 'show-text ${track-list}', 'show the list of video, audio and sub tracks' },
       { ',', 'script-message osc-chapterlist 4 ; show-text "${osd-ass-cc/0}{an9}${osd-ass-cc/1}${chapter-list}"', 'show chapterlist' },
-
       { 'q', 'quit-watch-later', 'exit and remember the playback position' },
 
-      -- Prefixes
       { 'a', 'prefix', 'audio', {
-        { '=', 'script-message-to console type "set audio-delay "', 'set audio delay (ms)'  },
         { '+', 'add audio-delay 0.100', 'change audio/video sync by delaying the audio' },
         { '-', 'add audio-delay -0.100', 'change audio/video sync by shifting the audio' },
+        { '=', 'script-message-to console type "set audio-delay "', 'set audio delay (ms)'  },
+        { 'I', 'cycle-values af dynaudnorm=f=75:g=25:p=0.55 dynaudnorm=f=400:g=5:m=4:p=0.95:t=0 loudnorm=I=-16:TP=-3:LRA=4 loudnorm=I=-30 anull', 'cycle dynadnorm' },
         { 'a', 'toggle-acompressor', 'toggle acompressor' },
         { 'c', 'cycle audio', 'switch audio track' },
         { 'i', 'cycle-values af loudnorm=i=-15 loudnorm=i=-30 anull', 'cycle integral loudnorm' },
-        { 'I', 'cycle-values af dynaudnorm=f=75:g=25:p=0.55 dynaudnorm=f=400:g=5:m=4:p=0.95:t=0 loudnorm=I=-16:TP=-3:LRA=4 loudnorm=I=-30 anull', 'cycle dynadnorm' },
         { 'l', 'script-message-to command_palette show-command-palette audio', 'audio tracks list' }
       } },
 
@@ -80,14 +76,7 @@ mp.add_timeout(0.3, function()
         { 'l', 'script-message-to command_palette show-command-palette chapters', 'chapters list' },
       } },
 
-        -- { 'd', 'prefix', 'drcbox', {
-        --   { 'd', 'script-message-to drcbox toggle_drcbox', 'toggle drcbox' },
-        --   { 'D', 'script-message-to drcbox toggle_bindings', 'toggle drcbox bindings' },
-        --   { 'r', 'script-message-to drcbox reset_drcbox', 'reset drcbox' },
-        -- } },
-
       { 'f', 'prefix', 'filters', {
-        -- example of multi-nested prefixes
         { 'b', 'prefix', 'brightness', {
           { '+', 'add brightness 1' },
           { '-', 'add brightness -1' },
@@ -116,59 +105,110 @@ mp.add_timeout(0.3, function()
         } },
 
         { 'h', 'prefix', 'shaders', {
+          { 'R', 'show-text "Shaders: ${glsl-shaders}"' },
           { 'i', 'cycle-values glsl-shaders toggle "~~/shaders/invert.glsl"', 'invert color shader' },
           { 'l', 'cycle-values glsl-shaders toggle "~~/shaders/LumaSharpenHook.glsl"', 'LumaSharpenHook shader' },
           { 'r', 'set gamma 0' },
-          { 'R', 'show-text "Shaders: ${glsl-shaders}"' }
         } },
       } },
 
-      -- { 'k', 'prefix', 'skipsilence', {
-      --     { 't', 'script-message-to skipsilence toggle', 'toggle' },
-      --     { 'd', 'script-message-to skipsilence function() adjust_thresholdDB(-1) end, "repeatable"', 'threshold down' },
-      --     { 'u', 'script-message-to skipsilence function() adjust_thresholdDB(1) end', 'threshold down' },
-      --     { 'i', 'script-message-to skipsilence info', 'info' },
-      --     { 'r', 'script-message-to skipsilence reset_total_saved_time', 'reset' }
-      -- } },
-
       { 'o', 'prefix', 'command_palette', {
-        { 'b', 'script-message-to command_palette show-command-palette bindings', 'bindings list' },
-        { 'C', 'script-message-to command_palette show-command-palette commands', 'commands list' },
-        { 'P', 'script-message-to command_palette show-command-palette properties', 'properties list' },
-        { 'o', 'script-message-to command_palette show-command-palette options', 'options list' },
-        { 'p', 'script-message-to command_palette show-command-palette playlist', 'playlist list' },
-        { 'c', 'script-message-to command_palette show-command-palette chapters', 'chapters list' },
-        { 'a', 'script-message-to command_palette show-command-palette audio', 'audio list' },
-        { 's', 'script-message-to command_palette show-command-palette subtitle', 'subtitles list' },
-        { 'v', 'script-message-to command_palette show-command-palette video', 'video list' },
-        { 'l', 'script-message-to command_palette show-command-palette profiles', 'profiles list' }
+        { 'C', 'show-text command; script-message-to command_palette show-command-palette commands', 'commands list' },
+        { 'P', 'show-text properties; script-message-to command_palette show-command-palette properties', 'properties list' },
+        { 'a', 'show-text audio; script-message-to command_palette show-command-palette audio', 'audio list' },
+        { 'b', 'show-text bindings; script-message-to command_palette show-command-palette bindings', 'bindings list' },
+        { 'c', 'show-text chapters; script-message-to command_palette show-command-palette chapters', 'chapters list' },
+        { 'l', 'show-text profiles; script-message-to command_palette show-command-palette profiles', 'profiles list' },
+        { 'o', 'show-text options; script-message-to command_palette show-command-palette options', 'options list' },
+        { 'p', 'show-text playlist; script-message-to command_palette show-command-palette playlist', 'playlist list' },
+        { 's', 'show-text subtitle; script-message-to command_palette show-command-palette subtitle', 'subtitles list' },
+        { 'v', 'show-text video; script-message-to command_palette show-command-palette video', 'video list' },
+      } },
+
+      { 'u', 'prefix', 'undo', {
+        { 'l', 'script-binding UndoRedo/undoLoop', 'loop' },
+        { 'L', 'script-binding UndoRedo/undoLoopCaps', 'undoLoopCaps' },
+        { 'r', 'script-binding UndoRedo/redo', 'redo' },
+        { 'R', 'script-binding UndoRedo/redoCaps', 'redoCaps' },
+        { 'u', 'script-binding UndoRedo/undo', 'undo' },
+        { 'U', 'script-binding UndoRedo/undoCaps', 'undoCaps' },
       } },
 
       { 's', 'prefix', 'subtitles', {
-        { '-', 'add sub-delay -0.1', 'shift subtitles 100 ms earlier' },
-        { '+', 'add sub-delay +0.1', 'shift subtitles 100 ms' },
-        { '=', 'script-message-to console type "set sub-delay "', 'set sub delay' },
-        { 'u', 'add sub-pos -1', 'subtitle move up' },
-        { 'd', 'add sub-pos 1', 'subtitle move down' },
-        { 't', 'cycle sub-visibility', 'hide or show the subtitles' },
-
-        -- should it be here? it's more about playback section
-        { 'n', 'sub-seek 1', 'seek to the previous subtitle' },
-        { 'p', 'sub-seek -1', 'seek to the next subtitle' },
-
-        { 's', 'cycle sub-ass-vsfilter-aspect-compat',
-          'toggle stretching SSA/ASS subtitles with anamorphic videos to match the historical renderer' },
-        { 'O', 'cycle-values sub-ass-override "force" "no"',
-          'toggle overriding SSA/ASS subtitle styles with the normal styles' },
-        { 'o', 'cycle sub', 'switch subtitle track' },
-
-        { 'f', 'prefix', 'sub scale', {
+        { 'a', 'prefix', 'subtitle align', {
+            { 'C', 'set sub-align-x center' },
+            { 'b', 'set sub-align-y bottom' },
+            { 'c', 'set sub-align-y center' },
+            { 'l', 'set sub-align-x left' },
+            { 'r', 'set sub-align-x right' },
+            { 't', 'set sub-align-y top' },
+        } },
+        { 'f', 'prefix', 'sub font', {
           { '+', 'add sub-scale +0.1' },
           { '-', 'add sub-scale -0.1' },
           { '=', 'script-message-to console type "set sub-scale "', 'set sub-scale (0<x<5)'  },
-          { 'r', 'set sub-scale 1' }
+          { 'C', 'set sub-font \"Cabin-f\"' },
+          { 'R', 'set sub-font \"RobotoMono Nerd Font Propo SemiBold\"' },
+          { 'c', 'set sub-font \"Cabin\"' },
+          { 'd', 'set sub-font \"DejavuSans\"' },
+          { 'g', 'set sub-font \"Gandhi Sans\"' },
+          { 'r', 'set sub-scale 1' },
+          { 's', 'script-message-to console type "set sub-font-size "', 'set sub-scale (8<x<30)'  },
         } },
-        { 'l', 'script-message-to command_palette show-command-palette subtitle', 'subtitles list' }
+        { '+', 'add sub-delay +0.1', 'shift subtitles 100 ms' },
+        { '-', 'add sub-delay -0.1', 'shift subtitles 100 ms earlier' },
+        { '=', 'script-message-to console type "set sub-delay "', 'set sub delay' },
+        { 'O', 'cycle-values sub-ass-override "force" "no"', 'toggle overriding SSA/ASS subtitle styles with the normal styles' },
+        { 'd', 'add sub-pos 1', 'subtitle move down' },
+        { 'l', 'script-message-to command_palette show-command-palette subtitle', 'subtitles list' },
+        { 'n', 'sub-seek 1', 'seek to the previous subtitle' },
+        { 'o', 'cycle sub', 'switch subtitle track' },
+        { 'p', 'sub-seek -1', 'seek to the next subtitle' },
+        { 's', 'cycle sub-ass-vsfilter-aspect-compat', 'toggle stretching SSA/ASS subtitles with anamorphic videos to match the historical renderer' },
+        { 't', 'cycle sub-visibility', 'hide or show the subtitles' },
+        { 'u', 'add sub-pos -1', 'subtitle move up' },
+      } },
+
+      { 'n', 'prefix', 'channel_mixer', {
+          { 'c', 'script-binding channel_mixer/mix("cmCenter",0.1)', 'Center +0.1' },
+          { 'C', 'script-binding channel_mixer/mix("cmCenter",-0.1)', 'Center -0.1' },
+          { 'f', 'script-binding channel_mixer/mix("cmFront",0.1)', 'Front +0.1' },
+          { 'F', 'script-binding channel_mixer/mix("cmFront",-0.1)', 'Front -0.1' },
+          { 's', 'script-binding channel_mixer/mix("cmSide",0.1)', 'Side +0.1' },
+          { 'S', 'script-binding channel_mixer/mix("cmSide",-0.1)', 'Side -0.1' },
+          { 'b', 'script-binding channel_mixer/mix("cmBack",0.1)', 'Back +0.1' },
+          { 'B', 'script-binding channel_mixer/mix("cmBack",-0.1)', 'Back -0.1' },
+          { 'l', 'script-binding channel_mixer/mix("cmLFE",0.1)', 'LFE +0.1' },
+          { 'L', 'script-binding channel_mixer/mix("cmLFE",-0.1)', 'LFE -0.1' },
+      } },
+
+      { 'm', 'prefix', 'acompressor', {
+        { 'e', 'show-text toggle;script-binding acompressor/toggle-acompressor', 'toggle' },
+        { 't', 'show-text threshold up;script-binding acompressor/acompressor-increase-threshold', 'increase-threshold' },
+        { 'T', 'show-text threshold down;script-binding acompressor/acompressor-decrease-threshold', 'decrease-threshold' },
+        { 'r', 'show-text ratio up;script-binding acompressor/acompressor-increase-ratio', 'increase-ratio' },
+        { 'R', 'show-text ratio down;script-binding acompressor/acompressor-decrease-ratio', 'decrease-ratio' },
+        { 'k', 'show-text knee up;script-binding acompressor/acompressor-increase-knee', 'increase-knee' },
+        { 'K', 'show-text knee down;script-binding acompressor/acompressor-decrease-knee', 'decrease-knee' },
+        { 'm', 'show-text makuep up;script-binding acompressor/acompressor-increase-makeup', 'increase-makeup' },
+        { 'M', 'show-text makuep down;script-binding acompressor/acompressor-decrease-makeup', 'decrease-makeup' },
+        { 'a', 'show-text attack up;script-binding acompressor/acompressor-increase-attack', 'increase-attack' },
+        { 'A', 'show-text attack down;script-binding acompressor/acompressor-decrease-attack', 'decrease-attack' },
+        { 'h', 'show-text release up;script-binding acompressor/acompressor-increase-release', 'increase-release' },
+        { 'H', 'show-text release down;script-binding acompressor/acompressor-decrease-release', 'decrease-release' },
+      } },
+
+      { 'k', 'prefix', 'skipsilence', {
+        { 'I', 'script-binding skipsilence/cycle-info-up', 'cycle-info-up' },
+        { 'a', 'script-binding skipsilence/toggle-arnndn', 'toggle-arnndn' },
+        { 'd', 'script-binding skipsilence/disable', 'disable' },
+        { 'e', 'script-binding skipsilence/enable', 'enable' },
+        { 'i', 'script-binding skipsilence/info', 'info' },
+        { 'j', 'script-binding skipsilence/threshold-down', 'threshold-down' },
+        { 'k', 'script-binding skipsilence/threshold-up', 'threshold-up' },
+        { 'o', 'script-binding skipsilence/toggle-arnndn-output', 'toggle-arnndn-output' },
+        { 'r', 'script-binding skipsilence/reset-total', 'reset-total' },
+        { 't', 'script-binding skipsilence/toggle', 'toggle' },
       } },
 
       { 'p', 'prefix', 'playback', {
@@ -179,6 +219,7 @@ mp.add_timeout(0.3, function()
         { '5', 'set speed 2.50', 'set 2.50 playback speed' },
         { '6', 'set speed 3.00', 'set 3.00 playback speed' },
         { 'a', 'script-binding quality_menu/audio_formats_toggle', 'quality_menu/audio_formats_toggle' },
+        { 'p', 'set speed 2.00; script-binding skipsilence/enable', 'skipsilence/toggle' },
         { 'v', 'script-binding quality_menu/video_formats_toggle', 'quality_menu/video_formats_toggle' },
       } },
 

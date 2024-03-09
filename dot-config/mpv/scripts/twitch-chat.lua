@@ -158,7 +158,7 @@ local function load_twitch_chat(is_new_session)
     for _, curr_comment in ipairs(comments) do
         local curr_comment_node = curr_comment.node
 
-        local msg_time_from = curr_comment_node.contentOffsetSeconds
+        local msg_time_from = curr_comment_node.contentOffsetSeconds + 65
         local msg_time_from_ms = math.floor(msg_time_from * 1000) % 1000
         local msg_time_from_sec = math.floor(msg_time_from) % 60
         local msg_time_from_min = math.floor(msg_time_from / 60) % 60

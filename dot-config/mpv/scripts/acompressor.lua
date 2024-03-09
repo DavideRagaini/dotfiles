@@ -27,18 +27,18 @@ local o = {
 	key_increase_release = 'F6',
 	key_decrease_release = 'Shift+F6',
 
-	default_threshold = -20.0,
+	default_threshold = -25.0,
 	default_ratio = 3.0,
-	default_knee = 5.0,
-	default_makeup = 0.0,
-	default_attack = 10.0,
+	default_knee = 2.0,
+	default_makeup = 8.0,
+	default_attack = 20.0,
 	default_release = 250.0,
 
 	step_threshold = -1,
 	step_ratio = 1.0,
 	step_knee = 1.0,
 	step_makeup = 1.0,
-	step_attack = 1.0,
+	step_attack = 10.0,
 	step_release = 10.0,
 }
 options.read_options(o)

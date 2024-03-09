@@ -40,7 +40,8 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             animdl="~/Packages/python/ani/bin/animdl" \
             hm='home-manager' \
             nsh='nix-shell -p' \
-            qtilelog='tail -f -n 30 /home/davide/.local/share/qtile/qtile.log' \
+            unclt='systemctl --user start unclutter.service' \
+            qtilelog='less -N +F $HOME/.local/share/qtile/qtile.log' \
             wt='wtwitch'
 
         hms() {
@@ -118,6 +119,7 @@ alias \
             --bitrate 320" \
     v="nvim" \
     trr="transmission-remote" \
+    trrq="transmission-remote --exit" \
     udc="udisksctl" \
     locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
     x="sxiv -ft *" \
@@ -125,6 +127,11 @@ alias \
 
 alias \
     bgs="sox -c2 --null -d synth 0:60 brownnoise band -n 210.0 1000.0 tremolo 0.0166 70.0 reverb 40.0 fade q 0.005 0:60 0.005 repeat -"
+
+trrd() {
+    tun0="$(ip a show dev tun0 scope global | awk '/inet/ {print $2}' | awk -F '/' '{print $1}')"
+    transmission-daemon --bind-address-ipv4="$(echo "$tun0" | head -n1)" --bind-address-ipv6="$(echo "$tun0" | tail -n1)"
+}
 
 dict() {
     curl dict://dict.org/d:\$@

@@ -22,11 +22,11 @@ cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
         application/bzip2) atool --list -- "$fx" ;;
         application/gzip) atool --list -- "$fx" | bat | bat ;;
-        application/json) "$EDITOR" "$fx" ;;
+        application/json) $EDITOR "$fx" ;;
         application/lzma) atool --list -- "$fx" | bat ;;
         application/lzop) atool --list -- "$fx" | bat ;;
         application/octet-stream) zathura --fork "$fx" >/dev/null 2>&1 ;;
-        application/pgp-encrypted) "$EDITOR" "$fx" ;;
+        application/pgp-encrypted) $EDITOR "$fx" ;;
         application/x-brotli) atool --list -- "$fx" | bat ;;
         application/x-iso9660-image) ;;
         application/x-lzip) atool --list -- "$fx" | bat ;;
@@ -52,10 +52,9 @@ cmd open ${{
 
         application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
         application/epub+zip) ebook-viewer "$fx" ;;
-        # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
-        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
+        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        # application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         application/postscrip) zathura --fork $fx >/dev/null 2>&1 ;;
-        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         image/svg+xml) setsid -f display -- "$fx";;
         image/vnd.djvu) zathura --fork "$fx" >/dev/null 2>&1 ;;
 
@@ -66,9 +65,9 @@ cmd open ${{
             lf-select & ;;
 
         */xml) bat --paging=never --line-range :50 "$fx" ;;
-        text/html) "$BROWSER" "$fx" ;;
+        text/html) $BROWSER "$fx" ;;
         text/troff) man ./ "${file}" | col -b ;;
-        text/*) "$EDITOR" "$fx" ;;
+        text/*) $EDITOR "$fx" ;;
 
         video/*) setsid -f mpv "$fx" -no-terminal ;;
         *) xdg-open "$fx" ;;
@@ -77,8 +76,8 @@ cmd open ${{
 
 cmd alt_open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
-        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
-        # application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
+        # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         application/zip) zathura --fork "$fx" >/dev/null 2>&1;;
         *) xdg-open "$fx" ;;
     esac
@@ -455,7 +454,7 @@ map <c-y> up
 map <c-z> $ kill -STOP $PPID
 
 map A :rename; cmd-end
-map B &footclient -T emacs -e emacsclient -nw .
+map B !emacsclient -nw .
 map C :rename; cmd-end; cmd-delete-home
 map D delete
 map E extract
@@ -484,7 +483,7 @@ map Yp yank-path
 # map V push :!nvim<space>
 
 map c :rename; cmd-delete-home
-map e !nvim "$fx"
+map e !emacsclient -nw "$fx"
 map gL follow_link
 map gf :fzf_search
 map gg top

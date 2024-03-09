@@ -36,9 +36,9 @@ set window-title-page
 set window-title-home-tilde true
 set statusbar-home-tilde true
 
-# set recolor                     "true"
-#colors
+set recolor                     "true"
 # set font                        "Liberation Mono 10"
+
 set default-bg                  "#263238"
 set default-fg                  "#222D32"
 

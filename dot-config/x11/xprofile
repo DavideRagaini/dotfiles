@@ -5,10 +5,11 @@ xrdbpid=$!
 
 autostart(){
     sleep "$1"
-    # systemctl start --user graphical-session.target
+    systemctl start --user graphical-session.target
     clipmenud &
-    # systemctl start --user picom.service
+    systemctl start --user picom.service
     systemctl start --user redshift.service
+    systemctl start --user unclutter.service
     sleep "$2"
     $BROWSER &
     # alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
@@ -16,7 +17,6 @@ autostart(){
     sleep 1m
     aw-qt &
     sleep 1m
-    systemctl start --user unlutter.service
 }
 
 locker(){

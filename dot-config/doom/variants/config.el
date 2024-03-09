@@ -24,7 +24,7 @@
     ))
 
 (defun dr/high-resources()
-  (setq display-line-numbers-type t)
+  (setq display-line-numbers-type 'relative)
   (dr/ispell-settings)
   (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
   )
@@ -41,11 +41,10 @@
 (setq dr/font-size 13)
 (cond
  ((string-equal (system-name) "Apollo")
-  (setq dr/font-size 13
-        display-line-numbers-type nil)
+  (setq dr/font-size 13)
   (global-activity-watch-mode 1)
   (dr/high-resources)
-   ))
+  ))
 ;; }}}
 ;; ========= Common ========= {{{
 (setq user-full-name "Davide Ragaini"
@@ -77,7 +76,7 @@
 ;; }}}
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
-;; (global-auto-revert-mode 1)
+(global-auto-revert-mode 1)
 (global-evil-vimish-fold-mode 1)
 (global-visual-line-mode t)
 (global-whitespace-mode 1)
@@ -92,7 +91,7 @@
     ("^\\*Man*"             :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^magit-process:*"     :side right  :size 0.40 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Org Agenda*"      :side left   :size 0.40 :quit t   :slot  3 :vslot  3 :ttl 0 :select t)
-    ("^\\*Python*"          :side left   :size 0.50 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Python*"          :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Inferior Octave*" :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Warnings*"        :side bottom :size 0.30 :quit t   :slot -1 :vslot -2 :ttl 0 :select nil)
     ("^\\*compilation*"     :side right  :size 0.40 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)

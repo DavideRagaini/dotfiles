@@ -7,7 +7,7 @@ class Scratchpad(object):
     def init_scratchpad(self):
         terminal = env["TERMINAL"]
         opacity = 1
-        on_focus_lost_hide = True
+        on_focus_lost_hide = False
         # warp_pointer = False
 
         return [
@@ -22,7 +22,8 @@ class Scratchpad(object):
                         x=0.04,
                         y=0.04,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "file manager",
@@ -32,7 +33,8 @@ class Scratchpad(object):
                         x=0.1,
                         y=0.1,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "btop",
@@ -42,7 +44,8 @@ class Scratchpad(object):
                         x=0.04,
                         y=0.04,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "htop",
@@ -52,18 +55,20 @@ class Scratchpad(object):
                         x=0.04,
                         y=0.04,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "news",
                         terminal
-                        + " --class 'newsboat,newsboat' -T 'newsboat' -o 'font.size=14' -e newsboat",
+                        + " --class 'newsboat,newsboat' -T 'newsboat' -o 'font.size=13' -e newsboat",
                         width=0.8,
                         height=0.8,
                         x=0.1,
                         y=0.1,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "podcasts",
@@ -73,7 +78,8 @@ class Scratchpad(object):
                         x=0.1,
                         y=0.1,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "music",
@@ -84,7 +90,8 @@ class Scratchpad(object):
                         x=0.1,
                         y=0.1,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "spotify",
@@ -95,7 +102,8 @@ class Scratchpad(object):
                         x=0.1,
                         y=0.1,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "mixer",
@@ -105,7 +113,8 @@ class Scratchpad(object):
                         x=0.2,
                         y=0.2,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "calculator",
@@ -115,7 +124,8 @@ class Scratchpad(object):
                         x=0.1,
                         y=0.1,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "qtile_shell",
@@ -125,7 +135,8 @@ class Scratchpad(object):
                         width=0.9,
                         height=0.6,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
 
                     DropDown(
                         "mails",
@@ -135,7 +146,20 @@ class Scratchpad(object):
                         x=0.04,
                         y=0.04,
                         opacity=opacity,
-                        on_focus_lost_hide=on_focus_lost_hide),
+                        on_focus_lost_hide=on_focus_lost_hide
+                    ),
+
+                    # DropDown(
+                    #     "mpv",
+                    #     "mpv --x11-name=fmpv --no-terminal --player-operation-mode=pseudo-gui",
+                    #     width=0.1,
+                    #     height=0.1,
+                    #     x=0.9,
+                    #     y=0.9,
+                    #     opacity=opacity,
+                    #     on_focus_lost_hide=on_focus_lost_hide
+                    # ),
+
                 ]
             ),
         ]
@@ -148,7 +172,7 @@ class DropDown_Keys(object):
         mod = "mod4"
         # alt = "mod1"
         shift = "shift"
-        # ctrl = "control"
+        ctrl = "control"
 
         return [
             # Key([mod], "c", lazy.group["SPD"].dropdown_toggle("mpvfloat")),
@@ -163,12 +187,16 @@ class DropDown_Keys(object):
             Key([mod, shift], "n", lazy.group["SPD"].dropdown_toggle("podcasts")),
             Key([mod, shift], "up", lazy.group["SPD"].dropdown_toggle("mixer")),
             Key([mod], "Escape", lazy.group["SPD"].dropdown_toggle("btop")),
+            Key([mod, shift], "Escape", lazy.group["SPD"].dropdown_toggle("btop")),
             Key([mod], "Return", lazy.group["SPD"].dropdown_toggle("Tmux Dropdown"),),
             Key([mod], "XF86HomePage", lazy.group["SPD"].dropdown_toggle("htop")),
             Key([mod], "apostrophe", lazy.group["SPD"].dropdown_toggle("calculator"),),
-            Key([mod], "g", lazy.group["SPD"].toscreen(toggle=True), desc="Toggle scratchpad group",),
             Key([mod], "m", lazy.group["SPD"].dropdown_toggle("music")),
             Key([mod], "n", lazy.group["SPD"].dropdown_toggle("news")),
             Key([mod], "r", lazy.group["SPD"].dropdown_toggle("file manager")),
             Key([mod], "y", lazy.group["SPD"].dropdown_toggle("qtile_shell")),
+
+            Key([mod], "g", lazy.group["SPD"].toscreen(toggle=True), desc="Toggle scratchpad group",),
+
+            # Key([mod], "w", lazy.group["SPD"].dropdown_toggle("float_mpv")),
         ]

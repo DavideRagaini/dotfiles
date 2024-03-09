@@ -28,17 +28,17 @@ function() mix("reset")
 
 mp.add_key_binding("F12", "mReset", function() mix("reset") end)
 
-mp.add_key_binding("F10", "cUp", function() mix("cmCenter",0.1) end)
-mp.add_key_binding("F11", "cDown", function() mix("cmCenter",-0.1) end)
+mp.add_key_binding("Alt+Ctrl+c", "cUp", function() mix("cmCenter",0.1) end)
+mp.add_key_binding("Alt+Shift+c", "cDown", function() mix("cmCenter",-0.1) end)
 
-mp.add_key_binding("Shift+F10", "fUp", function() mix("cmFront",0.1) end)
-mp.add_key_binding("Ctrl+F10", "fDown", function() mix("cmFront",-0.1) end)
+mp.add_key_binding("Alt+Ctrl+f", "fUp", function() mix("cmFront",0.1) end)
+mp.add_key_binding("Alt+Shift+f", "fDown", function() mix("cmFront",-0.1) end)
 
-mp.add_key_binding("Shift+F11", "sUp", function() mix("cmSide",0.1) end)
-mp.add_key_binding("Ctrl+F11", "sDown", function() mix("cmSide",-0.1) end)
+mp.add_key_binding("Alt+Ctrl+s", "sUp", function() mix("cmSide",0.1) end)
+mp.add_key_binding("Alt+Shift+s", "sDown", function() mix("cmSide",-0.1) end)
 
-mp.add_key_binding("Shift+F12", "bUp", function() mix("cmBack",0.1) end)
-mp.add_key_binding("Ctrl+F12", "bDown", function() mix("cmBack",-0.1) end)
+mp.add_key_binding("Alt+Ctrl+b", "bUp", function() mix("cmBack",0.1) end)
+mp.add_key_binding("Alt+Shift+b", "bDown", function() mix("cmBack",-0.1) end)
 
-mp.add_key_binding("Alt+Shift+F12", "lUp", function() mix("cmLFE",0.1) end)
-mp.add_key_binding("Alt+Ctrl+F12", "lDown", function() mix("cmLFE",-0.1) end)
+mp.add_key_binding("Alt+Ctrl+l", "lUp", function() mix("cmLFE",0.1) end)
+mp.add_key_binding("Alt+Shift+l", "lDown", function() mix("cmLFE",-0.1) end)

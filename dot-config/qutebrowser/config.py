@@ -72,7 +72,7 @@ c.url.searchengines = {
 # ]
 # Emacs
 c.editor.command = [
-    "emacsclient",
+    "emacsclient", "-c"
     "{file}",
     "+{line}:{column0}1",
     "-a", "'emacs'"
@@ -105,19 +105,17 @@ c.content.webgl = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
 # }}}
 # ======================= Folders & Files ============= {{{
-fileselect_cmd = ["st", "-e", "lfub", "selection-path {}"]
+fileselect_cmd = [ environ["TERM"], "-e", "lf", "selection-path {}"]
 c.fileselect.folder.command = fileselect_cmd
 c.fileselect.multiple_files.command = fileselect_cmd
 c.fileselect.single_file.command = fileselect_cmd
 # }}}
 # ======================= Dark Mode ============= {{{
-# c.colors.webpage.darkmode.enabled = True
-c.colors.webpage.darkmode.algorithm = "lightness-hsl"
+c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.contrast = -0.022
-c.colors.webpage.darkmode.threshold.text = 150
 c.colors.webpage.darkmode.threshold.background = 100
-c.colors.webpage.darkmode.policy.images = "always"
-c.colors.webpage.darkmode.grayscale.images = 0.35
+c.colors.webpage.darkmode.threshold.foreground = 220
 # }}}
 # ======================= Containers ============= {{{
 c.aliases['container-open'] = 'spawn --userscript container-open'
@@ -126,6 +124,6 @@ c.aliases['container-add'] = 'spawn --userscript container-add'
 c.aliases['container-rm'] = 'spawn --userscript container-rm'
 
 config.bind('C','spawn --userscript container-open')
-config.bind('<Alt-c>','set-cmd-text -s :spawn --userscript container-open')
+config.bind('<Alt-c>','cmd-set-text -s :spawn --userscript container-open')
 config.bind('<Alt-f>','hint links userscript container-open')
 # }}}
