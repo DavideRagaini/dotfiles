@@ -3,11 +3,15 @@
 case "$(printenv XDG_SESSION_TYPE)" in
     wayland)
         alias \
+            2f="tmux split -h lf; lf" \
+            f="lf" \
             cclip="wl-copy" \
             pclip="wl-paste"
         ;;
     tty | x11)
         alias \
+            2f="tmux split -h lfcd; lfcd" \
+            f="lfcd" \
             cclip="xclip -selection clipboard" \
             pclip="xclip -selection clipboard -o"
         ;;
@@ -93,11 +97,9 @@ alias \
 
 # Abbreviations
 alias \
-    2f="tmux split -h lfcd; lfcd" \
     doomupdate="doom sync && doom sync -u && doom upgrade && doom purge > ~/.local/doom-upgrade" \
     e="\$EDITOR" \
     E="\$VISUAL" \
-    f="lfcd" \
     pw="pipe-viewer" \
     pip="python3 -m pip" \
     irssi="irssi --config=\"\$XDG_CONFIG_HOME\"/irssi/config -- home=\"\$XDG_DATA_HOME\"/irssi" \

@@ -20,7 +20,7 @@
        ;;(emoji +unicode)  ; 🙂
        ;;fill-column       ; a `fill-column' indicator
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;;hydra
+       hydra
        ;;indent-guides     ; highlighted indent columns
        ;;minimap           ; show a map of the code on the side
        ;;(ligatures +extra +iosevka)  ; ligatures and symbols to make your code pretty again
@@ -126,7 +126,7 @@
        ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
-       json              ; At least it ain't XML
+       (json +lsp)         ; At least it ain't XML
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
@@ -135,7 +135,7 @@
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
        ;;markdown          ; writing docs for people to ignore
-       lua                 ; one-based indices? one-based indices
+       (lua +lsp)          ; one-based indices? one-based indices
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
@@ -158,8 +158,8 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;(web +lsp)        ; the tubes
-       yaml                ; JSON, but readable
+       (web +lsp)          ; the tubes
+       (yaml +lsp)         ; JSON, but readable
        ;;zig               ; C, but simpler
 
        :email

@@ -37,7 +37,7 @@ case $(hostname) in
         export XDG_RUNTIME_DIR
         export WLR_NO_HARDWARE_CURSORS=1
         {
-            sleep 28
+            sleep 20
             kill -TERM "$(pgrep -u "$USER" "\bdwm$")" &
         } &
         ;;
@@ -178,7 +178,7 @@ case "$HOSTNAME" in
     NT)
         check_startup &&
         ! pidof -s Xorg >/dev/null 2>&1 &&
-        startx "$XINITRC"
+        startx "$XINITRC" &&
         wayland_exports &&
         exec sway
     ;;
