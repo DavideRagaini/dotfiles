@@ -128,7 +128,11 @@ alias \
     zt="zathura"
 
 alias \
-    bgs="sox -c2 --null -d synth 0:60 brownnoise band -n 210.0 1000.0 tremolo 0.0166 70.0 reverb 40.0 fade q 0.005 0:60 0.005 repeat -"
+    smooth-brown="sox -c2 --null -d synth 0:60 brownnoise band -n 210.0 1000.0 tremolo 0.0166 70.0 reverb 40.0 fade q 0.005 0:60 0.005 repeat -" \
+    smooth-white="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14" \
+    deep-smooth-white="play -n synth whitenoise band -n 100 24 band -n 300 100 gain +20" \
+    space="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1" \
+    space-engine="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 
 trrd() {
     tun0="$(ip a show dev tun0 scope global | awk '/inet/ {print $2}' | awk -F '/' '{print $1}')"

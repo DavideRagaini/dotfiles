@@ -230,7 +230,7 @@ settingsMeta.__index = settingsMeta
 setmetatable(settings, settingsMeta)
 settings:_migrate()
 local helpText = { }
-settings['hover-zone-height'] = 10
+settings['hover-zone-height'] = 40
 helpText['hover-zone-height'] = [[Sets the height of the rectangular area at the bottom of the screen that expands
 the progress bar and shows playback time information when the mouse is hovered
 over it.
@@ -239,7 +239,7 @@ settings['top-hover-zone-height'] = 10
 helpText['top-hover-zone-height'] = [[Sets the height of the rectangular area at the top of the screen that shows the
 file name and system time when the mouse is hovered over it.
 ]]
-settings['default-style'] = [[\fnFantesque Sans Mono\b1\bord2\shad0\fs30\c&HFC799E&\3c&H2D2D2D&]]
+settings['default-style'] = [[\fnFantesque Sans Mono\b1\bord2\fs30\c&HFC799E&\3c&H2D2D2D&]]
 helpText['default-style'] = [[Default style that is applied to all UI elements. A string of ASS override tags.
 Individual elements have their own style settings which override the tags here.
 Changing the font will likely require changing the hover-time margin settings
@@ -334,16 +334,16 @@ helpText['bar-default-style'] = [[A string of ASS override tags that get applied
 progress, cache, and background. You probably don't want to remove \bord0 unless
 your default-style includes it.
 ]]
-settings['bar-foreground-style'] = [[\c&HFF0000&]]
+settings['bar-foreground-style'] = [[\c&H181321&]]
 helpText['bar-foreground-style'] = [[A string of ASS override tags that get applied only to the progress layer of the
 bar.
 ]]
-settings['bar-cache-style'] = [[\c&H00FFFF&]]
+settings['bar-cache-style'] = [[\c&HFDAFC8&]]
 helpText['bar-cache-style'] = [[A string of ASS override tags that get applied only to the cache layer of the
 bar, particularly the part of the cache bar that is behind the current playback
 position. The default sets only the color.
 ]]
-settings['bar-cache-background-style'] = [[\c&H0000FF&]]
+settings['bar-cache-background-style'] = [[\c&H5E1675&]]
 helpText['bar-cache-background-style'] = [[A string of ASS override tags that get applied only to the cache layer of the
 bar, particularly the part of the cache bar that is after the current playback
 position. The tags specified here are applied after bar-cache-style and override
@@ -447,7 +447,7 @@ helpText['enable-system-time'] = [[Sets whether or not the system time is displa
 settings['system-time-style'] = ''
 helpText['system-time-style'] = [[A string of ASS override tags that get applied only to the system time display.
 ]]
-settings['system-time-format'] = '%H:%M'
+settings['system-time-format'] = '%H:%M:%S'
 helpText['system-time-format'] = [[Sets the format used for the system time display. This must be a strftime-
 compatible format string.
 ]]
@@ -477,10 +477,10 @@ the way the chapter markers are currently implemented, videos with a large
 number of chapters may slow down the script somewhat, but I have yet to run
 into this being a problem.
 ]]
-settings['chapter-marker-width'] = 2
+settings['chapter-marker-width'] = 5
 helpText['chapter-marker-width'] = [[Controls the width of each chapter marker when the progress bar is inactive.
 ]]
-settings['chapter-marker-width-active'] = 4
+settings['chapter-marker-width-active'] = 5
 helpText['chapter-marker-width-active'] = [[Controls the width of each chapter marker when the progress bar is active.
 ]]
 settings['chapter-marker-active-height-fraction'] = 1
@@ -489,27 +489,24 @@ as a multiplier on the height of the active progress bar. A value greater than 1
 will cause the markers to be taller than the expanded progress bar, whereas a
 value less than 1 will cause them to be shorter.
 ]]
-settings['chapter-marker-before-style'] = [[\c&H00FF00&]]
+settings['chapter-marker-before-style'] = [[\c&HFC799E&]]
 helpText['chapter-marker-before-style'] = [[A string of ASS override tags that get applied only to chapter markers that have
 not yet been passed.
 ]]
-settings['chapter-marker-after-style'] = [[\c&H00FF00&]]
+settings['chapter-marker-after-style'] = [[\c&H2D2D2D&]]
 helpText['chapter-marker-after-style'] = [[A string of ASS override tags that get applied only to chapter markers that have
 already been passed.
 ]]
-settings['request-display-duration'] = 2
+settings['request-display-duration'] = 1
 helpText['request-display-duration'] = [[Sets the amount of time in seconds that the UI stays on the screen after it
 receives a request-display signal. A value of 0 will keep the display on screen
 only as long as the key bound to it is held down.
 ]]
-settings['redraw-period'] = 0.02
+settings['redraw-period'] = 0.03
 helpText['redraw-period'] = [[Controls how often the display is redrawn, in seconds. This does not seem to
 significantly affect the smoothness of animations, and it is subject to the
 accuracy limits imposed by the scheduler mpv uses. Probably not worth changing
 unless you have major performance problems.
-]]
-settings['animation-pause-duration'] = 0.3
-helpText['animation-duration'] = [[Controls how long the Pause Indicator animations take. A value of 0 disables.
 ]]
 settings['animation-duration'] = 0
 helpText['animation-duration'] = [[Controls how long the UI animations take. A value of 0 disables all animations
@@ -1493,9 +1490,13 @@ do
     reconfigure = function(self)
       _class_0.__parent.__base.reconfigure(self, 'bar-cache-')
       self.line[6] = 100
-      self.line[8] = self.line[8]:format(settings['bar-cache-style']) .. 'm 0 0'
-      self.line[10] = ([[{\p0%s\p1}]]):format(settings['bar-cache-background-style'])
-      self.line[11] = [[]]
+      self.line[9] = ''
+      self.line[10] = '\n'
+      for idx = 1, 9 do
+        self.line[idx + 10] = self.line[idx]
+      end
+      self.line[8] = self.line[8]:format(settings['bar-cache-style'])
+      self.line[18] = self.line[18]:format(settings['bar-cache-background-style'])
       self.fileDuration = mp.get_property_number('duration', nil)
     end,
     resize = function(self)
@@ -1503,11 +1504,16 @@ do
       if self.fileDuration then
         self.coordinateRemap = Window.w / self.fileDuration
       end
-      self.line[9] = [[]]
+      self.line[12] = self.line[2]
+      return self:clobber()
+    end,
+    animate = function(self, value)
+      _class_0.__parent.__base.animate(self, value)
+      self.line[14] = self.line[4]
     end,
     clobber = function(self)
       self.line[9] = ""
-      self.line[11] = ""
+      self.line[19] = ""
     end,
     redraw = function(self)
       _class_0.__parent.__base.redraw(self)
@@ -1549,20 +1555,17 @@ do
               local rect = ('m %g 0 l %g 1 %g 1 %g 0'):format(rangeStart, rangeStart, rangeEnd, rangeEnd)
               table.insert(barDrawing.past, rect)
             elseif rangeStart > progressPosition then
-              rangeStart = rangeStart - progressPosition
-              rangeEnd = rangeEnd - progressPosition
               local rect = ('m %g 0 l %g 1 %g 1 %g 0'):format(rangeStart, rangeStart, rangeEnd, rangeEnd)
               table.insert(barDrawing.future, rect)
             else
-              rangeEnd = rangeEnd - progressPosition
               local rectPast = ('m %g 0 l %g 1 %g 1 %g 0'):format(rangeStart, rangeStart, progressPosition, progressPosition)
-              local rectFuture = ('m %g 0 l %g 1 %g 1 %g 0'):format(0, 0, rangeEnd, rangeEnd)
+              local rectFuture = ('m %g 0 l %g 1 %g 1 %g 0'):format(progressPosition, progressPosition, rangeEnd, rangeEnd)
               table.insert(barDrawing.past, rectPast)
               table.insert(barDrawing.future, rectFuture)
             end
           end
-          self.line[9] = table.concat(barDrawing.past, ' ') .. ('m %g 0'):format(progressPosition)
-          self.line[11] = table.concat(barDrawing.future, ' ')
+          self.line[9] = table.concat(barDrawing.past, ' ')
+          self.line[19] = table.concat(barDrawing.future, ' ')
           self.cacheKey = cacheKey
           self.needsUpdate = true
         else
@@ -2290,7 +2293,7 @@ do
         self.line[7] = 'm 75 37.5 b 75 58.21 58.21 75 37.5 75 16.79 75 0 58.21 0 37.5 0 16.79 16.79 0 37.5 0 58.21 0 75 16.79 75 37.5 m 25.8333 17.18 l 25.8333 57.6 60.8333 37.39\n'
         self.line[14] = 'm 0 0 m 75 75 m 25.8333 17.18 l 25.8333 57.6 60.8333 37.39'
       end
-      AnimationQueue.addAnimation(Animation(0, 1, settings['animation-pause-duration'], (function()
+      AnimationQueue.addAnimation(Animation(0, 1, settings['animation-duration'], (function()
         local _base_1 = self
         local _fn_0 = _base_1.animate
         return function(...)
@@ -2347,6 +2350,7 @@ do
         ['playlist-pos-1'] = mp.get_property_number('playlist-pos-1', 1),
         ['playlist-count'] = mp.get_property_number('playlist-count', 1)
       }
+      self.needsUpdate = true
     end,
     generateTitleString = function(self, quote)
       if quote == nil then

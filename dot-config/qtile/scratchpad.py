@@ -170,9 +170,7 @@ class DropDown_Keys(object):
 
     def init_dropdown_keybindings(self):
         mod = "mod4"
-        # alt = "mod1"
         shift = "shift"
-        ctrl = "control"
 
         return [
             # Key([mod], "c", lazy.group["SPD"].dropdown_toggle("mpvfloat")),
@@ -185,7 +183,7 @@ class DropDown_Keys(object):
             Key([mod, shift], "Escape", lazy.group["SPD"].dropdown_toggle("btop")),
             Key([mod, shift], "m", lazy.group["SPD"].dropdown_toggle("spotify")),
             Key([mod, shift], "n", lazy.group["SPD"].dropdown_toggle("podcasts")),
-            Key([mod, shift], "up", lazy.group["SPD"].dropdown_toggle("mixer")),
+            Key([mod, shift], "slash", lazy.group["SPD"].dropdown_toggle("mixer")),
             Key([mod], "Escape", lazy.group["SPD"].dropdown_toggle("btop")),
             Key([mod, shift], "Escape", lazy.group["SPD"].dropdown_toggle("btop")),
             Key([mod], "Return", lazy.group["SPD"].dropdown_toggle("Tmux Dropdown"),),

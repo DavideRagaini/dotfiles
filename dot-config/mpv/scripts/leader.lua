@@ -43,8 +43,8 @@ mp.add_timeout(0.3, function()
       { 'x', 'M-x', 'execute-extended-command' },
       { 't', 'script-message-to console type "set time-pos "', 'time-pos' },
 
-      { '<', 'seek -60', 'seek 1 minute backward' },
-      { '>', 'seek 60', 'seek 1 minute forward' },
+      -- { '<', 'seek -60', 'seek 1 minute backward' },
+      -- { '>', 'seek 60', 'seek 1 minute forward' },
       -- { '.', 'frame-step', 'advance one frame and pause' },
       -- { ',', 'frame-back-step', 'go back by one frame and pause' },
       { 'N', 'playlist-next', 'skip to the next file' },
@@ -62,11 +62,15 @@ mp.add_timeout(0.3, function()
         { '+', 'add audio-delay 0.100', 'change audio/video sync by delaying the audio' },
         { '-', 'add audio-delay -0.100', 'change audio/video sync by shifting the audio' },
         { '=', 'script-message-to console type "set audio-delay "', 'set audio delay (ms)'  },
-        { 'I', 'cycle-values af dynaudnorm=f=75:g=25:p=0.55 dynaudnorm=f=400:g=5:m=4:p=0.95:t=0 loudnorm=I=-16:TP=-3:LRA=4 loudnorm=I=-30 anull', 'cycle dynadnorm' },
+        { 'd', 'cycle-values af dynaudnorm=f=75:g=25:p=0.55 dynaudnorm=f=400:g=5:m=4:p=0.95:t=0 anull', 'cycle dynadnorm' },
+        { 'n', 'cycle-values af loudnorm=I=-16:TP=-3:LRA=4 loudnorm=I=-30 anull', 'cycle loudnorm' },
         { 'a', 'toggle-acompressor', 'toggle acompressor' },
         { 'c', 'cycle audio', 'switch audio track' },
+        { 'f', 'cycle-values af afftdn afftdn=nf=-25 anlmdn arnndn anull', 'ffmpeg backgroud noise reduciton filters' },
         { 'i', 'cycle-values af loudnorm=i=-15 loudnorm=i=-30 anull', 'cycle integral loudnorm' },
-        { 'l', 'script-message-to command_palette show-command-palette audio', 'audio tracks list' }
+        { 'l', 'script-message-to command_palette show-command-palette audio', 'audio tracks list' },
+        { 'p', 'cycle-values af "highpass=200,lowpass=3000" anull', 'voice isolation high+low pass filter' },
+        { 'r', 'ad set anull', 'seta anull' },
       } },
 
       { 'c', 'prefix', 'chapters', {
@@ -103,13 +107,13 @@ mp.add_timeout(0.3, function()
           { '=', 'script-message-to console type "set saturation "', 'set saturation (-100<x<100)'},
           { 'r', 'set saturation 0' }
         } },
+      } },
 
-        { 'h', 'prefix', 'shaders', {
-          { 'R', 'show-text "Shaders: ${glsl-shaders}"' },
-          { 'i', 'cycle-values glsl-shaders toggle "~~/shaders/invert.glsl"', 'invert color shader' },
-          { 'l', 'cycle-values glsl-shaders toggle "~~/shaders/LumaSharpenHook.glsl"', 'LumaSharpenHook shader' },
-          { 'r', 'set gamma 0' },
-        } },
+      { 'h', 'prefix', 'shaders', {
+        { 'R', 'show-text "Shaders: ${glsl-shaders}"' },
+        { 'i', 'cycle-values glsl-shaders toggle "~~/shaders/invert.glsl"', 'invert color shader' },
+        { 'l', 'cycle-values glsl-shaders toggle "~~/shaders/LumaSharpenHook.glsl"', 'LumaSharpenHook shader' },
+        { 'r', 'set gamma 0' },
       } },
 
       { 'o', 'prefix', 'command_palette', {
@@ -170,16 +174,16 @@ mp.add_timeout(0.3, function()
       } },
 
       { 'n', 'prefix', 'channel_mixer', {
-          { 'c', 'script-binding channel_mixer/mix("cmCenter",0.1)', 'Center +0.1' },
-          { 'C', 'script-binding channel_mixer/mix("cmCenter",-0.1)', 'Center -0.1' },
-          { 'f', 'script-binding channel_mixer/mix("cmFront",0.1)', 'Front +0.1' },
-          { 'F', 'script-binding channel_mixer/mix("cmFront",-0.1)', 'Front -0.1' },
-          { 's', 'script-binding channel_mixer/mix("cmSide",0.1)', 'Side +0.1' },
-          { 'S', 'script-binding channel_mixer/mix("cmSide",-0.1)', 'Side -0.1' },
-          { 'b', 'script-binding channel_mixer/mix("cmBack",0.1)', 'Back +0.1' },
-          { 'B', 'script-binding channel_mixer/mix("cmBack",-0.1)', 'Back -0.1' },
-          { 'l', 'script-binding channel_mixer/mix("cmLFE",0.1)', 'LFE +0.1' },
-          { 'L', 'script-binding channel_mixer/mix("cmLFE",-0.1)', 'LFE -0.1' },
+        { 'c', 'script-binding channel_mixer/mix("cmCenter",0.1)', 'Center +0.1' },
+        { 'C', 'script-binding channel_mixer/mix("cmCenter",-0.1)', 'Center -0.1' },
+        { 'f', 'script-binding channel_mixer/mix("cmFront",0.1)', 'Front +0.1' },
+        { 'F', 'script-binding channel_mixer/mix("cmFront",-0.1)', 'Front -0.1' },
+        { 's', 'script-binding channel_mixer/mix("cmSide",0.1)', 'Side +0.1' },
+        { 'S', 'script-binding channel_mixer/mix("cmSide",-0.1)', 'Side -0.1' },
+        { 'b', 'script-binding channel_mixer/mix("cmBack",0.1)', 'Back +0.1' },
+        { 'B', 'script-binding channel_mixer/mix("cmBack",-0.1)', 'Back -0.1' },
+        { 'l', 'script-binding channel_mixer/mix("cmLFE",0.1)', 'LFE +0.1' },
+        { 'L', 'script-binding channel_mixer/mix("cmLFE",-0.1)', 'LFE -0.1' },
       } },
 
       { 'm', 'prefix', 'acompressor', {
@@ -219,7 +223,8 @@ mp.add_timeout(0.3, function()
         { '5', 'set speed 2.50', 'set 2.50 playback speed' },
         { '6', 'set speed 3.00', 'set 3.00 playback speed' },
         { 'a', 'script-binding quality_menu/audio_formats_toggle', 'quality_menu/audio_formats_toggle' },
-        { 'p', 'set speed 2.00; script-binding skipsilence/enable', 'skipsilence/toggle' },
+        { 'p', 'set speed 2.00; script-binding skipsilence/enable', 'no time wasted' },
+        { 'r', 'set speed 1.00; script-binding skipsilence/disable', 'normal playback' },
         { 'v', 'script-binding quality_menu/video_formats_toggle', 'quality_menu/video_formats_toggle' },
       } },
 

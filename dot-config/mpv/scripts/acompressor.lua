@@ -44,12 +44,12 @@ local o = {
 options.read_options(o)
 
 local params = {
-	{ name = 'attack',    min=0.01, max=2000, hide_default=false, dB=''   },
-	{ name = 'release',   min=0.01, max=9000, hide_default=false, dB=''   },
-	{ name = 'threshold', min= -30, max=   0, hide_default=false, dB='dB' },
-	{ name = 'ratio',     min=   1, max=  20, hide_default=false, dB=''   },
-	{ name = 'knee',      min=   1, max=  10, hide_default=false, dB='dB' },
-	{ name = 'makeup',    min=   0, max=  24, hide_default=false, dB='dB' },
+	{ name = 'attack',    min=0.01, max=2000, hide_default=true, dB=''   },
+	{ name = 'release',   min=0.01, max=9000, hide_default=true, dB=''   },
+	{ name = 'threshold', min= -30, max=   0, hide_default=true, dB='dB' },
+	{ name = 'ratio',     min=   1, max=  20, hide_default=true, dB=''   },
+	{ name = 'knee',      min=   1, max=  10, hide_default=true, dB='dB' },
+	{ name = 'makeup',    min=   0, max=  24, hide_default=true, dB='dB' },
 }
 
 local function parse_value(value)

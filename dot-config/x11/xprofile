@@ -35,7 +35,7 @@ case $(hostname) in
         export LIBVA_DRIVER_NAME=vdpau
         export VDPAU_DRIVER=nvidia
         # xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --mode 3840x2160 --scale 0.5 --pos 3840x0 --rotate normal
-        xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off
+        # xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off
         autostart 10 30 &
         locker &
         # conky &
