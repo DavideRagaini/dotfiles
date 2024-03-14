@@ -1,38 +1,31 @@
-# ======================= TODOs ============= {{{
-# TODO Move to Keychord
-# TODO Keychord to resize floating windows
-# TODO STICKY: when group switch focus, then unfocus floating
-# TODO MPD widget empty string when paused
-# }}}
 # ======================= Imports ============= {{{
 from libqtile.config import Screen
 
 from typing import List
 
 from groups import Groups
-from scratchpad import Scratchpad, DropDown_Keys
+from scratchpad import Scratchpad
 from colors import dracula
 from layouts import layout_defaults
 from bindings import *
+
 # }}}
 # ======================= init ============= {{{
-
 if __name__ in ["config", "__main__"]:
     obj_groups = Groups()
 
     obj_scratchpad = Scratchpad()
-    obj_dd_keys = DropDown_Keys()
+    # obj_dd_keys = DropDown_Keys()
 
     groups = obj_groups.init_groups()
 
+groups = obj_groups.init_groups()
+groups += obj_scratchpad.init_scratchpad()
 
 layouts = layout_defaults()
 mouse = mouse()
 keys = bindings()
-
-groups = obj_groups.init_groups()
-groups += obj_scratchpad.init_scratchpad()
-keys += obj_dd_keys.init_dropdown_keybindings()
+# keys += obj_dd_keys.init_dropdown_keybindings()
 # }}}
 # ======================= Colors ============= {{{
 colorscheme = dracula()
