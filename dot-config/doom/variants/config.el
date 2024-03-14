@@ -88,7 +88,7 @@
     ("^\\*Completions*"     :slot -1 :vslot -2 :ttl 0)
     ("^\\*Edit Formulas*"   :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Help*"            :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Man*"             :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Man*"             :side right  :size 0.30 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^magit-process:*"     :side right  :size 0.40 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Org Agenda*"      :side left   :size 0.40 :quit t   :slot  3 :vslot  3 :ttl 0 :select t)
     ("^\\*Python*"          :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)

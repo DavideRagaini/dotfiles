@@ -1,6 +1,14 @@
-from libqtile.config import EzKey as Key
+from libqtile.config import EzKey, KeyChord
 
 
+# ======================= Variables ============= {{{
+M = "mod4"
+A = "mod1"
+S = "shift"
+C = "control"
+
+
+# }}}
 # ======================= dmenu ============= {{{
 def dmenu_defs():
     opts = [
@@ -22,7 +30,7 @@ def dmenu_defs():
 
 # }}}
 # ======================= Keybindings ============= {{{
-from libqtile.extension import WindowList, DmenuRun, CommandSet
+from libqtile.extension import WindowList, DmenuRun
 from os import environ as env
 from functions import *
 
@@ -30,8 +38,8 @@ from functions import *
 def bindings():
     terminal = env["TERMINAL"]
     browser = env["BROWSER"]
-    browser_A = env["BROWSER2"]
-    browser_priv = env["BROWSER_PRIVATE"]
+    browserA = env["BROWSER2"]
+    browserP = env["BROWSER_PRIVATE"]
     # text_editor = terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
     text_editor = "emacsclient -c"
     launcher = "run"
@@ -47,365 +55,392 @@ def bindings():
     )
 
     return [
-        # === Special Keys=== {{{
-        # Key("M-S", "XF86Back", lazy.spawn("dmpc seekp")),
-        # Key("M-S", "XF86Forward", lazy.spawn("dmpc seekf")),
-        # Key([], "XF86HomePage", lazy.spawn("")),
-        # Key([], "XF86Search", lazy.spawn("")),
-        # Key([], "XF86Search", lazy.spawn("ferdium")),
-        Key("<XF86Calculator>", lazy.group["SPD"].dropdown_toggle("calculator")),
-        Key("<XF86HomePage>", lazy.group["SPD"].dropdown_toggle("btop")),
-        Key("<XF86Launch7>", lazy.group["SPD"].dropdown_toggle("mixer")),
-        Key("<XF86Mail>", lazy.group["SPD"].dropdown_toggle("mails")),
-        Key("M-<XF86HomePage>", lazy.group["SPD"].dropdown_toggle("htop")),
-        Key("M-C-<XF86Back>", lazy.spawn("dmpc prev")),
-        Key("M-C-<XF86Forward>", lazy.spawn("dmpc next")),
-        Key("M-S-<XF86AudioPlay>", lazy.spawn("tppctl invert")),
-        Key("M-S-<XF86Back>", lazy.spawn("tppctl seek -10")),
-        Key("M-S-<XF86Forward>", lazy.spawn("tppctl seek 10")),
-        Key("M-<XF86AudioMute>", lazy.spawn("output-audio")),
-        Key(
-            "<XF86AudioMute>",
-            lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-        ),
-        Key("M-<XF86AudioNext>", lazy.spawn("tppctl seek 10")),
-        Key("M-<XF86AudioPlay>", lazy.spawn("tppctl toggle")),
-        Key("M-<XF86AudioPrev>", lazy.spawn("tppctl seek -10")),
-        Key("M-<XF86Calculator>", lazy.spawn("systemctl suspend")),
-        Key("M-<XF86Favorites>", focus_previous_window()),
-        Key("M-<XF86Launch8>", lazy.spawn("tppctl seek -10")),
-        Key("M-<XF86Launch9>", lazy.spawn("tppctl seek 10")),
-        Key("M-<XF86MonBrightnessDown>", lazy.spawn("xbacklight -dec 15")),
-        Key("M-<XF86MonBrightnessUp>", lazy.spawn("xbacklight -inc 15")),
-        Key(
+        # ======================= Special Keys ======================= {{{
+        EzKey(
             "<XF86AudioLowerVolume>",
             lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"),
         ),
-        Key("<XF86AudioNext>", lazy.spawn("dmpc next")),
-        Key("<XF86AudioPlay>", lazy.spawn("dmpc toggle")),
-        Key("<XF86AudioPrev>", lazy.spawn("dmpc prev")),
-        Key(
+        EzKey(
+            "M-<XF86AudioLowerVolume>",
+            lazy.spawn("mpc volume -5"),
+        ),
+        #
+        EzKey(
+            "M-<XF86AudioRaiseVolume>",
+            lazy.spawn("mpc volume +5"),
+        ),
+        EzKey(
             "<XF86AudioRaiseVolume>",
             lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
         ),
-        Key("<XF86Explorer>", lazy.screen.toggle_group()),
-        Key("<XF86Favorites>", lazy.screen.toggle_group()),
-        Key("<XF86Launch5>", lazy.spawn("tppctl invert")),
-        Key("<XF86MonBrightnessDown>", lazy.spawn("xbacklight -dec 5")),
-        Key("<XF86MonBrightnessUp>", lazy.spawn("xbacklight -inc 5")),
+        #
+        EzKey(
+            "<XF86AudioMute>",
+            lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+        ),
+        EzKey("M-<XF86AudioMute>", lazy.spawn("output-audio")),
+        #
+        EzKey("<XF86AudioNext>", lazy.spawn("dmpc next")),
+        EzKey("M-<XF86AudioNext>", lazy.spawn("tppctl seek 10")),
+        #
+        EzKey("<XF86AudioPrev>", lazy.spawn("dmpc prev")),
+        EzKey("M-<XF86AudioPrev>", lazy.spawn("tppctl seek -10")),
+        #
+        EzKey("<XF86AudioPlay>", lazy.spawn("dmpc toggle")),
+        EzKey("C-<XF86AudioPlay>", lazy.spawn("tppctl pauseall")),
+        EzKey("M-<XF86AudioPlay>", lazy.spawn("tppctl invert")),
+        EzKey("S-<XF86AudioPlay>", lazy.spawn("tppctl toggle")),
+        #
+        EzKey("<XF86Calculator>", lazy.group["SPD"].dropdown_toggle("calculator")),
+        EzKey("M-<XF86Calculator>", lazy.spawn("systemctl suspend")),
+        #
+        EzKey("<XF86HomePage>", lazy.group["SPD"].dropdown_toggle("btop")),
+        EzKey("M-<XF86HomePage>", lazy.group["SPD"].dropdown_toggle("htop")),
+        #
+        EzKey("<XF86Favorites>", lazy.screen.toggle_group()),
+        EzKey("M-<XF86Favorites>", focus_previous_window()),
+        #
+        EzKey("<XF86Explorer>", lazy.screen.toggle_group()),
+        #
+        EzKey("<XF86Mail>", lazy.group["SPD"].dropdown_toggle("mails")),
+        #
+        # EzKey("<XF86Launch5>", lazy.spawn("")),
+        # EzKey("<XF86Launch6>", lazy.spawn("")),
+        EzKey("<XF86Launch7>", lazy.group["SPD"].dropdown_toggle("mixer")),
+        EzKey("M-<XF86Launch8>", lazy.spawn("tppctl seek -10")),
+        EzKey("M-<XF86Launch9>", lazy.spawn("tppctl seek 10")),
+        #
+        EzKey("<XF86MonBrightnessDown>", lazy.spawn("xbacklight -dec 5")),
+        EzKey("M-<XF86MonBrightnessDown>", lazy.spawn("xbacklight -dec 15")),
+        #
+        EzKey("<XF86MonBrightnessUp>", lazy.spawn("xbacklight -inc 5")),
+        EzKey("M-<XF86MonBrightnessUp>", lazy.spawn("xbacklight -inc 15")),
+        #
+        EzKey("M-C-<XF86Back>", lazy.spawn("dmpc prev")),
+        EzKey("M-S-<XF86Back>", lazy.spawn("tppctl seek -10")),
+        # EzKey("M-S", "XF86Back", lazy.spawn("dmpc seekp")),
+        #
+        EzKey("M-C-<XF86Forward>", lazy.spawn("dmpc next")),
+        EzKey("M-S-<XF86Forward>", lazy.spawn("tppctl seek 10")),
+        # EzKey("M-S", "XF86Forward", lazy.spawn("dmpc seekf")),
         # }}}
-        # === Function Keys=== {{{
-        Key("M-<Escape>", lazy.group["SPD"].dropdown_toggle("btop")),
-        Key("M-S-<Escape>", lazy.group["SPD"].dropdown_toggle("btop")),
-        # Key("M-F1", lazy.spawn("")),
-        # Key("M-F2", lazy.spawn("")),
-        Key("M-<F3>", lazy.spawn("wifi-toggle")),
-        # Key("M-F4", lazy.spawn("")),
-        # Key("M-F5", lazy.spawn("")),
-        # Key("M-F6", lazy.spawn("")),
-        # Key("M-F7", lazy.spawn("")),
-        Key("M-<F8>", lazy.spawn("dmenumount")),
-        Key("M-S-<F8>", lazy.spawn("dmenuumount")),
-        # Key("M-F9", lazy.spawn("")),
-        # Key("M-F10", lazy.spawn("")),
-        # Key("M-F11", lazy.spawn("")),
-        Key("M-<F12>", lazy.spawn("maimpick")),
-        Key("M-S-<F12>", lazy.spawn("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png")),
+        # ======================= Function Keys ======================= {{{
+        EzKey("M-<Escape>", lazy.group["SPD"].dropdown_toggle("btop")),
+        EzKey("M-S-<Escape>", lazy.group["SPD"].dropdown_toggle("btop")),
+        # EzKey("M-F1", lazy.spawn("")),
+        # EzKey("M-F2", lazy.spawn("")),
+        EzKey("M-<F3>", lazy.spawn("wifi-toggle")),
+        # EzKey("M-F4", lazy.spawn("")),
+        # EzKey("M-F5", lazy.spawn("")),
+        # EzKey("M-F6", lazy.spawn("")),
+        # EzKey("M-F7", lazy.spawn("")),
+        EzKey("M-<F8>", lazy.spawn("dmenumount")),
+        EzKey("M-S-<F8>", lazy.spawn("dmenuumount")),
+        # EzKey("M-F9", lazy.spawn("")),
+        # EzKey("M-F10", lazy.spawn("")),
+        # EzKey("M-F11", lazy.spawn("")),
+        EzKey("M-<F12>", lazy.spawn("maimpick")),
+        EzKey("M-S-<F12>", lazy.spawn("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png")),
         # }}}
-        # === Number Keys=== {{{
-        Key("M-<grave>", lazy.spawn("dunstctl close")),
-        Key("M-S-<grave>", lazy.spawn("dunstctl history-pop")),
-        Key("A-C-1", lazy.group.setlayout("max")),
-        Key("A-C-2", lazy.group.setlayout("monadtall")),
-        Key("A-C-3", lazy.group.setlayout("treetab")),
-        Key("A-C-4", lazy.group.setlayout("bsp")),
-        Key("A-C-5", lazy.group.setlayout("matrix")),
-        Key("A-C-6", lazy.group.setlayout("ratiotile")),
-        Key("A-C-7", lazy.group.setlayout("tile")),
-        Key("A-C-8", lazy.group.setlayout("stack")),
-        Key("A-C-9", lazy.group.setlayout("monadwide")),
-        Key("A-C-0", lazy.group.setlayout("monadthreecol")),
+        # ======================= Number Keys ======================= {{{
+        EzKey("M-<grave>", lazy.spawn("dunstctl close")),
+        EzKey("M-S-<grave>", lazy.spawn("dunstctl history-pop")),
         #
-        # Key("M-<minus>", lazy.spawn("")),
+        EzKey("A-C-1", lazy.group.setlayout("max")),
+        EzKey("A-C-2", lazy.group.setlayout("monadtall")),
+        EzKey("A-C-3", lazy.group.setlayout("treetab")),
+        EzKey("A-C-4", lazy.group.setlayout("bsp")),
+        EzKey("A-C-5", lazy.group.setlayout("matrix")),
+        EzKey("A-C-6", lazy.group.setlayout("ratiotile")),
+        EzKey("A-C-7", lazy.group.setlayout("tile")),
+        EzKey("A-C-8", lazy.group.setlayout("stack")),
+        EzKey("A-C-9", lazy.group.setlayout("monadwide")),
+        EzKey("A-C-0", lazy.group.setlayout("monadthreecol")),
         #
-        Key("M-<equal>", lazy.spawn("dmenuunicode")),
+        EzKey("M-<minus>", lazy.layout.toggle_split()),
+        EzKey("M-<equal>", lazy.spawn("dmenuunicode")),
         #
-        Key("M-<backspace>", lazy.spawn("sysact Shutdown")),
-        Key("M-S-<backspace>", lazy.spawn("sysact")),
-        Key("M-C-<backspace>", lazy.spawn("sysact Suspend")),
+        EzKey("M-<backspace>", lazy.spawn("sysact Shutdown")),
+        EzKey("M-S-<backspace>", lazy.spawn("sysact")),
+        EzKey("M-C-<backspace>", lazy.spawn("sysact Suspend")),
         # }}}
-        # === First Row === {{{
-        # Key([mod], "c", lazy.group["SPD"].dropdown_toggle("mpvfloat")),
-        Key("M-S-m", lazy.group["SPD"].dropdown_toggle("spotify")),
-        Key("M-m", lazy.group["SPD"].dropdown_toggle("music")),
-        Key("M-n", lazy.group["SPD"].dropdown_toggle("news")),
-        Key("M-S-n", lazy.group["SPD"].dropdown_toggle("podcasts")),
-        Key("A-<Tab>", focus_previous_window()),
-        Key("M-<Tab>", lazy.screen.toggle_group()),
-        Key("M-S-<Tab>", lazy.run_extension(WindowList(**dmenu_defaults))),
+        # ======================= First Row ======================= {{{
+        # EzKey([mod], "c", lazy.group["SPD"].dropdown_toggle("mpvfloat")),
+        EzKey("A-<Tab>", focus_previous_window()),
+        EzKey("M-<Tab>", lazy.screen.toggle_group()),
+        EzKey("M-S-<Tab>", lazy.run_extension(WindowList(**dmenu_defaults))),
         #
-        Key("M-q", lazy.window.kill()),
-        Key("M-C-q", lazy.shutdown()),
+        EzKey("M-q", lazy.window.kill()),
+        EzKey("M-C-q", lazy.shutdown()),
         #
-        Key("M-w", lazy.spawn(browser)),
-        Key("M-C-w", lazy.spawn(browser_priv)),
-        Key("M-S-w", lazy.spawn(browser_A)),
-        # Key([mod], "w", lazy.group["SPD"].dropdown_toggle("float_mpv")),
+        EzKey("M-w", lazy.spawn(browser)),
+        EzKey("M-C-w", lazy.spawn(browserP)),
+        EzKey("M-S-w", lazy.spawn(browserA)),
+        # EzKey([mod], "w", lazy.group["SPD"].dropdown_toggle("float_mpv")),
         #
-        # Key([mod], "e", lazy.group["SPD"].dropdown_toggle("agenda")),
-        Key("M-e", lazy.spawn(text_editor)),
-        Key("M-S-e", lazy.spawn(terminal + " -e emacsclient -c")),
+        # EzKey([mod], "e", lazy.group["SPD"].dropdown_toggle("agenda")),
+        EzKey("M-e", lazy.spawn(text_editor)),
+        EzKey("M-S-e", lazy.spawn(terminal + " -e emacsclient -c")),
         #
-        Key("M-S-r", lazy.spawn("via -a")),
-        Key("M-C-r", lazy.restart()),
+        EzKey("M-S-r", lazy.spawn("via -a")),
+        EzKey("M-C-r", lazy.restart()),
         #
-        Key("M-t", lazy.window.toggle_minimize()),
-        Key("M-C-t", lazy.spawn("switch-theme")),
-        Key("M-S-t", lazy.group.unminimize_all()),
+        EzKey("M-t", lazy.window.toggle_minimize()),
+        EzKey("M-C-t", lazy.spawn("switch-theme")),
+        EzKey("M-S-t", lazy.group.unminimize_all()),
         #
-        Key("M-y", lazy.group["SPD"].dropdown_toggle("qtile_shell")),
+        EzKey("M-y", lazy.group["SPD"].dropdown_toggle("qtile_shell")),
         #
-        Key("M-u", lazy.layout.normalize()),
-        Key("M-C-u", move_mpv_to_current_group()),
+        EzKey("M-u", lazy.layout.normalize()),
+        EzKey("M-C-u", move_mpv_to_current_group()),
         #
-        Key("M-i", float_cycle(False)),
-        Key("M-C-i", window_opacity("set", 0.1)),
-        Key("M-S-i", lazy.prev_layout()),
-        Key("M-S-C-i", window_opacity("dec")),
+        EzKey("M-i", float_cycle(False)),
+        EzKey("M-S-i", lazy.prev_layout()),
         #
-        Key("M-o", float_cycle(True)),
-        Key("M-C-o", window_opacity("set", 1)),
-        Key("M-S-o", lazy.next_layout()),
-        Key("M-S-C-o", window_opacity("inc")),
+        EzKey("M-o", float_cycle(True)),
+        EzKey("M-S-o", lazy.next_layout()),
+        KeyChord(
+            [M, C],
+            "o",
+            [
+                EzKey("h", window_opacity("set", 1)),
+                EzKey("l", window_opacity("set", 0.1)),
+                EzKey("j", window_opacity("dec", 1)),
+                EzKey("k", window_opacity("inc", 1)),
+                EzKey("1", window_opacity("set", 0.1)),
+                EzKey("2", window_opacity("set", 0.2)),
+                EzKey("3", window_opacity("set", 0.3)),
+                EzKey("4", window_opacity("set", 0.4)),
+                EzKey("5", window_opacity("set", 0.5)),
+                EzKey("6", window_opacity("set", 0.6)),
+                EzKey("7", window_opacity("set", 0.7)),
+                EzKey("8", window_opacity("set", 0.8)),
+                EzKey("9", window_opacity("set", 0.9)),
+                EzKey("0", window_opacity("set", 1)),
+            ],
+            mode=True,
+            name="Opacity",
+        ),
         #
-        Key("M-p", lazy.spawn("dmpv append")),
-        Key("M-C-p", lazy.spawn("dmpv")),
-        Key("M-S-p", lazy.spawn("dmpv aplay ")),
+        EzKey("M-p", lazy.spawn("dmpv append")),
+        EzKey("M-C-p", lazy.spawn("dmpv")),
+        EzKey("M-S-p", lazy.spawn("dmpv aplay ")),
         #
-        Key("M-<bracketleft>", lazy.screen.prev_group(skip_empty=True)),
-        Key("M-S-<bracketleft>", lazy.window.move_down()),
-        Key("M-<bracketright>", lazy.screen.next_group(skip_empty=True)),
+        EzKey("M-<bracketleft>", lazy.screen.prev_group(skip_empty=True)),
+        EzKey("M-S-<bracketleft>", lazy.window.move_down()),
         #
-        Key("M-S-<bracketright>", lazy.window.move_up()),
-        Key("M-<backslash>", floating_corner_window("bottom right")),
-        Key("M-S-<backslash>", floating_corner_window("top right")),
-        Key("M-C-<backslash>", floating_corner_window("bottom left")),
-        Key("M-S-C-<backslash>", floating_corner_window("top left")),
+        EzKey("M-<bracketright>", lazy.screen.next_group(skip_empty=True)),
+        EzKey("M-S-<bracketright>", lazy.window.move_up()),
+        #
+        EzKey("M-<backslash>", floating_corner_window("bottom right")),
+        EzKey("M-S-<backslash>", floating_corner_window("top right")),
+        EzKey("M-C-<backslash>", floating_corner_window("bottom left")),
+        EzKey("M-S-C-<backslash>", floating_corner_window("top left")),
         # }}}
-        # === Second Row === {{{
-        Key("M-a", lazy.next_screen()),
-        Key("M-S-a", lazy.function(window_to_next_screen, switch_screen=True)),
-        # Key("M-A-a", add_treetab_section),
+        # ======================= Second Row ======================= {{{
+        EzKey("M-a", lazy.next_screen()),
+        EzKey("M-S-a", lazy.function(window_to_next_screen, switch_screen=True)),
+        # EzKey("M-A-a", add_treetab_section),
         #
-        # Key("M-s", toggle_sticky_windows()),
+        # EzKey("M-s", toggle_sticky_windows()),
         #
-        Key("M-d", lazy.run_extension(DmenuRun(**dmenu_defaults))),
-        Key("M-S-d", lazy.spawn("via -r")),
-        Key("M-C-d", lazy.spawncmd(launcher)),
+        EzKey("M-d", lazy.run_extension(DmenuRun(**dmenu_defaults))),
+        EzKey("M-S-d", lazy.spawn("via -r")),
+        EzKey("M-C-d", lazy.spawncmd(launcher)),
         #
-        Key("M-f", lazy.window.toggle_maximize(), lazy.window.keep_above()),
-        Key("M-S-f", lazy.window.toggle_fullscreen()),
-        Key("M-C-f", float_to_front()),
-        # Key([M, A], "f", focus_floating_window()),
-        Key("M-g", lazy.group["SPD"].toscreen(toggle=True)),
-        Key("M-S-g", lazy.window.togroup("SPD")),
+        EzKey("M-f", lazy.window.toggle_maximize(), lazy.window.keep_above()),
+        EzKey("M-S-f", lazy.window.toggle_fullscreen()),
+        EzKey("M-C-f", float_to_front()),
+        # EzKey([M, A], "f", focus_floating_window()),
+        EzKey("M-g", lazy.group["SPD"].toscreen(toggle=True)),
+        EzKey("M-S-g", lazy.window.togroup("SPD")),
         #
-        Key("M-h", lazy.layout.left()),
-        Key("M-l", lazy.layout.right()),
-        Key("M-j", lazy.layout.down()),
-        Key("M-k", lazy.layout.up()),
+        EzKey("M-h", lazy.layout.left()),
+        EzKey("M-l", lazy.layout.right()),
+        EzKey("M-j", lazy.layout.down()),
+        EzKey("M-k", lazy.layout.up()),
         #
-        Key("M-S-h", lazy.layout.shuffle_left()),
-        Key("M-S-l", lazy.layout.shuffle_right()),
-        Key("M-S-j", lazy.layout.shuffle_down()),
-        Key("M-S-k", lazy.layout.shuffle_up()),
-        Key("M-<semicolon>", focus_previous_window()),
-        Key("M-S-<semicolon>", lazy.group.focus_back()),
+        EzKey("M-S-h", lazy.layout.shuffle_left()),
+        EzKey("M-S-l", lazy.layout.shuffle_right()),
+        EzKey("M-S-j", lazy.layout.shuffle_down()),
+        EzKey("M-S-k", lazy.layout.shuffle_up()),
         #
-        Key(
+        EzKey("M-<semicolon>", focus_previous_window()),
+        EzKey("M-C-<semicolon>", lazy.group.focus_back()),
+        #
+        EzKey(
             "M-C-l",
             lazy.layout.grow_right(),
             lazy.layout.grow(),
             lazy.layout.increase_ratio(),
             lazy.layout.delete(),
         ),
-        Key(
+        EzKey(
             "M-C-h",
             lazy.layout.grow_left(),
             lazy.layout.shrink(),
             lazy.layout.decrease_ratio(),
             lazy.layout.add(),
         ),
-        Key(
+        EzKey(
             "M-C-k",
             lazy.layout.grow_up(),
             lazy.layout.grow(),
             lazy.layout.decrease_nmaster(),
         ),
-        Key(
+        EzKey(
             "M-C-j",
             lazy.layout.grow_down(),
             lazy.layout.shrink(),
             lazy.layout.increase_nmaster(),
         ),
-        Key(
+        EzKey(
             "M-A-h",
             lazy.layout.shuffle_left(),
             lazy.layout.move_left().when(layout=["treetab"]),
         ),
-        Key(
+        EzKey(
             "M-A-l",
             lazy.layout.shuffle_right(),
             lazy.layout.move_right().when(layout=["treetab"]),
         ),
-        Key(
+        EzKey(
             "M-A-j",
             lazy.layout.shuffle_down(),
             lazy.layout.section_down().when(layout=["treetab"]),
         ),
-        Key(
+        EzKey(
             "M-A-k",
             lazy.layout.shuffle_up(),
             lazy.layout.section_up().when(layout=["treetab"]),
         ),
         #
-        Key("A-S-h", lazy.spawn("xdotool mousemove_relative -- -15 0")),
-        Key("A-S-l", lazy.spawn("xdotool mousemove_relative -- 15 0")),
-        Key("A-S-j", lazy.spawn("xdotool mousemove_relative -- 0 15")),
-        Key("A-S-k", lazy.spawn("xdotool mousemove_relative -- 0 -15")),
-        #
-        Key("A-C-h", lazy.spawn("xdotool mousemove_relative -- -50 0")),
-        Key("A-C-l", lazy.spawn("xdotool mousemove_relative -- 50 0")),
-        Key("A-C-j", lazy.spawn("xdotool mousemove_relative -- 0 50")),
-        Key("A-C-k", lazy.spawn("xdotool mousemove_relative -- 0 -50")),
-        #
-        Key("M-<apostrophe>", lazy.group["SPD"].dropdown_toggle("calculator")),
-        #
-        Key("M-<Return>", lazy.group["SPD"].dropdown_toggle("Tmux Dropdown")),
-        Key("A-<Return>", lazy.spawn("xdotool click 1")),
-        Key("M-S-<Return>", lazy.spawn(terminal + " msg create-window -e tmux")),
-        # }}}
-        # === Third Row === {{{
-        Key("M-z", lazy.window.move_to_top()),
-        Key("M-S-z", lazy.window.move_to_bottom()),
-        #
-        Key("M-x", lazy.spawn("alm -d")),
-        #
-        Key("M-c", lazy.screen.togglegroup()),
-        #
-        Key("M-v", restore_all_merged_groups()),
-        #
-        Key("M-b", lazy.hide_show_bar("top")),
-        Key("M-S-b", lazy.spawn("bm S")),
-        Key("M-C-b", lazy.spawn("bm d")),
-        #
-        Key(
-            "M-C-m",
-            lazy.run_extension(
-                CommandSet(
-                    commands={
-                        "play/pause": "mpc toggle",
-                        "next": "mpc next",
-                        "previous": "mpc prev",
-                        "quit": "mpc stop",
-                        "open": terminal + " -e ncmpcpp",
-                        "shuffle": "mpc shuffle",
-                        "repeat": "mpc repeat",
-                        "info": "mpc-notify",
-                        "volume set": CommandSet(
-                            commands={
-                                "5": "mpc volume 5",
-                                "10": "mpc volume 10",
-                                "15": "mpc volume 15",
-                                "20": "mpc volume 20",
-                                "25": "mpc volume 25",
-                                "30": "mpc volume 30",
-                                "35": "mpc volume 35",
-                                "40": "mpc volume 40",
-                                "45": "mpc volume 45",
-                                "50": "mpc volume 50",
-                                "55": "mpc volume 55",
-                                "60": "mpc volume 60",
-                                "65": "mpc volume 65",
-                                "70": "mpc volume 75",
-                                "75": "mpc volume 75",
-                                "80": "mpc volume 85",
-                                "85": "mpc volume 85",
-                                "90": "mpc volume 90",
-                                "95": "mpc volume 95",
-                                "100": "mpc volume 100",
-                            },
-                            **dmenu_defaults,
-                        ),
-                    },
-                    pre_commands=["mpc"],
-                    **dmenu_defaults,
-                )
-            ),
+        KeyChord(
+            [A, C],
+            "h",
+            [
+                EzKey("h", lazy.spawn("xdotool mousemove_relative -- -15 0")),
+                EzKey("l", lazy.spawn("xdotool mousemove_relative -- 15 0")),
+                EzKey("j", lazy.spawn("xdotool mousemove_relative -- 0 15")),
+                EzKey("k", lazy.spawn("xdotool mousemove_relative -- 0 -15")),
+                #
+                EzKey("S-h", lazy.spawn("xdotool mousemove_relative -- -50 0")),
+                EzKey("S-l", lazy.spawn("xdotool mousemove_relative -- 50 0")),
+                EzKey("S-j", lazy.spawn("xdotool mousemove_relative -- 0 50")),
+                EzKey("S-k", lazy.spawn("xdotool mousemove_relative -- 0 -50")),
+                #
+                EzKey("C-h", lazy.spawn("xdotool mousemove_relative -- -100 0")),
+                EzKey("C-l", lazy.spawn("xdotool mousemove_relative -- 100 0")),
+                EzKey("C-j", lazy.spawn("xdotool mousemove_relative -- 0 100")),
+                EzKey("C-k", lazy.spawn("xdotool mousemove_relative -- 0 -100")),
+                #
+                EzKey("<Return>", lazy.spawn("xdotool click 1")),
+            ],
+            mode=True,
+            name="Mouse",
         ),
         #
-        Key("M-C-<period>", lazy.spawn("tppctl pauseall")),
-        Key("A-<comma>", lazy.prev_screen()),
-        Key("M-<comma>", lazy.spawn("dmpc toggle")),
+        EzKey("M-<apostrophe>", lazy.group["SPD"].dropdown_toggle("calculator")),
         #
-        Key("A-<period>", lazy.next_screen()),
-        Key("M-<period>", lazy.spawn("tppctl invert")),
-        Key("M-S-<period>", lazy.spawn("tppctl toggle")),
-        #
-        # Key("M-S-<slash>", lazy.group["SPD"].dropdown_toggle("mixer")),
+        EzKey("M-<Return>", lazy.group["SPD"].dropdown_toggle("Tmux Dropdown")),
+        EzKey("M-S-<Return>", lazy.spawn(terminal + " msg create-window -e tmux")),
         # }}}
-        # === Middle Keys === {{{
-        # Toggle between split and unsplit sides of stack.
-        # Split = all windows displayed
-        # Unsplit = 1 window displayed, like Max layout, but still with multiple stack panes
-        # Key("M-C", "<space>", lazy.layout.toggle_split()),
-        Key("M-<space>", toggle_focus_main()),
-        Key("M-C-<space>", lazy.layout.swap_main()),
-        Key("M-S-<space>", lazy.window.toggle_floating()),
-        Key("M-A-<space>", lazy.layout.flip()),
+        # ======================= Third Row ======================= {{{
+        EzKey("M-z", lazy.window.move_to_top()),
+        EzKey("M-S-z", lazy.window.move_to_bottom()),
         #
-        Key("M-<Insert>", lazy.spawn("clipmenu -i")),
-        Key("M-S-<Insert>", lazy.spawn("clipboard-content.sh")),
+        EzKey("M-x", lazy.spawn("alm -d")),
         #
-        Key("<cancel>", lazy.spawn("tppctl invert")),
-        Key("M-<cancel>", lazy.spawn("tppctl pauseall")),
-        Key("M-S-<cancel>", lazy.spawn("dmpc toggle")),
+        EzKey("M-c", lazy.screen.togglegroup()),
         #
-        Key("M-<up>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
-        Key("M-S-<up>", lazy.spawn("mpc volume +5")),
-        Key("M-C-<up>", lazy.spawn("output-audio")),
+        EzKey("M-v", restore_all_merged_groups()),
         #
-        Key("M-<down>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
-        Key("M-S-<down>", lazy.spawn("mpc volume -5")),
-        Key("M-C-<down>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+        EzKey("M-b", lazy.hide_show_bar("top")),
+        EzKey("M-S-b", lazy.spawn("bm S")),
+        EzKey("M-C-b", lazy.spawn("bm d")),
         #
-        Key("M-<left>", lazy.spawn("tppctl seek -10")),
+        EzKey("M-m", lazy.group["SPD"].dropdown_toggle("music")),
+        EzKey("M-S-m", lazy.group["SPD"].dropdown_toggle("spotify")),
+        KeyChord(
+            [M, C],
+            "m",
+            [
+                EzKey("t", lazy.spawn("mpc toggle")),
+                EzKey("n", lazy.spawn("mpc next")),
+                EzKey("p", lazy.spawn("mpc prev")),
+                EzKey("s", lazy.spawn("mpc shuffle")),
+                EzKey("r", lazy.spawn("mpc repeat")),
+                EzKey("u", lazy.spawn("mpc volume +5")),
+                EzKey("d", lazy.spawn("mpc volume -5")),
+                EzKey("o", lazy.spawn("mpc-notify")),
+                EzKey("1", lazy.spawn("mpc volume 10")),
+                EzKey("2", lazy.spawn("mpc volume 20")),
+                EzKey("3", lazy.spawn("mpc volume 30")),
+                EzKey("4", lazy.spawn("mpc volume 40")),
+                EzKey("5", lazy.spawn("mpc volume 50")),
+                EzKey("6", lazy.spawn("mpc volume 60")),
+                EzKey("7", lazy.spawn("mpc volume 70")),
+                EzKey("8", lazy.spawn("mpc volume 80")),
+                EzKey("9", lazy.spawn("mpc volume 90")),
+                EzKey("0", lazy.spawn("mpc volume 100")),
+            ],
+            mode=True,
+            name="Music",
+        ),
         #
-        Key("M-<right>", lazy.spawn("tppctl seek 10")),
+        EzKey("M-n", lazy.group["SPD"].dropdown_toggle("news")),
+        EzKey("M-S-n", lazy.group["SPD"].dropdown_toggle("podcasts")),
+        #
+        EzKey("A-<comma>", lazy.prev_screen()),
+        EzKey("M-<comma>", lazy.spawn("dmpc toggle")),
+        #
+        EzKey("A-<period>", lazy.next_screen()),
+        EzKey("M-<period>", lazy.spawn("tppctl invert")),
+        EzKey("M-C-<period>", lazy.spawn("tppctl pauseall")),
+        EzKey("M-S-<period>", lazy.spawn("tppctl toggle")),
+        #
+        EzKey("M-S-<slash>", lazy.group["SPD"].dropdown_toggle("mixer")),
+        # }}}
+        # ======================= Middle Keys ======================= {{{
+        EzKey("M-<space>", toggle_focus_main()),
+        EzKey("M-C-<space>", lazy.layout.swap_main()),
+        EzKey("M-S-<space>", lazy.window.toggle_floating()),
+        EzKey("M-A-<space>", lazy.layout.flip()),
+        #
+        EzKey("M-<Insert>", lazy.spawn("clipmenu -i")),
+        EzKey("M-S-<Insert>", lazy.spawn("clipboard-content.sh")),
+        #
+        EzKey("<cancel>", lazy.spawn("tppctl invert")),
+        EzKey("M-<cancel>", lazy.spawn("tppctl pauseall")),
+        EzKey("M-S-<cancel>", lazy.spawn("dmpc toggle")),
+        #
+        EzKey("M-<up>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
+        EzKey("M-S-<up>", lazy.spawn("mpc volume +5")),
+        EzKey("M-C-<up>", lazy.spawn("output-audio")),
+        #
+        EzKey("M-<down>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
+        EzKey("M-S-<down>", lazy.spawn("mpc volume -5")),
+        EzKey("M-C-<down>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+        #
+        EzKey("M-<left>", lazy.spawn("tppctl seek -10")),
+        #
+        EzKey("M-<right>", lazy.spawn("tppctl seek 10")),
         # }}}
     ]
 
 
 # }}}
 # ======================= Mouse ============= {{{
-from libqtile.config import Click, Drag
+from libqtile.config import EzClick, EzDrag
 
 
-def mouse(mod="mod4"):
+def mouse():
     return [
-        Drag(
-            [mod],
-            "Button1",
-            lazy.window.set_position_floating(),
-            start=lazy.window.get_position(),
+        EzDrag(
+            "M-1", lazy.window.set_position_floating(), start=lazy.window.get_position()
         ),
-        Drag(
-            [mod],
-            "Button3",
-            lazy.window.set_size_floating(),
-            start=lazy.window.get_size(),
-        ),
-        Click([mod], "Button2", lazy.window.bring_to_front()),
+        EzDrag("M-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+        EzClick("M-2", lazy.window.bring_to_front()),
     ]
 
 
@@ -433,9 +468,9 @@ def dr_key_binder(keynames=None):
         # bind all keys
         for keyname, group in zip(keys, dgroup.qtile.groups):
             name = group.name
-            key = Key("M-" + str(keyname), lazy.group[name].toscreen())
-            key_s = Key("M-S-" + str(keyname), lazy.window.togroup(name))
-            key_c = Key("M-C-" + str(keyname), merge_groups(int(name)))
+            key = EzKey("M-" + str(keyname), lazy.group[name].toscreen())
+            key_s = EzKey("M-S-" + str(keyname), lazy.window.togroup(name))
+            key_c = EzKey("M-C-" + str(keyname), merge_groups(int(name)))
             dgroup.keys.extend([key, key_s, key_c])
             dgroup.qtile.config.keys.extend([key, key_s, key_c])
             dgroup.qtile.grab_key(key)

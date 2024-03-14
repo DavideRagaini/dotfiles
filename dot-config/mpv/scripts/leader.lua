@@ -223,7 +223,7 @@ mp.add_timeout(0.3, function()
         { '5', 'set speed 2.50', 'set 2.50 playback speed' },
         { '6', 'set speed 3.00', 'set 3.00 playback speed' },
         { 'a', 'script-binding quality_menu/audio_formats_toggle', 'quality_menu/audio_formats_toggle' },
-        { 'p', 'set speed 2.00; script-binding skipsilence/enable', 'no time wasted' },
+        { 'p', 'set speed 1.75; script-binding skipsilence/enable', 'no time wasted' },
         { 'r', 'set speed 1.00; script-binding skipsilence/disable', 'normal playback' },
         { 'v', 'script-binding quality_menu/video_formats_toggle', 'quality_menu/video_formats_toggle' },
       } },

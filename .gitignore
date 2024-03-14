@@ -54,9 +54,17 @@ dot-config/qBittorrent/*
 !dot-config/qBittorrent/qBittorrent.conf
 
 dot-config/qtile/**
+!dot-config/qtile/autostart.py
+!dot-config/qtile/autostart.sh
+!dot-config/qtile/bars.py
+!dot-config/qtile/bindings.py
+!dot-config/qtile/colors.py
 !dot-config/qtile/config.py
-!dot-config/qtile/modules/**
-!dot-config/qtile/functions/**
+!dot-config/qtile/functions.py
+!dot-config/qtile/groups.py
+!dot-config/qtile/layouts.py
+!dot-config/qtile/pyrightconfig.json
+!dot-config/qtile/scrachpad.py
 
 dot-config/qutebrowser/__pycache__
 dot-config/qutebrowser/autoconfig.yml

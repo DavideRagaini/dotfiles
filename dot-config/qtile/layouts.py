@@ -6,10 +6,10 @@ def layout_defaults():
     colorscheme = dracula()
     (
         colors,
-        backgroundColor,
-        foregroundColor,
-        workspaceColor,
-        foregroundColorTwo,
+        background,
+        foreground,
+        workspace,
+        foregroundTwo,
     ) = colorscheme
 
     layout_defaults = dict(
@@ -32,7 +32,7 @@ def layout_defaults():
             **layout_defaults,
             active_bg=colors[3],
             active_fg=colors[5],
-            bg_color=backgroundColor,
+            bg_color=background,
             fontsize=11,
             inactive_bg="151515",
             inactive_fg=colors[2],
