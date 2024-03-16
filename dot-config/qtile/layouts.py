@@ -1,6 +1,8 @@
 from libqtile import layout
 from libqtile.config import Match
 from colors import dracula
+from re import compile as regex
+
 
 def layout_defaults():
     colorscheme = dracula()
@@ -53,6 +55,7 @@ def layout_defaults():
         layout.Stack(**layout_defaults, num_stacks=2),
         layout.Matrix(**layout_defaults),
         layout.MonadWide(**layout_defaults),
+        # layout.ScreenSplit(**layout_defaults),
         # layout.VerticalTile(),
         # layout.Zoomy(columnwidth=500),
         layout.Floating(
@@ -60,33 +63,15 @@ def layout_defaults():
             border_width=2,
             float_rules=[
                 *layout.Floating.default_float_rules,
-                Match(wm_class="ssh-askpass"),  # ssh-askpass
-                Match(title="fzfmenu"),
-                Match(wm_instance_class="Places"),
-                # Match(wm_instance_class="mpvFloat"),
                 # Match(title="Eagenda"),
-                Match(title="branchdialog"),  # gitk
-                Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
-                Match(wm_class="pinentry-qt"),  # GPG key password entry
-                Match(title="pinentry"),  # GPG key password entry
-                Match(func=lambda c: c.has_fixed_size()),
+                # Match(wm_instance_class="mpvFloat"),
                 Match(func=lambda c: c.has_fixed_ratio()),
-                Match(wm_class="confirm"),
-                Match(wm_class="dialog"),
-                Match(wm_class="download"),
-                Match(wm_class="error"),
-                Match(wm_class="file_progress"),
-                Match(wm_class="notification"),
-                Match(wm_class="splash"),
-                Match(wm_class="toolbar"),
-                Match(wm_class="confirmreset"),
-                Match(wm_class="makebranch"),
-                Match(wm_class="maketag"),
-                Match(title="branchdialog"),
-                Match(title="Xephyr on :1.0 (ctrl+shift grabs mouse and keyboard)"),
-                Match(title="Bitwarden"),
-                Match(wm_class="nextcloud"),
-                Match(wm_class="system-config-printer"),
+                Match(func=lambda c: c.has_fixed_size()),
+                Match(title="Bitwardenbranchdialog|fzfmenu|pinentry"),
+                Match(
+                    wm_class="confirm|confirmreset|dialog|download|error|file_progress|makebranch|maketag|nextcloud|notification|pinentry-gtk-2|pinentry-qt|splash|ssh-askpass|system-config-printer|toolbar"
+                ),
+                Match(wm_instance_class=regex("Places")),
             ],
         ),
     ]

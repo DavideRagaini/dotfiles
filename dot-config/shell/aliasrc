@@ -97,33 +97,25 @@ alias \
 
 # Abbreviations
 alias \
+    E="\$VISUAL" \
     doomupdate="doom sync && doom sync -u && doom upgrade && doom purge > ~/.local/doom-upgrade" \
     e="\$EDITOR" \
-    E="\$VISUAL" \
-    pw="pipe-viewer" \
-    pip="python3 -m pip" \
     irssi="irssi --config=\"\$XDG_CONFIG_HOME\"/irssi/config -- home=\"\$XDG_DATA_HOME\"/irssi" \
+    locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
+    mpa="mpv --no-video --audio-client-name=mpv-audio " \
+    pip="python3 -m pip" \
     pips="python3 -m pip_search" \
+    pw="pipe-viewer" \
     q="exit" \
     s="doas" \
     scl="systemctl" \
     sclu="systemctl --user" \
     smi="doas make install" \
-    spd="librespot \
-            --c ~/.cache/librespot \
-            --backend pulseaudio \
-            --cache-size-limit 1G \
-            --name \"\$(hostname)\" \
-            --device-type computer \
-            --initial-volume 100 \
-            --enable-volume-normalisation \
-            --normalisation-pregain -5 \
-            --bitrate 320" \
-    v="nvim" \
     trr="transmission-remote" \
     trrq="transmission-remote --exit" \
     udc="udisksctl" \
-    locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
+    v="nvim" \
+    watch="watch -pcb" \
     x="sxiv -ft *" \
     zt="zathura"
 
@@ -131,7 +123,8 @@ alias \
     smooth-brown="sox -c2 --null -d synth 0:60 brownnoise band -n 210.0 1000.0 tremolo 0.0166 70.0 reverb 40.0 fade q 0.005 0:60 0.005 repeat -" \
     smooth-white="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14" \
     deep-smooth-white="play -n synth whitenoise band -n 100 24 band -n 300 100 gain +20" \
-    space="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1" \
+    bells="mpv --no-config --no-video --audio-client-name=mpv-audio 'http://icecast.spc.org:8000/longplayer'" \
+    space-void="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1" \
     space-engine="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 
 trrd() {
@@ -144,7 +137,7 @@ dict() {
 }
 
 yta() {
-    mpv --force-window=no --ytdl-format=bestaudio ytdl://ytsearch:"$*"
+    mpv --no-video --audio-client-name=mpv-audio --force-window=no --ytdl-format=bestaudio ytdl://ytsearch:"$*"
 }
 
 modules_update() {

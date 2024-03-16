@@ -41,15 +41,15 @@ def floating_corner_window(
     # window.static(0, int(window_x), int(window_y), int(window_width), int(window_height))
 
 
-@lazy.function
-def move_mpv_to_current_group(qtile):
-    for group in qtile.groups:
-        for window in group.windows:
-            if (
-                window.info()["wm_class"][1] == "mpv"
-                and window.info()["group"] != qtile.current_group.name
-            ):
-                window.togroup()
+# @lazy.function
+# def move_mpv_to_current_group(qtile):
+#     for group in qtile.groups:
+#         for window in group.windows:
+#             if (
+#                 window.info()["wm_class"][1] == "mpv"
+#                 and window.info()["group"] != qtile.current_group.name
+#             ):
+#                 window.togroup()
 
 
 @lazy.function
@@ -63,18 +63,18 @@ def window_opacity(qtile, cmd, value=1):
             qtile.current_group.current_window.set_opacity(value)
 
 
-# sticky_windows: List[str] = []
+sticky_windows: List[str] = []
 
 
-# @lazy.function
-# def toggle_sticky_windows(qtile, window=None):
-#     if window is None:
-#         window = qtile.current_screen.group.current_window
-#     if window in sticky_windows:
-#         sticky_windows.remove(window)
-#     else:
-#         sticky_windows.append(window)
-#     return window
+@lazy.function
+def toggle_sticky_windows(qtile, window=None):
+    if window is None:
+        window = qtile.current_screen.group.current_window
+    if window in sticky_windows:
+        sticky_windows.remove(window)
+    else:
+        sticky_windows.append(window)
+    return window
 
 
 @hook.subscribe.setgroup
@@ -98,18 +98,18 @@ def mpv_auto_toggle_minimize():
 #             window.toggle_minimize()
 
 
-# @hook.subscribe.setgroup
-# def move_sticky_windows():
-#     for window in sticky_windows:
-#         window.togroup()
-#     return
+@hook.subscribe.setgroup
+def move_sticky_windows():
+    for window in sticky_windows:
+        window.togroup()
+    return
 
 
-# @hook.subscribe.client_managed
-# def auto_sticky_windows(window):
-#     info = window.info()
-#     if info["wm_class"] == ["mpvFloat", "mpv"]:
-#         sticky_windows.append(window)
+@hook.subscribe.client_managed
+def auto_sticky_windows(window):
+    info = window.info()
+    if info["wm_class"] == ["mpvFloat", "mpv"]:
+        sticky_windows.append(window)
 
 
 groupsMerged = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 0: []}
@@ -250,10 +250,10 @@ def set_hint(window):
     )
 
 
-# @hook.subscribe.client_killed
-# def remove_sticky_windows(window):
-#     if window in sticky_windows:
-#         sticky_windows.remove(window)
+@hook.subscribe.client_killed
+def remove_sticky_windows(window):
+    if window in sticky_windows:
+        sticky_windows.remove(window)
 
 
 @hook.subscribe.client_killed

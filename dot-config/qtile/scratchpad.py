@@ -89,7 +89,7 @@ class Scratchpad(object):
                     DropDown(
                         "spotify",
                         terminal
-                        + " --class 'spotify-tui,spotify-tui' -T 'spotify-tui'  -e spt",
+                        + " --class 'spotify,spotify' -T 'spotify'  -e spotify_player",
                         width=0.8,
                         height=0.8,
                         x=0.1,

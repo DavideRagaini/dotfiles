@@ -1,6 +1,7 @@
 from libqtile.config import Group, Match
 from re import compile as regex
 
+
 #  󰇮   󰈙     
 class Groups(object):
     def init_groups(self):
@@ -11,8 +12,8 @@ class Groups(object):
                 layout="monadtall",
                 exclusive=True,
                 matches=[
-                    Match(wm_instance_class="emacs"),
-                    Match(wm_class="Alacritty"),
+                    Match(wm_instance_class=regex("emacs")),
+                    Match(wm_class=regex("Alacritty")),
                 ],
             ),
             Group(
@@ -21,15 +22,9 @@ class Groups(object):
                 layout="monadtall",
                 exclusive=True,
                 matches=Match(
-                    wm_class=[
-                        "firefox",
-                        "Firefox",
-                        "librewolf",
-                        "LibreWolf",
-                        "Brave-browser",
-                        "Thorium-browser",
-                        "qutebrowser",
-                    ]
+                    wm_class=regex(
+                        "[Ff]irefox|[Ll]ibre[Ww]olf|Brave-browser|qutebrowser",
+                    ),
                 ),
             ),
             Group(
@@ -38,15 +33,9 @@ class Groups(object):
                 layout="max",
                 exclusive=True,
                 matches=Match(
-                    wm_class=[
-                        "Zathura",
-                        "sioyek",
-                        "Evince",
-                        "okular",
-                        "ebook-viewer",
-                        "calibre-ebook-viewer",
-                        "Nsxiv",
-                    ]
+                    wm_class=regex(
+                        "Zathura|sioyek|Evince|okular|ebook-viewer|calibre-ebook-viewer|Nsxiv",
+                    )
                 ),
             ),
             Group(
@@ -55,34 +44,29 @@ class Groups(object):
                 position=4,
                 matches=[
                     Match(
-                        wm_instance_class="sun-awt-X11-XDialogPeer",
-                        title="MATLAB Editor",
+                        wm_instance_class=regex("sun-awt-X11-XDialogPeer"),
+                        title=regex("MATLAB Editor"),
                     ),
                     Match(
-                        wm_instance_class="Matlab-GLEE",
+                        wm_instance_class=regex("Matlab-GLEE"),
                         wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
                     ),
                     Match(
-                        wm_instance_class="sun-awt-X11-XFramePeer",
+                        wm_instance_class=regex("sun-awt-X11-XFramePeer"),
                         title=regex("MATLAB R202[0-9][a-b] - academic use"),
                     ),
                     Match(
-                        title="MathWorks Product Installer",
+                        title=regex("MathWorks Product Installer"),
                     ),
                     Match(
-                        wm_class="MATLABWindow",
-                        wm_instance_class="MATLABWindow",
-                        title="Control System Designer*",
+                        wm_class=regex("MATLABWindow"),
+                        title=regex("Control System Designer*"),
                     ),
                     Match(
-                        wm_class=[
-                            "VirtualBox Machine",
-                            regex("MATLAB R202[0-9][a-b] - academic use"),
-                            regex("MATLAB R202[0-9][a-b]"),
-                            "MATLABWindow",
-                            "Matlab-GLEE",
-                        ],
-                        wm_instance_class=["sun-awt-X11-XDialogPeer"],
+                        wm_class=regex(
+                            "VirtualBox Machine|MATLAB R202[0-9][a-b] - academic use|MATLAB R202[0-9][a-b]|MATLABWindow|Matlab-GLEE"
+                        ),
+                        wm_instance_class=regex("sun-awt-X11-XDialogPeer"),
                     ),
                 ],
             ),
@@ -92,9 +76,9 @@ class Groups(object):
                 layout="max",
                 matches=[
                     Match(
-                        wm_instance_class="MATLABWindow",
-                        wm_class="MATLABWindow",
-                        title="Variable-references - Signal Editor",
+                        wm_instance_class=regex("MATLABWindow"),
+                        wm_class=regex("MATLABWindow"),
+                        title=regex("Variable-references - Signal Editor"),
                     ),
                 ],
             ),
@@ -104,53 +88,47 @@ class Groups(object):
                 layout="ratiotile",
                 matches=[
                     Match(
-                        wm_instance_class="sun-awt-X11-XFramePeer",
-                        title=" ",
+                        wm_instance_class=regex("sun-awt-X11-XFramePeer"),
+                        title=regex(" "),
                     ),
                     Match(
-                        wm_instance_class="MATLABWindow",
-                        wm_class="MATLABWindow",
-                        title="Variable-references - Signal Editor",
+                        wm_instance_class=regex("MATLABWindow"),
+                        wm_class=regex("MATLABWindow"),
+                        title=regex("Variable-references - Signal Editor"),
                     ),
                     Match(
-                        title="asbQuadcopter/Command/Signal Editor * - Simulink academic use",
-                        wm_instance_class="Matlab-GLEE",
+                        title=regex(
+                            "asbQuadcopter/Command/Signal Editor * - Simulink academic use"
+                        ),
+                        wm_instance_class=regex("Matlab-GLEE"),
                         wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
                     ),
                     Match(
-                        title="Block Parameters: Position/Attitude Reference",
-                        wm_instance_class="Matlab-GLEE",
+                        title=regex("Block Parameters: Position/Attitude Reference"),
+                        wm_instance_class=regex("Matlab-GLEE"),
                         wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
                     ),
                     Match(
-                        title="Block Parameters: Position/Attitude Reference",
-                        wm_instance_class="Matlab-GLEE",
+                        title=regex("Block Parameters: Position/Attitude Reference"),
+                        wm_instance_class=regex("Matlab-GLEE"),
                         wm_class=regex("MATLAB R202[0-9][a-b] Update [0-9]+"),
                     ),
-                    Match(wm_instance_class=["sun-awt-X11-XFramePeer"]),
+                    Match(wm_instance_class=regex("sun-awt-X11-XFramePeer")),
                 ],
             ),
             Group(
                 name="7",
                 position=7,
                 layout="monadtall",
-                # matches=Match(wm_class=[
-                #                 ]),
             ),
             Group(
                 name="8",
                 position=8,
                 layout="max",
                 matches=Match(
-                    wm_class=[
-                        "teams-for-linux",
-                        "microsoft teams - preview",
-                        "Ferdium",
-                        "KeePassXC",
-                        "qBittorrent",
-                        "calibre-gui",
-                        "calibre",
-                    ]
+                    wm_class=regex(
+                        "teams-for-linux|microsoft teams - preview|Ferdium|KeePassXC|qBittorrent|calibre-gui|calibre",
+                    ),
                 ),
             ),
             Group(
@@ -158,7 +136,7 @@ class Groups(object):
                 position=9,
                 layout="max",
                 # exclusive=True,
-                matches=[Match(wm_class=["mpv", "Kodi"])],
+                matches=Match(wm_class=regex("mpv|Kodi")),
             ),
             Group(
                 name="0",
