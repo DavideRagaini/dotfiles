@@ -29,10 +29,10 @@ local function command_exists(cmd)
 end
 
 local function get_clipboard_cmd()
-    if command_exists("xclip") then
-        return "xclip -silent -in -selection clipboard"
-    elseif command_exists("wl-copy") then
+    if command_exists("wl-copy") then
         return "wl-copy"
+    elseif command_exists("xclip") then
+        return "xclip -silent -in -selection clipboard"
     elseif command_exists("pbcopy") then
         return "pbcopy"
     else
