@@ -31,7 +31,7 @@
 
     # Position the notification in the top right corner
     origin = top-right
-    geometry = "0x0-35+80"
+    # geometry = "0x0-35+80"
 
     # Offset from the origin
     offset = 15x50
