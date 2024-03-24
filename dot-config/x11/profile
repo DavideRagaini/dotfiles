@@ -27,22 +27,6 @@ export XDG_MUSIC_DIR="$HOME/Storage/Music"
 export XDG_PICTURES_DIR="$HOME/Storage/Pictures"
 export XDG_VIDEOS_DIR="$HOME/Storage/Videos"
 
-case $(hostname) in
-    void)
-        XDG_RUNTIME_DIR="/run/user/$(id -u)"
-        export XDG_RUNTIME_DIR
-        ;;
-    NT)
-        XDG_RUNTIME_DIR="/run/user/$(id -u)"
-        export XDG_RUNTIME_DIR
-        export WLR_NO_HARDWARE_CURSORS=1
-        {
-            sleep 20
-            kill -TERM "$(pgrep -u "$USER" "\bdwm$")" &
-        } &
-        ;;
-esac
-
 # export GDK_DPI_SCALE=1.5
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1.5
 # export QT_ENABLE_HIGHDPI_SCALING=1.5
@@ -66,7 +50,7 @@ export DVDCSS_CACHE="$XDG_DATA_HOME"/dvdcss
 # export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-gpg2 --homedir "$XDG_DATA_HOME"/gnupg &
+# gpg2 --homedir "$XDG_DATA_HOME"/gnupg &
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 export GRIPHOME="$XDG_CONFIG_HOME/grip"
@@ -109,7 +93,7 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export XCOMPOSEFILE="$XDG_CONFIG_HOME"/xcompose
 export XCOMPOSECACHE="$XDG_CACHE_HOME"/xcompose
 export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java doesn't understand tiling windows
 
 PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
@@ -178,15 +162,31 @@ wayland_exports() {
         export XDG_CURRENT_DESKTOP=sway
 }
 
+
+case "$HOSTNAME" in
+    tinkerboard)
+        export DMENU_FN='Fantasque Sans Mono:style=bold:size=12'
+    ;;
+    void)
+        XDG_RUNTIME_DIR="/run/user/$(id -u)"
+        export XDG_RUNTIME_DIR
+    ;;
+esac
+
 case "$HOSTNAME" in
     Apollo)
-        # MANPATH="$HOME/.nix-profile/share/man:$(manpath -q)"
-        # export MANPATH
         check_startup &&
             ! pidof -s Xorg >/dev/null 2>&1 &&
             exec startx "$XINITRC"
     ;;
     NT)
+        XDG_RUNTIME_DIR="/run/user/$(id -u)"
+        export XDG_RUNTIME_DIR
+        export WLR_NO_HARDWARE_CURSORS=1
+        {
+            sleep 20
+            kill -TERM "$(pgrep -u "$USER" "\bdwm$")" &
+        } &
         check_startup &&
         ! pidof -s Xorg >/dev/null 2>&1 &&
         startx "$XINITRC" &&

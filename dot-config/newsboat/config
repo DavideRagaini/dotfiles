@@ -6,7 +6,7 @@ max-items 100
 download-retries 4
 download-timeout 10
 prepopulate-query-feeds yes
-confirm-mark-feed-read no
+# confirm-mark-feed-read no
 wrap-scroll yes
 bookmark-autopilot yes
 # bookmark-cmd "~/.config/newsboat/bookmark.sh"

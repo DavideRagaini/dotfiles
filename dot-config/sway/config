@@ -1,3 +1,5 @@
+include "$HOME/.config/sway/$(hostname)"
+
 set $M Mod4
 set $A Mod1
 set $C Control
@@ -23,8 +25,6 @@ mouse_warping output
 focus_follows_mouse yes
 popup_during_fullscreen smart
 focus_wrapping no
-
-font pango: IosevkaTerm Nerd Font 8
 
 ### Input configuration
 #
@@ -70,8 +70,6 @@ bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 bindsym --release XF86Sleep exec swaylock && doas sysact suspend
 
-### Programs
-#
 bindsym $M+w               exec $term -T w3m -e w3m https://searx.be/
 bindsym $M+$S+w            exec librewolf
 # bindsym $M+$S+w          exec librewolf --private-window
@@ -86,14 +84,13 @@ bindsym $M+$C+Backspace    exec sysact Suspend
 bindsym $M+y               exec ts dy video "$(wl-paste)"
 bindsym $M+$S+y            exec ts dy audio "$(wl-paste)"
 
-# bindsym $M+grave           exec makoctl dismiss -a
+# bindsym $M+grave         exec makoctl dismiss -a
 bindsym $M+grave           exec dunstctl close
 bindsym $M+$S+grave        exec dunstctl history-pop
 bindsym $M+Tab             workspace back_and_forth
 bindsym $M+semicolon       workspace back_and_forth
 bindsym $M+bracketleft     workspace prev
 bindsym $M+bracketright    workspace next
-bindsym $M+backslash       floating toggle; resize set 160 120; move position 840 470
 
 bindsym $M+Insert          exec cliphist list | dmenu -l 5 -p "Clipboard:" | cliphist decode | wl-copy
 bindsym $M+$S+Insert       exec notify-send "Clipboard" "$(wl-paste)"
@@ -130,25 +127,25 @@ bindsym $M+$C+r            reload
 # bindsym $M+$C+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $M+$C+q            exec swaymsg exit
 
-bindsym $M+h             focus left
-bindsym $M+j             focus down
-bindsym $M+k             focus up
-bindsym $M+l             focus right
+bindsym $M+h               focus left
+bindsym $M+j               focus down
+bindsym $M+k               focus up
+bindsym $M+l               focus right
 
-bindsym $M+Up          exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $M+$S+Up       exec $term -e pulsemixer
-bindsym $M+$C+Up       exec output-audio
-bindsym $M+Down        exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $M+$S+Down     exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym $M+Left        exec tppctl seek -10
-bindsym $M+$S+Left     exec dmpc prev
-bindsym $M+Right       exec tppctl seek -10
-bindsym $M+$S+Right    exec dmpc next
+bindsym $M+Up              exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $M+$S+Up           exec $term -e pulsemixer
+bindsym $M+$C+Up           exec output-audio
+bindsym $M+Down            exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $M+$S+Down         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $M+Left            exec tppctl seek -10
+bindsym $M+$S+Left         exec dmpc prev
+bindsym $M+Right           exec tppctl seek -10
+bindsym $M+$S+Right        exec dmpc next
 
-bindsym $M+$S+h    move left
-bindsym $M+$S+j    move down
-bindsym $M+$S+k    move up
-bindsym $M+$S+l    move right
+bindsym $M+$S+h       move left
+bindsym $M+$S+j       move down
+bindsym $M+$S+k       move up
+bindsym $M+$S+l       move right
 
 bindsym $M+1          workspace number 1
 bindsym $M+2          workspace number 2
@@ -161,31 +158,28 @@ bindsym $M+8          workspace number 8
 bindsym $M+9          workspace number 9
 bindsym $M+0          workspace number 10
 
-bindsym $M+$S+1    move container to workspace number 1
-bindsym $M+$S+2    move container to workspace number 2
-bindsym $M+$S+3    move container to workspace number 3
-bindsym $M+$S+4    move container to workspace number 4
-bindsym $M+$S+5    move container to workspace number 5
-bindsym $M+$S+6    move container to workspace number 6
-bindsym $M+$S+7    move container to workspace number 7
-bindsym $M+$S+8    move container to workspace number 8
-bindsym $M+$S+9    move container to workspace number 9
-bindsym $M+$S+0    move container to workspace number 10
+bindsym $M+$S+1       move container to workspace number 1
+bindsym $M+$S+2       move container to workspace number 2
+bindsym $M+$S+3       move container to workspace number 3
+bindsym $M+$S+4       move container to workspace number 4
+bindsym $M+$S+5       move container to workspace number 5
+bindsym $M+$S+6       move container to workspace number 6
+bindsym $M+$S+7       move container to workspace number 7
+bindsym $M+$S+8       move container to workspace number 8
+bindsym $M+$S+9       move container to workspace number 9
+bindsym $M+$S+0       move container to workspace number 10
 
-bindsym $M+i            splith
-bindsym $M+o            splitv
-bindsym $M+$C+s         layout stacking
-bindsym $M+$C+t         layout tabbed
-bindsym $M+$C+w         layout toggle split
-bindsym $M+f            fullscreen
-bindsym $M+$S+space     floating toggle
-bindsym $M+space        focus mode_toggle
-bindsym $M+a            focus parent
-bindsym $M+s            focus child
-bindsym $M+$S+s         sticky toggle
-
-set $width "1000"
-set $height "550"
+bindsym $M+i          splith
+bindsym $M+o          splitv
+bindsym $M+$C+s       layout stacking
+bindsym $M+$C+t       layout tabbed
+bindsym $M+$C+w       layout toggle split
+bindsym $M+f          fullscreen
+bindsym $M+$S+space   floating toggle
+bindsym $M+space      focus mode_toggle
+bindsym $M+a          focus parent
+bindsym $M+s          focus child
+bindsym $M+$S+s       sticky toggle
 
 for_window [title="dropdown"] {
     move scratchpad
@@ -235,6 +229,7 @@ for_window [title="pulsemixer"] {
     scratchpad show
 }
 bindsym XF86AudioStop exec swaymsg [title="pulsemixer"] scratchpad show || $term -T pulsemixer -e pulsemixer
+bindsym $M+slash exec swaymsg [title="pulsemixer"] scratchpad show || $term -T pulsemixer -e pulsemixer
 
 for_window [title="sysmon"] {
     move scratchpad
@@ -273,7 +268,7 @@ assign [class="Ferdium"]              workspace 8
 assign [app_id="mpv"]                 workspace 9
 
 bindsym $M+$S+minus    move scratchpad
-bindsym $M+minus          scratchpad show
+bindsym $M+minus       scratchpad show
 
 mode "resize" {
     bindsym l        resize shrink width 10px
@@ -287,18 +282,4 @@ mode "resize" {
     bindsym Return   mode "default"
     bindsym Escape   mode "default"
 }
-bindsym $M+r       mode "resize"
-
-bar {
-    swaybar_command waybar
-    workspace_buttons yes
-}
-
-exec mem-warn
-exec bluetooth off
-exec brightnessctl set 20%
-exec wl-paste --watch cliphist store
-exec foot --server
-exec dunst
-exec wlsunset -t 2400 -T 6500 -S 07:30 -s 19:00 -d 1800
-exec sleep 60 && $term -a 'emacs' -T 'footclient-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
+bindsym $M+r         mode "resize"
