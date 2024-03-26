@@ -1,9 +1,9 @@
-include "$(hostname).conf"
-
 set $M Mod4
 set $A Mod1
 set $C Control
 set $S Shift
+
+include "$(hostname).conf"
 
 set $term footclient
 # set $drun dmenu_run
