@@ -15,6 +15,7 @@ gaps outer 2
 smart_gaps on
 default_border pixel 1
 smart_borders on
+title_align center
 # hide_edge_borders both
 
 # class             border     backgr     text       indicator  child_border

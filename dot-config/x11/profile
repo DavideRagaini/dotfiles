@@ -162,7 +162,6 @@ wayland_exports() {
         export XDG_CURRENT_DESKTOP=sway
 }
 
-
 case "$HOSTNAME" in
     tinkerboard)
         export DMENU_FN='Fantasque Sans Mono:style=bold:size=12'
@@ -184,7 +183,7 @@ case "$HOSTNAME" in
         export XDG_RUNTIME_DIR
         export WLR_NO_HARDWARE_CURSORS=1
         {
-            sleep 20
+            sleep 12
             kill -TERM "$(pgrep -u "$USER" "\bdwm$")" &
         } &
         check_startup &&

@@ -4,16 +4,16 @@ case "$(printenv XDG_SESSION_TYPE)" in
     wayland)
         alias \
             2f="tmux split -h lf; lf" \
-            f="lf" \
-            cclip="wl-copy" \
-            pclip="wl-paste"
+            f="lf"
+            # cclip="wl-copy" \
+            # pclip="wl-paste"
         ;;
     tty | x11)
         alias \
             2f="tmux split -h lfcd; lfcd" \
-            f="lfcd" \
-            cclip="xclip -selection clipboard" \
-            pclip="xclip -selection clipboard -o"
+            f="lfcd"
+            # cclip="xclip -selection clipboard" \
+            # pclip="xclip -selection clipboard -o"
         ;;
 esac
 
