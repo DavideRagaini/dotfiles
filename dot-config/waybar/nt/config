@@ -3,43 +3,28 @@
     "position": "bottom",
 
     "modules-left": [
-        "sway/mode",
         "sway/workspaces",
+        "sway/mode",
         "sway/scratchpad",
-        "idle_inhibitor",
         "sway/window"
     ],
 
     "modules-right": [
         "cpu",
-        "custom/left-separator",
         "temperature",
-        "custom/left-separator",
         "memory",
-        "custom/left-separator",
         "network",
-        "custom/left-separator",
         "wireplumber",
-        "custom/left-separator",
         "backlight",
-        "custom/left-separator",
         "battery",
+        // "disk",
+        "clock#date",
+        "clock#time",
         "tray",
-        // "clock#date",
-        "clock#time"
+        "idle_inhibitor"
     ],
 
     // Modules 🔰
-
-    "custom/left-separator": {
-        "format": "",
-        "tooltip": false
-    },
-
-    "custom/right-separator": {
-        "format": "",
-        "tooltip": false
-    },
 
     "backlight": {
         "device": "acpi_video",
@@ -125,11 +110,11 @@
     },
 
     "disk": {
-        "interval": 30,
+        "interval": 90,
         "format": "{path} {free}",
         "path": "/",
         "tooltip": true,
-        "warning": 80,
+        "warning": 75,
         "critical": 90
     },
 

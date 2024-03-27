@@ -1,45 +1,38 @@
-/* @define-color black     #000000; */
-@define-color red       #ff5555;
-/* @define-color green     #50fa7b; */
-/* @define-color yellow    #f1fa8c; */
-/* @define-color blue      #BD93F9; */
-/* @define-color purple    #FF79C6; */
-/* @define-color aqua      #8be9fd; */
-/* @define-color gray      #BFBFBF; */
-/* @define-color brgray    #4D4D4D; */
-/* @define-color brred     #FF6E67; */
-/* @define-color brgreen   #5AF78E; */
-@define-color bryellow  #F4F99D;
-/* @define-color brblue    #CAA9FA; */
-/* @define-color brpurple  #FF92D0; */
-/* @define-color braqua    #9AEDFE; */
-/* @define-color white     #E6E6E6; */
-
 @define-color background   #181321;
-@define-color separator    #4e4262;
-/* @define-color foreground   #FF79C6; */
-@define-color foreground   #6e6282;
+/* @define-color background   rgba(24,19,33,0.80); */
+/* @define-color foreground    #4e4262; */
+@define-color foreground   #FF79C6;
+/* @define-color foreground   #6e6282; */
 /* @define-color foreground   @separator; */
-@define-color warning      @bryellow;
-@define-color critical     @red;
+@define-color warning      #BD93F9;
+@define-color critical     #ff5555;
+
+@keyframes blink-critical {
+    to {
+        color: @white;
+        background-color: @critical;
+    }
+}
 
 * {
     border: none;
     min-height: 0;
     margin: 0;
-    padding: 0;
+    padding: 0pt 2pt 0pt 2pt;
     box-shadow: none;
     text-shadow: none;
+    border-radius: 10px;
     -gtk-icon-shadow: none;
 }
 
 #waybar {
     /* background: @background; */
-    background: rgba(0,0,0,0);
+    background: rgba(48,36,68,0.90);
     color: @foreground;
     font-family: IosevkaTerm Nerd Font;
     font-size: 7pt;
     font-weight: bold;
+    border-radius: 0px;
 }
 
 #battery,
@@ -59,8 +52,8 @@
 #user,
 #mpd,
 #mpris {
-    padding-left: 2pt;
-    padding-right: 2pt;
+    padding-left: 4pt;
+    padding-right: 4pt;
 }
 
 #mode,
@@ -68,6 +61,7 @@
 #cpu.critical,
 #temperature.critical,
 #battery.critical.discharging {
+    color: @critical;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -75,16 +69,16 @@
     animation-duration: 1s;
 }
 
-#network.disconnected,
-#memory.warning,
 #cpu.warning,
+#memory.warning,
 #temperature.warning,
+#network.disconnected,
 #battery.warning.discharging {
-    color: @red;
+    color: @warning;
 }
 
 #mode {
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 #workspaces button {
@@ -110,7 +104,7 @@
 }
 
 #workspaces button.urgent {
-    color: @red;
+    color: @critical;
     background: @warning;
 }
 
@@ -120,14 +114,11 @@
     margin: 0;
     padding-left:  8pt;
     margin-right:  5pt;
+    border-radius: 0px 10px 10px 0px; /* dx */
 }
 
 window#waybar.empty {
     color: rgba(0,0,0,0);
-}
-
-#tray {
-    background: @background;
 }
 
 #cpu,
@@ -139,35 +130,34 @@ window#waybar.empty {
 #temperature,
 #language,
 #battery,
+#disk,
 #clock.date,
-#clock.time,
-#custom-left-separator,
-#custom-right-separator {
+#clock.time {
     background: @background;
     color: @foreground;
+    margin-left: 4pt;
 }
 
-#custom-left-separator,
-#custom-right-separator {
-    /* color: @separator; */
-    padding-left:  2pt;
-    padding-right: 2pt;
-}
-
-#cpu,
 #scratchpad {
     border-radius: 10px 0px 0px 10px; /* sx */
-    padding-left: 4pt;
-}
-
-#scratchpad {
     padding-right: 3pt;
     margin-right: 0px;
     margin-left:  3pt;
 }
 
-#clock.time,
-#window {
-    border-radius: 0px 10px 10px 0px; /* dx */
-    padding-right: 7pt;
-}
+/* @define-color black     #000000; */
+/* @define-color red       #ff5555; */
+/* @define-color green     #50fa7b; */
+/* @define-color yellow    #f1fa8c; */
+/* @define-color blue      #BD93F9; */
+/* @define-color purple    #FF79C6; */
+/* @define-color aqua      #8be9fd; */
+/* @define-color gray      #BFBFBF; */
+/* @define-color brgray    #4D4D4D; */
+/* @define-color brred     #FF6E67; */
+/* @define-color brgreen   #5AF78E; */
+/* @define-color bryellow  #F4F99D; */
+/* @define-color brblue    #CAA9FA; */
+/* @define-color brpurple  #FF92D0; */
+/* @define-color braqua    #9AEDFE; */
+/* @define-color white     #E6E6E6; */
