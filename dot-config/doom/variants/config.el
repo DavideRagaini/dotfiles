@@ -38,23 +38,37 @@
 (add-hook 'python-mode-hook 'run-with-python)
 ;; }}}
 ;; ========= Bootstraps ========= {{{
-(setq dr/font-size 13)
+(setq dr/font-size 13
+      doom-theme 'catppuccin)
+
 (cond
  ((string-equal (system-name) "Apollo")
-  (setq dr/font-size 13)
+  (setq dr/font-size 13
+        doom-theme 'catppuccin)
   (global-activity-watch-mode 1)
   (dr/high-resources)
-  ))
-;; }}}
-;; ========= Common ========= {{{
-(setq user-full-name "Davide Ragaini"
-      user-mail-address "ragainidavide@gmail.com"
+  )
+ ((eq system-type 'windows-nt)
+  (setq doom-font (font-spec :family "cascadia code" :size dr/font-size)
+        doom-big-font (font-spec :family "cascadia cove" :size (* dr/font-size 2))
+        doom-variable-pitch-font (font-spec :family "microsoft sans serif" :size (+ dr/font-size 2))
+        doom-theme 'catppuccin
+        )
+  (set-frame-parameter (selected-frame) 'alpha '(100 . 95))
+  (add-to-list 'default-frame-alist '(alpha . (100 . 95)))
+  )
+ ((eq system-type 'gnu/linux)
       doom-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size dr/font-size)
       doom-big-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size (* dr/font-size 2))
       doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
       doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
       doom-symbol-font (font-spec :family "DejaVu Serif" :size dr/font-size)
-      doom-theme 'modus-vivendi
+  )
+)
+;; }}}
+;; ========= Common ========= {{{
+(setq user-full-name "Davide Ragaini"
+      user-mail-address "ragainidavide@gmail.com"
       ;; whitespace-line-column 500
       compilation-scroll-output t
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark)
@@ -101,7 +115,7 @@
     ("^\\*eww*"             :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*helpful*"         :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*magit-process*"   :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :ttl 5 :quit t)
+    ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :quit nil :ttl 5 :quit t)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
 ;; }}}
 ;; ========= Hooks ========= {{{
