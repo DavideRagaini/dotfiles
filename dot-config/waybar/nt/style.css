@@ -1,0 +1,163 @@
+@define-color background   #181321;
+/* @define-color background   rgba(24,19,33,0.80); */
+/* @define-color foreground    #4e4262; */
+@define-color foreground   #FF79C6;
+/* @define-color foreground   #6e6282; */
+/* @define-color foreground   @separator; */
+@define-color warning      #BD93F9;
+@define-color critical     #ff5555;
+
+@keyframes blink-critical {
+    to {
+        color: @white;
+        background-color: @critical;
+    }
+}
+
+* {
+    border: none;
+    min-height: 0;
+    margin: 0;
+    padding: 0pt 2pt 0pt 2pt;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 10px;
+    -gtk-icon-shadow: none;
+}
+
+#waybar {
+    /* background: @background; */
+    background: rgba(48,36,68,0.90);
+    color: @foreground;
+    font-family: IosevkaTerm Nerd Font;
+    font-size: 7pt;
+    font-weight: bold;
+    border-radius: 0px;
+}
+
+#battery,
+#clock,
+#cpu,
+#language,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#wireplumber,
+#temperature,
+#tray,
+#backlight,
+#idle_inhibitor,
+#disk,
+#user,
+#mpd,
+#mpris {
+    padding-left: 4pt;
+    padding-right: 4pt;
+}
+
+#mode,
+#memory.critical,
+#cpu.critical,
+#temperature.critical,
+#battery.critical.discharging {
+    color: @critical;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: blink-critical;
+    animation-duration: 1s;
+}
+
+#cpu.warning,
+#memory.warning,
+#temperature.warning,
+#network.disconnected,
+#battery.warning.discharging {
+    color: @warning;
+}
+
+#mode {
+    border-radius: 2px;
+}
+
+#workspaces button {
+    /*font-weight: bold;*/
+    padding-left: 2pt;
+    padding-right: 2pt;
+    color: @foreground;
+    background: @background;
+}
+
+#mode,
+#scratchpad,
+#idle_inhibitor,
+#workspaces button:hover,
+#workspaces button.visible {
+    color: @foreground;
+    background: @background;
+}
+
+#workspaces button.focused {
+    color: @background;
+    background: @foreground;
+}
+
+#workspaces button.urgent {
+    color: @critical;
+    background: @warning;
+}
+
+#window {
+    color: @foreground;
+    background: @background;
+    margin: 0;
+    padding-left:  8pt;
+    margin-right:  5pt;
+    border-radius: 0px 10px 10px 0px; /* dx */
+}
+
+window#waybar.empty {
+    color: rgba(0,0,0,0);
+}
+
+#cpu,
+#backlight,
+#wireplumber,
+#pulseaudio,
+#network,
+#memory,
+#temperature,
+#language,
+#battery,
+#disk,
+#clock.date,
+#clock.time {
+    background: @background;
+    color: @foreground;
+    margin-left: 4pt;
+}
+
+#scratchpad {
+    border-radius: 10px 0px 0px 10px; /* sx */
+    padding-right: 3pt;
+    margin-right: 0px;
+    margin-left:  3pt;
+}
+
+/* @define-color black     #000000; */
+/* @define-color red       #ff5555; */
+/* @define-color green     #50fa7b; */
+/* @define-color yellow    #f1fa8c; */
+/* @define-color blue      #BD93F9; */
+/* @define-color purple    #FF79C6; */
+/* @define-color aqua      #8be9fd; */
+/* @define-color gray      #BFBFBF; */
+/* @define-color brgray    #4D4D4D; */
+/* @define-color brred     #FF6E67; */
+/* @define-color brgreen   #5AF78E; */
+/* @define-color bryellow  #F4F99D; */
+/* @define-color brblue    #CAA9FA; */
+/* @define-color brpurple  #FF92D0; */
+/* @define-color braqua    #9AEDFE; */
+/* @define-color white     #E6E6E6; */

@@ -12,7 +12,6 @@ dot-config/mpd/**
 !dot-config/mpd/mpd.conf
 !dot-config/mpd/playlists/
 
-
 dot-config/mpv/**
 dot-config/mpv/disabled_scripts/**
 dot-config/mpv/flake.conf
@@ -91,6 +90,9 @@ dot-config/transmission-daemon/**
 
 dot-config/transmission/**
 !dot-config/transmission/settings.json
+
+dot-config/waybar/config
+dot-config/waybar/style.css
 
 dot-config/zsh/plugins
 dot-config/zsh/.z*

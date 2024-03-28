@@ -1,9 +1,9 @@
-include "$(hostname).conf"
-
 set $M Mod4
 set $A Mod1
 set $C Control
 set $S Shift
+
+include "$(hostname).conf"
 
 set $term footclient
 # set $drun dmenu_run
@@ -15,6 +15,7 @@ gaps outer 2
 smart_gaps on
 default_border pixel 1
 smart_borders on
+title_align center
 # hide_edge_borders both
 
 # class             border     backgr     text       indicator  child_border
