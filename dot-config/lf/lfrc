@@ -445,11 +445,11 @@ map <a-m> moveto
 
 map <c-b> $setbg $f
 map <c-e> down
+map <c-j> fzf_jump
 map <c-n> push :mkdir<space>
 map <c-o> &opener "$f"
 # map <c-r> on-redraw; reload
 map <c-t> !bat "$f"
-map <c-u> fzf_jump
 map <c-y> up
 map <c-z> $ kill -STOP $PPID
 

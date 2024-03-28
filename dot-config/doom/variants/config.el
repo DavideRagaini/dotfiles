@@ -126,11 +126,12 @@
 ;; ========= Bindings ========= {{{
 (map!
  (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
- (:prefix "SPC b" :desc "+format/region"                :n "f" #'+format/region)
- (:prefix "SPC b" :desc "+format/buffer"                :n "F" #'+format/buffer)
- (:prefix "SPC m" :desc "+org-todo-yesterday"           :n "y" #'org-todo-yesterday)
- (:prefix "SPC a" :desc "blink cursor"                  :n "b" #'+nav-flash/blink-cursor)
- (:prefix "C-h"   :desc "zeal search"                   :n "z" #'+nav-flash/blink-cursor)
+ (:prefix "C-w"   :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
+ (:prefix "SPC b" :desc "+format/region"                :n "f"   #'+format/region)
+ (:prefix "SPC b" :desc "+format/buffer"                :n "F"   #'+format/buffer)
+ (:prefix "SPC m" :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)
+ (:prefix "SPC a" :desc "blink cursor"                  :n "b"   #'+nav-flash/blink-cursor)
+ (:prefix "C-h"   :desc "woman"                         :n "z"   #'woman)
  )
 ;; }}}
 ;; ========= Manual ========= {{{

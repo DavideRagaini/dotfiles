@@ -20,12 +20,15 @@ export DMENU_SF='#181321'
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_DOCUMENTS_DIR="$HOME/Documents"
-export XDG_DOWNLOAD_DIR="$HOME/Downloads"
-export XDG_MUSIC_DIR="$HOME/Storage/Music"
-export XDG_PICTURES_DIR="$HOME/Storage/Pictures"
-export XDG_VIDEOS_DIR="$HOME/Storage/Videos"
+
+export XDG_ARCHIVE_DIR="$HOME/arc"
+export XDG_BOOKS_DIR="$HOME/bks"
+export XDG_DOCUMENTS_DIR="$HOME/doc"
+export XDG_DOWNLOAD_DIR="$HOME/dwn"
+export XDG_MUSIC_DIR="$HOME/mus"
+export XDG_PICTURES_DIR="$HOME/pic"
+export XDG_STORAGE_DIR="$HOME/str"
+export XDG_VIDEOS_DIR="$HOME/vid"
 
 # export GDK_DPI_SCALE=1.5
 # export QT_AUTO_SCREEN_SCALE_FACTOR=1.5

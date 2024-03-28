@@ -38,7 +38,7 @@ mpd_port = 6600
 #
 ## Needed for tag editor and file operations to work.
 ##
-mpd_music_dir = "~/Storage/Music/Lossless"
+mpd_music_dir = "~/mus"
 #
 mpd_crossfade_time = 1
 #

@@ -142,6 +142,11 @@ def restore_all_merged_groups(qtile):
         groupsMerged[group].clear()
 
 
+@hook.subscribe.restart
+def restore_all_merged_groups_hook():
+    restore_all_merged_groups(qtile)
+
+
 last_focus_index = -1
 
 

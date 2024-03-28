@@ -57,7 +57,7 @@ class Scratchpad(object):
                     DropDown(
                         "news",
                         terminal
-                        + " --class 'newsboat,newsboat' -T 'newsboat' -o 'font.size=13' -e newsboat",
+                        + " --class 'newsboat,newsboat' -T 'newsboat' -e newsboat",
                         width=0.8,
                         height=0.8,
                         x=0.1,

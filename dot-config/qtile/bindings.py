@@ -58,15 +58,17 @@ def bindings():
         # ======================= Special Keys ======================= {{{
         EzKey(
             "<XF86AudioLowerVolume>",
-            lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"),
+            lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-"),
         ),
-        EzKey("M-<XF86AudioLowerVolume>", lazy.spawn("mpc volume -5")),
+        EzKey("A-<XF86AudioLowerVolume>", lazy.spawn("mpc volume -2")),
+        EzKey("C-<XF86AudioLowerVolume>", lazy.spawn("tppctl volume -2")),
         #
-        EzKey("M-<XF86AudioRaiseVolume>", lazy.spawn("mpc volume +5")),
         EzKey(
             "<XF86AudioRaiseVolume>",
-            lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+            lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"),
         ),
+        EzKey("A-<XF86AudioRaiseVolume>", lazy.spawn("mpc volume +2")),
+        EzKey("C-<XF86AudioRaiseVolume>", lazy.spawn("tppctl volume +2")),
         #
         EzKey(
             "<XF86AudioMute>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
@@ -170,9 +172,9 @@ def bindings():
         EzKey("M-w", lazy.spawn(browser)),
         EzKey("M-C-w", lazy.spawn(browserP)),
         EzKey("M-S-w", lazy.spawn(browserA)),
-        # EzKey("M-w", lazy.group["SPD"].dropdown_toggle("float_mpv")),
-        #
-        # EzKey("M-e", lazy.group["SPD"].dropdown_toggle("agenda")),
+        # # EzKey("M-w", lazy.group["SPD"].dropdown_toggle("float_mpv")),
+        # #
+        # # EzKey("M-e", lazy.group["SPD"].dropdown_toggle("agenda")),
         EzKey("M-e", lazy.spawn(text_editor)),
         EzKey("M-S-e", lazy.spawn(terminal + " -e emacsclient -c")),
         #
@@ -371,8 +373,8 @@ def bindings():
                 EzKey("p", lazy.spawn("mpc prev")),
                 EzKey("s", lazy.spawn("mpc shuffle")),
                 EzKey("r", lazy.spawn("mpc repeat")),
-                EzKey("u", lazy.spawn("mpc volume +5")),
-                EzKey("d", lazy.spawn("mpc volume -5")),
+                EzKey("u", lazy.spawn("mpc volume +2")),
+                EzKey("d", lazy.spawn("mpc volume -2")),
                 EzKey("o", lazy.spawn("mpc-notify")),
                 EzKey("1", lazy.spawn("mpc volume 10")),
                 EzKey("2", lazy.spawn("mpc volume 20")),
@@ -397,21 +399,23 @@ def bindings():
                 EzKey("a", lazy.spawn("tppctl pauseall")),
                 EzKey("n", lazy.spawn("tppctl next")),
                 EzKey("p", lazy.spawn("tppctl prev")),
-                EzKey("1", lazy.spawn("tppctl volume 10")),
-                EzKey("2", lazy.spawn("tppctl volume 20")),
-                EzKey("3", lazy.spawn("tppctl volume 30")),
-                EzKey("4", lazy.spawn("tppctl volume 40")),
-                EzKey("5", lazy.spawn("tppctl volume 50")),
-                EzKey("6", lazy.spawn("tppctl volume 60")),
-                EzKey("7", lazy.spawn("tppctl volume 70")),
-                EzKey("8", lazy.spawn("tppctl volume 80")),
-                EzKey("9", lazy.spawn("tppctl volume 90")),
-                EzKey("0", lazy.spawn("tppctl volume 100")),
+                EzKey("k", lazy.spawn("tppctl volume 2")),
+                EzKey("j", lazy.spawn("tppctl volume -2")),
+                EzKey("1", lazy.spawn("tppctl set 'volume 10'")),
+                EzKey("2", lazy.spawn("tppctl set 'volume 20'")),
+                EzKey("3", lazy.spawn("tppctl set 'volume 30'")),
+                EzKey("4", lazy.spawn("tppctl set 'volume 40'")),
+                EzKey("5", lazy.spawn("tppctl set 'volume 50'")),
+                EzKey("6", lazy.spawn("tppctl set 'volume 60'")),
+                EzKey("7", lazy.spawn("tppctl set 'volume 70'")),
+                EzKey("8", lazy.spawn("tppctl set 'volume 80'")),
+                EzKey("9", lazy.spawn("tppctl set 'volume 90'")),
+                EzKey("0", lazy.spawn("tppctl set 'volume 100'")),
             ],
             mode=True,
             name="MPV",
         ),
-        #
+        # volume apps
         EzKey("A-<period>", lazy.next_screen()),
         EzKey("M-<period>", lazy.spawn("tppctl invert")),
         EzKey("M-C-<period>", lazy.spawn("tppctl pauseall")),
@@ -432,17 +436,19 @@ def bindings():
         EzKey("M-<cancel>", lazy.spawn("tppctl pauseall")),
         EzKey("M-S-<cancel>", lazy.spawn("dmpc toggle")),
         #
-        EzKey("M-<up>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")),
-        EzKey("M-S-<up>", lazy.spawn("mpc volume +5")),
+        EzKey("M-<up>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+")),
         EzKey("M-C-<up>", lazy.spawn("output-audio")),
         #
-        EzKey("M-<down>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-")),
-        EzKey("M-S-<down>", lazy.spawn("mpc volume -5")),
+        EzKey("M-<down>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-")),
         EzKey("M-C-<down>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
         #
         EzKey("M-<left>", lazy.spawn("tppctl seek -10")),
+        EzKey("A-<left>", lazy.spawn("mpc volume -2")),
+        EzKey("C-<left>", lazy.spawn("tppctl volume -2")),
         #
         EzKey("M-<right>", lazy.spawn("tppctl seek 10")),
+        EzKey("A-<right>", lazy.spawn("mpc volume +2")),
+        EzKey("C-<right>", lazy.spawn("tppctl volume 2")),
         # }}}
     ]
 

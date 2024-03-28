@@ -24,17 +24,17 @@ settings.focusFirstCandidate = true;
 "" ========== Bindings ========== {{{
 bind ,a hint -W exclaim_quiet dmpv append
 bind ,A hint -W exclaim_quiet dmpv aplay
+bind ,e hint -W exclaim_quiet dmpv eplay
+bind ,E hint -W exclaim_quiet dmpv eplay
+bind ,m hint -W exclaim_quiet dmpv music
+bind ,M hint -W exclaim_quiet dmpv save_music
 bind ,c hint -W exclaim_quiet clipf
 bind ,dd jsb -p tri.native.run('wget ', JS_ARG)
 bind ,df hint -W exclaim_quiet wget
 bind ,dg hint -W exclaim_quiet gallery-dl
 bind ,dt hint -W exclaim_quiet transadd
-bind ,mm hint -W exclaim_quiet dmpv music
-bind ,ms hint -W exclaim_quiet dmpv save_music
 bind ,p hint -W exclaim_quiet mpv
 bind ,s hint -W exclaim_quiet streamlink best --player mpv
-bind ,ve hint -W exclaim_quiet dmpv enqueue
-bind ,vp hint -W exclaim_quiet dmpv eplay
 bind ,zz zoom 200
 bind ,za zoom 150
 
