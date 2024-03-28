@@ -55,7 +55,7 @@ seat seat0 hide_cursor when-typing enable
 
 ### Output configuration
 #
-output * bg /home/davide/.local/share/bg fill
+output * bg "${XDG_DATA_HOME:-$HOME/.local/share}/bg" fill
 
 ### Idle configuration
 #
