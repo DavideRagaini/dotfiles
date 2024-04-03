@@ -39,7 +39,7 @@
 ;; }}}
 ;; ========= Bootstraps ========= {{{
 (setq dr/font-size 13
-      doom-theme 'catppuccin)
+      doom-theme 'modus-vivendi)
 
 (cond
  ((string-equal (system-name) "Apollo")
@@ -48,6 +48,9 @@
   (global-activity-watch-mode 1)
   (dr/high-resources)
   )
+ )
+
+(cond
  ((eq system-type 'windows-nt)
   (setq doom-font (font-spec :family "cascadia code" :size dr/font-size)
         doom-big-font (font-spec :family "cascadia cove" :size (* dr/font-size 2))
@@ -58,13 +61,13 @@
   (add-to-list 'default-frame-alist '(alpha . (100 . 95)))
   )
  ((eq system-type 'gnu/linux)
-      doom-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size dr/font-size)
-      doom-big-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size (* dr/font-size 2))
-      doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
-      doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
-      doom-symbol-font (font-spec :family "DejaVu Serif" :size dr/font-size)
+  doom-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size dr/font-size)
+  doom-big-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size (* dr/font-size 2))
+  doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
+  doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
+  doom-symbol-font (font-spec :family "DejaVu Serif" :size dr/font-size)
   )
-)
+ )
 ;; }}}
 ;; ========= Common ========= {{{
 (setq user-full-name "Davide Ragaini"
@@ -77,6 +80,7 @@
       delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/"
       +lookup-open-url-fn #'eww
+      which-key-idle-delay 0.3
       confirm-kill-emacs nil)
 
 (add-to-list 'auto-mode-alist
@@ -97,8 +101,8 @@
 ;; }}}
 ;; ========= Popups Rules ========= {{{
 (set-popup-rules!
-  '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
-    ("^\\*"  :slot 1 :vslot -1 :size 0.3 :select t)
+  '(("^ \\*"                :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
+    ("^\\*"                 :slot 1 :vslot -1 :size 0.3 :select t)
     ("^\\*Completions*"     :slot -1 :vslot -2 :ttl 0)
     ("^\\*Edit Formulas*"   :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Help*"            :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
@@ -125,6 +129,8 @@
 ;; }}}
 ;; ========= Load Config Files ========= {{{
 (load! "load/org.el")
+(load! "load/erc.el")
+(load! "load/rssfeed.el")
 ;; (load! "load/calibredb.el")
 ;; (load! "load/matlab-setup.el")
 ;; }}}
@@ -136,16 +142,38 @@
   ("k" evil-window-decrease-height)
   ("l" evil-window-increase-width)
   ("q" nil))
+
+(defhydra workspace-move (:hint nil)
+  "vim motion workspace order"
+  ("h" +workspace/swap-left)
+  ("j" +workspace/swap-left)
+  ("k" +workspace/swap-right)
+  ("l" +workspace/swap-right)
+  ("q" nil))
 ;; }}}
 ;; ========= Bindings ========= {{{
 (map!
- (:prefix "SPC w" :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
- (:prefix "C-w"   :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
- (:prefix "SPC b" :desc "+format/region"                :n "f"   #'+format/region)
- (:prefix "SPC b" :desc "+format/buffer"                :n "F"   #'+format/buffer)
- (:prefix "SPC m" :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)
- (:prefix "SPC a" :desc "blink cursor"                  :n "b"   #'+nav-flash/blink-cursor)
- (:prefix "C-h"   :desc "woman"                         :n "z"   #'woman)
+ (:prefix "SPC w"   :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
+ (:prefix "C-w"     :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
+ ;;
+ (:prefix "C-h"     :desc "woman"                         :n "z"   #'woman)
+ (:prefix "SPC h"   :desc "woman"                         :n "z"   #'woman)
+ ;;
+ (:prefix "SPC b"   :desc "+format/region"                :n "f"   #'+format/region)
+ (:prefix "SPC b"   :desc "+format/buffer"                :n "F"   #'+format/buffer)
+ ;;
+ (:prefix "SPC m"   :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)
+ ;;
+ (:prefix "SPC y"   :desc "hint copy link"                :n "y"   #'link-hint-copy-link)
+ (:prefix "SPC y"   :desc "hint copy all link"            :n "a"   #'link-hint-copy-all-links)
+ (:prefix "SPC y"   :desc "hint copy link at point"       :n "p"   #'link-hint-copy-link-at-point)
+ (:prefix "SPC y"   :desc "hint copy multiple link"       :n "m"   #'link-hint-copy-multiple-links)
+ ;;
+ (:prefix "SPC a"   :desc "blink cursor"                  :n "b"   #'+nav-flash/blink-cursor)
+ ;;
+ (:prefix "SPC TAB" :desc "vim motion workspace order"    :n "m"   #'workspace-move/body)
+ (:prefix "SPC TAB" :desc "vim motion swap left"          :n "{"   #'+workspace/swap-left)
+ (:prefix "SPC TAB" :desc "vim motion swap right"         :n "}"   #'+workspace/swap-right)
  )
 ;; }}}
 ;; ========= Manual ========= {{{

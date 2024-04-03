@@ -148,15 +148,16 @@ main_bar = bar.Bar(
         ),
         widget.Volume(
             fmt=" {}",
-            update_interval=1,
-            step=5,
+            update_interval=3,
+            step=2,
             foreground=colors[8],
             background=foregroundTwo,
             # fmt=" {}"
         ),
         widget.Net(
             fmt=" {}",
-            update_interval=2,
+            format='{down:.2f}{down_suffix} ↓↑ {up:.2f}{up_suffix}',
+            update_interval=3,
             foreground=colors[9],
             background=foregroundTwo,
         ),
@@ -197,7 +198,7 @@ main_bar = bar.Bar(
         ),
         widget.Clock(
             format=" %V %a %d/%B/%y",
-            update_interval=86400,
+            update_interval=3600,
             foreground=colors[10],
             background=background,
         ),

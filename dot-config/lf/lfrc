@@ -436,6 +436,7 @@ map +d push :mkdir<space>
 map +f push :touch<space>
 map <enter> shell
 
+map <a-b> $ln -sfr $f ~/.local/share/firefox
 map <a-c> copyto
 map <a-da> cut-add
 map <a-dr> cut-remove

@@ -6,8 +6,10 @@ set smoothscroll false
 set modeindicatorshowkeys true
 set yankto both
 set putfrom selection
-set hintdelay 25
 set newtab about:blank
+
+set hintdelay 0
+set hintuppercase false
 
 colourscheme dracula
 
@@ -24,7 +26,7 @@ settings.focusFirstCandidate = true;
 "" ========== Bindings ========== {{{
 bind ,a hint -W exclaim_quiet dmpv append
 bind ,A hint -W exclaim_quiet dmpv aplay
-bind ,e hint -W exclaim_quiet dmpv eplay
+bind ,e hint -W exclaim_quiet dmpv enqueue
 bind ,E hint -W exclaim_quiet dmpv eplay
 bind ,m hint -W exclaim_quiet dmpv music
 bind ,M hint -W exclaim_quiet dmpv save_music

@@ -74,6 +74,7 @@ def bindings():
             "<XF86AudioMute>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
         ),
         EzKey("M-<XF86AudioMute>", lazy.spawn("output-audio")),
+        EzKey("C-<XF86AudioMute>", lazy.group["SPD"].dropdown_toggle("mixer")),
         #
         EzKey("<XF86AudioNext>", lazy.spawn("dmpc next")),
         EzKey("M-<XF86AudioNext>", lazy.spawn("tppctl seek 10")),
@@ -121,7 +122,7 @@ def bindings():
         # }}}
         # ======================= Function Keys ======================= {{{
         EzKey("M-<Escape>", lazy.group["SPD"].dropdown_toggle("btop")),
-        EzKey("M-S-<Escape>", lazy.group["SPD"].dropdown_toggle("btop")),
+        EzKey("M-C-<Escape>", lazy.group["SPD"].dropdown_toggle("htop")),
         # EzKey("M-F1", lazy.spawn("")),
         # EzKey("M-F2", lazy.spawn("")),
         EzKey("M-<F3>", lazy.spawn("wifi-toggle")),
@@ -438,17 +439,21 @@ def bindings():
         #
         EzKey("M-<up>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+")),
         EzKey("M-C-<up>", lazy.spawn("output-audio")),
+        EzKey("A-C-<up>", lazy.spawn("tppctl volume 2")),
+        EzKey("A-S-<up>", lazy.spawn("mpc volume +2")),
         #
         EzKey("M-<down>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-")),
         EzKey("M-C-<down>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+        EzKey("A-C-<down>", lazy.spawn("tppctl volume -2")),
+        EzKey("A-S-<down>", lazy.spawn("mpc volume -2")),
         #
         EzKey("M-<left>", lazy.spawn("tppctl seek -10")),
-        EzKey("A-<left>", lazy.spawn("mpc volume -2")),
-        EzKey("C-<left>", lazy.spawn("tppctl volume -2")),
+        # EzKey("A-<left>", lazy.spawn("mpc volume -2")),
+        # EzKey("C-<left>", lazy.spawn("tppctl volume -2")),
         #
         EzKey("M-<right>", lazy.spawn("tppctl seek 10")),
-        EzKey("A-<right>", lazy.spawn("mpc volume +2")),
-        EzKey("C-<right>", lazy.spawn("tppctl volume 2")),
+        # EzKey("A-<right>", lazy.spawn("mpc volume +2")),
+        # EzKey("C-<right>", lazy.spawn("tppctl volume 2")),
         # }}}
     ]
 

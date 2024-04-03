@@ -48,22 +48,32 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             qtilelog='less -N +F $HOME/.local/share/qtile/qtile.log' \
             wt='wtwitch'
 
-        hms() {
-            DIR="$HOME/.mozilla/firefox/nixhm"
+        pre_switch() {
             rm "$DIR/containers.json"
             mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
             mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
-            home-manager switch
+        }
+
+        post_switch() {
             mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
             mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
         }
 
+        hms() {
+            pre_switch
+            DIR="$HOME/.mozilla/firefox/nixhm"
+            home-manager switch
+            post_switch
+        }
+
         hmu() {
+            pre_switch
             cd "$HOME/.config/home-manager" &&
                 nix flake update &&
                 cd "$HOME" &&
                 home-manager switch 2>&1 |
                     tee "$HOME/.local/hm_last.log"
+            post_switch
         }
         ;;
     Ubuntu|Armbian|\"Ubuntu\"|\"Armbian\")
