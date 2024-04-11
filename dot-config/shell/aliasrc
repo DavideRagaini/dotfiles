@@ -45,23 +45,26 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             hm='home-manager' \
             nsh='nix-shell -p' \
             unclt='systemctl --user start unclutter.service' \
-            qtilelog='less -N +F $HOME/.local/share/qtile/qtile.log' \
+            qtlog='less -N +F $HOME/.local/share/qtile/qtile.log' \
+            qtcheck="qtile cmd-obj -o cmd -f validate_config" \
             wt='wtwitch'
 
         pre_switch() {
+            DIR="$HOME/.mozilla/firefox/nixhm"
             rm "$DIR/containers.json"
             mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
             mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
+            rm "$DIR/containers.json"
         }
 
         post_switch() {
+            DIR="$HOME/.mozilla/firefox/nixhm"
             mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
             mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
         }
 
         hms() {
             pre_switch
-            DIR="$HOME/.mozilla/firefox/nixhm"
             home-manager switch
             post_switch
         }

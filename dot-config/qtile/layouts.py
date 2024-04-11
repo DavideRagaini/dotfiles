@@ -17,7 +17,7 @@ def layout_defaults():
     layout_defaults = dict(
         border_focus=colors[7],
         border_normal=colors[8],
-        border_width=1,
+        border_width=2,
         margin=8,
     )
 
@@ -27,7 +27,15 @@ def layout_defaults():
             border_focus=colors[7], border_normal=colors[8], border_width=0, margin=0
         ),
         layout.MonadTall(**layout_defaults, single_border_width=0, single_margin=0),
-        layout.Bsp(**layout_defaults),
+        layout.Bsp(
+            **layout_defaults,
+            ratio=2,
+            grow_ammount=5,
+            lower_right=True,
+            wrap_client=False,
+            margin_on_single=0,
+            border_on_single=True,
+        ),
         layout.RatioTile(**layout_defaults),
         layout.MonadThreeCol(**layout_defaults),
         layout.TreeTab(

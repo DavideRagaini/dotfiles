@@ -5,6 +5,7 @@ from typing import List
 # from libqtile.log_utils import logger
 
 
+# ======================= floating corner window ============= {{{
 @lazy.function
 def floating_corner_window(
     qtile,
@@ -18,49 +19,89 @@ def floating_corner_window(
     current_screen = qtile.current_screen.info()
     screen_width = current_screen["width"]
     screen_height = current_screen["height"]
-    window_width = int(int(screen_width) / div)
-    window_height = int(int(screen_height) / div)
+    if screen_width < screen_height:
+        window_width = int(int(screen_height) / div)
+        window_height = int(int(screen_width) / div)
+    else:
+        window_width = int(int(screen_width) / div)
+        window_height = int(int(screen_height) / div)
+    main_monitor_width = 0
+    if current_screen["index"] >= 1:
+        main_monitor_width = 1920
+    top = bar_padding
+    bottom = screen_height - window_height - border_padding
+    left = main_monitor_width + border_padding
+    right = main_monitor_width + screen_width - window_width - border_padding
     match position:
         case "bottom right":
-            window_x = screen_width - window_width - border_padding
-            window_y = screen_height - window_height - border_padding
+            window_x = right
+            window_y = bottom
         case "top right":
-            window_x = screen_width - window_width - border_padding
-            window_y = bar_padding
+            window_x = right
+            window_y = top
         case "bottom left":
-            window_x = border_padding
-            window_y = screen_height - window_height - border_padding
+            window_x = left
+            window_y = bottom
         case "top left":
-            window_x = border_padding
-            window_y = bar_padding
+            window_x = left
+            window_y = top
     window = qtile.current_screen.group.current_window
     window.enable_floating()
     window.place(
         window_x, window_y, window_width, window_height, 1, "#FFFFFF", True, None, True
     )
+    window.bring_to_front()
     # window.static(0, int(window_x), int(window_y), int(window_width), int(window_height))
 
 
-# @lazy.function
-# def move_mpv_to_current_group(qtile):
-#     for group in qtile.groups:
-#         for window in group.windows:
-#             if (
-#                 window.info()["wm_class"][1] == "mpv"
-#                 and window.info()["group"] != qtile.current_group.name
-#             ):
-#                 window.togroup()
-
-
+# }}}
+# ======================= mpv ============= {{{
 @lazy.function
-def window_opacity(qtile, cmd, value=1):
-    match cmd:
-        case "inc":
-            qtile.current_group.current_window.up_opacity()
-        case "dec":
-            qtile.current_group.current_window.down_opacity()
-        case "set":
-            qtile.current_group.current_window.set_opacity(value)
+def move_mpv_to_current_group(qtile):
+    for group in qtile.groups:
+        for window in group.windows:
+            if (
+                window.info()["wm_class"][1] == "mpv"
+                and window.info()["group"] != qtile.current_group.name
+            ):
+                window.togroup()
+
+
+@hook.subscribe.setgroup
+def mpv_auto_toggle_minimize():
+    # if len(qtile.screens) == 0:
+    for group in qtile.groups:
+        for window in group.windows:
+            if window.info()["wm_class"][1] == "mpv":
+                if (
+                    window.info()["floating"] == False
+                    and window.info()["minimized"] == True
+                ) and (
+                    window.info()["group"] == qtile.current_group.name
+                    or qtile.screens["index"](1).current_group.name
+                ):
+                    window.toggle_minimize()
+                else:
+                    if (
+                        window.info()["group"]
+                        != (
+                            qtile.current_group.name
+                            or qtile.screens.index(1).current_group.name
+                        )
+                        and window.info()["floating"] == False
+                    ):
+                        window.toggle_minimize()
+
+
+@hook.subscribe.client_focus
+def set_hint(window):
+    window.window.set_property(
+        "IS_FLOATING_WINDOW", str(window.floating), type="STRING", format=8
+    )
+
+
+# }}}
+# ======================= Sticky ============= {{{
 
 
 sticky_windows: List[str] = []
@@ -78,40 +119,44 @@ def toggle_sticky_windows(qtile, window=None):
 
 
 @hook.subscribe.setgroup
-def mpv_auto_toggle_minimize():
-    for group in qtile.groups:
-        for window in group.windows:
-            if window.info()["wm_class"][1] == "mpv":
-                if window.info()["minimized"] == True:
-                    if window.info()["group"] == qtile.current_group.name:
-                        window.toggle_minimize()
-                else:
-                    if window.info()["group"] != qtile.current_group.name:
-                        if window.info()["floating"] == False:
-                            window.toggle_minimize()
-
-
-# @hook.subscribe.setgroup
-# def unminimize_hook():
-#     for window in qtile.current_group.windows:
-#         if window.info()['minimized'] is True:
-#             window.toggle_minimize()
-
-
-@hook.subscribe.setgroup
 def move_sticky_windows():
     for window in sticky_windows:
         window.togroup()
+    qtile.current_layout.next()
     return
 
 
-@hook.subscribe.client_managed
-def auto_sticky_windows(window):
-    info = window.info()
-    if info["wm_class"] == ["mpvFloat", "mpv"]:
-        sticky_windows.append(window)
+@hook.subscribe.client_killed
+def remove_sticky_windows(window):
+    if window in sticky_windows:
+        sticky_windows.remove(window)
 
 
+# @hook.subscribe.client_managed
+# def auto_sticky_windows(window):
+#     info = window.info()
+#     if info["wm_class"] == ["mpvFloat", "mpv"]:
+#         sticky_windows.append(window)
+# }}}
+# ======================= Auto Toggle Minimize ============= {{{
+@hook.subscribe.setgroup
+def autohide_bar_9th_group():
+    hidden_bar = qtile.current_screen.top.info()["size"] == 0
+    if qtile.current_group.name == "9" and hidden_bar:
+        qtile.hide_show_bar()
+    elif hidden_bar:
+        qtile.hide_show_bar()
+
+
+@hook.subscribe.setgroup
+def unminimize_hook():
+    for window in qtile.current_group.windows:
+        if window.info()["minimized"] == True:
+            window.toggle_minimize()
+
+
+# }}}
+# ======================= Merge Groups ============= {{{
 groupsMerged = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 0: []}
 
 
@@ -147,6 +192,15 @@ def restore_all_merged_groups_hook():
     restore_all_merged_groups(qtile)
 
 
+@hook.subscribe.client_killed
+def remove_merge_group_windows(window):
+    for group in groupsMerged:
+        if window in groupsMerged[group]:
+            groupsMerged[group].remove(window)
+
+
+# }}}
+# ======================= Window Focus ============= {{{
 last_focus_index = -1
 
 
@@ -165,6 +219,30 @@ def toggle_focus_main(qtile):
         last_focus_index = current_index
 
 
+previous_focused: List[str] = []
+
+
+@hook.subscribe.client_focus
+def client_focused(window):
+    global previous_focused
+    if len(previous_focused) < 2:
+        previous_focused.append(window)
+    elif previous_focused[1] != window:
+        previous_focused[0] = previous_focused[1]
+        previous_focused[1] = window
+
+
+@lazy.function
+def focus_previous_window(qtile):
+    global previous_focused
+    if len(previous_focused) == 2:
+        group = previous_focused[0].group
+        qtile.current_screen.set_group(group)
+        group.focus(previous_focused[0])
+
+
+# }}}
+# ======================= Floating ============= {{{
 @lazy.function
 def float_to_front(qtile):
     for group in qtile.groups:
@@ -199,28 +277,19 @@ def float_cycle(qtile, forward: bool):
     win.focus()
 
 
-previous_focused: List[str] = []
+# @hook.subscribe.client_new
+# def disable_floating(window):
+#     rules = [
+#         Match(wm_class="mpv")
+#     ]
+
+#     if any(window.match(rule) for rule in rules):
+#         window.togroup(qtile.current_group.name)
+#         window.disable_floating()
 
 
-@hook.subscribe.client_focus
-def client_focused(window):
-    global previous_focused
-    if len(previous_focused) < 2:
-        previous_focused.append(window)
-    elif previous_focused[1] != window:
-        previous_focused[0] = previous_focused[1]
-        previous_focused[1] = window
-
-
-@lazy.function
-def focus_previous_window(qtile):
-    global previous_focused
-    if len(previous_focused) == 2:
-        group = previous_focused[0].group
-        qtile.current_screen.set_group(group)
-        group.focus(previous_focused[0])
-
-
+# }}}
+# ======================= Screens ============= {{{
 # # kick a window to another screen (handy during presentations)
 # def kick_to_next_screen(qtile, direction=1):
 # 	other_scr_index = (qtile.screens.index(qtile.currentScreen) + direction) % len(qtile.screens)
@@ -248,38 +317,26 @@ def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
             qtile.to_screen(i + 1)
 
 
-@hook.subscribe.client_focus
-def set_hint(window):
-    window.window.set_property(
-        "IS_FLOATING_WINDOW", str(window.floating), type="STRING", format=8
-    )
-
-
-@hook.subscribe.client_killed
-def remove_sticky_windows(window):
-    if window in sticky_windows:
-        sticky_windows.remove(window)
-
-
-@hook.subscribe.client_killed
-def remove_merge_group_windows(window):
-    for group in groupsMerged:
-        if window in groupsMerged[group]:
-            groupsMerged[group].remove(window)
-
-
+# }}}
+# ======================= TreeTab ============= {{{
 # Allows you to input a name when adding treetab section.
 # @lazy.layout.function
 # def add_treetab_section(layout):
 #     prompt = qtile.widgets_map["prompt"]
 #     prompt.start_input("Section name: ", layout.add_section)
 
-# @hook.subscribe.client_new
-# def disable_floating(window):
-#     rules = [
-#         Match(wm_class="mpv")
-#     ]
 
-#     if any(window.match(rule) for rule in rules):
-#         window.togroup(qtile.current_group.name)
-#         window.disable_floating()
+# }}}
+# ======================= Opacity ============= {{{
+@lazy.function
+def window_opacity(qtile, cmd, value=1):
+    match cmd:
+        case "inc":
+            qtile.current_group.current_window.up_opacity()
+        case "dec":
+            qtile.current_group.current_window.down_opacity()
+        case "set":
+            qtile.current_group.current_window.set_opacity(value)
+
+
+# }}}

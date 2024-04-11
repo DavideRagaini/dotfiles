@@ -12,12 +12,6 @@ export VISUAL="emacsclient -c"
 HOSTNAME="$(hostname)"
 export HOSTNAME
 
-export DMENU_FN='IosevkaTerm Nerd Font Mono:style=bold:size=12'
-export DMENU_NB='#181321'
-export DMENU_NF='#6e5e89'
-export DMENU_SB='#4e4262'
-export DMENU_SF='#181321'
-
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -99,6 +93,12 @@ export XCOMPOSECACHE="$XDG_CACHE_HOME"/xcompose
 export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java doesn't understand tiling windows
+
+# export DMENU_FN='IosevkaTerm Nerd Font Mono:style=bold:size=12'
+# export DMENU_NB='#181321'
+# export DMENU_NF='#FF92D0'
+# export DMENU_SB='#4e4262'
+# export DMENU_SF='#181321'
 
 PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 PATH="$PATH:$XDG_CONFIG_HOME/emacs/bin/"

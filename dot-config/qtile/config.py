@@ -8,6 +8,7 @@ from scratchpad import Scratchpad
 from colors import dracula
 from layouts import layout_defaults
 from bindings import *
+# import autostart
 
 # }}}
 # ======================= init ============= {{{
@@ -38,7 +39,7 @@ colorscheme = dracula()
 ) = colorscheme
 # }}}
 # ======================= Bar & Widgets ============= {{{
-from bars import main_bar
+from bars import main_bar, vmon_bar_top, vmon_bar_bottom
 
 widget_defaults = dict(
     # font="DaddyTimeMono Nerd Font Bold",
@@ -49,12 +50,21 @@ widget_defaults = dict(
     background=colors[0],
 )
 
+wallpaperPath = "/home/davide/pic/current/"
 main_screen = Screen(
     top=main_bar,
-    wallpaper="~/.local/share/bg",
-    wallpaper_mode="stretch",
+    wallpaper=wallpaperPath + "main",
+    wallpaper_mode="fill",
 )
-screens = [main_screen]
+
+vert_screen = Screen(
+    top=vmon_bar_top,
+    bottom=vmon_bar_bottom,
+    wallpaper=wallpaperPath + "vert",
+    wallpaper_mode="fill",
+)
+
+screens = [ main_screen, vert_screen ]
 # }}}
 # ======================= Misc ============= {{{
 auto_fullscreen = True

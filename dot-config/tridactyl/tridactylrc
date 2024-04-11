@@ -18,14 +18,14 @@ settings.hintAlign = "left";
 settings.focusAfterClosed = "last";
 settings.modeAfterYank = "Normal";
 settings.startToShowEmoji = 2;
-
 settings.tabsThreshold = 0;
 settings.omnibarMaxResults = 20;
 settings.focusFirstCandidate = true;
 "" }}}
 "" ========== Bindings ========== {{{
 bind ,a hint -W exclaim_quiet dmpv append
-bind ,A hint -W exclaim_quiet dmpv aplay
+bind ,f hint -W exclaim_quiet dmpv aplay
+bind ,b hint -W exclaim_quiet bm s
 bind ,e hint -W exclaim_quiet dmpv enqueue
 bind ,E hint -W exclaim_quiet dmpv eplay
 bind ,m hint -W exclaim_quiet dmpv music
@@ -44,15 +44,13 @@ command hint_focus hint -;
 
 bind ;C composite hint_focus; !s xdotool key Menu
 bind gd tabdetach
-bind gD composite tabduplicate; tabdetach
-bind gr reader
+bind gD composite tabduplicate
 bind gR reader --tab
 bind gh followpage prev
 bind gl followpage next
 bind gc composite js window.location.href | gitclone
 bind ;gc hint -qW gitclone
 bind gd tabdetach
-bind gD composite tabduplicate; tabdetach
 "" bind v composite hint -pipe a href | js -p tri.excmds.shellescape(JS_ARG) | exclaim_quiet mpv --ontop
 "" bind V js tri.excmds.shellescape(document.location.href).then(url => tri.native.run(`mpv --ontop '${url}'`))
 bind ;v composite hint -qpipe a href | js -p JS_ARG.map(h => `'${h}'`).join(" ") | ! mpv

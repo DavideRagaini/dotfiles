@@ -13,13 +13,12 @@ class Groups(object):
                 exclusive=True,
                 matches=[
                     Match(wm_instance_class=regex("emacs")),
-                    Match(wm_class=regex("Alacritty")),
                 ],
             ),
             Group(
                 name="2",
                 position=2,
-                layout="monadtall",
+                layout="max",
                 exclusive=True,
                 matches=Match(
                     wm_class=regex(
@@ -125,18 +124,25 @@ class Groups(object):
                 name="8",
                 position=8,
                 layout="max",
-                matches=Match(
-                    wm_class=regex(
-                        "teams-for-linux|microsoft teams - preview|Ferdium|KeePassXC|qBittorrent|calibre-gui|calibre",
+                matches=[
+                    Match(
+                        wm_class=regex(
+                            "KeePassXC|qBittorrent|calibre-gui|calibre|syncthingtray",
+                        ),
                     ),
-                ),
+                    Match(
+                        wm_class=regex(
+                            "teams-for-linux|microsoft teams - preview|Ferdium|KeePassXC",
+                        ),
+                    ),
+                ],
             ),
             Group(
                 name="9",
                 position=9,
                 layout="max",
                 # exclusive=True,
-                matches=Match(wm_class=regex("mpv|Kodi")),
+                matches=Match(wm_class=regex("mpv|Kodi|Alacritty")),
             ),
             Group(
                 name="0",

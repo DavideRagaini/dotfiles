@@ -1,16 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;; ========= Functions ========= {{{
-(defun dr/eagenda()
-  (org-agenda-list 21)
-  (split-window-horizontally -85)
-  (find-file "~/Org/Me/Habits.org")
-  (split-window-vertically -15)
-  (find-file "~/Org/Me/Tasks.org")
-  (split-window-vertically -15)
-  (find-file "~/Org/Me/Learn.org")
-  (+workspace:rename "agenda")
-  )
-
 (defun dr/ispell-settings()
   (after! ispell
     (setq ispell-program-name "hunspell"
@@ -130,7 +119,7 @@
 ;; ========= Load Config Files ========= {{{
 (load! "load/org.el")
 (load! "load/erc.el")
-(load! "load/rssfeed.el")
+(load! "load/elfeed.el")
 ;; (load! "load/calibredb.el")
 ;; (load! "load/matlab-setup.el")
 ;; }}}
@@ -169,11 +158,15 @@
  (:prefix "SPC y"   :desc "hint copy link at point"       :n "p"   #'link-hint-copy-link-at-point)
  (:prefix "SPC y"   :desc "hint copy multiple link"       :n "m"   #'link-hint-copy-multiple-links)
  ;;
+ (:prefix "SPC o"   :desc "open elfeed"                   :n "n"   #'elfeed)
+ (:prefix "SPC o"   :desc "update elfeed"                 :n "N"   #'elfeed)
+ ;;
  (:prefix "SPC a"   :desc "blink cursor"                  :n "b"   #'+nav-flash/blink-cursor)
  ;;
  (:prefix "SPC TAB" :desc "vim motion workspace order"    :n "m"   #'workspace-move/body)
  (:prefix "SPC TAB" :desc "vim motion swap left"          :n "{"   #'+workspace/swap-left)
  (:prefix "SPC TAB" :desc "vim motion swap right"         :n "}"   #'+workspace/swap-right)
+ (:prefix "SPC TAB" :desc "last workspace"                :n ";"   #'+workspace/other)
  )
 ;; }}}
 ;; ========= Manual ========= {{{

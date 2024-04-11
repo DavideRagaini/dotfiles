@@ -27,11 +27,14 @@ default_device = "spotify-player"
 notify_streaming_only = false
 
 [copy_command]
-command = "xclip"
-args = [
-    "-sel",
-    "c",
-]
+command = "cclip"
+# args = []
+# [copy_command]
+# command = "xclip"
+# args = [
+#     "-sel",
+#     "c",
+# ]
 
 [notify_format]
 summary = "{track} • {artists}"
@@ -40,7 +43,7 @@ body = "{album}"
 [device]
 name = "spotify-player"
 device_type = "speaker"
-volume = 85
+volume = 95
 bitrate = 320
 audio_cache = true
 normalization = true

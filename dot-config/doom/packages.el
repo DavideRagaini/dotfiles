@@ -6,6 +6,7 @@
   (package! matlab-mode)
   ))
 
+(package! elfeed-goodies :disable t)
 ;; (package! ox-epub)
 ; (package! dired-single)
 ;; (package! dired-open)
