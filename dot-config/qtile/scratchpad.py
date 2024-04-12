@@ -55,8 +55,9 @@ class Scratchpad(object):
                         on_focus_lost_hide=on_focus_lost_hide,
                     ),
                     DropDown(
-                        "elfeed",
-                        'emacs -e "(elfeed)" -F "((name . \\"elfeed\\"))"',
+                        "flemacs",
+                        'emacs',
+                        # 'emacs -e "(run-at-time nil (* 4 60 60) #\'elfeed-update)"',
                         width=0.9,
                         height=0.9,
                         x=0.05,

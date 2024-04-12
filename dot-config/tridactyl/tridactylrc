@@ -87,8 +87,8 @@ set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&sea
 set searchurls.wi https://it.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
 set searchurls.az https://www.amazon.it/s/?field-keywords=%s
 
-set searchurls.np https://search.nixos.org/packages?channel=23.05&from=0&size=50&sort=relevance&type=packages&query=%s
-set searchurls.no https://search.nixos.org/options?channel=23.05&from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.np https://search.nixos.org/packages?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.no https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=%s
 set searchurls.ho https://mipmip.github.io/home-manager-option-search/?query=%s
 set searchurls.nw https://nixos.wiki/index.php?title=Special:Search&search=%s
 

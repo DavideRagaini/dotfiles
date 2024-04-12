@@ -27,6 +27,7 @@ def floating_corner_window(
         window_height = int(int(screen_height) / div)
     main_monitor_width = 0
     if current_screen["index"] >= 1:
+        # TODO main screen resolution
         main_monitor_width = 1920
     top = bar_padding
     bottom = screen_height - window_height - border_padding
@@ -120,10 +121,10 @@ def toggle_sticky_windows(qtile, window=None):
 
 @hook.subscribe.setgroup
 def move_sticky_windows():
-    for window in sticky_windows:
-        window.togroup()
-    qtile.current_layout.next()
-    return
+    if len(sticky_windows) != 0:
+        for window in sticky_windows:
+            window.togroup()
+        qtile.current_layout.next()
 
 
 @hook.subscribe.client_killed
@@ -302,19 +303,19 @@ def float_cycle(qtile, forward: bool):
 # 		qtile.moveToGroup(othergroup)
 
 
-@lazy.function
-def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
-    i = qtile.screens.index(qtile.current_screen)
-    if i != 0:
-        group = qtile.screens[i - 1].group.name
-        qtile.current_window.togroup(group, switch_group=switch_group)
-        if switch_screen == True:
-            qtile.to_screen(i - 0)
-    elif i + 1 != len(qtile.screens):
-        group = qtile.screens[i + 1].group.name
-        qtile.current_window.togroup(group, switch_group=switch_group)
-        if switch_screen == True:
-            qtile.to_screen(i + 1)
+# @lazy.function
+# def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
+#     i = qtile.screens.index(qtile.current_screen)
+#     if i != 0:
+#         group = qtile.screens[i - 1].group.name
+#         qtile.current_window.togroup(group, switch_group=switch_group)
+#         if switch_screen == True:
+#             qtile.to_screen(i - 0)
+#     elif i + 1 != len(qtile.screens):
+#         group = qtile.screens[i + 1].group.name
+#         qtile.current_window.togroup(group, switch_group=switch_group)
+#         if switch_screen == True:
+#             qtile.to_screen(i + 1)
 
 
 # }}}

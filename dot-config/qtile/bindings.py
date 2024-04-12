@@ -303,7 +303,7 @@ def bindings():
         # }}}
         # ======================= Second Row ======================= {{{
         EzKey("M-a", lazy.next_screen()),
-        EzKey("M-C-a", lazy.function(window_to_next_screen, switch_screen=True)),
+        # EzKey("M-C-a", lazy.function(window_to_next_screen, switch_screen=True)),
         # EzKey("M-A-a", add_treetab_section),
         #
         EzKey("M-s", toggle_sticky_windows()),
@@ -486,20 +486,12 @@ def bindings():
         #
         # EzKey("M-<XF86ScrollDown>", lazy.spawn("")),
         #
-        EzKey(
-            "M-<up>",
-            lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"),
-            lazy.widget["volume"].force_update(),
-        ),
+        EzKey("M-<up>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+")),
         EzKey("M-C-<up>", lazy.spawn("output-audio")),
         EzKey("A-C-<up>", lazy.spawn("tppctl volume 2")),
         EzKey("A-S-<up>", lazy.spawn("mpc volume +2")),
         #
-        EzKey(
-            "M-<down>",
-            lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-"),
-            lazy.widget["volume"].force_update(),
-        ),
+        EzKey("M-<down>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-")),
         EzKey("M-C-<down>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
         EzKey("A-C-<down>", lazy.spawn("tppctl volume -2")),
         EzKey("A-S-<down>", lazy.spawn("mpc volume -2")),

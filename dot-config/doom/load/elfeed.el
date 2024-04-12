@@ -5,13 +5,14 @@
 ;; TODO [[https://gist.github.com/alphapapa/80d2dba33fafcb50f558464a3a73af9a][Elfeed config · GitHub]]
 ;; [[https://koustuvsinha.com/post/emacs_research_workflow/][A workflow for reading, managing and discovering ML research papers with Emacs | Koustuv Sinha]]
 ;; [[https://github.com/skeeto/elfeed/issues/222][User Interface suggestions · Issue #222 · skeeto/elfeed · GitHub]]
+;; TODO [[https://github.com/sp1ff/elfeed-score][GitHub - sp1ff/elfeed-score: Gnus-style scoring for elfeed]]
 
 (setq elfeed-use-curl t
       elfeed-curl-max-connections 6
       elfeed-enclosure-default-dir "~/dwn"
       elfeed-sort-order 'descending
       elfeed-search-clipboard-type 'CLIPBOARD
-      elfeed-search-title-max-width 110
+      elfeed-search-title-max-width 130
       elfeed-search-title-min-width 70
       elfeed-search-trailing-width 40
       elfeed-show-truncate-long-urls t
@@ -23,8 +24,6 @@
       )
 ;; https://old.reddit.com/r/orgmode/comments/i6hl8b/image_preview_size_in_org_mode/
 ;;
-(defun elfeed-search-format-date (date)
-  (format-time-string "%m/%d %H:%M" (seconds-to-time date)))
 
 (defun elfeed-tag-selection-as (mytag)
   "Returns a function that tags an elfeed entry or selection as MYTAG"
@@ -87,7 +86,6 @@
   (kbd "; a") 'elfeed-open-dmpv-append
   (kbd "; f") 'elfeed-open-dmpv-aplay
   ;;
-  (kbd "; H") (elfeed-tag-selection-as '!)
   (kbd "; h") (elfeed-tag-selection-as 'h)
   (kbd "; w") (elfeed-tag-selection-as 'w)
   (kbd "; o") (elfeed-tag-selection-as 'o)
@@ -97,7 +95,6 @@
   (kbd ", p") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +F"))
   (kbd ", c") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +chill"))
   (kbd ", v") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +vid"))
-  (kbd ", H") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +!"))
   (kbd ", h") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +h"))
   (kbd ", w") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +w"))
   (kbd ", o") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +o"))
@@ -106,42 +103,33 @@
   )
 
 (after! elfeed
+  (defun elfeed-search-format-date (date)
+    (format-time-string "%m/%d %H:%M" (seconds-to-time date)))
+
   ;; (add-hook! 'elfeed-show-mode-map #'writeroom-mode)
-  (add-hook! 'elfeed-search-mode-hook #'elfeed-update) ;; auto update when opening
-  (add-hook 'elfeed-new-entry-hook (elfeed-make-tagger :feed-url "yewtu\\.com" :add '(v)))
-  (add-hook 'elfeed-new-entry-hook (elfeed-make-tagger :feed-url "github\\.com"  :add '(sw)))
-  (add-hook 'elfeed-new-entry-hook (elfeed-make-tagger :feed-url "gitlab\\.com"  :add '(sw)))
+  ;; (add-hook! 'elfeed-search-mode-hook #'elfeed-update) ;; auto update when opening
+  (add-hook! 'elfeed-new-entry-hook (elfeed-make-tagger :feed-url "yewtu\\.com" :add '(vid)))
+  (add-hook! 'elfeed-new-entry-hook (elfeed-make-tagger :feed-url "twitchrss\\.appspot\\.com" :add '(str)))
 
-  (defface focus-elfeed-entry
-    `((t :background "#a70"))
-    "Marks a focus Elfeed entry.")
-  ;; (push '(pol focus-elfeed-entry)
-  ;;       elfeed-search-face-alist)
-  (push '(F focus-elfeed-entry)
-        elfeed-search-face-alist)
-
-  (defface linux-elfeed-entry
-    `((t :background "#550")
-      (t :foreground "#000"))
-    "Marks an linux Elfeed entry.")
-  (push '(lnx linux-elfeed-entry)
-        elfeed-search-face-alist)
-
-  (defface chill-elfeed-entry
-    `((t :background "#806"))
-    "Marks an chill Elfeed entry.")
-  (push '(chill chill-elfeed-entry)
-        elfeed-search-face-alist)
-
-  (defface vid-elfeed-entry
-    `((t :background "#700"))
-    "Marks an vid Elfeed entry.")
-  (push '(vid vid-elfeed-entry)
-        elfeed-search-face-alist)
-
-  (defface important-elfeed-entry
-    `((t :background "#888"))
-    "Marks an important Elfeed entry.")
-  (push '(! important-elfeed-entry)
-        elfeed-search-face-alist)
+  (defface done-elfeed-entry      '((t :background "#666")) "done") ;; gray
+  (push '(x done-elfeed-entry) elfeed-search-face-alist)
+  (defface important-elfeed-entry '((t :background "#604")) "important") ;; purple
+  (push '(h important-elfeed-entry) elfeed-search-face-alist)
+  (defface ongoing-elfeed-entry   '((t :background "#851")) "ongoing") ;; orange
+  (push '(o ongoing-elfeed-entry) elfeed-search-face-alist)
+  (defface save-elfeed-entry      '((t :background "#330")) "saved") ;; yellow
+  (push '(s saved-elfeed-entry) elfeed-search-face-alist)
+  (defface watch-elfeed-entry     '((t :background "#262")) "watch") ;; green
+  (push '(w watch-elfeed-entry) elfeed-search-face-alist)
   )
+
+;; [[https://anonymousoverflow.privacyfucking.rocks/exchange/emacs/questions/18008/startup-emacs-daemon-with-elfeed-rss-feed-reader-buffer][Startup Emacs Daemon With Elfeed (RSS Feed Reader) Buffer | AnonymousOverflow]]
+(defun dr/start-elfeed ()
+  (interactive)
+  (progn
+    (elfeed)
+    (run-at-time nil (* 4 60 60) #'elfeed-update)
+    )
+  )
+;; (add-hook 'server-visit-hook 'start-elfeed)
+;; (add-hook 'after-make-frame-functions 'start-elfeed)

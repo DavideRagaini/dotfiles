@@ -326,15 +326,15 @@ vmon_bar_bottom = bar.Bar(
         #     background=background,
         # ),
         #
-        widget.Wttr(
-            fmt="<b>{}</b>",
-            format=" %c %C %h %t %f %w %m %M %p %P %D %S %z %s %d",
-            # user_agent='',
-            location={"34.50,13.01": "H"},
-            foreground=colors[9],
-            background=background,
-        ),
-        slash(background, '#000000'),  # black-gray
+        # widget.Wttr(
+        #     fmt="<b>{}</b>",
+        #     format=" %c %C %h %t %f %w %m %M %p %P %D %S %z %s %d",
+        #     # user_agent='',
+        #     location={"34.50,13.01": "H"},
+        #     foreground=colors[9],
+        #     background=background,
+        # ),
+        # slash(background, '#000000'),  # black-gray
         #
     ],
     17,

@@ -26,10 +26,10 @@
 (setq org-directory "~/Org"
       ;; org-agenda-start-day "-3d"
       org-agenda-files
-      '("~/Org/Me/Tasks.org"
-        "~/Org/Me/Habits.org"
-        "~/Org/Me/Learn.org"
-        "~/Org/Others/Birthdays.org")
+      '("~/org/Me/Tasks.org"
+        "~/org/Me/Habits.org"
+        "~/org/Me/Learn.org"
+        "~/org/Others/Birthdays.org")
       org-agenda-log-mode-items '(state closed clock)
       org-agenda-start-with-log-mode t
       org-archive-location "~/Org/Archive/%s_archive::"

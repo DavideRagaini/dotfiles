@@ -18,43 +18,49 @@
   (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
   )
 
-(defun run-with-python ()
+(defun dr/run-with-python ()
   "Set the default comli-command to run the current file with python"
   (setq-local compile-command
               (concat "python "
                       (when buffer-file-name
                         (shell-quote-argument buffer-file-name)))))
-(add-hook 'python-mode-hook 'run-with-python)
+(add-hook 'python-mode-hook 'dr/run-with-python)
+
+(defun dr/toggle-theme ()
+  "Light/dark theme toggle"
+  (interactive)
+  (if (eq (car custom-enabled-themes) dr/dark-theme)
+      (load-theme dr/light-theme)
+    (load-theme dr/dark-theme)))
 ;; }}}
 ;; ========= Bootstraps ========= {{{
 (setq dr/font-size 13
-      doom-theme 'modus-vivendi)
+      dr/main-font-family "IosevkaTerm Nerd Font Mono"
+      dr/big-font-family 'dr/main-font-family
+      dr/serif-font-family "Garamond Libre"
+      dr/variable-pitch-font-family "Overpass"
+      dr/symbol-font-family "JuliaMono"
+      dr/light-theme 'leuven
+      dr/dark-theme 'modus-vivendi
+      )
 
 (cond
  ((string-equal (system-name) "Apollo")
-  (setq dr/font-size 13
-        doom-theme 'catppuccin)
+  (setq dr/dark-theme 'catppuccin)
   (global-activity-watch-mode 1)
   (dr/high-resources)
   )
- )
-
-(cond
  ((eq system-type 'windows-nt)
-  (setq doom-font (font-spec :family "cascadia code" :size dr/font-size)
-        doom-big-font (font-spec :family "cascadia cove" :size (* dr/font-size 2))
-        doom-variable-pitch-font (font-spec :family "microsoft sans serif" :size (+ dr/font-size 2))
-        doom-theme 'catppuccin
+  (setq
+        dr/main-font-family "cascadia code"
+        dr/big-font-family 'dr/main-font-family
+        dr/variable-pitch-font-family "microsoft sans serif"
+        dr/symbol-font-family "cascadia code"
+        dr/light-theme 'leuven
+        dr/dark-theme 'catppuccin
         )
   (set-frame-parameter (selected-frame) 'alpha '(100 . 95))
   (add-to-list 'default-frame-alist '(alpha . (100 . 95)))
-  )
- ((eq system-type 'gnu/linux)
-  doom-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size dr/font-size)
-  doom-big-font (font-spec :family "IosevkaTerm Nerd Font Propo" :size (* dr/font-size 2))
-  doom-serif-font (font-spec :family "Liberation Serif" :size (+ dr/font-size 2))
-  doom-variable-pitch-font (font-spec :family "Liberation Sans" :size (+ dr/font-size 2))
-  doom-symbol-font (font-spec :family "DejaVu Serif" :size dr/font-size)
   )
  )
 ;; }}}
@@ -62,6 +68,13 @@
 (setq user-full-name "Davide Ragaini"
       user-mail-address "ragainidavide@gmail.com"
       ;; whitespace-line-column 500
+      doom-font (font-spec :family dr/main-font-family :size dr/font-size)
+      doom-big-font (font-spec :family dr/big-font-family :size (* dr/font-size 2))
+      doom-serif-font (font-spec :family dr/serif-font-family :size dr/font-size)
+      ;; doom-serif-font (font-spec :family "DejaVu Serif" :size dr/font-size)
+      doom-variable-pitch-font (font-spec :family dr/variable-pitch-font-family :size dr/font-size)
+      doom-symbol-font (font-spec :family dr/symbol-font-family :size dr/font-size)
+      doom-theme dr/dark-theme
       compilation-scroll-output t
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark)
       line-spacing 2
@@ -95,19 +108,20 @@
     ("^\\*Completions*"     :slot -1 :vslot -2 :ttl 0)
     ("^\\*Edit Formulas*"   :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Help*"            :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Inferior Octave*" :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Man*"             :side right  :size 0.30 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*WoMan*"           :side right  :size 0.30 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^magit-process:*"     :side right  :size 0.40 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Org Agenda*"      :side left   :size 0.40 :quit t   :slot  3 :vslot  3 :ttl 0 :select t)
     ("^\\*Python*"          :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Inferior Octave*" :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Warnings*"        :side bottom :size 0.30 :quit t   :slot -1 :vslot -2 :ttl 0 :select nil)
+    ("^\\*WoMan*"           :side right  :size 0.30 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*compilation*"     :side right  :size 0.40 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)
     ("^\\*doom:*"           :side bottom :size 0.35 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)
     ("^\\*eshell*"          :side bottom :size 0.42 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*eww*"             :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*helpful*"         :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*magit-process*"   :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^etc/NEWS*"           :side right  :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^magit-process:*"     :side right  :size 0.40 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :quit nil :ttl 5 :quit t)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
 ;; }}}
@@ -120,6 +134,7 @@
 (load! "load/org.el")
 (load! "load/erc.el")
 (load! "load/elfeed.el")
+;; (load! "load/emms.el")
 ;; (load! "load/calibredb.el")
 ;; (load! "load/matlab-setup.el")
 ;; }}}
@@ -142,26 +157,28 @@
 ;; }}}
 ;; ========= Bindings ========= {{{
 (map!
- (:prefix "SPC w"   :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
- (:prefix "C-w"     :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
- ;;
- (:prefix "C-h"     :desc "woman"                         :n "z"   #'woman)
- (:prefix "SPC h"   :desc "woman"                         :n "z"   #'woman)
+ (:prefix "SPC a"   :desc "blink cursor"                  :n "b"   #'+nav-flash/blink-cursor)
  ;;
  (:prefix "SPC b"   :desc "+format/region"                :n "f"   #'+format/region)
  (:prefix "SPC b"   :desc "+format/buffer"                :n "F"   #'+format/buffer)
  ;;
+ (:prefix "SPC h"   :desc "woman"                         :n "z"   #'woman)
+ (:prefix "C-h"     :desc "woman"                         :n "z"   #'woman)
+ ;;
  (:prefix "SPC m"   :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)
+ ;;
+ (:prefix "SPC o"   :desc "open elfeed"                   :n "n"   #'elfeed)
+ (:prefix "SPC o"   :desc "update elfeed"                 :n "N"   #'elfeed-update)
+ ;;
+ (:prefix "SPC w"   :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
+ (:prefix "C-w"     :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
+ ;;
+ (:prefix "SPC t"   :desc "toggle light/dark theme"       :n "t"   #'dr/toggle-theme)
  ;;
  (:prefix "SPC y"   :desc "hint copy link"                :n "y"   #'link-hint-copy-link)
  (:prefix "SPC y"   :desc "hint copy all link"            :n "a"   #'link-hint-copy-all-links)
  (:prefix "SPC y"   :desc "hint copy link at point"       :n "p"   #'link-hint-copy-link-at-point)
  (:prefix "SPC y"   :desc "hint copy multiple link"       :n "m"   #'link-hint-copy-multiple-links)
- ;;
- (:prefix "SPC o"   :desc "open elfeed"                   :n "n"   #'elfeed)
- (:prefix "SPC o"   :desc "update elfeed"                 :n "N"   #'elfeed)
- ;;
- (:prefix "SPC a"   :desc "blink cursor"                  :n "b"   #'+nav-flash/blink-cursor)
  ;;
  (:prefix "SPC TAB" :desc "vim motion workspace order"    :n "m"   #'workspace-move/body)
  (:prefix "SPC TAB" :desc "vim motion swap left"          :n "{"   #'+workspace/swap-left)
