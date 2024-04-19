@@ -1,7 +1,6 @@
 from libqtile import hook, qtile
 from libqtile.lazy import lazy
 from typing import List
-
 # from libqtile.log_utils import logger
 
 
@@ -27,8 +26,7 @@ def floating_corner_window(
         window_height = int(int(screen_height) / div)
     main_monitor_width = 0
     if current_screen["index"] >= 1:
-        # TODO main screen resolution
-        main_monitor_width = 1920
+        main_monitor_width = qtile.screens[0].info()["width"]
     top = bar_padding
     bottom = screen_height - window_height - border_padding
     left = main_monitor_width + border_padding
@@ -69,7 +67,7 @@ def move_mpv_to_current_group(qtile):
 
 
 @hook.subscribe.setgroup
-def mpv_auto_toggle_minimize():
+async def mpv_auto_toggle_minimize():
     # if len(qtile.screens) == 0:
     for group in qtile.groups:
         for window in group.windows:
@@ -101,6 +99,15 @@ def set_hint(window):
     )
 
 
+@hook.subscribe.setgroup
+async def autohide_bar_9th_group():
+    hidden_bar = qtile.current_screen.top.info()["size"] == 0
+    if qtile.current_group.name == "9" and not hidden_bar:
+        qtile.hide_show_bar()
+    elif hidden_bar:
+        qtile.hide_show_bar()
+
+
 # }}}
 # ======================= Sticky ============= {{{
 
@@ -120,8 +127,8 @@ def toggle_sticky_windows(qtile, window=None):
 
 
 @hook.subscribe.setgroup
-def move_sticky_windows():
-    if len(sticky_windows) != 0:
+async def move_sticky_windows():
+    if sticky_windows:
         for window in sticky_windows:
             window.togroup()
         qtile.current_layout.next()
@@ -136,34 +143,28 @@ def remove_sticky_windows(window):
 # @hook.subscribe.client_managed
 # def auto_sticky_windows(window):
 #     info = window.info()
-#     if info["wm_class"] == ["mpvFloat", "mpv"]:
+#     if info["wm_class"] == ["mpv"] and info["floating"] == True:
 #         sticky_windows.append(window)
+
+
 # }}}
 # ======================= Auto Toggle Minimize ============= {{{
-@hook.subscribe.setgroup
-def autohide_bar_9th_group():
-    hidden_bar = qtile.current_screen.top.info()["size"] == 0
-    if qtile.current_group.name == "9" and hidden_bar:
-        qtile.hide_show_bar()
-    elif hidden_bar:
-        qtile.hide_show_bar()
 
 
 @hook.subscribe.setgroup
-def unminimize_hook():
-    for window in qtile.current_group.windows:
-        if window.info()["minimized"] == True:
-            window.toggle_minimize()
+async def unminimize_hook():
+    qtile.current_group.unminimize_all()
 
 
 # }}}
 # ======================= Merge Groups ============= {{{
 groupsMerged = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 0: []}
+# groupsMerged: Dict[int,str] = {}
 
 
 @lazy.function
 def merge_groups(qtile, g=1):
-    global merged
+    global groupsMerged
     g = g - 1
     windowsToMerge = qtile.groups[g].windows
     if len(groupsMerged[g]) == 0:  # if empty then append and move to current group
@@ -180,6 +181,7 @@ def merge_groups(qtile, g=1):
 
 
 @lazy.function
+@hook.subscribe.restart
 def restore_all_merged_groups(qtile):
     global groupsMerged
     for group in groupsMerged:
@@ -188,16 +190,16 @@ def restore_all_merged_groups(qtile):
         groupsMerged[group].clear()
 
 
-@hook.subscribe.restart
-def restore_all_merged_groups_hook():
-    restore_all_merged_groups(qtile)
-
-
 @hook.subscribe.client_killed
-def remove_merge_group_windows(window):
+async def remove_merge_group_windows(window):
     for group in groupsMerged:
         if window in groupsMerged[group]:
             groupsMerged[group].remove(window)
+
+
+# @hook.subscribe.restart
+# def restore_all_merged_groups_hook():
+#     restore_all_merged_groups(qtile)
 
 
 # }}}

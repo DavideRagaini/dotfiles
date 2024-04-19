@@ -78,7 +78,7 @@
       compilation-scroll-output t
       whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark)
       line-spacing 2
-      scroll-margin 3
+      scroll-margin 10
       delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/"
       +lookup-open-url-fn #'eww
@@ -108,20 +108,21 @@
     ("^\\*Completions*"     :slot -1 :vslot -2 :ttl 0)
     ("^\\*Edit Formulas*"   :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Help*"            :side bottom :size 0.25 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Inferior Octave*" :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Inferior Octave*" :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t :modeline t)
     ("^\\*Man*"             :side right  :size 0.30 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*Org Agenda*"      :side left   :size 0.40 :quit t   :slot  3 :vslot  3 :ttl 0 :select t)
-    ("^\\*Python*"          :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*Org Agenda*"      :side left   :size 0.40 :quit t   :slot  3 :vslot  3 :ttl 0 :select t :modeline t)
+    ("^\\*Python*"          :side left   :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t :modeline t)
     ("^\\*Warnings*"        :side bottom :size 0.30 :quit t   :slot -1 :vslot -2 :ttl 0 :select nil)
     ("^\\*WoMan*"           :side right  :size 0.30 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*compilation*"     :side right  :size 0.40 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)
+    ("^\\*compilation*"     :side right  :size 0.40 :quit t   :slot  1 :vslot  0 :ttl 5 :select nil)
     ("^\\*doom:*"           :side bottom :size 0.35 :quit t   :slot  1 :vslot  0 :ttl 5 :select t :modeline t)
+    ("^\\*elfeed-entry-*"   :side bottom :size 0.42 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*eshell*"          :side bottom :size 0.42 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^\\*eww*"             :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*eww*"             :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t :modeline t)
     ("^\\*helpful*"         :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^\\*image-dired*"     :side bottom :size 0.40 :quit t   :slot  1 :vslot  1 :ttl 5 :select nil)
     ("^\\*magit-process*"   :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^etc/NEWS*"           :side right  :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
-    ("^magit-process:*"     :side right  :size 0.40 :quit t   :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :quit nil :ttl 5 :quit t)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
 ;; }}}
@@ -136,7 +137,7 @@
 (load! "load/elfeed.el")
 ;; (load! "load/emms.el")
 ;; (load! "load/calibredb.el")
-;; (load! "load/matlab-setup.el")
+(load! "load/matlab-setup.el")
 ;; }}}
 ;; ========= Hydra ========= {{{
 (defhydra doom-window-resize-hydra (:hint nil)
@@ -162,12 +163,15 @@
  (:prefix "SPC b"   :desc "+format/region"                :n "f"   #'+format/region)
  (:prefix "SPC b"   :desc "+format/buffer"                :n "F"   #'+format/buffer)
  ;;
+ (:prefix "SPC d"   :desc "dired"                         :n "d"   #'dired)
+ (:prefix "SPC d"   :desc "dired"                         :n "i"   #'image-dired)
+ ;;
  (:prefix "SPC h"   :desc "woman"                         :n "z"   #'woman)
  (:prefix "C-h"     :desc "woman"                         :n "z"   #'woman)
  ;;
  (:prefix "SPC m"   :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)
  ;;
- (:prefix "SPC o"   :desc "open elfeed"                   :n "n"   #'elfeed)
+ (:prefix "SPC o"   :desc "open elfeed"                   :n "n"   #'dr/start-elfeed)
  (:prefix "SPC o"   :desc "update elfeed"                 :n "N"   #'elfeed-update)
  ;;
  (:prefix "SPC w"   :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)

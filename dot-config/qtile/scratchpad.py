@@ -56,8 +56,7 @@ class Scratchpad(object):
                     ),
                     DropDown(
                         "flemacs",
-                        'emacs',
-                        # 'emacs -e "(run-at-time nil (* 4 60 60) #\'elfeed-update)"',
+                        "emacs --eval='(dr/start-elfeed)'",
                         width=0.9,
                         height=0.9,
                         x=0.05,
@@ -89,8 +88,7 @@ class Scratchpad(object):
                     # ),
                     DropDown(
                         "music",
-                        terminal
-                        + " --class 'music' -T 'music'  -e mp",
+                        terminal + " --class 'music' -T 'music'  -e mp",
                         width=0.8,
                         height=0.8,
                         x=0.1,
@@ -124,7 +122,7 @@ class Scratchpad(object):
                         "mixer",
                         terminal + " -e pulsemixer",
                         width=0.6,
-                        height=0.3,
+                        height=0.4,
                         x=0.2,
                         y=0.2,
                         opacity=opacity,

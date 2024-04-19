@@ -84,11 +84,11 @@ cmd alt_open ${{
 }}
 
 cmd extract ${{
-	set -f
-	printf "%s\n\t" "$fx"
-	printf "extract?[y/N]"
-	read ans
-	[ $ans = "y" ] && aunpack $fx
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "extract?[y/N]"
+    read ans
+    [ $ans = "y" ] && aunpack $fx
 }}
 
 cmd mkdir %{{
@@ -98,32 +98,32 @@ cmd mkdir %{{
 }}
 
 cmd delete ${{
-	set -f
-	printf "%s\n\t" "$fx"
-	printf "Delete or trash it?[d/t]"
-	read ans
-	[ $ans = "d" ] && rm -rf -- $fx
-	[ $ans = "t" ] && trash-put -- $fx
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "Delete or trash it?[d/t]"
+    read ans
+    [ $ans = "d" ] && rm -rf -- $fx
+    [ $ans = "t" ] && trash-put -- $fx
 }}
 
 cmd moveto ${{
-	set -f
+    set -f
     echo "Move to where?"
     dest=$(fd -td "^[0-9a-zA-Z]*" "$HOME" | fzf)
-	for x in $fx; do
-		eval mv -iv \"$x\" \"$dest\"
-	done &&
-	notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+    for x in $fx; do
+        eval mv -iv \"$x\" \"$dest\"
+    done &&
+    notify-send "🚚 File(s) moved." "File(s) moved to $dest."
 }}
 
 cmd copyto ${{
-	set -f
+    set -f
     echo "Copy to where?"
     dest=$(fd -td "^[0-9a-zA-Z]*" $HOME | fzf)
-	for x in $fx; do
-		eval cp -ivr \"$x\" \"$dest\"
-	done &&
-	notify-send "📋 File(s) copied." "File(s) copies to $dest."
+    for x in $fx; do
+        eval cp -ivr \"$x\" \"$dest\"
+    done &&
+    notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
 cmd fzf_jump ${{
@@ -463,7 +463,7 @@ map I :rename; cmd-home
 map J :updir; set dironly true; down; set dironly false; open
 map K :updir; set dironly true; up; set dironly false; open
 map L alt_open
-map N chmod
+map N push :$chmod<space>644<space>$fx
 map O push :open-fork<space>
 map Pa async_paste
 map Pb backup_paste

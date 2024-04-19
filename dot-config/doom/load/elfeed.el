@@ -17,7 +17,7 @@
       elfeed-search-trailing-width 40
       elfeed-show-truncate-long-urls t
       elfeed-show-unique-buffers t
-      elfeed-search-filter "@2-weeks-ago"
+      elfeed-search-filter "@3-day-ago"
       rmh-elfeed-org-files '("~/.config/doom/load/elfeed.org")
       shr-max-image-proportion 0.5
       ;; shr-inhibit-images t
@@ -34,6 +34,18 @@
     (forward-line -1)
     (elfeed-search-untag-all-unread)
     ))
+
+(defun elfeed-exclusive-tag-selection-as (mytag)
+  "Returns a function that tags an elfeed entry or selection as MYTAG"
+  (lambda ()
+    "Toggle a tag on an Elfeed search selection"
+    (interactive)
+    (let ((l '(w x o unread)))
+      (while l
+        (elfeed-search-untag-all (pop l))
+        (forward-line -1)
+        ))
+    (elfeed-search-toggle-all mytag)))
 
 ;;;###autoload
 (defun elfeed-open-in-eww (entry)
@@ -66,18 +78,13 @@
       (call-process-shell-command (format "dmpv aplay \"%s\"" link) nil 0)
       )))
 
-;; (defun elfeed--read-tag (filter)
-;;   (interactive)
-;;   (elfeed-search-set-filter filter)
-;;   (elfeed-search-update :force)
-;;   )
-
+;; prot-elfeed.el
 (evil-define-key 'normal elfeed-show-mode-map
   ;; (kbd "J") 'elfeed-goodies/split-show-next
   ;; (kbd "K") 'elfeed-goodies/split-show-prev
-  (kbd "; e") 'elfeed-open-in-eww
-  (kbd "; a") 'elfeed-open-dmpv-append
-  (kbd "; f") 'elfeed-open-dmpv-aplay
+  (kbd ", e") 'elfeed-open-in-eww
+  (kbd ", a") 'elfeed-open-dmpv-append
+  (kbd ", f") 'elfeed-open-dmpv-aplay
   )
 
 (evil-define-key 'normal elfeed-search-mode-map
@@ -87,29 +94,30 @@
   (kbd "; f") 'elfeed-open-dmpv-aplay
   ;;
   (kbd "; h") (elfeed-tag-selection-as 'h)
-  (kbd "; w") (elfeed-tag-selection-as 'w)
-  (kbd "; o") (elfeed-tag-selection-as 'o)
   (kbd "; s") (elfeed-tag-selection-as 's)
-  (kbd "; x") (elfeed-tag-selection-as 'x)
+  (kbd "; w") (elfeed-exclusive-tag-selection-as 'w)
+  (kbd "; o") (elfeed-exclusive-tag-selection-as 'o)
+  (kbd "; x") (elfeed-exclusive-tag-selection-as 'x)
   ;;
-  (kbd ", p") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +F"))
-  (kbd ", c") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +chill"))
-  (kbd ", v") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +vid"))
-  (kbd ", h") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +h"))
-  (kbd ", w") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +w"))
-  (kbd ", o") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +o"))
-  (kbd ", s") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +s"))
-  (kbd ", x") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +x"))
+  (kbd ". b") (lambda () (interactive) (elfeed-search-set-filter "=boldrin"))
+  (kbd ". e") (lambda () (interactive) (elfeed-search-set-filter "=nk"))
+  (kbd ". y") (lambda () (interactive) (elfeed-search-set-filter "=ytb"))
+  ;;
+  (kbd ". p") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +F"))
+  (kbd ". c") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +chill"))
+  (kbd ". h") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +h"))
+  (kbd ". w") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +w"))
+  (kbd ". o") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +o"))
+  (kbd ". s") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +s"))
+  (kbd ". x") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +x"))
   )
 
 (after! elfeed
   (defun elfeed-search-format-date (date)
-    (format-time-string "%m/%d %H:%M" (seconds-to-time date)))
+    (format-time-string "%y/%m/%d %H:%M" (seconds-to-time date)))
 
   ;; (add-hook! 'elfeed-show-mode-map #'writeroom-mode)
-  ;; (add-hook! 'elfeed-search-mode-hook #'elfeed-update) ;; auto update when opening
-  (add-hook! 'elfeed-new-entry-hook (elfeed-make-tagger :feed-url "yewtu\\.com" :add '(vid)))
-  (add-hook! 'elfeed-new-entry-hook (elfeed-make-tagger :feed-url "twitchrss\\.appspot\\.com" :add '(str)))
+  (add-hook! 'elfeed-new-entry-hook (elfeed-make-tagger :before "2 day ago" :remove 'unread))
 
   (defface done-elfeed-entry      '((t :background "#666")) "done") ;; gray
   (push '(x done-elfeed-entry) elfeed-search-face-alist)
@@ -127,8 +135,8 @@
 (defun dr/start-elfeed ()
   (interactive)
   (progn
+    (run-at-time nil (* 3 60 60) #'elfeed-update)
     (elfeed)
-    (run-at-time nil (* 4 60 60) #'elfeed-update)
     )
   )
 ;; (add-hook 'server-visit-hook 'start-elfeed)

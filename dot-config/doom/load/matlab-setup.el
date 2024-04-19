@@ -4,7 +4,7 @@
 (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
 (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
 ;; setup matlab-shell
-(setq matlab-shell-command "/home/davide/.local/bin/miscellaneous/matlab"
+(setq matlab-shell-command "/home/davide/.local/bin/nix/matlab.sh"
       matlab-shell-command-switches (list "-nodesktop")
       matlab-indent-function t)
 (defadvice! inhibit-real-only-a (oldfun &rest r)

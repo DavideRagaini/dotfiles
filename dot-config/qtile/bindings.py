@@ -164,13 +164,13 @@ def bindings():
         EzKey("M-<F8>", lazy.spawn("dmenumount")),
         EzKey("M-S-<F8>", lazy.spawn("dmenuumount")),
         #
-        # EzKey("M-<F9>", lazy.spawn("")),
+        EzKey("M-<F9>", lazy.spawn("toggle-screens")),
         #
         # EzKey("M-<F10>", lazy.spawn("")),
         #
         # EzKey("M-<F11>", lazy.spawn("")),
         #
-        EzKey("M-<F12>", lazy.spawn("toggle-screens")),
+        EzKey("M-C-<F12>", lazy.shutdown()),
         #
         EzKey("M-<Print>", lazy.spawn("maimpick")),
         EzKey(
@@ -210,8 +210,10 @@ def bindings():
         EzKey("M-<Tab>", lazy.screen.toggle_group()),
         EzKey("M-S-<Tab>", lazy.run_extension(WindowList(**dmenu_defaults))),
         #
-        EzKey("M-q", lazy.window.kill()),
-        EzKey("M-C-q", lazy.shutdown()),
+        EzKey("M-q", lazy.next_screen()),
+        EzKey("M-C-q", lazy.window.kill()),
+        # EzKey("M-q", lazy.window.kill()),
+        # EzKey("M-C-q", lazy.shutdown()),
         #
         EzKey("M-w", lazy.spawn(browser)),
         EzKey("M-C-w", lazy.spawn(browserP)),
@@ -222,6 +224,7 @@ def bindings():
         EzKey("M-e", lazy.spawn(text_editor)),
         EzKey("M-C-e", lazy.spawn(term_text_editor)),
         #
+        EzKey("M-r", lazy.group["SPD"].dropdown_toggle("file manager")),
         EzKey("M-S-r", lazy.spawn("via -a")),
         EzKey("M-C-r", lazy.restart()),
         #
@@ -302,7 +305,7 @@ def bindings():
         EzKey("M-S-C-<backslash>", floating_corner_window("top left")),
         # }}}
         # ======================= Second Row ======================= {{{
-        EzKey("M-a", lazy.next_screen()),
+        # EzKey("M-a", lazy.next_screen()),
         # EzKey("M-C-a", lazy.function(window_to_next_screen, switch_screen=True)),
         # EzKey("M-A-a", add_treetab_section),
         #
@@ -403,8 +406,8 @@ def bindings():
         EzKey("M-m", lazy.group["SPD"].dropdown_toggle("music")),
         EzKey("M-S-m", lazy.group["SPD"].dropdown_toggle("spotify")),
         #
-        EzKey("M-n", lazy.group["SPD"].dropdown_toggle("elfeed")),
-        EzKey("M-S-n", lazy.group["SPD"].dropdown_toggle("podcasts")),
+        EzKey("M-n", lazy.group["SPD"].dropdown_toggle("flemacs")),
+        # EzKey("M-S-n", lazy.group["SPD"].dropdown_toggle("podcasts")),
         #
         EzKey("A-<comma>", lazy.prev_screen()),
         EzKey("M-<comma>", lazy.spawn("dmpc toggle")),

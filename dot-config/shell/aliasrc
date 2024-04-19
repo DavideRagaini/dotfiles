@@ -42,12 +42,13 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
     NixOS|\"NixOS\")
         alias \
             animdl="~/Packages/python/ani/bin/animdl" \
-            hm='home-manager' \
-            nsh='nix-shell -p' \
-            unclt='systemctl --user start unclutter.service' \
-            qtlog='less -N +F $HOME/.local/share/qtile/qtile.log' \
+            hm="home-manager" \
+            nsh="nix-shell -p" \
+            mpc="mpc --host=\"\$MPD_HOST\"" \
+            unclt="systemctl --user start unclutter.service" \
+            qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
             qtcheck="qtile cmd-obj -o cmd -f validate_config" \
-            wt='wtwitch'
+            wt="wtwitch"
 
         pre_switch() {
             DIR="$HOME/.mozilla/firefox/nixhm"
@@ -55,6 +56,7 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
             mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
             rm "$DIR/containers.json"
+            rm "$HOME/.local/share/applications/mimeapps.list"
         }
 
         post_switch() {

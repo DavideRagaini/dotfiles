@@ -23,11 +23,15 @@ settings.omnibarMaxResults = 20;
 settings.focusFirstCandidate = true;
 "" }}}
 "" ========== Bindings ========== {{{
-bind ,a hint -W exclaim_quiet dmpv append
-bind ,f hint -W exclaim_quiet dmpv aplay
+unbind ;a
+bind ;a hint -W exclaim_quiet dmpv append
+unbind ;f
+bind ;f hint -W exclaim_quiet dmpv aplay
 bind ,b hint -W exclaim_quiet bm s
+unbind ;e
 bind ,e hint -W exclaim_quiet dmpv enqueue
-bind ,E hint -W exclaim_quiet dmpv eplay
+unbind ;r
+bind ,r hint -W exclaim_quiet dmpv eplay
 bind ,m hint -W exclaim_quiet dmpv music
 bind ,M hint -W exclaim_quiet dmpv save_music
 bind ,c hint -W exclaim_quiet clipf
@@ -35,6 +39,10 @@ bind ,dd jsb -p tri.native.run('wget ', JS_ARG)
 bind ,df hint -W exclaim_quiet wget
 bind ,dg hint -W exclaim_quiet gallery-dl
 bind ,dt hint -W exclaim_quiet transadd
+bind ,ya hint -W exclaim_quiet ts dy audio
+bind ,yv hint -W exclaim_quiet ts dy video
+bind ,ym hint -W exclaim_quiet ts dy videomid
+bind ,yl hint -W exclaim_quiet ts dy videolow
 bind ,p hint -W exclaim_quiet mpv
 bind ,s hint -W exclaim_quiet streamlink best --player mpv
 bind ,zz zoom 200
