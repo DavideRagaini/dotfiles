@@ -100,10 +100,10 @@ cmd mkdir %{{
 cmd delete ${{
     set -f
     printf "%s\n\t" "$fx"
-    printf "Delete or trash it?[d/t]"
+    printf "Trash?[y/*]"
     read ans
-    [ $ans = "d" ] && rm -rf -- $fx
-    [ $ans = "t" ] && trash-put -- $fx
+    [ $ans = "y" ] && trash-put -- $fx
+}}
 }}
 
 cmd moveto ${{
