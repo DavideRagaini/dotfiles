@@ -31,6 +31,21 @@ import os
 main_bar = bar.Bar(
     [
         widget.GroupBox(
+            # borderwidth=3,
+            # highlight_method='block',
+            # active='#CAA9E0',
+            # block_highlight_text_color="#91B1F0",
+            # highlight_color='#4B427E',
+            # inactive='#282738',
+            # foreground='#4B427E',
+            # background='#353446',
+            # this_current_screen_border='#353446',
+            # this_screen_border='#353446',
+            # other_current_screen_border='#353446',
+            # other_screen_border='#353446',
+            # urgent_border='#353446',
+            rounded=True,
+            disable_drag=True,
             padding=4,
             active=colors[2],
             inactive=colors[0],
@@ -83,8 +98,8 @@ main_bar = bar.Bar(
         ),
         #
         widget.Load(
-            update_interval=5,
-            format="{time}:{load:.2f}",
+            update_interval=1,
+            format="{load:-3.2f}",
             foreground=colors[4],
             background=foregroundTwo,
         ),
@@ -92,12 +107,12 @@ main_bar = bar.Bar(
             cmd=os.path.expanduser("~/.local/bin/statusbar/sb-cpubars"),
             foreground=colors[4],
             background=foregroundTwo,
-            update_interval=5,
+            update_interval=1,
         ),
         #
         widget.CPU(
             format="{load_percent:-2.1f}% {freq_current}GHz",
-            update_interval=5,
+            update_interval=1,
             foreground=colors[5],
             background=foregroundTwo,
         ),
@@ -131,7 +146,7 @@ main_bar = bar.Bar(
         #
         widget.Volume(
             fmt=" {}",
-            update_interval=10,
+            update_interval=1,
             step=2,
             foreground=colors[8],
             background=foregroundTwo,
@@ -142,17 +157,18 @@ main_bar = bar.Bar(
             background=foregroundTwo,
             update_interval=60,
         ),
-        # widget.GenPollCommand(
-        #     cmd=os.path.expanduser("~/.local/bin/statusbar/sb-audio-levels"),
-        #     foreground=colors[8],
-        #     background=foregroundTwo,
-        #     update_interval=60,
-        # ),
+        widget.GenPollCommand(
+            cmd=os.path.expanduser("~/.local/bin/statusbar/sb-audio-levels"),
+            foreground=colors[8],
+            background=foregroundTwo,
+            update_interval=60,
+        ),
         #
         widget.Net(
             fmt=" {}",
-            format="{down:.2f}{down_suffix} ↓↑ {up:.2f}{up_suffix}",
-            update_interval=3,
+            format="{down:4.0f}{down_suffix} ↓↑ {up:4.0f}{up_suffix}",
+            prefix='k',
+            update_interval=1,
             foreground=colors[9],
             background=foregroundTwo,
         ),
@@ -163,12 +179,12 @@ main_bar = bar.Bar(
         #
         slash(workspace, background),  # purple-black
         #
-        # widget.Clock(
-        #     format=" %V %a %d/%B/%y",
-        #     update_interval=3600,
-        #     foreground=colors[10],
-        #     background=background,
-        # ),
+        widget.Clock(
+            format=" %V %a %d/%B/%y",
+            update_interval=3600,
+            foreground=colors[10],
+            background=background,
+        ),
         widget.Clock(
             format=" %T",
             update_interval=1,
@@ -236,12 +252,12 @@ vmon_bar_top = bar.Bar(
             background=foregroundTwo,
         ),
         #
-        widget.Clock(
-            format=" %V %a %d/%B/%y",
-            update_interval=3600,
-            foreground=colors[10],
-            background=foregroundTwo,
-        ),
+        # widget.Clock(
+        #     format=" %V %a %d/%B/%y",
+        #     update_interval=3600,
+        #     foreground=colors[10],
+        #     background=foregroundTwo,
+        # ),
         # widget.Clock(
         #     format=" %T",
         #     update_interval=1,
@@ -253,8 +269,9 @@ vmon_bar_top = bar.Bar(
     17,
 )
 from libqtile.lazy import lazy
-sptctl="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."
-scroll_defaults=dict(
+
+sptctl = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."
+scroll_defaults = dict(
     scroll=False,
     # scroll=True,
     # width=400
@@ -277,11 +294,11 @@ vmon_bar_bottom = bar.Bar(
         widget.Mpris2(
             name="spotify_player",
             objname="org.mpris.MediaPlayer2.spotify_player",
-            format='{xesam:title} {xesam:trackid} - {xesam:album} - {xesam:artist}',
-            mouse_callbacks = {
-                "Button1":lambda: lazy.spawn(sptctl+'PlayPause'),
-                "Button4":lambda: lazy.spawn(sptctl+'Next'),
-                "Button5":lambda: lazy.spawn(sptctl+'Prev'),
+            format="{xesam:title} {xesam:trackid} - {xesam:album} - {xesam:artist}",
+            mouse_callbacks={
+                "Button1": lambda: lazy.spawn(sptctl + "PlayPause"),
+                "Button4": lambda: lazy.spawn(sptctl + "Next"),
+                "Button5": lambda: lazy.spawn(sptctl + "Prev"),
             },
             update_interval=10,
             foreground=colors[9],

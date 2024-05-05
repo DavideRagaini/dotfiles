@@ -121,7 +121,7 @@
     ("^\\*eww*"             :side left   :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t :modeline t)
     ("^\\*helpful*"         :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*image-dired*"     :side bottom :size 0.40 :quit t   :slot  1 :vslot  1 :ttl 5 :select nil)
-    ("^\\*magit-process*"   :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
+    ("^*magit-process*"     :side right  :size 0.40 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^etc/NEWS*"           :side right  :size 0.35 :quit nil :slot -1 :vslot  0 :ttl 0 :select t)
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :side right :size 0.3 :quit nil :ttl 5 :quit t)
     ("^\\*\\(?:scratch\\|Messages\\)" :ttl t)))
@@ -172,7 +172,7 @@
  (:prefix "SPC m"   :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)
  ;;
  (:prefix "SPC o"   :desc "open elfeed"                   :n "n"   #'dr/start-elfeed)
- (:prefix "SPC o"   :desc "update elfeed"                 :n "N"   #'elfeed-update)
+ (:prefix "SPC o"   :desc "elfeed"                        :n "N"   #'elfeed)
  ;;
  (:prefix "SPC w"   :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)
  (:prefix "C-w"     :desc "doom-window-resize-hydra/body" :n "SPC" #'doom-window-resize-hydra/body)

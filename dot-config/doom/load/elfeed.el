@@ -17,7 +17,7 @@
       elfeed-search-trailing-width 40
       elfeed-show-truncate-long-urls t
       elfeed-show-unique-buffers t
-      elfeed-search-filter "@3-day-ago"
+      elfeed-search-filter "@1-week-ago +unread"
       rmh-elfeed-org-files '("~/.config/doom/load/elfeed.org")
       shr-max-image-proportion 0.5
       ;; shr-inhibit-images t
@@ -78,13 +78,23 @@
       (call-process-shell-command (format "dmpv aplay \"%s\"" link) nil 0)
       )))
 
+;;;###autoload
+(defun elfeed-open-mpv (entry)
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (require 'elfeed-show)
+  (when (elfeed-entry-p entry)
+    (let ((link (elfeed-entry-link entry)))
+      (call-process-shell-command (format "mpv \"%s\"" link) nil 0)
+      )))
+
 ;; prot-elfeed.el
 (evil-define-key 'normal elfeed-show-mode-map
   ;; (kbd "J") 'elfeed-goodies/split-show-next
   ;; (kbd "K") 'elfeed-goodies/split-show-prev
-  (kbd ", e") 'elfeed-open-in-eww
-  (kbd ", a") 'elfeed-open-dmpv-append
-  (kbd ", f") 'elfeed-open-dmpv-aplay
+  (kbd "; e") 'elfeed-open-in-eww
+  (kbd "; a") 'elfeed-open-dmpv-append
+  (kbd "; f") 'elfeed-open-dmpv-aplay
+  (kbd "; v") 'elfeed-open-mpv
   )
 
 (evil-define-key 'normal elfeed-search-mode-map
@@ -92,6 +102,7 @@
   (kbd "; e") 'elfeed-open-in-eww
   (kbd "; a") 'elfeed-open-dmpv-append
   (kbd "; f") 'elfeed-open-dmpv-aplay
+  (kbd "; v") 'elfeed-open-mpv
   ;;
   (kbd "; h") (elfeed-tag-selection-as 'h)
   (kbd "; s") (elfeed-tag-selection-as 's)
@@ -102,14 +113,15 @@
   (kbd ". b") (lambda () (interactive) (elfeed-search-set-filter "=boldrin"))
   (kbd ". e") (lambda () (interactive) (elfeed-search-set-filter "=nk"))
   (kbd ". y") (lambda () (interactive) (elfeed-search-set-filter "=ytb"))
-  ;;
-  (kbd ". p") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +F"))
-  (kbd ". c") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +chill"))
-  (kbd ". h") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +h"))
-  (kbd ". w") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +w"))
-  (kbd ". o") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +o"))
-  (kbd ". s") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +s"))
-  (kbd ". x") (lambda () (interactive) (elfeed-search-set-filter "@2-month-ago +unread +x"))
+  (kbd ". a") (lambda () (interactive) (elfeed-search-set-filter "@2-week-ago"))
+  (kbd ". r") (lambda () (interactive) (elfeed-search-set-filter "@2-week-ago +unread"))
+  (kbd ". p") (lambda () (interactive) (elfeed-search-set-filter "+F"))
+  (kbd ". c") (lambda () (interactive) (elfeed-search-set-filter "+chill"))
+  (kbd ". h") (lambda () (interactive) (elfeed-search-set-filter "+h"))
+  (kbd ". w") (lambda () (interactive) (elfeed-search-set-filter "+w"))
+  (kbd ". o") (lambda () (interactive) (elfeed-search-set-filter "+o"))
+  (kbd ". s") (lambda () (interactive) (elfeed-search-set-filter "+s"))
+  (kbd ". x") (lambda () (interactive) (elfeed-search-set-filter "+x"))
   )
 
 (after! elfeed
@@ -135,7 +147,7 @@
 (defun dr/start-elfeed ()
   (interactive)
   (progn
-    (run-at-time nil (* 3 60 60) #'elfeed-update)
+    (run-at-time nil (* 2 60 60) #'elfeed-update)
     (elfeed)
     )
   )

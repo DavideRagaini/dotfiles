@@ -1,7 +1,7 @@
 from libqtile import hook, qtile
 from libqtile.lazy import lazy
 from typing import List
-# from libqtile.log_utils import logger
+from libqtile.log_utils import logger
 
 
 # ======================= floating corner window ============= {{{
@@ -66,30 +66,28 @@ def move_mpv_to_current_group(qtile):
                 window.togroup()
 
 
-@hook.subscribe.setgroup
-async def mpv_auto_toggle_minimize():
-    # if len(qtile.screens) == 0:
-    for group in qtile.groups:
-        for window in group.windows:
-            if window.info()["wm_class"][1] == "mpv":
-                if (
-                    window.info()["floating"] == False
-                    and window.info()["minimized"] == True
-                ) and (
-                    window.info()["group"] == qtile.current_group.name
-                    or qtile.screens["index"](1).current_group.name
-                ):
-                    window.toggle_minimize()
-                else:
-                    if (
-                        window.info()["group"]
-                        != (
-                            qtile.current_group.name
-                            or qtile.screens.index(1).current_group.name
-                        )
-                        and window.info()["floating"] == False
-                    ):
-                        window.toggle_minimize()
+# @hook.subscribe.setgroup
+# async def mpv_auto_toggle_minimize():
+#     # if len(qtile.screens) == 0:
+#     logger.warning(qtile.screens[0].info())
+#     logger.warning(qtile.screens[-1].info())
+#     for group in qtile.groups:
+#         for window in group.windows:
+#             if window.info()["wm_class"][1] == "mpv":
+#                 if (
+#                     window.info()["floating"] == False
+#                     and window.info()["minimized"] == True
+#                 ) and (
+#                     window.info()["group"] == qtile.current_group.name
+#                     or qtile.screens[-1].current_group.name
+#                 ):
+#                     window.toggle_minimize()
+#                 else:
+#                     if (
+#                         window.info()["group"] != qtile.current_group.name
+#                         or window.info()["group"] != qtile.screens[-1].current_group.name
+#                     ) and window.info()["floating"] == False:
+#                         window.toggle_minimize()
 
 
 @hook.subscribe.client_focus
@@ -100,7 +98,7 @@ def set_hint(window):
 
 
 @hook.subscribe.setgroup
-async def autohide_bar_9th_group():
+def autohide_bar_9th_group():
     hidden_bar = qtile.current_screen.top.info()["size"] == 0
     if qtile.current_group.name == "9" and not hidden_bar:
         qtile.hide_show_bar()

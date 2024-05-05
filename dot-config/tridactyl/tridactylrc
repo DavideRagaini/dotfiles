@@ -29,7 +29,7 @@ unbind ;f
 bind ;f hint -W exclaim_quiet dmpv aplay
 bind ,b hint -W exclaim_quiet bm s
 unbind ;e
-bind ,e hint -W exclaim_quiet dmpv enqueue
+bind ;e hint -W exclaim_quiet dmpv enqueue
 unbind ;r
 bind ,r hint -W exclaim_quiet dmpv eplay
 bind ,m hint -W exclaim_quiet dmpv music
@@ -39,10 +39,10 @@ bind ,dd jsb -p tri.native.run('wget ', JS_ARG)
 bind ,df hint -W exclaim_quiet wget
 bind ,dg hint -W exclaim_quiet gallery-dl
 bind ,dt hint -W exclaim_quiet transadd
-bind ,ya hint -W exclaim_quiet ts dy audio
-bind ,yv hint -W exclaim_quiet ts dy video
-bind ,ym hint -W exclaim_quiet ts dy videomid
-bind ,yl hint -W exclaim_quiet ts dy videolow
+bind ,ya hint -W exclaim_quiet ts dy -q audio -u
+bind ,yv hint -W exclaim_quiet ts dy -q high -u
+bind ,ym hint -W exclaim_quiet ts dy -q mid -u
+bind ,yl hint -W exclaim_quiet ts dy -q low -u
 bind ,p hint -W exclaim_quiet mpv
 bind ,s hint -W exclaim_quiet streamlink best --player mpv
 bind ,zz zoom 200
@@ -83,7 +83,8 @@ set searchurls.g https://www.google.com/search?q=%s
 set searchurls.G https://wiki.gentoo.org/wiki/%s
 set searchurls.i https://searx.be/search?q=%s&language=it-IT
 set searchurls.I https://searx.be/search?q=%s&language=it-IT
-set searchurls.y https://yewtu.be/search?q=%s
+# set searchurls.y https://yewtu.be/search?q=%s
+set searchurls.y https://piped.video/results?search_query=%s
 set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
 set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
 set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s

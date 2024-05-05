@@ -226,7 +226,7 @@ def bindings():
         #
         EzKey("M-r", lazy.group["SPD"].dropdown_toggle("file manager")),
         EzKey("M-S-r", lazy.spawn("via -a")),
-        EzKey("M-C-r", lazy.restart()),
+        EzKey("M-C-r", lazy.spawn("qtile cmd-obj -o cmd -f validate_config") and lazy.restart()),
         #
         EzKey("M-t", lazy.window.toggle_minimize()),
         EzKey("M-C-t", lazy.group.unminimize_all()),
@@ -289,9 +289,9 @@ def bindings():
             name="Opacity",
         ),
         #
-        EzKey("M-p", lazy.spawn("dmpv append")),
-        EzKey("M-C-p", lazy.spawn("dmpv aplay ")),
-        EzKey("M-S-p", lazy.spawn("dmpv")),
+        EzKey("M-p", lazy.spawn("dmpv queue")),
+        EzKey("M-C-p", lazy.spawn("dmpv")),
+        # EzKey("M-S-p", lazy.spawn("dmpv")),
         #
         EzKey("M-<bracketleft>", lazy.screen.prev_group(skip_empty=True)),
         EzKey("M-S-<bracketleft>", lazy.window.move_down()),
@@ -406,7 +406,7 @@ def bindings():
         EzKey("M-m", lazy.group["SPD"].dropdown_toggle("music")),
         EzKey("M-S-m", lazy.group["SPD"].dropdown_toggle("spotify")),
         #
-        EzKey("M-n", lazy.group["SPD"].dropdown_toggle("flemacs")),
+        EzKey("M-n", lazy.group["SPD"].dropdown_toggle("newmacs")),
         # EzKey("M-S-n", lazy.group["SPD"].dropdown_toggle("podcasts")),
         #
         EzKey("A-<comma>", lazy.prev_screen()),
@@ -433,6 +433,19 @@ def bindings():
                 EzKey("8", lazy.spawn("dmpc volume 80")),
                 EzKey("9", lazy.spawn("dmpc volume 90")),
                 EzKey("0", lazy.spawn("dmpc volume 100")),
+                # EzKey("u", lazy.spawn("dmpc volume +2"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("d", lazy.spawn("dmpc volume -2"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("o", lazy.spawn("dmpc-notify")),
+                # EzKey("1", lazy.spawn("dmpc volume 10"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("2", lazy.spawn("dmpc volume 20"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("3", lazy.spawn("dmpc volume 30"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("4", lazy.spawn("dmpc volume 40"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("5", lazy.spawn("dmpc volume 50"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("6", lazy.spawn("dmpc volume 60"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("7", lazy.spawn("dmpc volume 70"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("8", lazy.spawn("dmpc volume 80"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("9", lazy.spawn("dmpc volume 90"),lazy.widget["genpollcommand"].force_update()),
+                # EzKey("0", lazy.spawn("dmpc volume 100"),lazy.widget["genpollcommand"].force_update()),
             ],
             mode=True,
             name="Music",
@@ -491,21 +504,44 @@ def bindings():
         #
         EzKey("M-<up>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+")),
         EzKey("M-C-<up>", lazy.spawn("output-audio")),
-        EzKey("A-C-<up>", lazy.spawn("tppctl volume 2")),
-        EzKey("A-S-<up>", lazy.spawn("mpc volume +2")),
+        KeyChord(
+            [M, S],
+            "up",
+            [
+                EzKey("t", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+                EzKey("n", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+")),
+                EzKey("p", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-")),
+                EzKey("k", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+")),
+                EzKey("j", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-")),
+                EzKey("1", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.10'")),
+                EzKey("2", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.20'")),
+                EzKey("3", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.30'")),
+                EzKey("4", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.40'")),
+                EzKey("5", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.50'")),
+                EzKey("6", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.60'")),
+                EzKey("7", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.70'")),
+                EzKey("8", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.80'")),
+                EzKey("9", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.90'")),
+                EzKey("0", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.99'")),
+            ],
+            mode=True,
+            name="MPV",
+        ),
+        # EzKey("A-C-<up>", lazy.spawn("tppctl volume 2")),
+        # EzKey("A-S-<up>", lazy.spawn("mpc volume +2")),
         #
         EzKey("M-<down>", lazy.spawn("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-")),
         EzKey("M-C-<down>", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
-        EzKey("A-C-<down>", lazy.spawn("tppctl volume -2")),
-        EzKey("A-S-<down>", lazy.spawn("mpc volume -2")),
+        # EzKey("A-C-<down>", lazy.spawn("tppctl volume -2")),
+        # EzKey("A-S-<down>", lazy.spawn("mpc volume -2")),
         #
         EzKey("M-<left>", lazy.spawn("tppctl seek -10")),
-        # EzKey("A-<left>", lazy.spawn("mpc volume -2")),
-        # EzKey("C-<left>", lazy.spawn("tppctl volume -2")),
+        EzKey("A-<left>", lazy.spawn("mpc volume -2")),
+        EzKey("C-<left>", lazy.spawn("tppctl volume -2")),
         #
         EzKey("M-<right>", lazy.spawn("tppctl seek 10")),
-        # EzKey("A-<right>", lazy.spawn("mpc volume +2")),
-        # EzKey("C-<right>", lazy.spawn("tppctl volume 2")),
+        EzKey("A-<right>", lazy.spawn("mpc volume +2")),
+        EzKey("C-<right>", lazy.spawn("tppctl volume 2")),
         # }}}
     ]
 

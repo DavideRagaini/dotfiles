@@ -11,6 +11,7 @@ class Groups(object):
                 position=1,
                 layout="monadtall",
                 exclusive=True,
+                screen_affinity = 0,
                 matches=[
                     Match(wm_instance_class=regex("emacs")),
                 ],
@@ -18,8 +19,9 @@ class Groups(object):
             Group(
                 name="2",
                 position=2,
-                layout="max",
+                layout="monadtall",
                 exclusive=True,
+                screen_affinity = 1,
                 matches=Match(
                     wm_class=regex(
                         "[Ff]irefox|[Ll]ibre[Ww]olf|Brave-browser|qutebrowser",
@@ -31,6 +33,7 @@ class Groups(object):
                 position=3,
                 layout="max",
                 exclusive=True,
+                screen_affinity = 1,
                 matches=Match(
                     wm_class=regex(
                         "Zathura|sioyek|Evince|okular|ebook-viewer|calibre-ebook-viewer|Nsxiv",
@@ -41,6 +44,7 @@ class Groups(object):
                 name="4",
                 layout="max",
                 position=4,
+                screen_affinity = 0,
                 matches=[
                     Match(
                         wm_instance_class=regex("sun-awt-X11-XDialogPeer"),
@@ -73,6 +77,7 @@ class Groups(object):
                 name="5",
                 position=5,
                 layout="max",
+                screen_affinity = 0,
                 matches=[
                     Match(
                         wm_instance_class=regex("MATLABWindow"),
@@ -85,6 +90,7 @@ class Groups(object):
                 name="6",
                 position=6,
                 layout="ratiotile",
+                screen_affinity = 0,
                 matches=[
                     Match(
                         wm_instance_class=regex("sun-awt-X11-XFramePeer"),
@@ -118,12 +124,14 @@ class Groups(object):
             Group(
                 name="7",
                 position=7,
+                screen_affinity = 0,
                 layout="monadtall",
             ),
             Group(
                 name="8",
                 position=8,
                 layout="max",
+                screen_affinity = 0,
                 matches=[
                     Match(
                         wm_class=regex(
@@ -141,6 +149,7 @@ class Groups(object):
                 name="9",
                 position=9,
                 layout="max",
+                screen_affinity = 0,
                 # exclusive=True,
                 matches=Match(wm_class=regex("mpv|Kodi|Alacritty")),
             ),

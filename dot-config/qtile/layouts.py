@@ -29,8 +29,8 @@ def layout_defaults():
         layout.MonadTall(**layout_defaults, single_border_width=0, single_margin=0),
         layout.Bsp(
             **layout_defaults,
-            ratio=2,
-            grow_ammount=5,
+            ratio=1.6,
+            grow_amount=1,
             lower_right=True,
             wrap_client=False,
             margin_on_single=0,

@@ -50,17 +50,17 @@ widget_defaults = dict(
     background=colors[0],
 )
 
-wallpaperPath = "/home/davide/pic/current/"
+wallpaperPath = "/home/davide/.local/share/"
 main_screen = Screen(
     top=main_bar,
-    wallpaper=wallpaperPath + "main",
+    wallpaper=wallpaperPath + "mainbg",
     wallpaper_mode="fill",
 )
 
 vert_screen = Screen(
     top=vmon_bar_top,
     bottom=vmon_bar_bottom,
-    wallpaper=wallpaperPath + "vert",
+    wallpaper=wallpaperPath + "vertbg",
     wallpaper_mode="fill",
 )
 
