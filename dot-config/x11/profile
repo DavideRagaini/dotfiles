@@ -160,7 +160,8 @@ wayland_exports() {
         [ -z "${WAYLAND_DISPLAY}" ] &&
         export QT_QPA_PLATFORM=wayland &&
         export MOZ_ENABLE_WAYLAND=1 &&
-        export TERMINAL="footclient" &&
+        export TERM="footclient" &&
+        export TERMINAL="$TERM"&&
         export MOZ_WEBRENDER=1 &&
         export XDG_SESSION_TYPE=wayland &&
         export XDG_CURRENT_DESKTOP=sway

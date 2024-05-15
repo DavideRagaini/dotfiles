@@ -11,7 +11,8 @@ set relativenumber
 set drawbox
 set autoquit true
 set preview false
-set previewer ~/.config/lf/previewer.sh
+# source ~/.config/lf/sixel.conf
+# source ~/.config/lf/ueberzug.conf
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
 set incsearch
@@ -103,7 +104,6 @@ cmd delete ${{
     printf "Trash?[y/*]"
     read ans
     [ $ans = "y" ] && trash-put -- $fx
-}}
 }}
 
 cmd moveto ${{
@@ -231,7 +231,7 @@ cmd toggle_preview %{{
     if [ "$lf_preview" = "true" ]; then
         lf -remote "send $id :set preview false; set ratios 1:2:3"
     else
-        lf -remote "send $id :set preview true; set ratios 1:2:3"
+        lf -remote "send $id :set preview true; set ratios 1:2"
     fi
 }}
 map zp toggle_preview
