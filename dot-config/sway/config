@@ -29,13 +29,14 @@ focus_wrapping no
 
 ### Input configuration
 #
-input * {
+# input * {
+# }
+
+input type:keyboard {
     xkb_layout "us"
     xkb_variant "altgr-intl"
     xkb_options "ctrl:swapcaps,altwin:swap_alt_win,altwin:escape,altwin:menu_win"
-}
-
-input type:keyboard {
+    xkb_numlock enabled
     repeat_delay 300
     repeat_rate 50
 }
@@ -120,13 +121,13 @@ bindsym $M+$S+F9           exec dmenuumount
 
 floating_modifier $M normal
 bindsym $M+$S+Return       exec $term tmux
-bindsym $M+q               kill
+bindsym $M+$C+q            kill
 bindsym $M+d               exec $drun
 bindsym $M+$S+d            exec via -r
 bindsym $M+$C+d            exec via -a
 bindsym $M+$C+r            reload
 # bindsym $M+$C+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-bindsym $M+$C+q            exec swaymsg exit
+bindsym $M+F12             exec swaymsg exit
 
 bindsym $M+h               focus left
 bindsym $M+j               focus down
