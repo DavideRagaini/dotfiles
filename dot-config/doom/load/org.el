@@ -26,10 +26,10 @@
 (setq org-directory "~/org"
       ;; org-agenda-start-day "-3d"
       org-agenda-files
-      '("~/org/Me/Tasks.org"
-        "~/org/Me/Habits.org"
-        "~/org/Me/Learn.org"
-        "~/org/Others/Birthdays.org")
+      '("~/org/personal/Tasks.org"
+        "~/org/personal/Habits.org"
+        "~/org/personal/Learn.org"
+        "~/org/Others/Recurring.org")
       org-agenda-log-mode-items '(state closed clock)
       org-agenda-start-with-log-mode t
       org-archive-location "~/org/Archive/%s_archive::"
@@ -127,16 +127,16 @@
 ;; ========= Org Capture ========= {{{
 (setq org-capture-templates
       `(("a" "Accounting Capture")
-        ("ad" "Debts" table-line (file+olp+datetree "~/org/Me/Accounting.org" "Debts")
+        ("ad" "Debts" table-line (file+olp+datetree "~/org/personal/Accounting.org" "Debts")
          "| %^{Quantity} | %^{Reason} | %^{TimeStamp}U |"
          :tree-type month :kill-buffer t :prepend t)
-        ("ag" "Give" table-line (file+olp+datetree "~/org/Me/Accounting.org" "Give")
+        ("ag" "Give" table-line (file+olp+datetree "~/org/personal/Accounting.org" "Give")
          "| %^{Quantity} | %^{Reason} | %^{TimeStamp}U |"
          :tree-type month :kill-buffer t :prepend t)
-        ("ah" "Have" table-line (file+olp+datetree "~/org/Me/Accounting.org" "Have")
+        ("ah" "Have" table-line (file+olp+datetree "~/org/personal/Accounting.org" "Have")
          "| %^{Quantity} | %^{Reason} | %^{TimeStamp}U |"
          :tree-type month :kill-buffer t :prepend t)
-        ("as" "Spent" table-line (file+olp+datetree "~/org/Me/Accounting.org" "Spent")
+        ("as" "Spent" table-line (file+olp+datetree "~/org/personal/Accounting.org" "Spent")
          "| %^{Quantity} | %^{Reason} | %^{TimeStamp}U |"
          :tree-type month :kill-buffer t :prepend t)
 
@@ -147,67 +147,77 @@
         ("bb" "Add Birtday" entry (file+headline "~/org/Others/Recurring.org" "Birthdays")
          "%%(org-anniversary %^{Year} %^{Month} %^{Day}) %^{Name} (%d)"
          :kill-buffer t :prepend t)
-        ("bm" "Add to Music List" entry (file+headline "~/org/Me/Music.org" "Inbox")
+        ("bm" "Add to Music List" entry (file+headline "~/org/personal/Music.org" "Inbox")
          "* [ ] %^{Title} - %^{Artist}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
          :kill-buffer t :prepend t)
-        ("br" "Add to Read List" entry (file+headline "~/org/Me/Read.org" "Inbox")
+        ("br" "Reading Capture")
+        ("brb" "Add Book" entry (file+headline "~/org/readings/books.org" "Books")
          "* [ ] %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
          :kill-buffer t :prepend t)
-        ("bt" "Add Bookmark" entry (file+headline "~/org/Me/Bookmarks.org")
+        ("brc" "Add Comic" entry (file+headline "~/org/readings/comics.org")
+         "* [ ] %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
+         :kill-buffer t :prepend t)
+        ("brh" "Add History" entry (file+headline "~/org/readings/history.org" "Inbox")
+         "* [ ] %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
+         :kill-buffer t :prepend t)
+        ("brl" "Add Linux" entry (file+headline "~/org/readings/linux.org" "Inbox")
+         "* [ ] %^{Title} - %^{Author}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
+         :kill-buffer t :prepend t)
+        ("bt" "Add Bookmark" entry (file+headline "~/org/personal/Bookmarks.org")
          "* %?"
          :kill-buffer t :prepend t)
-        ("bw" "Add to Watch List" entry (file+headline "~/org/Me/Watch.org" "Inbox")
+        ("bw" "Add to Watch List" entry (file+headline "~/org/personal/Watch.org" "Inbox")
          "* [ ] %^{Title} - %^{Author/Director}\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %^{Source}\n:LINK: %^{Link}\n:END:"
          :kill-buffer t :prepend t)
 
         ("g" "Goals Capture")
-        ("gp" "Primary Mission" entry (file+olp "~/org/Me/Goals.org" "Ideals" "Inbox")
+        ("gp" "Primary Mission" entry (file+olp "~/org/personal/Goals.org" "Ideals" "Inbox")
          "* %?" :kill-buffer t :prepend t)
-        ("gs" "Secondary Mission" entry (file+olp "~/org/Me/Goals.org" "Secondary" "Inbox")
+        ("gs" "Secondary Mission" entry (file+olp "~/org/personal/Goals.org" "Secondary" "Inbox")
          "* %?" :kill-buffer t :prepend t)
 
         ("m" "Metrics Capture")
-        ("md" "Drink Journal" table-line (file+headline "~/org/Me/Metrics.org" "Hydro Journal")
+        ("md" "Drink Journal" table-line (file+headline "~/org/personal/Metrics.org" "Hydro Journal")
          "| | %U | %^{Water|0|200} | %^{The|0|300} | %^{Coffee|0|1} | %^{Beer|0|330} | %^{Drinks|0|400} | %^{Sodas|0|150} | %^{Notes} |"
          :kill-buffer t :prepend t)
-        ("ms" "Sleep Journal" table-line (file+headline "~/org/Me/Metrics.org" "Sleep Journal")
+        ("ms" "Sleep Journal" table-line (file+headline "~/org/personal/Metrics.org" "Sleep Journal")
          "| %^{Sleep TimeStamp}U | %^{Wake TimeStamp}U | | |"
          :kill-buffer t)
-        ("mw" "Weight" table-line (file+headline "~/org/Me/Metrics.org" "Weight")
+        ("mw" "Weight" table-line (file+headline "~/org/personal/Metrics.org" "Weight")
          "| %U | %^{Weight} |"
          :kill-buffer t)
 
         ("n" "Note Entries")
-        ("nb" "Protocol Link Blank" entry (file+headline "~/org/Me/Tasks.org" "Inbox")
+        ("nb" "Protocol Link Blank" entry (file+headline "~/org/personal/Tasks.org" "Inbox")
          "* NOTE %? %U"
          :prepend t)
-        ("nl" "Protocol Link" entry (file+headline "~/org/Me/Tasks.org" "Inbox")
+        ("nl" "Protocol Link" entry (file+headline "~/org/personal/Tasks.org" "Inbox")
          "* NOTE %?[[%:link][%:description]] %U"
          :prepend t)
-        ("np" "Protocol" entry (file+headline "~/org/Me/Tasks.org" "Inbox")
+        ("np" "Protocol" entry (file+headline "~/org/personal/Tasks.org" "Inbox")
          "* NOTE %?[[%:link][%:description]] %U\n%i"
          :prepend t)
-        ("ns" "Shopping Note" entry (file+headline "~/org/Me/Shopping_List.org" "Inbox")
+        ("ns" "Shopping Note" entry (file+headline "~/org/personal/Shopping_List.org" "Inbox")
          "* NOTE %? %U"
          :prepend t)
-        ("nx" "Protocol Link from Clipboard" entry (file+headline "~/org/Me/Tasks.org" "Inbox")
+        ("nx" "Protocol Link from Clipboard" entry (file+headline "~/org/personal/Tasks.org" "Inbox")
          "* NOTE %?%x %U"
          :prepend t)
 
         ("j" "Journal Entries")
-        ("jd" "Dream" entry (file+olp+datetree "~/org/Me/Journal.org")
+        ("jd" "Dream" entry (file+olp+datetree "~/org/personal/Journal.org")
          "* %<%R> Dream :journal:\n%?"
          :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
-        ("jj" "Journal note" entry (file+olp+datetree "~/org/Me/Journal.org")
+        ("jj" "Journal note" entry (file+olp+datetree "~/org/personal/Journal.org")
          "* %<%R> Journal :journal:\n%?"
          :clock-in :clock-resume :empty-lines 1 :empty-lines-after 1)
-        ("jh" "Hangout" table-line (file+headline "~/org/Me/Journal.org" "Hangouts")
+        ("jh" "Hangout" table-line (file+headline "~/org/personal/Journal.org" "Hangouts")
          "| %^{Activity} | %^{Notes} | %^{With} | %^{Time-Stamp}U |"
          :prepend t :empty-lines 1 :empty-lines-after 1)
-        ("jp" "Daily Planning" entry (file+olp+datetree "~/org/Me/Journal.org")
+        ("jp" "Daily Planning" entry (file+olp+datetree "~/org/personal/Journal.org")
          "* [ ] %<%R> %?"
          :prepend t :empty-lines 1 :empty-lines-after 1)
-        ("jt" "Thoughts" entry (file+olp+datetree "~/org/Me/Thoughts.org")
+        ("jt" "Thoughts" entry (file+olp+datetree "~/org/personal/Thoughts.org")
          "* %?"
          :empty-lines 1 :empty-lines-after 1)
 
@@ -237,25 +247,25 @@
         ;;      "* TODO %?  %U\n")
 
         ("t" "Tasks / Projects")
-        ("ta" "Scheduled Task" entry (file+headline "~/org/Me/Tasks.org" "Schedule")
+        ("ta" "Scheduled Task" entry (file+headline "~/org/personal/Tasks.org" "Schedule")
          "* %^{Task}\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
          :prepend t)
-        ("td" "Deadline Task" entry (file+headline "~/org/Me/Tasks.org" "Schedule")
+        ("td" "Deadline Task" entry (file+headline "~/org/personal/Tasks.org" "Schedule")
          "* %^{Task}\nDEADLINE: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
          :prepend t)
-        ("tb" "Remember Task" entry (file+headline "~/org/Me/Tasks.org" "Schedule")
+        ("tb" "Remember Task" entry (file+headline "~/org/personal/Tasks.org" "Schedule")
          "* %^{Task}\n%^{When}t\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
          :prepend t)
-        ("tc" "Today's Tasks" entry (file+olp+datetree "~/org/Me/Tasks.org" "Daily")
+        ("tc" "Today's Tasks" entry (file+olp+datetree "~/org/personal/Tasks.org" "Daily")
          "* %?"
          :clock-in :clock-resume :prepend t)
-        ("ti" "Interrupt" entry (file+headline "~/org/Me/Tasks.org" "Inbox")
+        ("ti" "Interrupt" entry (file+headline "~/org/personal/Tasks.org" "Inbox")
          "* %T %a :INTERRUPT:\n\n%?\n\n"
          :clock-in :clock-resume :prepend t)
-        ("tm" "Meeting Entry" entry (file+headline "~/org/Me/Tasks.org" "Schedules")
+        ("tm" "Meeting Entry" entry (file+headline "~/org/personal/Tasks.org" "Schedules")
          "* %^{Purpouse} :MEETING:\nSCHEDULED: %^{When}t\n:PROPERTIES:\n:CREATED: %U\n:WITH: %^{With}\n:DESCRIPTION: %^{Description}\n:END:\n%?\n"
          :prepend t)
-        ("tt" "Task" entry (file+headline "~/org/Me/Tasks.org" "Inbox")
+        ("tt" "Task" entry (file+headline "~/org/personal/Tasks.org" "Inbox")
          "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
          :prepend t)
         ("ts" "Clocked Entry Subtask" entry (clock)
@@ -265,7 +275,7 @@
         ;; ("w" "Workflows")
         ;; ("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
         ;;      "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-        ("w" "Workout" table-line (file+datetree "~/org/Me/Workout.org")
+        ("w" "Workout" table-line (file+datetree "~/org/personal/Workout.org")
          "| %^{Type of Workout|Calisthenics|Boldering|Stretching|Yoga|Swimming|Others}|%^{Exercises}| | |%^{Start Time-Stamps}U|%^{End Time-Stamps}U|"
          :tree-type month :kill-buffer t)))
 ;; }}}

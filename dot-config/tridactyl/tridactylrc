@@ -123,14 +123,16 @@ bind d scrollpage 0.5
 unbind D
 bind D composite tabclose | tab
 unbind <C-d>
-bind <C-d> composite tabprev; tabclose #
+bind <C-D> composite tabprev; tabclose #
+bind <C-d> scrollpage 1
 
 unbind u
 bind u scrollpage -0.5
 unbind U
 bind U undo
 unbind <C-u>
-bind <C-u> undo window
+bind <C-u> scrollpage -0.5
+# bind <C-u> undo window
 
 unbind x
 bind x tabclose

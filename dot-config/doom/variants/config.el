@@ -18,6 +18,11 @@
   (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
   )
 
+(defun bram85-magit-find-file-as-of (datetime)
+  (interactive (list (org-read-date)))
+  (let ((rev (format "HEAD@{%s}" datetime)))
+    (magit-find-file rev (magit-read-file-from-rev rev "File: "))))
+
 (defun dr/run-with-python ()
   "Set the default comli-command to run the current file with python"
   (setq-local compile-command
@@ -51,11 +56,12 @@
   (dr/high-resources)
   )
  ((eq system-type 'windows-nt)
-  (setq
-        dr/main-font-family "cascadia code"
+  (setq dr/main-font-family "cascadia code"
         dr/big-font-family 'dr/main-font-family
         dr/variable-pitch-font-family "microsoft sans serif"
         dr/symbol-font-family "cascadia code"
+        dr/serif-font-family "times new roman"
+        dr/variable-pitch-font-family "sagoe print"
         dr/light-theme 'leuven
         dr/dark-theme 'catppuccin
         )
@@ -131,10 +137,45 @@
 (add-hook! 'org-mode-hook (lambda () visual-line-mode 0))
 (add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
+;; ========= use-package! ========= {{{
+(use-package! magit-todos
+  :after magit
+  :config (magit-todos-mode 1))
+
+(use-package! pdf-tools
+  :config
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-width)
+  :custom
+  (pdf-annot-activate-created-annotations t "automatically annotate highlights")
+  )
+
+(after! org-noter
+  (setq
+   org-noter-notes-search-path '("~/org/notes")
+   org-noter-hide-other nil
+   org-noter-separate-notes-from-heading t
+   org-noter-always-create-frame nil)
+
+  (map!
+   :map org-noter-doc-mode-map
+   :leader
+   :desc "Insert note"         "m i" #'org-noter-insert-note
+   :desc "Insert precise note" "m p" #'org-noter-insert-precise-note
+   :desc "Go to previous note" "m k" #'org-noter-sync-prev-note
+   :desc "Go to next note"     "m j" #'org-noter-sync-next-note
+   :desc "Create skeleton"     "m s" #'org-noter-create-skeleton
+   :desc "Kill session"        "m q" #'org-noter-kill-session
+   )
+  )
+;; }}}
 ;; ========= Load Config Files ========= {{{
 (load! "load/org.el")
 (load! "load/erc.el")
 (load! "load/elfeed.el")
+(load! "load/roam.el")
+(load! "load/nov.el")
+(load! "load/citations.el")
 ;; (load! "load/emms.el")
 ;; (load! "load/calibredb.el")
 (load! "load/matlab-setup.el")
@@ -189,6 +230,12 @@
  (:prefix "SPC TAB" :desc "vim motion swap right"         :n "}"   #'+workspace/swap-right)
  (:prefix "SPC TAB" :desc "last workspace"                :n ";"   #'+workspace/other)
  )
+
+(evil-define-key 'normal dired-mode-map
+  (kbd "TAB") 'dired-subtree-toggle
+  (kbd "C-TAB") 'dired-subtree-cycle
+  (kbd "S-TAB") 'dired-subtree-remove
+  )
 ;; }}}
 ;; ========= Manual ========= {{{
 ;; - `load!' for loading external *.el files relative to this one

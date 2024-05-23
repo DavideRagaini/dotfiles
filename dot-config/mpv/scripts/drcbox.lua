@@ -14,9 +14,9 @@ Default config:
 --]]
 -- ------ config -------
 local start_keys_enabled = false  -- if true then choose the up/down keys wisely
-local key_toggle_bindings = 'N'  -- enable/disable drcbox key bindings
-local key_toggle_drcbox = 'n'  -- enable/disable drcbox
-local key_reset_drcbox = 'ctrl+n'
+local key_toggle_bindings = 'ALT+N'  -- enable/disable drcbox key bindings
+local key_toggle_drcbox = 'ALT+n'  -- enable/disable drcbox
+local key_reset_drcbox = 'ALT+CTRL+n'
 
 local options = {
   {keys = {'2', 'w'}, option = {'framelen',     1, 10, 8000,  500,  500 } },
@@ -47,7 +47,7 @@ end
 
 -- these two vars are used globally
 local bindings_enabled = start_keys_enabled
-local drcbox_enabled = false  -- but af is not touched before the dynaudnorm is modified
+local drcbox_enabled = true  -- but af is not touched before the dynaudnorm is modified
 
 -- ------ OSD handling -------
 local function ass(x)
