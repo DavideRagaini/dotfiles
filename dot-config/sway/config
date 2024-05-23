@@ -19,8 +19,8 @@ title_align center
 # hide_edge_borders both
 
 # class             border     backgr     text       indicator  child_border
-client.focused      #282a36    #50fa7b    #000000    #50fa7b    #bd93f9
-client.unfocused    #282a36    #50fa7b    #000000    #50fa7b    #44475a
+client.focused      #4e4262    #BD93F9    #282a36    #BD93F9    #bd93f9
+client.unfocused    #4e4262    #282a36    #FF79C6    #BD93F9    #44475a
 
 mouse_warping output
 focus_follows_mouse yes
@@ -113,7 +113,9 @@ bindsym XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $M+XF86AudioMute     exec output-audio
 
 bindsym $M+F3              exec wifi-toggle
-bindsym $M+F5              exec swaymsg "output - power on"
+# bindsym $M+F5              exec sway-toggle-backlight
+bindsym $M+F5              exec swaymsg output - power toggle
+bindsym $M+$C+F5           exec swaymsg "output - power on"
 bindsym $M+$S+F5           exec swaymsg "output - power off"
 bindsym $M+F9              exec dmenumount
 bindsym $M+$S+F9           exec dmenuumount
