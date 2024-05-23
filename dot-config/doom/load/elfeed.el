@@ -17,13 +17,12 @@
       elfeed-search-trailing-width 40
       elfeed-show-truncate-long-urls t
       elfeed-show-unique-buffers t
-      elfeed-search-filter "@1-week-ago +unread"
+      elfeed-search-filter "@2-week-ago +unread"
       rmh-elfeed-org-files '("~/.config/doom/load/elfeed.org")
       shr-max-image-proportion 0.5
+      ;; https://old.reddit.com/r/orgmode/comments/i6hl8b/image_preview_size_in_org_mode/
       ;; shr-inhibit-images t
       )
-;; https://old.reddit.com/r/orgmode/comments/i6hl8b/image_preview_size_in_org_mode/
-;;
 
 (defun elfeed-tag-selection-as (mytag)
   "Returns a function that tags an elfeed entry or selection as MYTAG"

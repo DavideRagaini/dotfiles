@@ -36,7 +36,11 @@ def layout_defaults():
             margin_on_single=0,
             border_on_single=True,
         ),
-        layout.RatioTile(**layout_defaults),
+        layout.RatioTile(
+            **layout_defaults,
+            ratio=2,
+            ratio_increment=0.1,
+        ),
         layout.MonadThreeCol(**layout_defaults),
         layout.TreeTab(
             **layout_defaults,

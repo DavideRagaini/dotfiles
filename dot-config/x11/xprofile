@@ -20,10 +20,11 @@ export VDPAU_DRIVER=nvidia
 xrandr --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-D-0 --off # main hdmi
 # xrandr --output HDMI-0  --rotate normal --pos 0x0 --mode 1920x1080 --primary --output DVI-D-0 --rotate right --pos 1920x15 --mode 1920x1080 # main hdmi + vert right
 locker &
-# conky &
+conky &
 remaps &
 numlockx &
 xset dpms 0 0 180
+/nix/store/"$(find /nix/store/ -maxdepth 1 -mindepth 1 -type d -iname "*agent*" | grep polkit-gnome-agent | grep '^d' | awk '{print $9}')"/libexec/polkit-gnome-authentication-agent-1 &
 
 {
     sleep 10

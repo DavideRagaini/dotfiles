@@ -63,7 +63,7 @@ color article               white    default   bold
 # color hint-description      yellow   white
 
 browser linkhandler
-macro , open-in-browser
+macro ; open-in-browser
 macro d set browser "ts dy bestaudio"; open-in-browser ; set browser linkhandler
 macro D set browser "ts dy video"; open-in-browser ; set browser linkhandler
 macro a set browser "setsid -f dmpv append"; open-in-browser ; set browser linkhandler

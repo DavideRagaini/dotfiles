@@ -47,8 +47,13 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             mpc="mpc --host=\"\$MPD_HOST\"" \
             unclt="systemctl --user start unclutter.service" \
             qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
-            qtcheck="qtile cmd-obj -o cmd -f validate_config" \
-            wt="wtwitch"
+            qtcheck="qtile cmd-obj -o cmd -f validate_config"
+
+        nshe() {
+            PKG="$1"
+            shift
+            nix-shell -p "$PKG" --run "$@"
+        }
 
         pre_switch() {
             DIR="$HOME/.mozilla/firefox/nixhm"
@@ -113,7 +118,6 @@ alias \
 # Abbreviations
 alias \
     E="\$VISUAL" \
-    doomupdate="doom sync && doom sync -u && doom upgrade && doom purge > ~/.local/doom-upgrade" \
     e="\$EDITOR" \
     irssi="irssi --config=\"\$XDG_CONFIG_HOME\"/irssi/config -- home=\"\$XDG_DATA_HOME\"/irssi" \
     locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
@@ -142,10 +146,10 @@ alias \
     space-void="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1" \
     space-engine="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 
-trrd() {
-    tun0="$(ip a show dev tun0 scope global | awk '/inet/ {print $2}' | awk -F '/' '{print $1}')"
-    transmission-daemon --bind-address-ipv4="$(echo "$tun0" | head -n1)" --bind-address-ipv6="$(echo "$tun0" | tail -n1)"
-}
+# trrd() {
+#     tun0="$(ip a show dev tun0 scope global | awk '/inet/ {print $2}' | awk -F '/' '{print $1}')"
+#     transmission-daemon --bind-address-ipv4="$(echo "$tun0" | head -n1)" --bind-address-ipv6="$(echo "$tun0" | tail -n1)"
+# }
 
 dict() {
     curl dict://dict.org/d:\$@
