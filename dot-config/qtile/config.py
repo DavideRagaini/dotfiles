@@ -52,7 +52,7 @@ widget_defaults = dict(
 
 wallpaperPath = "/home/davide/.local/share/"
 main_screen = Screen(
-    top=main_bar,
+    bottom=main_bar,
     wallpaper=wallpaperPath + "mainbg",
     wallpaper_mode="fill",
 )

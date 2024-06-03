@@ -99,7 +99,7 @@ def set_hint(window):
 
 @hook.subscribe.setgroup
 def autohide_bar_9th_group():
-    hidden_bar = qtile.current_screen.top.info()["size"] == 0
+    hidden_bar = qtile.current_screen.bottom.info()["size"] == 0
     if qtile.current_group.name == "9" and not hidden_bar:
         qtile.hide_show_bar()
     elif hidden_bar:

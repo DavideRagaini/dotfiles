@@ -209,10 +209,14 @@ cmd paste &{{
             while IFS= read -r line; do
                 lf -remote "send $id echo $line"
             done
+            cmd='rsync'
             ;;
-        move) mv -n -- "$@" .;;
+        move)
+            mv -n -- "$@"
+            cmd='mv'
+            ;;
     esac
-    notify-send "RSYNC Done" "$(cat ~/.local/share/lf/files)"
+    notify-send "$cmd done" "$(cat ~/.local/share/lf/files)"
     rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}

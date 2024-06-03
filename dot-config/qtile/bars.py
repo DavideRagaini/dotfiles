@@ -130,12 +130,20 @@ main_bar = bar.Bar(
             update_interval=60,
         ),
         #
-        widget.GenPollCommand(
-            cmd=os.path.expanduser("~/.local/bin/statusbar/sb-nvgpu"),
+        widget.NvidiaSensors(
+            update_interval=30,
+            # format=' {temp:.0f}{unit}',
+            gpu_bus_id="01:00.0",
+            tag_sensor="Package id 0",
             foreground=colors[6],
             background=foregroundTwo,
-            update_interval=30,
         ),
+        # widget.GenPollCommand(
+        #     cmd=os.path.expanduser("~/.local/bin/statusbar/sb-nvgpu"),
+        #     foreground=colors[6],
+        #     background=foregroundTwo,
+        #     update_interval=30,
+        # ),
         #
         widget.Memory(
             update_interval=15,

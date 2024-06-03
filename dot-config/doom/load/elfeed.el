@@ -12,12 +12,12 @@
       elfeed-enclosure-default-dir "~/dwn"
       elfeed-sort-order 'descending
       elfeed-search-clipboard-type 'CLIPBOARD
-      elfeed-search-title-max-width 130
-      elfeed-search-title-min-width 70
-      elfeed-search-trailing-width 40
+      elfeed-search-title-max-width 150
+      elfeed-search-title-min-width 100
+      elfeed-search-trailing-width 60
       elfeed-show-truncate-long-urls t
       elfeed-show-unique-buffers t
-      elfeed-search-filter "@2-week-ago +unread"
+      elfeed-search-filter "@1-month-ago +unread"
       rmh-elfeed-org-files '("~/.config/doom/load/elfeed.org")
       shr-max-image-proportion 0.5
       ;; https://old.reddit.com/r/orgmode/comments/i6hl8b/image_preview_size_in_org_mode/
@@ -128,7 +128,7 @@
     (format-time-string "%y/%m/%d %H:%M" (seconds-to-time date)))
 
   ;; (add-hook! 'elfeed-show-mode-map #'writeroom-mode)
-  (add-hook! 'elfeed-new-entry-hook (elfeed-make-tagger :before "2 day ago" :remove 'unread))
+  (add-hook! 'elfeed-new-entry-hook (elfeed-make-tagger :before "2 month ago" :remove 'unread))
 
   (defface done-elfeed-entry      '((t :background "#666")) "done") ;; gray
   (push '(x done-elfeed-entry) elfeed-search-face-alist)
@@ -140,12 +140,15 @@
   (push '(s saved-elfeed-entry) elfeed-search-face-alist)
   (defface watch-elfeed-entry     '((t :background "#262")) "watch") ;; green
   (push '(w watch-elfeed-entry) elfeed-search-face-alist)
+  (defface watch-elfeed-entry     '((t :background "#262")) "watch") ;; green
+  (push '(w watch-elfeed-entry) elfeed-search-face-alist)
   )
 
 ;; [[https://anonymousoverflow.privacyfucking.rocks/exchange/emacs/questions/18008/startup-emacs-daemon-with-elfeed-rss-feed-reader-buffer][Startup Emacs Daemon With Elfeed (RSS Feed Reader) Buffer | AnonymousOverflow]]
 (defun dr/start-elfeed ()
   (interactive)
   (progn
+    (doom/load-session "~/.config/emacs/.local/etc/workspaces/float")
     (run-at-time nil (* 2 60 60) #'elfeed-update)
     (elfeed)
     )
