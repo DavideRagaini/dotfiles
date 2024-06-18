@@ -41,7 +41,7 @@
 ;; ========= Bootstraps ========= {{{
 (setq dr/font-size 13
       dr/main-font-family "IosevkaTerm Nerd Font Mono"
-      dr/big-font-family 'dr/main-font-family
+      dr/big-font-family "IosevkaTerm Nerd Font Mono"
       dr/serif-font-family "Garamond Libre"
       dr/variable-pitch-font-family "Overpass"
       dr/symbol-font-family "JuliaMono"
@@ -57,7 +57,7 @@
   )
  ((eq system-type 'windows-nt)
   (setq dr/main-font-family "cascadia code"
-        dr/big-font-family 'dr/main-font-family
+        dr/big-font-family "cascadia code"
         dr/variable-pitch-font-family "microsoft sans serif"
         dr/symbol-font-family "cascadia code"
         dr/serif-font-family "times new roman"
@@ -135,7 +135,7 @@
 ;; ========= Hooks ========= {{{
 (add-hook! 'doom-load-theme-hook (set-face-foreground 'vertical-border "magenta"))
 (add-hook! 'org-mode-hook (lambda () visual-line-mode 0))
-(add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
+;; (add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
 ;; ========= use-package! ========= {{{
 (use-package! magit-todos
@@ -168,17 +168,6 @@
    :desc "Kill session"        "m q" #'org-noter-kill-session
    )
   )
-;; }}}
-;; ========= Load Config Files ========= {{{
-(load! "load/org.el")
-(load! "load/erc.el")
-(load! "load/elfeed.el")
-(load! "load/roam.el")
-(load! "load/nov.el")
-(load! "load/citations.el")
-;; (load! "load/emms.el")
-;; (load! "load/calibredb.el")
-(load! "load/matlab-setup.el")
 ;; }}}
 ;; ========= Hydra ========= {{{
 (defhydra doom-window-resize-hydra (:hint nil)
@@ -236,6 +225,17 @@
   (kbd "C-TAB") 'dired-subtree-cycle
   (kbd "S-TAB") 'dired-subtree-remove
   )
+;; }}}
+;; ========= Load Config Files ========= {{{
+(load! "load/org.el")
+(load! "load/erc.el")
+(load! "load/nov.el")
+(load! "load/elfeed.el")
+(load! "load/roam.el")
+;; (load! "load/citations.el")
+;; (load! "load/emms.el")
+;; (load! "load/calibredb.el")
+;; (load! "load/matlab-setup.el")
 ;; }}}
 ;; ========= Manual ========= {{{
 ;; - `load!' for loading external *.el files relative to this one

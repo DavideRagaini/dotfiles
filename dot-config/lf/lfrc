@@ -184,6 +184,10 @@ cmd async_paste &{{
     lf -remote "send clear"
 }}
 
+cmd size &{{
+    lf -remote "send $id echo $(du -hc $fx | tail -n1)"
+}}
+
 cmd backup_paste %{{
     set -- $(cat ~/.local/share/lf/files)
     mode="$1"
@@ -261,13 +265,13 @@ cmd link %{{
 }}
 
 cmd zz %{{
-    result="$(zoxide query --exclude "${PWD}" -- "$1")"
-    lf -remote "send ${id} cd '${result}'"
+    result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    lf -remote "send $id cd \"$result\""
 }}
 
 cmd zi ${{
-    result="$(zoxide query -i -- "$1")"
-    lf -remote "send ${id} cd '${result}'"
+    result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    lf -remote "send $id cd \"$result\""
 }}
 
 cmd follow_link %{{
@@ -403,7 +407,7 @@ cmd compressvideo ${{
 map bv compressvideo "$fx"
 
 cmd on-select &{{
-    lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+    lf -remote "send $id set statfmt \"$(exa -ldg --color=always "$f")\""
 }}
 
 cmd follow_link %{{
@@ -473,7 +477,7 @@ map Pa async_paste
 map Pb backup_paste
 map Pp :link
 map R on-redraw
-map S &samedir
+map S size
 map T !mediainfo "$f" | bat
 map U clear
 map W & $TERMINAL

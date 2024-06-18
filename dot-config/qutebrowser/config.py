@@ -23,7 +23,10 @@ c.bindings.commands["normal"] = {
     "tdr": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
     "tds": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
     # ",g": 'hint links spawn funnel "{hint-url}"',
-}
+    "xs": "config-cycle statusbar.show always never",
+    "xt": "config-cycle tabs.show always never",
+    "xx": "config-cycle tabs.show always never;; config-cycle statusbar.show always never"
+    }
 # }}}
 # ======================= User Interface ============= {{{
 dracula.blood(c, {'spacing': {'vertical': 6, 'horizontal': 8}})
@@ -35,12 +38,13 @@ c.session.lazy_restore = True
 c.statusbar.show = "in-mode"
 c.tabs.last_close = "default-page"
 c.tabs.position = "bottom"
-c.tabs.show = "always"
+c.tabs.show = "switching"
 startpage = "file://" + environ["HOME"] + "/.local/src/startpage/index.html"
 c.url.default_page = startpage
 c.url.start_pages = [startpage]
 c.window.title_format = ("{private}{perc}[{scroll_pos}]:{current_title} {title_sep} {current_url}")
 c.window.hide_decoration = True
+c.fonts.default_size = "8pt"
 # }}}
 # ======================= Search Engines ============= {{{
 c.url.searchengines = {
@@ -111,9 +115,10 @@ c.fileselect.multiple_files.command = fileselect_cmd
 c.fileselect.single_file.command = fileselect_cmd
 # }}}
 # ======================= Dark Mode ============= {{{
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.contrast = -0.022
+c.colors.webpage.darkmode.policy.images = "never"
 c.colors.webpage.darkmode.threshold.background = 100
 c.colors.webpage.darkmode.threshold.foreground = 220
 # }}}

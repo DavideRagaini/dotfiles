@@ -535,11 +535,11 @@ def bindings():
         # EzKey("A-C-<down>", lazy.spawn("tppctl volume -2")),
         # EzKey("A-S-<down>", lazy.spawn("mpc volume -2")),
         #
-        EzKey("M-<left>", lazy.spawn("tppctl seek -10")),
+        EzKey("M-<left>", lazy.spawn("tppctl seek -5")),
         EzKey("A-<left>", lazy.spawn("mpc volume -2")),
         EzKey("C-<left>", lazy.spawn("tppctl volume -2")),
         #
-        EzKey("M-<right>", lazy.spawn("tppctl seek 10")),
+        EzKey("M-<right>", lazy.spawn("tppctl seek 5")),
         EzKey("A-<right>", lazy.spawn("mpc volume +2")),
         EzKey("C-<right>", lazy.spawn("tppctl volume 2")),
         # }}}

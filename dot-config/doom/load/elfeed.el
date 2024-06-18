@@ -46,6 +46,18 @@
         ))
     (elfeed-search-toggle-all mytag)))
 
+(defun elfeed-clear-tags ()
+  "Returns a function that tags an elfeed entry or selection as MYTAG"
+  (lambda ()
+    "Toggle a tag on an Elfeed search selection"
+    (interactive)
+    (let ((l '(w x o unread)))
+      (while l
+        (elfeed-search-untag-all (pop l))
+        (forward-line -1)
+        ))
+    ))
+
 ;;;###autoload
 (defun elfeed-open-in-eww (entry)
   "Display the currently selected item in eww."
@@ -104,6 +116,7 @@
   (kbd "; v") 'elfeed-open-mpv
   ;;
   (kbd "; h") (elfeed-tag-selection-as 'h)
+  (kbd "; r") (elfeed-clear-tags)
   (kbd "; s") (elfeed-tag-selection-as 's)
   (kbd "; w") (elfeed-exclusive-tag-selection-as 'w)
   (kbd "; o") (elfeed-exclusive-tag-selection-as 'o)
@@ -148,7 +161,7 @@
 (defun dr/start-elfeed ()
   (interactive)
   (progn
-    (doom/load-session "~/.config/emacs/.local/etc/workspaces/float")
+    ;; (doom/load-session "~/.config/emacs/.local/etc/workspaces/float")
     (run-at-time nil (* 2 60 60) #'elfeed-update)
     (elfeed)
     )

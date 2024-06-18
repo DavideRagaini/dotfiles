@@ -24,7 +24,7 @@ style = "Italic"
 
 [font.normal]
 family = "IosevkaTerm Nerd Font Propo"
-style = "Bold"
+style = "SemiBold"
 
 [font.offset]
 x = 1

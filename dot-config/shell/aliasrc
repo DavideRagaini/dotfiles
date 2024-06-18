@@ -47,6 +47,7 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             mpc="mpc --host=\"\$MPD_HOST\"" \
             unclt="systemctl --user start unclutter.service" \
             qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
+            pvt="doas ip netns exec pvt-net1 sudo -u davide" \
             qtcheck="qtile cmd-obj -o cmd -f validate_config"
 
         nshe() {
@@ -62,12 +63,14 @@ case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
             mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
             rm "$DIR/containers.json"
             rm "$HOME/.local/share/applications/mimeapps.list"
+            mv "$HOME/.config/ncmpcpp" "$HOME/.config/ncmpcpp-dot"
         }
 
         post_switch() {
             DIR="$HOME/.mozilla/firefox/nixhm"
             mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
             mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
+            mv "$HOME/.config/ncmpcpp-dot" "$HOME/.config/ncmpcpp"
         }
 
         hms() {
@@ -108,12 +111,10 @@ alias \
 alias \
     ccat="bat --pager=never" \
     diff="diff --color=auto" \
-    egrep='egrep --color=auto' \
-    fgrep='fgrep --color=auto' \
     grep="grep --color=auto" \
     ip='ip -color=auto' \
-    l='eza -l --icons --group-directories-first' \
-    ll='eza -la --icons --group-directories-first'
+    l='eza -lg --icons --group-directories-first' \
+    ll='eza -lag --icons --group-directories-first'
 
 # Abbreviations
 alias \

@@ -28,7 +28,7 @@ def floating_corner_window(
     if current_screen["index"] >= 1:
         main_monitor_width = qtile.screens[0].info()["width"]
     top = bar_padding
-    bottom = screen_height - window_height - border_padding
+    bottom = screen_height - window_height - border_padding - bar_padding
     left = main_monitor_width + border_padding
     right = main_monitor_width + screen_width - window_width - border_padding
     match position:

@@ -24,7 +24,7 @@ class Groups(object):
                 screen_affinity = 1,
                 matches=Match(
                     wm_class=regex(
-                        "[Ff]irefox|[Ll]ibre[Ww]olf|Brave-browser|qutebrowser",
+                        "[Ff]irefox|[Ll]ibre[Ww]olf|Brave-browser",
                     ),
                 ),
             ),
@@ -135,7 +135,7 @@ class Groups(object):
                 matches=[
                     Match(
                         wm_class=regex(
-                            "KeePassXC|qBittorrent|calibre-gui|calibre|syncthingtray",
+                            "KeePassXC|qBittorrent|calibre-gui|calibre|syncthingtray|qutebrowser",
                         ),
                     ),
                     Match(

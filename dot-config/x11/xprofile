@@ -16,9 +16,9 @@ locker(){
 export CM_IGNORE_WINDOW=".* - KeePassXC$"
 export LIBVA_DRIVER_NAME=vdpau
 export VDPAU_DRIVER=nvidia
-# xrandr --output DVI-D-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --off # main dvi
-xrandr --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-D-0 --off # main hdmi
-# xrandr --output HDMI-0  --rotate normal --pos 0x0 --mode 1920x1080 --primary --output DVI-D-0 --rotate right --pos 1920x15 --mode 1920x1080 # main hdmi + vert right
+# xrandr --output DVI-D-0 --primary --auto --pos 0x0 --rotate normal --output HDMI-0 --off # main dvi
+xrandr --output HDMI-0 --primary --auto --pos 0x0 --rotate normal --output DVI-D-0 --off # main hdmi
+# xrandr --output HDMI-0  --rotate normal --pos 0x0 --auto --primary --output DVI-D-0 --rotate right --pos 1920x15 --auto # main hdmi + vert right
 locker &
 conky &
 remaps &
