@@ -6,7 +6,6 @@ export BROWSER_PRIVATE="firefox --private-window"
 export EDITOR="emacsclient -nw"
 export FILE="lf"
 export READER="zathura"
-export TERM="alacritty"
 export TERMINAL="alacritty"
 export VISUAL="emacsclient -c"
 HOSTNAME="$(hostname)"
@@ -160,8 +159,7 @@ wayland_exports() {
         [ -z "${WAYLAND_DISPLAY}" ] &&
         export QT_QPA_PLATFORM=wayland &&
         export MOZ_ENABLE_WAYLAND=1 &&
-        export TERM="footclient" &&
-        export TERMINAL="$TERM"&&
+        export TERMINAL="footclient" &&
         export MOZ_WEBRENDER=1 &&
         export XDG_SESSION_TYPE=wayland &&
         export XDG_CURRENT_DESKTOP=sway

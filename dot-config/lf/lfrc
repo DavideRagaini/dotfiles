@@ -216,7 +216,7 @@ cmd paste &{{
             cmd='rsync'
             ;;
         move)
-            mv -n -- "$@"
+            mv -n -- "$@" .
             cmd='mv'
             ;;
     esac

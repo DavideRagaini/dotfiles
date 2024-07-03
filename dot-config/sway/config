@@ -77,8 +77,8 @@ bindsym $M+$S+w            exec librewolf
 # bindsym $M+$S+w          exec librewolf --private-window
 bindsym $M+e               exec $term -T emacs -e emacsclient -nw
 # bindsym $M+$S+e          exec emacsclient -c
-bindsym $M+p               exec dmpv append
-bindsym $M+$S+p            exec dmpv aplay
+bindsym $M+p               exec dmpv queue
+bindsym $M+$S+p            exec dmpv append "$(wl-paste)"
 bindsym $M+$C+p            exec dmpv
 bindsym $M+Backspace       exec sysact Shutdown
 bindsym $M+$S+Backspace    exec sysact
@@ -108,8 +108,8 @@ bindsym $M+XF86AudioNext   exec tppctl seek 10
 bindsym XF86AudioPrev      exec dmpc prev
 bindsym $M+XF86AudioPrev   exec tppctl seek -10
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $M+XF86AudioMute     exec output-audio
 
@@ -136,10 +136,10 @@ bindsym $M+j               focus down
 bindsym $M+k               focus up
 bindsym $M+l               focus right
 
-bindsym $M+Up              exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $M+Up              exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym $M+$S+Up           exec $term -e pulsemixer
 bindsym $M+$C+Up           exec output-audio
-bindsym $M+Down            exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $M+Down            exec pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym $M+$S+Down         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $M+Left            exec tppctl seek -10
 bindsym $M+$S+Left         exec dmpc prev
@@ -185,6 +185,13 @@ bindsym $M+a          focus parent
 bindsym $M+s          focus child
 bindsym $M+$S+s       sticky toggle
 
+for_window [title="files"] {
+    move scratchpad
+    resize set $width $height
+    scratchpad show
+}
+bindsym $M+r exec swaymsg [title="files"] scratchpad show || $term -T files -e lfcd
+
 for_window [title="dropdown"] {
     move scratchpad
     resize set $width $height
@@ -197,14 +204,7 @@ for_window [title="music"] {
     resize set $width $height
     scratchpad show
 }
-bindsym $M+m exec swaymsg [title="music"] scratchpad show || $term -T music -e ncmpcpp
-
-for_window [title="spotify"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+$S+m exec swaymsg [title="spotify"] scratchpad show || $term -T music -e spotify_player
+bindsym $M+m exec swaymsg [title="music"] scratchpad show || $term -T music -e mp
 
 for_window [title="news"] {
     move scratchpad
@@ -286,4 +286,11 @@ mode "resize" {
     bindsym Return   mode "default"
     bindsym Escape   mode "default"
 }
-bindsym $M+r         mode "resize"
+bindsym $M+$S+r         mode "resize"
+
+exec mem-warn
+exec wl-paste --watch cliphist store
+exec foot --server
+exec dunst
+exec wlsunset -t 2400 -T 6500 -S 07:30 -s 19:00 -d 1800
+exec sleep 40 && $term -a 'emacs' -T 'footclient-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
