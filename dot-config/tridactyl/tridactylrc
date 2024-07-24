@@ -172,3 +172,8 @@ bind <Escape> composite mode normal ; hidecmdline ; nohlsearch
 "" }}}
 
 "" https://github.com/tridactyl/tridactyl/wiki/Exemplar-.tridactylrc-files
+
+"" ========== autocmd ========== {{{
+# autocmd DocStart searx.be zoom 200
+# autocmd DocStart github.com zoom 200
+"" }}}

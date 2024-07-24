@@ -1,9 +1,21 @@
 from libqtile import hook, qtile
 from libqtile.lazy import lazy
 from typing import List
-from libqtile.log_utils import logger
+# from libqtile.log_utils import logger
 
 
+# ======================= testing ============= {{{
+cursor_hide = True
+@lazy.function
+def toggle_cursor(qtile):
+    global cursor_hide
+    if cursor_hide is True:
+        qtile.core.hide_cursor()
+        cursor_hide = False
+    elif cursor_hide is False:
+        qtile.core.unhide_cursor()
+        cursor_hide = True
+# }}}
 # ======================= floating corner window ============= {{{
 @lazy.function
 def floating_corner_window(
@@ -65,6 +77,13 @@ def move_mpv_to_current_group(qtile):
             ):
                 window.togroup()
 
+@hook.subscribe.setgroup
+def autohide_bar_9th_group():
+    barsize = qtile.current_screen.bottom.info()["size"] == 0
+    if qtile.current_group.name == "9" and not barsize:
+        qtile.hide_show_bar()
+    elif barsize:
+        qtile.hide_show_bar()
 
 # @hook.subscribe.setgroup
 # async def mpv_auto_toggle_minimize():
@@ -88,22 +107,6 @@ def move_mpv_to_current_group(qtile):
 #                         or window.info()["group"] != qtile.screens[-1].current_group.name
 #                     ) and window.info()["floating"] == False:
 #                         window.toggle_minimize()
-
-
-@hook.subscribe.client_focus
-def set_hint(window):
-    window.window.set_property(
-        "IS_FLOATING_WINDOW", str(window.floating), type="STRING", format=8
-    )
-
-
-@hook.subscribe.setgroup
-def autohide_bar_9th_group():
-    hidden_bar = qtile.current_screen.bottom.info()["size"] == 0
-    if qtile.current_group.name == "9" and not hidden_bar:
-        qtile.hide_show_bar()
-    elif hidden_bar:
-        qtile.hide_show_bar()
 
 
 # }}}
@@ -143,15 +146,6 @@ def remove_sticky_windows(window):
 #     info = window.info()
 #     if info["wm_class"] == ["mpv"] and info["floating"] == True:
 #         sticky_windows.append(window)
-
-
-# }}}
-# ======================= Auto Toggle Minimize ============= {{{
-
-
-@hook.subscribe.setgroup
-async def unminimize_hook():
-    qtile.current_group.unminimize_all()
 
 
 # }}}
@@ -276,17 +270,6 @@ def float_cycle(qtile, forward: bool):
     win = floating_windows[floating_window_index]
     win.bring_to_front()
     win.focus()
-
-
-# @hook.subscribe.client_new
-# def disable_floating(window):
-#     rules = [
-#         Match(wm_class="mpv")
-#     ]
-
-#     if any(window.match(rule) for rule in rules):
-#         window.togroup(qtile.current_group.name)
-#         window.disable_floating()
 
 
 # }}}

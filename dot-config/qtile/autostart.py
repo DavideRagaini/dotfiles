@@ -7,4 +7,3 @@ from libqtile import hook
 def autostart ():
     main = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.Popen([main])
-#     subprocess.Popen(["nm-applet"])

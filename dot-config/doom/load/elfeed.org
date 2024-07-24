@@ -47,6 +47,7 @@
 *** [[https://susam.net/maze/feed.xml][susam net]] :blog:lnx:
 ** STEM :stem:
 *** [[https://yewtu.be/feed/channel/UC1yNl2E66ZzKApQdRuTQ4tw][Sabine Hossenfelder]] :w:
+*** [[https://piped.privacydev.net/channel/UC3BXcpYFCzTndJ9Fisi32qg][Climate Chat]] :w:
 *** [[https://yewtu.be/feed/channel/UCHnyfMqiRRG1u-2MsSQLbXA][Veritasium]] :w:
 *** [[https://yewtu.be/feed/channel/UCj1VqrHhDte54oLgPG4xpuQ][Stuff Made Here]] :w:
 *** [[https://yewtu.be/feed/channel/UCWizIdwZdmr43zfxlCktmNw][Alec Steele]]
@@ -115,6 +116,8 @@
 ** Cars :Cars:
 *** [[https://yewtu.be/feed/channel/UCx8aikojDTsbC_iS-204Y0w][Angelo Nero]] :w:
 *** [[https://yewtu.be/feed/channel/UCFNLUhl6K-zVILHawerpDDA][Passione Motori]] :w:
+*** [[https://yewtu.be/feed/channel/UCfluW4btXJm3uzJZmLRykGg][Garage 52]] :w:
+*** [[https://yewtu.be/feed/channel/UCnROPoofp1Ds98QNi077aLg][MC Import]] :w:
 ** Chill :chill:
 *** [[https://yewtu.be/feed/channel/UClkUhTjFbQbtGfS14h9Vw5g][Martijn Doolaard]] :w:
 *** [[https://twitchrss.appspot.com/vodonly/yotobi][ytb]] :w:

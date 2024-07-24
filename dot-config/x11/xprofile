@@ -13,13 +13,13 @@ locker(){
         -locker "systemctl suspend" \
         -detectsleep
 }
-export CM_IGNORE_WINDOW=".* - KeePassXC$"
+export CM_IGNORE_WINDOW=".* - KeePassXC.*"
 export LIBVA_DRIVER_NAME=vdpau
 export VDPAU_DRIVER=nvidia
 # xrandr --output DVI-D-0 --primary --auto --pos 0x0 --rotate normal --output HDMI-0 --off # main dvi
 xrandr --output HDMI-0 --primary --auto --pos 0x0 --rotate normal --output DVI-D-0 --off # main hdmi
 # xrandr --output HDMI-0  --rotate normal --pos 0x0 --auto --primary --output DVI-D-0 --rotate right --pos 1920x15 --auto # main hdmi + vert right
-locker &
+# locker &
 conky &
 remaps &
 numlockx &
@@ -38,7 +38,7 @@ xset dpms 0 0 180
     # alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
     emacsclient -e '(doom/quickload-session t)' -c &
     sleep 30
-    aw-qt &
+    # aw-qt &
     # sleep 90
     # syncthingtray
 } &

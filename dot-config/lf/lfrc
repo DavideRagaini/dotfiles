@@ -98,12 +98,28 @@ cmd mkdir %{{
     lf -remote "send $id select \"$*\""
 }}
 
-cmd delete ${{
+cmd trash ${{
     set -f
     printf "%s\n\t" "$fx"
     printf "Trash?[y/*]"
     read ans
     [ $ans = "y" ] && trash-put -- $fx
+}}
+
+cmd delete ${{
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "Delete?[y/*]"
+    read ans
+    [ $ans = "y" ] && rm -rf -- $fx
+}}
+
+cmd compare ${{
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "Compare?[y/*]"
+    read ans
+    [ $ans = "y" ] && rsync -rncv --delete -- $fx
 }}
 
 cmd moveto ${{
@@ -180,6 +196,16 @@ cmd async_paste &{{
         move) mv -n -- "$@" .;;
     esac
     notify-send "aSync Done" "$(cat ~/.local/share/lf/files)"
+    rm ~/.local/share/lf/files
+    lf -remote "send clear"
+}}
+
+cmd dotofile &{{
+    set -- $(cat ~/.local/share/lf/files)
+    printf "%s\n\t" "$fx"
+    printf "What to do?"
+    read ans
+    $ans "$@"
     rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
@@ -461,11 +487,12 @@ map <c-o> &opener "$f"
 map <c-t> !bat "$f"
 map <c-y> up
 map <c-z> $ kill -STOP $PPID
+map <c-f-11> delete
 
 map A :rename; cmd-end
 map B !emacsclient -nw .
 map C :rename; cmd-end; cmd-delete-home
-map D delete
+map D trash
 map E extract
 map I :rename; cmd-home
 map J :updir; set dironly true; down; set dironly false; open

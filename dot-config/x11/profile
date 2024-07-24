@@ -14,6 +14,7 @@ export HOSTNAME
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 export XDG_ARCHIVE_DIR="$HOME/arc"
 export XDG_BOOKS_DIR="$HOME/bks"
@@ -23,11 +24,6 @@ export XDG_MUSIC_DIR="$HOME/mus"
 export XDG_PICTURES_DIR="$HOME/pic"
 export XDG_STORAGE_DIR="$HOME/str"
 export XDG_VIDEOS_DIR="$HOME/vid"
-
-# export GDK_DPI_SCALE=1.5
-# export QT_AUTO_SCREEN_SCALE_FACTOR=1.5
-# export QT_ENABLE_HIGHDPI_SCALING=1.5
-# export QT_SCALE_FACTOR=1.5
 
 # export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
@@ -72,10 +68,10 @@ export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 export PYTHONUSERBASE="$HOME/.local/share/python"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 # export QT_QPA_PLATFORMTHEME="gtk2"	# Have QT use gtk2 theme.
-export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_QPA_PLATFORMTHEME="qt6ct"
 # export QT_STYLE_OVERRIDE="gtk3"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export SUDO_ASKPASS="$HOME/.local/bin/dmenu/dmenupass"
+# export SUDO_ASKPASS="$HOME/.local/bin/dmenu/dmenupass"
 # export TASKDATA="$XDG_DATA_HOME/task"
 # export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
 # export TERM="screen-256color"
@@ -149,25 +145,44 @@ if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/lf/icons" ]; then
     export LF_ICONS
 fi
 
+highdpi() {
+    export GDK_SCALE=1
+    export GDK_DPI_SCALE=1
+    export QT_FONT_DPI=192
+    export QT_AUTO_SCREEN_SCALE_FACTOR=1
+    export QT_ENABLE_HIGHDPI_SCALING=1
+    export QT_SCALE_FACTOR=1
+}
+
 check_startup() {
     [ "$(tty)" = "/dev/tty1" ] &&
         awk '{ exit ($1 > 40) }' /proc/uptime
 }
 
 wayland_exports() {
-     [ "${XDG_VTNR}" -eq 1 ] &&
-        [ -z "${WAYLAND_DISPLAY}" ] &&
-        export QT_QPA_PLATFORM=wayland &&
-        export MOZ_ENABLE_WAYLAND=1 &&
-        export TERMINAL="footclient" &&
-        export MOZ_WEBRENDER=1 &&
-        export XDG_SESSION_TYPE=wayland &&
-        export XDG_CURRENT_DESKTOP=sway
+     if [ "${XDG_VTNR}" -eq 1 ] && [ -z "${WAYLAND_DISPLAY}" ]; then
+        export MOZ_ENABLE_WAYLAND=1
+        export MOZ_WEBRENDER=1
+        export WLR_RENDERER_ALLOW_SOFTWARE=1
+        export TERMINAL="footclient"
+        export QT_QPA_PLATFORM='wayland-egl;xcb'
+        export QT_WAYLAND_FORCE_DPI=physical
+        export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+        export _JAVA_AWT_WM_NONREPARENTING=1
+        # export XDG_SESSION_TYPE='wayland'
+    fi
+}
+
+qwtile() {
+    export XDG_CURRENT_DESKTOP="qtile"
+    wayland_exports
+    export TERMINAL="foot"
+    exec qtile start -b wayland
 }
 
 case "$HOSTNAME" in
     tinkerboard)
-        export DMENU_FN='Fantasque Sans Mono:style=bold:size=12'
+        export DMENU_FN='Fantasque Sans Mono'
     ;;
     void)
         XDG_RUNTIME_DIR="/run/user/$(id -u)"
@@ -178,9 +193,22 @@ esac
 case "$HOSTNAME" in
     Apollo)
         export MPD_HOST="/run/user/1000/mpd/socket"
-        check_startup &&
-            ! pidof -s Xorg >/dev/null 2>&1 &&
-            exec startx "$XINITRC"
+        export MPD_HOST="${XDG_RUNTIME_DIR}/mpd/socket"
+
+        export GBM_BACKEND=nvidia-drm
+        export __GLX_VENDOR_LIBRARY_NAME=nvidia
+        export ENABLE_VKBASALT=1
+        export LIBVA_DRIVER_NAME=nvidia
+        export VDPAU_DRIVER=nvidia
+
+        export XCURSOR_SIZE=48
+        export XCURSOR_THEME=Catppuccin-Macchiato-Dark-Cursors
+
+        highdpi
+         check_startup &&
+             ! pidof -s Xorg >/dev/null 2>&1 &&
+            # exec startx "$XINITRC"
+            qwtile
     ;;
     NT)
         XDG_RUNTIME_DIR="/run/user/$(id -u)"
@@ -194,11 +222,13 @@ case "$HOSTNAME" in
         ! pidof -s Xorg >/dev/null 2>&1 &&
         startx "$XINITRC" &&
         wayland_exports &&
+        export XDG_CURRENT_DESKTOP="sway" &&
         exec sway
     ;;
     *)
         check_startup &&
         wayland_exports &&
+        export XDG_CURRENT_DESKTOP="sway" &&
         exec sway
     ;;
 esac

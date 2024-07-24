@@ -2,7 +2,7 @@ def dracula():
     colors = [
         ["#282a36", "#282a36"],  # background (dark grey) [0]
         ["#44475a", "#44475a"],  # light grey [1]
-        ["#f8f8f2", "#f8f8f2"],  # forground (white) [2]
+        ["#f8f8f2", "#f8f8f2"],  # foreground (white) [2]
         ["#6272a4", "#6272a4"],  # blue/grey) [3]
         ["#8be9fd", "#8be9fd"],  # cyan [4]
         ["#50fa7b", "#50fa7b"],  # green [5]

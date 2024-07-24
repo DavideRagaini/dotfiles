@@ -1,96 +1,94 @@
 #!/bin/sh
 
 case "$(printenv XDG_SESSION_TYPE)" in
-    wayland)
-        alias \
-            2f="tmux split -h lf; lf" \
-            f="lf"
-            # cclip="wl-copy" \
-            # pclip="wl-paste"
-        ;;
-    tty | x11)
-        alias \
-            2f="tmux split -h lfcd; lfcd" \
-            f="lfcd"
-            # cclip="xclip -selection clipboard" \
-            # pclip="xclip -selection clipboard -o"
-        ;;
+wayland)
+    alias \
+        2f="tmux split -h lf; lf" \
+        listclip="cliphist list | fzf | cliphist decode | wl-copy" \
+        f="lf"
+    # cclip="wl-copy" \
+    # pclip="wl-paste"
+    ;;
+tty | x11)
+    alias \
+        2f="tmux split -h lfcd; lfcd" \
+        f="lfcd"
+    # cclip="xclip -selection clipboard" \
+    # pclip="xclip -selection clipboard -o"
+    ;;
 esac
 
 case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
-    Void|\"Void\")
-        alias \
-            xbi="doas xbps-install -S" \
-            xu="doas xbps-install -Su" \
-            xr="doas xbps-remove -R" \
-            sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
+Void | \"Void\")
+    alias \
+        xbi="doas xbps-install -S" \
+        xu="doas xbps-install -Su" \
+        xr="doas xbps-remove -R" \
+        sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
 
-        sxi() {
-            LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
-            [ -z $LIST ] && return
-            doas xbps-install -Sy $LIST
-        }
+    sxi() {
+        LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
+        [ -z $LIST ] && return
+        doas xbps-install -Sy $LIST
+    }
 
-        alias \
-            xq="xbps-query -Rs" \
-            xgot="xbps-query -l | fzf"
+    alias \
+        xq="xbps-query -Rs" \
+        xgot="xbps-query -l | fzf"
 
-        sxq() {
-            xbps-query -Rs "$1" | fzf
-        }
-        ;;
-    NixOS|\"NixOS\")
-        alias \
-            animdl="~/Packages/python/ani/bin/animdl" \
-            hm="home-manager" \
-            nsh="nix-shell -p" \
-            mpc="mpc --host=\"\$MPD_HOST\"" \
-            unclt="systemctl --user start unclutter.service" \
-            qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
-            pvt="doas ip netns exec pvt-net1 sudo -u davide" \
-            qtcheck="qtile cmd-obj -o cmd -f validate_config"
+    sxq() {
+        xbps-query -Rs "$1" | fzf
+    }
+    ;;
+NixOS | \"NixOS\")
+    alias \
+        animdl="~/Packages/python/ani/bin/animdl" \
+        hm="home-manager" \
+        nsh="nix-shell -p" \
+        mpc="mpc --host=\"\$MPD_HOST\"" \
+        unclt="systemctl --user start unclutter.service" \
+        qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
+        pvt="doas ip netns exec pvt-net1 sudo -u davide" \
+        qtcheck="qtile cmd-obj -o cmd -f validate_config"
 
-        nshe() {
-            PKG="$1"
-            shift
-            nix-shell -p "$PKG" --run "$@"
-        }
+    nshr() {
+        nix-shell -p "$1" --run "$@"
+    }
 
-        pre_switch() {
-            DIR="$HOME/.mozilla/firefox/nixhm"
-            rm "$DIR/containers.json"
-            mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
-            mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
-            rm "$DIR/containers.json"
-            rm "$HOME/.local/share/applications/mimeapps.list"
-            mv "$HOME/.config/ncmpcpp" "$HOME/.config/ncmpcpp-dot"
-        }
+    pre_switch() {
+        DIR="$HOME/.mozilla/firefox/nixhm"
+        rm "$DIR/containers.json"
+        mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
+        mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
+        rm "$DIR/containers.json"
+        rm "$HOME/.local/share/applications/mimeapps.list"
+        mv "$HOME/.config/ncmpcpp" "$HOME/.config/ncmpcpp-dot"
+    }
 
-        post_switch() {
-            DIR="$HOME/.mozilla/firefox/nixhm"
-            mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
-            mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
-            mv "$HOME/.config/ncmpcpp-dot" "$HOME/.config/ncmpcpp"
-        }
+    post_switch() {
+        DIR="$HOME/.mozilla/firefox/nixhm"
+        mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
+        mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
+        mv "$HOME/.config/ncmpcpp-dot" "$HOME/.config/ncmpcpp"
+    }
 
-        hms() {
-            pre_switch
-            home-manager switch
-            post_switch
-        }
+    hms() {
+        pre_switch
+        home-manager switch
+        post_switch
+    }
 
-        hmu() {
-            pre_switch
-            cd "$HOME/.config/home-manager" &&
-                nix flake update &&
-                cd "$HOME" &&
-                home-manager switch 2>&1 |
-                    tee "$HOME/.local/hm_last.log"
-            post_switch
-        }
-        ;;
-    Ubuntu|Armbian|\"Ubuntu\"|\"Armbian\")
-        ;;
+    hmu() {
+        pre_switch
+        cd "$HOME/.config/home-manager" &&
+            nix flake update &&
+            cd "$HOME" &&
+            home-manager switch 2>&1 |
+            tee "$HOME/.local/hm_last.log"
+        post_switch
+    }
+    ;;
+Ubuntu | Armbian | \"Ubuntu\" | \"Armbian\") ;;
 esac
 
 # Override GNU defaults
@@ -119,6 +117,7 @@ alias \
 # Abbreviations
 alias \
     E="\$VISUAL" \
+    d2p="find . -maxdepth 1 -mindepth 1 -type f \( -iname \"*.jpg\" -o -iname \"*.png\" -o -iname \"*.webm\" -o -iname \"*.gif\" -o -iname \"*.webp\" \) -exec mv {} \"${XDG_PICTURES_DIR:-$HOME/pic/1Sort}\" \;" \
     e="\$EDITOR" \
     irssi="irssi --config=\"\$XDG_CONFIG_HOME\"/irssi/config -- home=\"\$XDG_DATA_HOME\"/irssi" \
     locate="locate -d \"\$HOME/.local/updatedb\" -ri" \

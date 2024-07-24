@@ -56,6 +56,7 @@
         (elfeed-search-untag-all (pop l))
         (forward-line -1)
         ))
+    (forward-line 1)
     ))
 
 ;;;###autoload
@@ -65,7 +66,7 @@
   (require 'elfeed-show)
   (when (elfeed-entry-p entry)
     (let ((link (elfeed-entry-link entry)))
-      (when (derived-mode-p 'elfeed-search-mode) (+evil/window-vsplit-and-follow))
+      (when (derived-mode-p 'elfeed-search-mode))
       (eww link)
       (rename-buffer (format "*elfeed eww %s*" link))
       )))

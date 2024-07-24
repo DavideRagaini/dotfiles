@@ -51,8 +51,9 @@
 
 (cond
  ((string-equal (system-name) "Apollo")
-  (setq dr/dark-theme 'catppuccin)
-  (global-activity-watch-mode 1)
+  (setq dr/dark-theme 'catppuccin
+        dr/font-size 28)
+  ;; (global-activity-watch-mode 1)
   (dr/high-resources)
   )
  ((eq system-type 'windows-nt)
@@ -65,8 +66,6 @@
         dr/light-theme 'leuven
         dr/dark-theme 'catppuccin
         )
-  (set-frame-parameter (selected-frame) 'alpha '(100 . 95))
-  (add-to-list 'default-frame-alist '(alpha . (100 . 95)))
   )
  )
 ;; }}}
@@ -95,8 +94,8 @@
              '("\\.epub\\'" . nov-mode)
              '("\\.m$" . octave-mode))
 
-(set-frame-parameter (selected-frame) 'alpha '(97 . 85))
-(add-to-list 'default-frame-alist '(alpha . (97 . 85)))
+;; (set-frame-parameter (selected-frame) 'alpha '(98 . 95))
+;; (add-to-list 'default-frame-alist '(alpha . (98 . 95)))
 
 (setq auth-sources '("~/.local/share/authinfo.gpg"))
 ;; }}}
@@ -144,7 +143,7 @@
 
 (use-package! pdf-tools
   :config
-  (pdf-tools-install)
+  ;; (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-width)
   :custom
   (pdf-annot-activate-created-annotations t "automatically annotate highlights")

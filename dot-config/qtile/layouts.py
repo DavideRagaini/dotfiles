@@ -1,5 +1,5 @@
 from libqtile import layout
-from libqtile.config import Match
+from libqtile.config import InvertMatch, Match, MatchAll
 from colors import dracula
 from re import compile as regex
 
@@ -23,18 +23,21 @@ def layout_defaults():
 
     return [
         layout.Columns(**layout_defaults),
+        layout.Plasma(**layout_defaults, border_width_single=0),
         layout.Max(
             border_focus=colors[7], border_normal=colors[8], border_width=0, margin=0
         ),
         layout.MonadTall(**layout_defaults, single_border_width=0, single_margin=0),
         layout.Bsp(
-            **layout_defaults,
+            border_focus=colors[7],
+            border_normal=colors[8],
+            border_width=2,
             ratio=1.6,
             grow_amount=1,
             lower_right=True,
             wrap_client=False,
-            margin_on_single=0,
-            border_on_single=True,
+            margin_on_single=None,
+            border_on_single=False,
         ),
         layout.RatioTile(
             **layout_defaults,
@@ -75,15 +78,13 @@ def layout_defaults():
             border_width=2,
             float_rules=[
                 *layout.Floating.default_float_rules,
-                # Match(title="Eagenda"),
-                # Match(wm_instance_class="mpvFloat"),
-                Match(func=lambda c: c.has_fixed_ratio()),
+                # Match(func=lambda c: c.has_fixed_ratio()),
+                MatchAll(Match(func=lambda c: c.has_fixed_ratio()), InvertMatch(Match(wm_class="mpv"))),
                 Match(func=lambda c: c.has_fixed_size()),
-                Match(title="Bitwardenbranchdialog|fzfmenu|pinentry"),
-                Match(
-                    wm_class="confirm|confirmreset|dialog|download|error|file_progress|makebranch|maketag|nextcloud|notification|pinentry-gtk-2|pinentry-qt|splash|ssh-askpass|system-config-printer|toolbar"
-                ),
-                Match(wm_instance_class=regex("Places")),
+                Match(title=regex("Bitwardenbranchdialog|fzfmenu|pinentry")),
+                Match(wm_class=regex(r"confirm|confirmreset|dialog|download|error|file_progress|makebranch|maketag|nextcloud")),
+                Match(wm_class=regex(r"notification|pinentry-gtk-2|pinentry-qt|splash|ssh-askpass|system-config-printer|toolbar")),
+                Match(wm_instance_class=regex(r"Places")),
             ],
         ),
     ]

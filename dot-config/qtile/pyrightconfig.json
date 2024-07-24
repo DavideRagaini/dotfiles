@@ -3,8 +3,7 @@
         {
             "root": ".",
             "extraPaths": [
-                "/nix/store/33fnjz6npw1s2z1x3flyz3kflqmp2ar4-python3.11-qtile-0.24.0",
-                "/home/store/842aw9p8r28dgglg6qywfjxr3z5lfba6-python3.11-qtile-0.23.0"
+                "/nix/store/2rcmn4kvn8b302hnjzydxi65gsmgsjm2-python3.11-qtile-0.26.0"
             ]
         }
     ],

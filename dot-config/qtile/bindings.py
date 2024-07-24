@@ -1,6 +1,11 @@
+# ======================= Imports ============= {{{
+from os import environ as env
+from functions import *
 from libqtile.config import EzKey, KeyChord
+from libqtile.extension import DmenuRun
 
-
+# from libqtile.log_utils import logger
+# }}}
 # ======================= Variables ============= {{{
 M = "mod4"
 A = "mod1"
@@ -12,7 +17,9 @@ C = "control"
 # ======================= dmenu ============= {{{
 def dmenu_defs():
     opts = [
-        "IosevkaTerm Nerd Font Mono:style=bold:size=12",
+        "IosevkaTerm Nerd Font Mono",
+        "bold",
+        "12",
         "#181321",  # normal backgroun
         "#FF92D0",  # normal foregroun
         "#FF92D0",  # selected backgroun
@@ -20,7 +27,15 @@ def dmenu_defs():
     ]
 
     j = 0
-    for i in ["DMENU_FN", "DMENU_NB", "DMENU_NF", "DMENU_SB", "DMENU_SF"]:
+    for i in [
+        "DMENU_FN",
+        "DMENU_ST",
+        "DMENU_FS",
+        "DMENU_NB",
+        "DMENU_NF",
+        "DMENU_SB",
+        "DMENU_SF",
+    ]:
         if i in env:
             opts[j] = env[i]
         j = j + 1
@@ -28,49 +43,34 @@ def dmenu_defs():
     return opts
 
 
+dmenu_options = dmenu_defs()
+dmenu_defaults = dict(
+    dmenu_font=dmenu_options[0]
+    + ":style="
+    + dmenu_options[1]
+    + ":size="
+    + dmenu_options[2],
+    dmenu_ignorecase=True,
+    background=dmenu_options[3],
+    foreground=dmenu_options[4],
+    selected_background=dmenu_options[5],
+    selected_foreground=dmenu_options[6],
+)
+
+
+clipmenu = "cliphist list | dmenu -l 5 -p 'Clipboard:' | cliphist decode | wl-copy"
+
+
 # }}}
 # ======================= Keybindings ============= {{{
-from libqtile.extension import WindowList, DmenuRun
-from os import environ as env
-from functions import *
-
-# from libqtile.log_utils import logger
-
-
 def bindings():
     terminal = env["TERMINAL"]
     browser = env["BROWSER"]
     browserA = env["BROWSER2"]
     browserP = env["BROWSER_PRIVATE"]
     text_editor = "emacsclient -c"
-    term_text_editor = (
-        terminal + " --class 'emacs,emacs' -T 'term-emacsclient' -e emacsclient -nw"
-    )
+    term_text_editor = terminal + " -e emacsclient -nw"
     launcher = "run"
-
-    dmenu_options = dmenu_defs()
-    dmenu_defaults = dict(
-        dmenu_font=dmenu_options[0],
-        dmenu_ignorecase=True,
-        background=dmenu_options[1],
-        foreground=dmenu_options[2],
-        selected_background=dmenu_options[3],
-        selected_foreground=dmenu_options[4],
-    )
-
-    clipmenu = (
-        "clipmenu -i -fn '"
-        + dmenu_options[0]
-        + "' -nb '"
-        + dmenu_options[1]
-        + "' -nf '"
-        + dmenu_options[2]
-        + "' -sb '"
-        + dmenu_options[3]
-        + "' -sf '"
-        + dmenu_options[4]
-        + "'"
-    )
 
     return [
         # ======================= Special Keys ======================= {{{
@@ -179,11 +179,13 @@ def bindings():
         #
         # EzKey("M-<Scroll_Lock>", lazy.spawn("")),
         #
-        # EzKey("M-<Pause>", lazy.spawn("")),
+        EzKey("M-<Pause>", toggle_cursor()),
         # }}}
         # ======================= Number Keys ======================= {{{
         EzKey("M-<grave>", lazy.spawn("dunstctl close")),
         EzKey("M-S-<grave>", lazy.spawn("dunstctl history-pop")),
+        # EzKey("M-<grave>", lazy.spawn("makoctl dismiss -a")),
+        # EzKey("M-S-<grave>", lazy.spawn("makoctl restore")),
         #
         EzKey("A-C-1", lazy.group.setlayout("max")),
         EzKey("A-C-2", lazy.group.setlayout("monadtall")),
@@ -208,7 +210,7 @@ def bindings():
         # EzKey("M-c", lazy.group["SPD"].dropdown_toggle("mpvfloat")),
         EzKey("A-<Tab>", focus_previous_window()),
         EzKey("M-<Tab>", lazy.screen.toggle_group()),
-        EzKey("M-S-<Tab>", lazy.run_extension(WindowList(**dmenu_defaults))),
+        # EzKey("M-S-<Tab>", lazy.run_extension(WindowList(**dmenu_defaults))),
         #
         EzKey("M-q", lazy.next_screen()),
         EzKey("M-C-q", lazy.window.kill()),
@@ -226,7 +228,10 @@ def bindings():
         #
         EzKey("M-r", lazy.group["SPD"].dropdown_toggle("file manager")),
         EzKey("M-S-r", lazy.spawn("via -a")),
-        EzKey("M-C-r", lazy.spawn("qtile cmd-obj -o cmd -f validate_config") and lazy.restart()),
+        EzKey(
+            "M-C-r",
+            lazy.spawn("qtile cmd-obj -o cmd -f validate_config") and lazy.restart(),
+        ),
         #
         EzKey("M-t", lazy.window.toggle_minimize()),
         EzKey("M-C-t", lazy.group.unminimize_all()),
@@ -235,7 +240,7 @@ def bindings():
         EzKey("M-y", lazy.group["SPD"].dropdown_toggle("qtile_shell")),
         #
         EzKey("M-u", lazy.layout.normalize()),
-        EzKey("M-C-u", move_mpv_to_current_group()),
+        # EzKey("M-C-u", move_mpv_to_current_group()),
         #
         EzKey("M-i", float_cycle(False)),
         EzKey("M-C-i", lazy.prev_layout()),
@@ -311,9 +316,10 @@ def bindings():
         #
         EzKey("M-s", toggle_sticky_windows()),
         #
-        EzKey("M-d", lazy.spawncmd(launcher)),
+        EzKey("M-d", lazy.spawn("tofi-run")),
         EzKey("M-C-d", lazy.spawn("via -r")),
         EzKey("M-S-d", lazy.run_extension(DmenuRun(**dmenu_defaults))),
+        # EzKey("M-S-d", lazy.spawncmd(launcher)),
         #
         EzKey("M-f", lazy.window.toggle_maximize(), lazy.window.keep_above()),
         EzKey("M-S-f", lazy.window.toggle_fullscreen()),
@@ -328,6 +334,7 @@ def bindings():
         EzKey(
             "M-C-h",
             lazy.layout.grow_left(),
+            lazy.layout.grow_width(10),
             lazy.layout.shrink(),
             lazy.layout.decrease_ratio(),
             lazy.layout.add(),
@@ -335,7 +342,8 @@ def bindings():
         EzKey(
             "M-A-h",
             lazy.layout.shuffle_left(),
-            lazy.layout.move_left().when(layout=["treetab"]),
+            # lazy.layout.move_left().when(layout=["treetab"]),
+            lazy.layout.move_left(),
         ),
         #
         EzKey("M-j", lazy.layout.down()),
@@ -343,13 +351,15 @@ def bindings():
         EzKey(
             "M-C-j",
             lazy.layout.grow_down(),
+            lazy.layout.grow_height(-10),
             lazy.layout.shrink(),
             lazy.layout.increase_nmaster(),
         ),
         EzKey(
             "M-A-j",
             lazy.layout.shuffle_down(),
-            lazy.layout.section_down().when(layout=["treetab"]),
+            # lazy.layout.section_down().when(layout=["treetab"]),
+            lazy.layout.section_down(),
         ),
         #
         EzKey("M-k", lazy.layout.up()),
@@ -357,13 +367,15 @@ def bindings():
         EzKey(
             "M-C-k",
             lazy.layout.grow_up(),
+            lazy.layout.grow_height(10),
             lazy.layout.grow(),
             lazy.layout.decrease_nmaster(),
         ),
         EzKey(
             "M-A-k",
             lazy.layout.shuffle_up(),
-            lazy.layout.section_up().when(layout=["treetab"]),
+            # lazy.layout.section_up().when(layout=["treetab"]),
+            lazy.layout.section_up(),
         ),
         #
         EzKey("M-l", lazy.layout.right()),
@@ -371,6 +383,7 @@ def bindings():
         EzKey(
             "M-C-l",
             lazy.layout.grow_right(),
+            lazy.layout.grow_width(-10),
             lazy.layout.grow(),
             lazy.layout.increase_ratio(),
             lazy.layout.delete(),
@@ -378,7 +391,8 @@ def bindings():
         EzKey(
             "M-A-l",
             lazy.layout.shuffle_right(),
-            lazy.layout.move_right().when(layout=["treetab"]),
+            # lazy.layout.move_right().when(layout=["treetab"]),
+            lazy.layout.move_right(),
         ),
         #
         EzKey("M-<semicolon>", focus_previous_window()),
@@ -387,7 +401,7 @@ def bindings():
         EzKey("M-<apostrophe>", lazy.group["SPD"].dropdown_toggle("calculator")),
         #
         EzKey("M-<Return>", lazy.group["SPD"].dropdown_toggle("terminal")),
-        EzKey("M-S-<Return>", lazy.spawn(terminal + " msg create-window -e tmux")),
+        EzKey("M-S-<Return>", lazy.spawn(terminal)),
         # }}}
         # ======================= Third Row ======================= {{{
         EzKey("M-z", lazy.window.move_to_top()),
@@ -399,7 +413,7 @@ def bindings():
         #
         EzKey("M-v", restore_all_merged_groups()),
         #
-        EzKey("M-b", lazy.hide_show_bar("top")),
+        EzKey("M-b", lazy.hide_show_bar()),
         EzKey("M-S-b", lazy.spawn("bm S")),
         EzKey("M-C-b", lazy.spawn("bm d")),
         #
