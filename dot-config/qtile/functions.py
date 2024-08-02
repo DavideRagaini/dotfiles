@@ -1,11 +1,14 @@
 from libqtile import hook, qtile
+from libqtile.config import Match
 from libqtile.lazy import lazy
 from typing import List
-# from libqtile.log_utils import logger
+from libqtile.log_utils import logger
 
 
 # ======================= testing ============= {{{
 cursor_hide = True
+
+
 @lazy.function
 def toggle_cursor(qtile):
     global cursor_hide
@@ -15,17 +18,29 @@ def toggle_cursor(qtile):
     elif cursor_hide is False:
         qtile.core.unhide_cursor()
         cursor_hide = True
+
+
+@lazy.window.function
+def resize_floating_window(window, width: int = 0, height: int = 0):
+    window.set_size_floating(window.width + width, window.height + height)
+
+
+@lazy.window.function
+def move_floating_window(window, x: int = 0, y: int = 0):
+    window.set_position_floating(window.float_x + x, window.float_y + y)
+
+
 # }}}
 # ======================= floating corner window ============= {{{
 @lazy.function
 def floating_corner_window(
     qtile,
-    position="bottom right",
-    window_x=0,
-    window_y=0,
-    div=8,
-    border_padding=3,
-    bar_padding=20,
+    position: str = "bottom right",
+    window_x: int = 0,
+    window_y: int = 0,
+    div: int = 8,
+    border_padding: int = 3,
+    bar_padding: int = 37,
 ):
     current_screen = qtile.current_screen.info()
     screen_width = current_screen["width"]
@@ -72,18 +87,31 @@ def move_mpv_to_current_group(qtile):
     for group in qtile.groups:
         for window in group.windows:
             if (
-                window.info()["wm_class"][1] == "mpv"
+                Match(wm_class="mpv")
                 and window.info()["group"] != qtile.current_group.name
             ):
                 window.togroup()
 
+
+show_bar = True
+
+
+@lazy.function
+def toggle_bar(qtile):
+    global show_bar
+    show_bar = not show_bar
+    qtile.hide_show_bar()
+
+
 @hook.subscribe.setgroup
 def autohide_bar_9th_group():
-    barsize = qtile.current_screen.bottom.info()["size"] == 0
-    if qtile.current_group.name == "9" and not barsize:
+    global show_bar
+    bar_off = qtile.current_screen.bottom.info()["size"] == 0
+    if qtile.current_group.name == "9" and not bar_off:
         qtile.hide_show_bar()
-    elif barsize:
+    elif bar_off and show_bar:
         qtile.hide_show_bar()
+
 
 # @hook.subscribe.setgroup
 # async def mpv_auto_toggle_minimize():

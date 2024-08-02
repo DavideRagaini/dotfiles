@@ -123,6 +123,7 @@
 *** [[https://twitchrss.appspot.com/vodonly/yotobi][ytb]] :w:
 *** [[https://twitchrss.appspot.com/vodonly/enkk][nk]]
 ** Software :sw:
+*** [[https://github.com/ankerfox/user.js/releases.atom][ankerfox]]
 *** [[https://keepassxc.org/blog/feed.xml][KeePassXC]]
 *** [[https://kodi.tv/rss.xml][Kodi]]
 *** [[https://ffmpeg.org/main.rss][ffmpeg]]

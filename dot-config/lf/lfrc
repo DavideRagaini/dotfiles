@@ -11,7 +11,7 @@ set relativenumber
 set drawbox
 set autoquit true
 set preview false
-# source ~/.config/lf/sixel.conf
+source ~/.config/lf/sixel.conf
 # source ~/.config/lf/ueberzug.conf
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
@@ -453,11 +453,11 @@ map gs ${{clear; git status; echo "press ENTER"; read ENTER}}
 map gl ${{clear; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit}}
 
 cmd async-shell &$@ $fx
-cmd yank-dirname $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
-cmd yank-path $printf '%s' "$fx" | xclip -i -selection clipboard
-cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
-cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | rev | head -c-1 | xclip -i -selection clipboard
-cmd yank-org-link $printf '[[%s][%s]]' "$fx" "$(basename -a -- $fx)" | xclip -i -selection clipboard
+cmd yank-dirname $dirname -- "$f" | head -c-1 | cclip
+cmd yank-path $printf '%s' "$fx" | cclip
+cmd yank-basename $basename -a -- $fx | head -c-1 | cclip
+cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | rev | head -c-1 | cclip
+cmd yank-org-link $printf '[[%s][%s]]' "$fx" "$(basename -a -- $fx)" | cclip
 
 cmd open-with %"$@" $fx
 cmd open-fork &setsid -f "$@" $fx

@@ -40,6 +40,7 @@ bind ,df hint -W exclaim_quiet wget
 bind ,dg hint -W exclaim_quiet gallery-dl
 bind ,dt hint -W exclaim_quiet transadd
 bind ,ya hint -W exclaim_quiet ts dy -q audio -u
+bind ,yV hint -W exclaim_quiet ts dy -q highest -u
 bind ,yv hint -W exclaim_quiet ts dy -q high -u
 bind ,ym hint -W exclaim_quiet ts dy -q mid -u
 bind ,yl hint -W exclaim_quiet ts dy -q low -u

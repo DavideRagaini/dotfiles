@@ -39,7 +39,7 @@
   (lambda ()
     "Toggle a tag on an Elfeed search selection"
     (interactive)
-    (let ((l '(w x o unread)))
+    (let ((l '(w x o d unread)))
       (while l
         (elfeed-search-untag-all (pop l))
         (forward-line -1)
@@ -51,7 +51,7 @@
   (lambda ()
     "Toggle a tag on an Elfeed search selection"
     (interactive)
-    (let ((l '(w x o unread)))
+    (let ((l '(w x o d unread)))
       (while l
         (elfeed-search-untag-all (pop l))
         (forward-line -1)
@@ -99,6 +99,26 @@
       (call-process-shell-command (format "mpv \"%s\"" link) nil 0)
       )))
 
+;;;###autoload
+(defun elfeed-download-audio (entry)
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (require 'elfeed-show)
+  (when (elfeed-entry-p entry)
+    (let ((link (elfeed-entry-link entry)))
+      (elfeed-exclusive-tag-selection-as 'd)
+      (call-process-shell-command (format "ts dy -q audio -u \"%s\"" link) nil 0)
+      )))
+
+;;;###autoload
+(defun elfeed-download-video (entry)
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (require 'elfeed-show)
+  (when (elfeed-entry-p entry)
+    (let ((link (elfeed-entry-link entry)))
+      (elfeed-exclusive-tag-selection-as 'd)
+      (call-process-shell-command (format "ts dy -q high -u \"%s\"" link) nil 0)
+      )))
+
 ;; prot-elfeed.el
 (evil-define-key 'normal elfeed-show-mode-map
   ;; (kbd "J") 'elfeed-goodies/split-show-next
@@ -107,6 +127,8 @@
   (kbd "; a") 'elfeed-open-dmpv-append
   (kbd "; f") 'elfeed-open-dmpv-aplay
   (kbd "; v") 'elfeed-open-mpv
+  (kbd "; d") 'elfeed-download-audio
+  (kbd "; D") 'elfeed-download-video
   )
 
 (evil-define-key 'normal elfeed-search-mode-map
@@ -115,6 +137,8 @@
   (kbd "; a") 'elfeed-open-dmpv-append
   (kbd "; f") 'elfeed-open-dmpv-aplay
   (kbd "; v") 'elfeed-open-mpv
+  (kbd "; d") 'elfeed-download-audio
+  (kbd "; D") 'elfeed-download-video
   ;;
   (kbd "; h") (elfeed-tag-selection-as 'h)
   (kbd "; r") (elfeed-clear-tags)
@@ -135,6 +159,8 @@
   (kbd ". o") (lambda () (interactive) (elfeed-search-set-filter "+o"))
   (kbd ". s") (lambda () (interactive) (elfeed-search-set-filter "+s"))
   (kbd ". x") (lambda () (interactive) (elfeed-search-set-filter "+x"))
+  (kbd ". l") (lambda () (interactive) (elfeed-search-set-filter "+l"))
+  (kbd ". d") (lambda () (interactive) (elfeed-search-set-filter "+d"))
   )
 
 (after! elfeed
@@ -152,10 +178,12 @@
   (push '(o ongoing-elfeed-entry) elfeed-search-face-alist)
   (defface save-elfeed-entry      '((t :background "#330")) "saved") ;; yellow
   (push '(s saved-elfeed-entry) elfeed-search-face-alist)
-  (defface watch-elfeed-entry     '((t :background "#262")) "watch") ;; green
+  (defface watch-elfeed-entry     '((t :background "#060")) "watch") ;; green
   (push '(w watch-elfeed-entry) elfeed-search-face-alist)
-  (defface watch-elfeed-entry     '((t :background "#262")) "watch") ;; green
-  (push '(w watch-elfeed-entry) elfeed-search-face-alist)
+  (defface to_download-elfeed-entry     '((t :background "#808")) "to_download") ;; magenta
+  (push '(l to_download-elfeed-entry) elfeed-search-face-alist)
+  (defface download-elfeed-entry     '((t :background "#008")) "downloaded") ;; cyan
+  (push '(d download-elfeed-entry) elfeed-search-face-alist)
   )
 
 ;; [[https://anonymousoverflow.privacyfucking.rocks/exchange/emacs/questions/18008/startup-emacs-daemon-with-elfeed-rss-feed-reader-buffer][Startup Emacs Daemon With Elfeed (RSS Feed Reader) Buffer | AnonymousOverflow]]

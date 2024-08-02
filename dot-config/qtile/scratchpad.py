@@ -8,6 +8,7 @@ class Scratchpad(object):
         terminal = env["TERMINAL"]
         opacity = 1
         on_focus_lost_hide = False
+        big_font = " -f 'IosevkaTerm Nerd Font Propo:weight=bold:size=18'"
         # warp_pointer = False
 
         return [
@@ -28,7 +29,7 @@ class Scratchpad(object):
                     ),
                     DropDown(
                         "file manager",
-                        terminal + " -e tmux new-session -A -s 'files'",
+                        terminal + " f",
                         width=0.8,
                         height=0.8,
                         x=0.1,
@@ -56,6 +57,16 @@ class Scratchpad(object):
                         opacity=opacity,
                         on_focus_lost_hide=on_focus_lost_hide,
                     ),
+                    # DropDown(
+                    #     "clipmenu",
+                    #     terminal + big_font + " -e cliphist-fzf",
+                    #     width=0.7,
+                    #     height=0.5,
+                    #     x=0.15,
+                    #     y=0.10,
+                    #     opacity=opacity,
+                    #     on_focus_lost_hide=on_focus_lost_hide,
+                    # ),
                     DropDown(
                         "newmacs",
                         "emacs --eval='(dr/start-elfeed)'",
@@ -143,6 +154,7 @@ class Scratchpad(object):
                     DropDown(
                         "calculator",
                         terminal
+                        + big_font
                         + " -T 'wcalc' -e wcalc -P -1 -c -q --ints -C -p -r --remember",
                         width=0.8,
                         height=0.8,

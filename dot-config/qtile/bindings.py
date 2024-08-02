@@ -58,9 +58,6 @@ dmenu_defaults = dict(
 )
 
 
-clipmenu = "cliphist list | dmenu -l 5 -p 'Clipboard:' | cliphist decode | wl-copy"
-
-
 # }}}
 # ======================= Keybindings ============= {{{
 def bindings():
@@ -70,7 +67,6 @@ def bindings():
     browserP = env["BROWSER_PRIVATE"]
     text_editor = "emacsclient -c"
     term_text_editor = terminal + " -e emacsclient -nw"
-    launcher = "run"
 
     return [
         # ======================= Special Keys ======================= {{{
@@ -225,12 +221,25 @@ def bindings():
         # # EzKey("M-e", lazy.group["SPD"].dropdown_toggle("agenda")),
         EzKey("M-e", lazy.spawn(text_editor)),
         EzKey("M-C-e", lazy.spawn(term_text_editor)),
+        EzKey("M-S-e", lazy.spawn("via -a")),
         #
         EzKey("M-r", lazy.group["SPD"].dropdown_toggle("file manager")),
-        EzKey("M-S-r", lazy.spawn("via -a")),
-        EzKey(
-            "M-C-r",
-            lazy.spawn("qtile cmd-obj -o cmd -f validate_config") and lazy.restart(),
+        EzKey("M-C-r", lazy.spawn("qtile cmd-obj -o cmd -f validate_config") and lazy.restart()),
+        KeyChord(
+            [M, S],
+            "r",
+            [
+                EzKey("h", move_floating_window(x=-10)),
+                EzKey("j", move_floating_window(y=-10)),
+                EzKey("k", move_floating_window(y=10)),
+                EzKey("l", move_floating_window(x=10)),
+                EzKey("u", resize_floating_window(width=-10)),
+                EzKey("i", resize_floating_window(width=-10)),
+                EzKey("o", resize_floating_window(width=10)),
+                EzKey("p", resize_floating_window(width=10)),
+            ],
+            mode=True,
+            name="resize/move floating window",
         ),
         #
         EzKey("M-t", lazy.window.toggle_minimize()),
@@ -240,7 +249,7 @@ def bindings():
         EzKey("M-y", lazy.group["SPD"].dropdown_toggle("qtile_shell")),
         #
         EzKey("M-u", lazy.layout.normalize()),
-        # EzKey("M-C-u", move_mpv_to_current_group()),
+        EzKey("M-C-u", move_mpv_to_current_group()),
         #
         EzKey("M-i", float_cycle(False)),
         EzKey("M-C-i", lazy.prev_layout()),
@@ -296,7 +305,7 @@ def bindings():
         #
         EzKey("M-p", lazy.spawn("dmpv queue")),
         EzKey("M-C-p", lazy.spawn("dmpv")),
-        # EzKey("M-S-p", lazy.spawn("dmpv")),
+        EzKey("M-S-p", lazy.spawn("dmpv aplay")),
         #
         EzKey("M-<bracketleft>", lazy.screen.prev_group(skip_empty=True)),
         EzKey("M-S-<bracketleft>", lazy.window.move_down()),
@@ -316,10 +325,9 @@ def bindings():
         #
         EzKey("M-s", toggle_sticky_windows()),
         #
-        EzKey("M-d", lazy.spawn("tofi-run")),
+        EzKey("M-d", lazy.spawncmd("run: ")),
         EzKey("M-C-d", lazy.spawn("via -r")),
         EzKey("M-S-d", lazy.run_extension(DmenuRun(**dmenu_defaults))),
-        # EzKey("M-S-d", lazy.spawncmd(launcher)),
         #
         EzKey("M-f", lazy.window.toggle_maximize(), lazy.window.keep_above()),
         EzKey("M-S-f", lazy.window.toggle_fullscreen()),
@@ -413,7 +421,7 @@ def bindings():
         #
         EzKey("M-v", restore_all_merged_groups()),
         #
-        EzKey("M-b", lazy.hide_show_bar()),
+        EzKey("M-b", toggle_bar()),
         EzKey("M-S-b", lazy.spawn("bm S")),
         EzKey("M-C-b", lazy.spawn("bm d")),
         #
@@ -503,7 +511,8 @@ def bindings():
         EzKey("M-S-<space>", lazy.window.toggle_floating()),
         EzKey("M-A-<space>", lazy.layout.flip()),
         #
-        EzKey("M-<Insert>", lazy.spawn(clipmenu)),
+        # EzKey("M-<Insert>", lazy.group["SPD"].dropdown_toggle("clipmenu")),
+        EzKey("M-<Insert>", lazy.spawn("clipboardmenu")),
         EzKey("M-S-<Insert>", lazy.spawn("clipboard-content.sh")),
         #
         # EzKey("M-<Home>", lazy.spawn("")),

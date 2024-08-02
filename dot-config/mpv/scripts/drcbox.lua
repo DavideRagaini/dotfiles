@@ -47,7 +47,7 @@ end
 
 -- these two vars are used globally
 local bindings_enabled = start_keys_enabled
-local drcbox_enabled = true  -- but af is not touched before the dynaudnorm is modified
+local drcbox_enabled = false -- but af is not touched before the dynaudnorm is modified
 
 -- ------ OSD handling -------
 local function ass(x)

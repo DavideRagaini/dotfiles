@@ -61,13 +61,11 @@ main_bar = [
         foreground=colors[8],
     ),
     #
-    # widget.Prompt(
-    #     # bell_style="visual",
-    #     # cursorblink=0.5,
-    #     prompt="&:",
-    #     foreground=colors[9],
-    #     background=foregroundTwo,
-    # ),
+    widget.Prompt(
+        cursorblink=0.5,
+        prompt="&:",
+        foreground=colors[9],
+    ),
     #
     widget.Load(
         update_interval=1,
@@ -117,22 +115,22 @@ main_bar = [
     ),
     #
     widget.DF(
-        format="h {f} {r:.0f}%",
+        format="H {uf} {r:.0f}%",
         partition="/home/davide",
         foreground=colors[4],
-        warn_space=50,
+        warn_space=100,
     ),
     widget.DF(
-        format="d {f} {r:.0f}%",
+        format="D {uf} {r:.0f}%",
         partition="/media/data",
         foreground=colors[4],
-        warn_space=50,
+        warn_space=100,
     ),
     widget.DF(
-        format="l {f} {r:.0f}%",
+        format="L {uf} {r:.0f}%",
         partition="/media/d25l1tb",
         foreground=colors[4],
-        warn_space=50,
+        warn_space=100,
     ),
     widget.HDD(
         device="nvme0n1",
@@ -150,7 +148,20 @@ main_bar = [
         foreground=colors[4],
     ),
     #
-    widget.Volume(
+    # widget.Volume(
+    #     fmt=" {}",
+    #     update_interval=1,
+    #     step=2,
+    #     foreground=colors[8],
+        # volume_app= "foot -f 'IosevkaTerm Nerd Font Propo:weight=bold:size=18' -e pulsemixer",
+        # volume_down_command="wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%-",
+        # volume_up_command="wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+",
+        # check_mute_command="wpctl get-volume @DEFAULT_SINK@ | awk '{print $3}'",
+        # check_mute_string="[MUTED]",
+        # mute_command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    #     # background=foregroundTwo,
+    # ),
+    widget.PulseVolume(
         fmt=" {}",
         update_interval=1,
         step=2,
@@ -171,8 +182,9 @@ main_bar = [
     ),
     #
     widget.Net(
-        fmt=" {}",
-        format="{down:4.0f}{down_suffix} ↓↑ {up:4.0f}{up_suffix}",
+        # fmt=" {}",
+        # fmt="{}",
+        format="{down:4.0f}{down_suffix} {up:4.0f}{up_suffix}",
         prefix="k",
         update_interval=1,
         foreground=colors[9],
@@ -342,10 +354,10 @@ main_screen = Screen(
     bottom=bar.Bar(
         main_bar,
         30,
-        background="#1e1f24",
-        border_color="#6b7073",
-        border_width=2,
-        margin=4,
+        background="#1e1f24f2",
+        border_color="#aaaaaaf2",
+        border_width=1,
+        margin=[ 3, 15 ,5 ,15 ],
     ),
     wallpaper=wallpaperPath + "mainbg",
     wallpaper_mode="fill",
