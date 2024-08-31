@@ -176,7 +176,7 @@ local function history()
             end
             local line = string.format(
                 "%-14s\t%-30s\t%-90s\t%s",
-                os.date("%x %X"),
+                os.date("%Y-%m-%d %H:%M:%S"),
                 string.gsub(uploader,"\n",""),
                 title,
                 path)

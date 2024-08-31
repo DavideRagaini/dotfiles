@@ -239,7 +239,7 @@ settings['top-hover-zone-height'] = 10
 helpText['top-hover-zone-height'] = [[Sets the height of the rectangular area at the top of the screen that shows the
 file name and system time when the mouse is hovered over it.
 ]]
-settings['default-style'] = [[\fnFantesque Sans Mono\b1\bord2\fs30\c&HFC799E&\3c&H2D2D2D&]]
+settings['default-style'] = [[\fnIosevkaTermSlab Nerd Font Propo\b1\bord4\fs50\c&HFC799E&\3c&H2D2D2D&]]
 helpText['default-style'] = [[Default style that is applied to all UI elements. A string of ASS override tags.
 Individual elements have their own style settings which override the tags here.
 Changing the font will likely require changing the hover-time margin settings
@@ -329,7 +329,7 @@ request-display is active. Useful in combination with bar-cache- position to
 control whether or not the cache bar is occluded by (or occludes) the progress
 bar.
 ]]
-settings['bar-default-style'] = [[\bord0\shad0]]
+settings['bar-default-style'] = [[\bord1\shad1]]
 helpText['bar-default-style'] = [[A string of ASS override tags that get applied to all three layers of the bar:
 progress, cache, and background. You probably don't want to remove \bord0 unless
 your default-style includes it.

@@ -28,8 +28,8 @@ Void | \"Void\")
 
     sxi() {
         LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
-        [ -z $LIST ] && return
-        doas xbps-install -Sy $LIST
+        [ -z "$LIST" ] && return
+        doas xbps-install -Sy "$LIST"
     }
 
     alias \
@@ -42,17 +42,28 @@ Void | \"Void\")
     ;;
 NixOS | \"NixOS\")
     alias \
-        animdl="~/Packages/python/ani/bin/animdl" \
         hm="home-manager" \
         nsh="nix-shell -p" \
+        nshu="nix-shell -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs-unstable -p" \
         mpc="mpc --host=\"\$MPD_HOST\"" \
-        unclt="systemctl --user start unclutter.service" \
         qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
-        pvt="doas ip netns exec pvt-net1 sudo -u davide" \
+        pvt="doas ip netns exec pvt-net1 doas -u davide" \
+        pvtf="doas ip netns exec pvt-net1 doas -u davide nix-shell -p firefox --run firefox" \
+        trrd="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F d -l" \
+        trrl="doas ip netns exec pvt-net1 doas -u davide transmission-remote -l" \
+        trru="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F u -l" \
         qtcheck="qtile cmd-obj -o cmd -f validate_config"
 
     nshr() {
         nix-shell -p "$1" --run "$@"
+    }
+
+    trrr() {
+        doas ip netns exec pvt-net1 doas -u davide transmission-remote -F "r:$1" -l
+    }
+
+    trre() {
+        doas ip netns exec pvt-net1 doas -u davide transmission-remote "$@"
     }
 
     pre_switch() {
@@ -117,7 +128,7 @@ alias \
 # Abbreviations
 alias \
     E="\$VISUAL" \
-    d2p="find . -maxdepth 1 -mindepth 1 -type f \( -iname \"*.jpg\" -o -iname \"*.png\" -o -iname \"*.webm\" -o -iname \"*.gif\" -o -iname \"*.webp\" \) -exec mv {} \"${XDG_PICTURES_DIR:-$HOME/pic/1Sort}\" \;" \
+    d2p="find \$HOME/dwn -maxdepth 1 -mindepth 1 -type f \( -iname \"*.jpg\" -o -iname \"*.png\" -o -iname \"*.webm\" -o -iname \"*.gif\" -o -iname \"*.webp\" -o -iname \"*.avif\" \) -exec mv {} \"\${XDG_PICTURES_DIR:-\$HOME/pic}/1Sort\" \;" \
     e="\$EDITOR" \
     irssi="irssi --config=\"\$XDG_CONFIG_HOME\"/irssi/config -- home=\"\$XDG_DATA_HOME\"/irssi" \
     locate="locate -d \"\$HOME/.local/updatedb\" -ri" \
@@ -130,8 +141,6 @@ alias \
     scl="systemctl" \
     sclu="systemctl --user" \
     smi="doas make install" \
-    trr="transmission-remote" \
-    trrq="transmission-remote --exit" \
     udc="udisksctl" \
     v="nvim" \
     watch="watch -pcb" \
@@ -145,11 +154,6 @@ alias \
     bells="mpv --no-config --no-video --audio-client-name=mpv-audio 'http://icecast.spc.org:8000/longplayer'" \
     space-void="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1" \
     space-engine="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
-
-# trrd() {
-#     tun0="$(ip a show dev tun0 scope global | awk '/inet/ {print $2}' | awk -F '/' '{print $1}')"
-#     transmission-daemon --bind-address-ipv4="$(echo "$tun0" | head -n1)" --bind-address-ipv6="$(echo "$tun0" | tail -n1)"
-# }
 
 dict() {
     curl dict://dict.org/d:\$@

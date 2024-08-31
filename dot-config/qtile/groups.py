@@ -126,7 +126,7 @@ class Groups(object):
                 name="7",
                 position=7,
                 screen_affinity=0,
-                layout="plasma",
+                layout="bsp",
             ),
             Group(
                 name="8",
@@ -136,7 +136,7 @@ class Groups(object):
                 matches=[
                     Match(
                         wm_class=regex(
-                            "qBittorrent|calibre-gui|calibre|syncthingtray|qutebrowser",
+                            "KeePassXC|qBittorrent|calibre-gui|calibre|syncthingtray|qutebrowser",
                         ),
                     ),
                     Match(wm_class= "org.keepassxc.KeePassXC"),

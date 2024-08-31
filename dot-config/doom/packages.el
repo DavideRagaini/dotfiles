@@ -2,7 +2,7 @@
 
 (cond
  ((string-equal (system-name) "Apollo")
-  (package! activity-watch-mode)
+  ;; (package! activity-watch-mode)
   (package! matlab-mode)
   (package! erc-hl-nicks)
   (package! erc-image)

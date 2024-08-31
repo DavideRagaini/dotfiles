@@ -2,7 +2,7 @@
 
 *.alpha: 1
 ! *.font: Fantasque Sans Mono:size=12
-*.font: Iosevka Term Nerd Font Mono:size=12
+*.font: IosevkaTermSlab Nerd Font Mono:size=12
 *.cursorColor: magenta
 *.color0:  #000000
 *.color1:  #FF5555

@@ -41,9 +41,10 @@
 ;; ========= Bootstraps ========= {{{
 (setq dr/font-size 13
       dr/main-font-family "IosevkaTerm Nerd Font Mono"
-      dr/big-font-family "IosevkaTerm Nerd Font Mono"
+
+dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
       dr/serif-font-family "Garamond Libre"
-      dr/variable-pitch-font-family "Overpass"
+      dr/variable-pitch-font-family "Overpass Nerd Font"
       dr/symbol-font-family "JuliaMono"
       dr/light-theme 'leuven
       dr/dark-theme 'modus-vivendi
@@ -51,7 +52,7 @@
 
 (cond
  ((string-equal (system-name) "Apollo")
-  (setq dr/dark-theme 'catppuccin
+  (setq dr/dark-theme 'modus-vivendi
         dr/font-size 28)
   ;; (global-activity-watch-mode 1)
   (dr/high-resources)
@@ -99,6 +100,18 @@
 
 (setq auth-sources '("~/.local/share/authinfo.gpg"))
 ;; }}}
+;; ========= Load Config Files ========= {{{
+(load! "load/org.el")
+;; (load! "load/erc.el")
+;; (load! "load/nov.el")
+(load! "load/elfeed.el")
+;; (load! "load/roam.el")
+
+;; (load! "load/citations.el")
+;; (load! "load/emms.el")
+;; (load! "load/calibredb.el")
+;; (load! "load/matlab-setup.el")
+;; }}}
 ;; ========= Global Modes ========= {{{
 (blink-cursor-mode 1)
 (global-auto-revert-mode 1)
@@ -137,36 +150,59 @@
 ;; (add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
 ;; ========= use-package! ========= {{{
-(use-package! magit-todos
-  :after magit
-  :config (magit-todos-mode 1))
+;; (use-package! magit-todos
+;;   :after magit
+;;   :config (magit-todos-mode 1))
 
-(use-package! pdf-tools
-  :config
-  ;; (pdf-tools-install)
-  (setq-default pdf-view-display-size 'fit-width)
-  :custom
-  (pdf-annot-activate-created-annotations t "automatically annotate highlights")
-  )
+;; (use-package! pdf-tools
+;;   :config
+;;   ;; (pdf-tools-install)
+;;   (setq-default pdf-view-display-size 'fit-width)
+;;   :custom
+;;   (pdf-annot-activate-created-annotations t "automatically annotate highlights")
+;;   )
 
-(after! org-noter
-  (setq
-   org-noter-notes-search-path '("~/org/notes")
-   org-noter-hide-other nil
-   org-noter-separate-notes-from-heading t
-   org-noter-always-create-frame nil)
+;; (after! org-noter
+;;   (setq
+;;    org-noter-notes-search-path '("~/org/notes")
+;;    org-noter-hide-other nil
+;;    org-noter-separate-notes-from-heading t
+;;    org-noter-always-create-frame nil)
 
-  (map!
-   :map org-noter-doc-mode-map
-   :leader
-   :desc "Insert note"         "m i" #'org-noter-insert-note
-   :desc "Insert precise note" "m p" #'org-noter-insert-precise-note
-   :desc "Go to previous note" "m k" #'org-noter-sync-prev-note
-   :desc "Go to next note"     "m j" #'org-noter-sync-next-note
-   :desc "Create skeleton"     "m s" #'org-noter-create-skeleton
-   :desc "Kill session"        "m q" #'org-noter-kill-session
-   )
-  )
+;;   (map!
+;;    :map org-noter-doc-mode-map
+;;    :leader
+;;    :desc "Insert note"         "m i" #'org-noter-insert-note
+;;    :desc "Insert precise note" "m p" #'org-noter-insert-precise-note
+;;    :desc "Go to previous note" "m k" #'org-noter-sync-prev-note
+;;    :desc "Go to next note"     "m j" #'org-noter-sync-next-note
+;;    :desc "Create skeleton"     "m s" #'org-noter-create-skeleton
+;;    :desc "Kill session"        "m q" #'org-noter-kill-session
+;;    )
+;;   )
+
+;; }}}
+;; ========= Clipboard Wayland ========= {{{
+(setq wl-copy-process nil)
+
+(defun wl-copy (text)
+  (setq wl-copy-process
+        (make-process
+         :name "wl-copy"
+         :buffer nil
+         :command '("wl-copy" "-f" "-n")
+         :connection-type 'pipe
+         :noquery t))
+  (process-send-string wl-copy-process text)
+  (process-send-eof wl-copy-process))
+
+(defun wl-paste ()
+  (if (and wl-copy-process (process-live-p wl-copy-process))
+      nil ; should return nil if we're the current paste owner
+    (shell-command-to-string "wl-paste -n | tr -d \r")))
+
+(setq interprogram-cut-function 'wl-copy)
+(setq interprogram-paste-function 'wl-paste)
 ;; }}}
 ;; ========= Hydra ========= {{{
 (defhydra doom-window-resize-hydra (:hint nil)
@@ -197,6 +233,8 @@
  ;;
  (:prefix "SPC h"   :desc "woman"                         :n "z"   #'woman)
  (:prefix "C-h"     :desc "woman"                         :n "z"   #'woman)
+ (:prefix "SPC h"   :desc "man"                           :n "  h"   #'man)
+ (:prefix "C-h"     :desc "man"                           :n "h"   #'man)
  ;;
  (:prefix "SPC m"   :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)
  ;;
@@ -224,17 +262,6 @@
   (kbd "C-TAB") 'dired-subtree-cycle
   (kbd "S-TAB") 'dired-subtree-remove
   )
-;; }}}
-;; ========= Load Config Files ========= {{{
-(load! "load/org.el")
-(load! "load/erc.el")
-(load! "load/nov.el")
-(load! "load/elfeed.el")
-(load! "load/roam.el")
-;; (load! "load/citations.el")
-;; (load! "load/emms.el")
-;; (load! "load/calibredb.el")
-;; (load! "load/matlab-setup.el")
 ;; }}}
 ;; ========= Manual ========= {{{
 ;; - `load!' for loading external *.el files relative to this one

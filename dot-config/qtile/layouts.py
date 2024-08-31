@@ -5,14 +5,7 @@ from re import compile as regex
 
 
 def layout_defaults():
-    colorscheme = dracula()
-    (
-        colors,
-        background,
-        foreground,
-        workspace,
-        foregroundTwo,
-    ) = colorscheme
+    colors = dracula()
 
     layout_defaults = dict(
         border_focus=colors[7],
@@ -23,7 +16,7 @@ def layout_defaults():
 
     return [
         layout.Columns(**layout_defaults),
-        layout.Plasma(**layout_defaults, border_width_single=0),
+        # layout.Plasma(**layout_defaults, border_width_single=0),
         layout.Max(
             border_focus=colors[7], border_normal=colors[8], border_width=0, margin=0
         ),
@@ -32,7 +25,7 @@ def layout_defaults():
             border_focus=colors[7],
             border_normal=colors[8],
             border_width=2,
-            ratio=1.6,
+            ratio=2,
             grow_amount=1,
             lower_right=True,
             wrap_client=False,
@@ -49,7 +42,7 @@ def layout_defaults():
             **layout_defaults,
             active_bg=colors[3],
             active_fg=colors[5],
-            bg_color=background,
+            bg_color="#1e1f24f2",
             fontsize=11,
             inactive_bg="151515",
             inactive_fg=colors[2],

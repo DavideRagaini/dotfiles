@@ -29,7 +29,7 @@ class Scratchpad(object):
                     ),
                     DropDown(
                         "file manager",
-                        terminal + " f",
+                        terminal + " lf",
                         width=0.8,
                         height=0.8,
                         x=0.1,
@@ -69,7 +69,8 @@ class Scratchpad(object):
                     # ),
                     DropDown(
                         "newmacs",
-                        "emacs --eval='(dr/start-elfeed)'",
+                        # "emacs --eval='(dr/start-elfeed)'",
+                        terminal + " -e emacsclient -nw --eval '(dr/start-elfeed)'",
                         width=0.9,
                         height=0.9,
                         x=0.05,

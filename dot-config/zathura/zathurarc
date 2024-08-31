@@ -15,65 +15,105 @@ map <C-i> exec "setsid -f sioyek --new-window \"$FILE\" --page \"$PAGE\""
 
 set sandbox normal
 # set sandbox strict
-# set statusbar-h-padding 0
-# set statusbar-v-padding 0
-set page-padding 1
-set selection-clipboard clipboard
+set database sqlite
+
+set page-padding 3
 set scroll-hstep 10
-set scroll-page-aware true
 set zoom-step 5
 
-set guioptions none
-set window-height 1024
-set window-width 960
 set adjust-open width
-# set show-scrollbars true
-set first-page-column 2
-set window-title-basename true
-# set database sqlite
+set guioptions none
+set scroll-page-aware true
+# set scroll-wrap true
 set selection-clipboard clipboard
+set show-scrollbars false
+
 set window-title-page
 set window-title-home-tilde true
+set window-title-basename true
+
 set statusbar-home-tilde true
+set statusbar-page-percent true
 
-set recolor                     "false"
-set font                        "Iosevka Term Nerd Font 20"
+set font "Iosevka Nerd Font 20"
+set recolor true
 
-set default-bg                  "#263238"
-set default-fg                  "#222D32"
+set notification-error-bg       rgba(255,85,85,1)     # Red
+set notification-error-fg       rgba(248,248,242,1)   # Foreground
+set notification-warning-bg     rgba(255,184,108,1)   # Orange
+set notification-warning-fg     rgba(68,71,90,1)      # Selection
+set notification-bg             rgba(40,42,54,1)      # Background
+set notification-fg             rgba(248,248,242,1)   # Foreground
 
-set statusbar-fg                "#B0B0B0"
-set statusbar-bg                "#222D32"
+set completion-bg               rgba(40,42,54,1)      # Background
+set completion-fg               rgba(98,114,164,1)    # Comment
+set completion-group-bg         rgba(40,42,54,1)      # Background
+set completion-group-fg         rgba(98,114,164,1)    # Comment
+set completion-highlight-bg     rgba(68,71,90,1)      # Selection
+set completion-highlight-fg     rgba(248,248,242,1)   # Foreground
 
-set inputbar-bg                 "#222D32"
-set inputbar-fg                 "#B0B0B0"
+set index-bg                    rgba(40,42,54,1)      # Background
+set index-fg                    rgba(248,248,242,1)   # Foreground
+set index-active-bg             rgba(68,71,90,1)      # Current Line
+set index-active-fg             rgba(248,248,242,1)   # Foreground
 
-set index-bg                   "#222D32"
-set index-fg                   "#B9C2C6"
-set index-active-bg             "#B12CC9"
-set index-active-fg             "#F4F4F4"
+set inputbar-bg                 rgba(40,42,54,1)      # Background
+set inputbar-fg                 rgba(248,248,242,1)   # Foreground
+set statusbar-bg                rgba(40,42,54,1)      # Background
+set statusbar-fg                rgba(248,248,242,1)   # Foreground
 
-set notification-error-bg       "#AC4142"
-set notification-error-fg       "#263238"
+set highlight-color             rgba(255,184,108,0.5) # Orange
+set highlight-active-color      rgba(255,121,198,0.5) # Pink
 
-set notification-warning-bg     "#AC4142"
-set notification-warning-fg     "#263238"
+set default-bg                  rgba(40,42,54,1)      # Background
+set default-fg                  rgba(248,248,242,1)   # Foreground
 
-set highlight-color             "#F4BF75"
-set highlight-active-color      "#6A9FB5"
+set render-loading              true
+set render-loading-fg           rgba(40,42,54,1)      # Background
+set render-loading-bg           rgba(248,248,242,1)   # Foreground
 
-set completion-highlight-fg     "#303030"
-set completion-highlight-bg     "#75B5AA"
+set recolor-lightcolor          rgba(40,42,54,1)      # Background
+set recolor-darkcolor           rgba(248,248,242,1)   # Foreground
 
-set completion-bg               "#303030"
-set completion-fg               "#75B5AA"
 
-set notification-bg             "#90A959"
-set notification-fg             "#263238"
+# old
+# set recolor                     "false"
 
-set recolor-lightcolor          "#263238"
-set recolor-darkcolor           "#E0E0E0"
+# set default-bg                  "#263238"
+# set default-fg                  "#222D32"
 
-# setting recolor-keep true will keep any color your pdf has.
-# if it is false, it'll just be black and white
-set recolor-keephue             "true"
+# set statusbar-fg                "#B0B0B0"
+# set statusbar-bg                "#222D32"
+
+# set inputbar-bg                 "#222D32"
+# set inputbar-fg                 "#B0B0B0"
+
+# set index-bg                   "#222D32"
+# set index-fg                   "#B9C2C6"
+# set index-active-bg             "#B12CC9"
+# set index-active-fg             "#F4F4F4"
+
+# set notification-error-bg       "#AC4142"
+# set notification-error-fg       "#263238"
+
+# set notification-warning-bg     "#AC4142"
+# set notification-warning-fg     "#263238"
+
+# set highlight-color             "#F4BF75"
+# set highlight-active-color      "#6A9FB5"
+
+# set completion-highlight-fg     "#303030"
+# set completion-highlight-bg     "#75B5AA"
+
+# set completion-bg               "#303030"
+# set completion-fg               "#75B5AA"
+
+# set notification-bg             "#90A959"
+# set notification-fg             "#263238"
+
+# set recolor-lightcolor          "#263238"
+# set recolor-darkcolor           "#E0E0E0"
+
+# # setting recolor-keep true will keep any color your pdf has.
+# # if it is false, it'll just be black and white
+# set recolor-keephue             "true"

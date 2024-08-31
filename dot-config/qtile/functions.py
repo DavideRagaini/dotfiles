@@ -2,34 +2,11 @@ from libqtile import hook, qtile
 from libqtile.config import Match
 from libqtile.lazy import lazy
 from typing import List
+
 from libqtile.log_utils import logger
 
 
 # ======================= testing ============= {{{
-cursor_hide = True
-
-
-@lazy.function
-def toggle_cursor(qtile):
-    global cursor_hide
-    if cursor_hide is True:
-        qtile.core.hide_cursor()
-        cursor_hide = False
-    elif cursor_hide is False:
-        qtile.core.unhide_cursor()
-        cursor_hide = True
-
-
-@lazy.window.function
-def resize_floating_window(window, width: int = 0, height: int = 0):
-    window.set_size_floating(window.width + width, window.height + height)
-
-
-@lazy.window.function
-def move_floating_window(window, x: int = 0, y: int = 0):
-    window.set_position_floating(window.float_x + x, window.float_y + y)
-
-
 # }}}
 # ======================= floating corner window ============= {{{
 @lazy.function
@@ -200,6 +177,28 @@ def merge_groups(qtile, g=1):
         groupsMerged[g].clear()
 
 
+# gm: dict[int,list] = {}
+
+
+# @lazy.function
+# def merge_groups_v2(qtile, gr: int = 1):
+#     global gm
+#     gc= int(qtile.current_group.info()["name"])
+#     if bool(gm[gc]): # restore windows to original group
+#         wr = qtile.groups[gr].windows
+#         gr = gr+1
+#         gm[gr] = []
+#         for w in wr:
+#             gm[gr].append(w)
+#             w.togroup()
+#             if w.info()["minimized"] == True:
+#                 w.toggle_minimize()
+#     else:
+#         for w in gm[gc]:
+#             w.togroup(gr)
+#         del gm[gc]
+
+
 @lazy.function
 @hook.subscribe.restart
 def restore_all_merged_groups(qtile):
@@ -266,6 +265,16 @@ def focus_previous_window(qtile):
 
 # }}}
 # ======================= Floating ============= {{{
+@lazy.window.function
+def resize_floating_window(window, width: int = 0, height: int = 0):
+    window.set_size_floating(window.width + width, window.height + height)
+
+
+@lazy.window.function
+def move_floating_window(window, x: int = 0, y: int = 0):
+    window.set_position_floating(window.float_x + x, window.float_y + y)
+
+
 @lazy.function
 def float_to_front(qtile):
     for group in qtile.groups:
@@ -298,6 +307,60 @@ def float_cycle(qtile, forward: bool):
     win = floating_windows[floating_window_index]
     win.bring_to_front()
     win.focus()
+
+
+# }}}
+# ======================= cursor ============= {{{
+cursor_hide = True
+
+
+@lazy.function
+def toggle_cursor(qtile):
+    global cursor_hide
+    if cursor_hide is True:
+        qtile.core.hide_cursor()
+        cursor_hide = False
+    elif cursor_hide is False:
+        qtile.core.unhide_cursor()
+        cursor_hide = True
+
+
+# }}}
+# ======================= Margins ============= {{{
+# @lazy.layout.function
+# def set_layout_gap(layout,margin=8):
+#     layout.margin = margin
+#     layout.cmd_reset()
+
+
+@lazy.layout.function
+def resize_layout_gap(layout,delta=0):
+    layout.margin = layout.margin + delta
+    if layout.margin <= 0:
+        layout.margin = 0
+    layout.cmd_reset()
+
+
+@lazy.layout.function
+def toggle_layout_gap(layout):
+    if layout.margin == 0:
+        layout.margin = 8
+    else:
+        layout.margin = 0
+    layout.cmd_reset()
+
+
+# }}}
+# ======================= Opacity ============= {{{
+@lazy.function
+def window_opacity(qtile, cmd, value=1):
+    match cmd:
+        case "inc":
+            qtile.current_group.current_window.up_opacity()
+        case "dec":
+            qtile.current_group.current_window.down_opacity()
+        case "set":
+            qtile.current_group.current_window.set_opacity(value)
 
 
 # }}}
@@ -336,19 +399,6 @@ def float_cycle(qtile, forward: bool):
 # def add_treetab_section(layout):
 #     prompt = qtile.widgets_map["prompt"]
 #     prompt.start_input("Section name: ", layout.add_section)
-
-
-# }}}
-# ======================= Opacity ============= {{{
-@lazy.function
-def window_opacity(qtile, cmd, value=1):
-    match cmd:
-        case "inc":
-            qtile.current_group.current_window.up_opacity()
-        case "dec":
-            qtile.current_group.current_window.down_opacity()
-        case "set":
-            qtile.current_group.current_window.set_opacity(value)
 
 
 # }}}

@@ -7,22 +7,28 @@
 ;; [[https://github.com/skeeto/elfeed/issues/222][User Interface suggestions · Issue #222 · skeeto/elfeed · GitHub]]
 ;; TODO [[https://github.com/sp1ff/elfeed-score][GitHub - sp1ff/elfeed-score: Gnus-style scoring for elfeed]]
 
-(setq elfeed-use-curl t
-      elfeed-curl-max-connections 6
-      elfeed-enclosure-default-dir "~/dwn"
-      elfeed-sort-order 'descending
-      elfeed-search-clipboard-type 'CLIPBOARD
-      elfeed-search-title-max-width 150
-      elfeed-search-title-min-width 100
-      elfeed-search-trailing-width 60
-      elfeed-show-truncate-long-urls t
-      elfeed-show-unique-buffers t
-      elfeed-search-filter "@1-month-ago +unread"
-      rmh-elfeed-org-files '("~/.config/doom/load/elfeed.org")
-      shr-max-image-proportion 0.5
-      ;; https://old.reddit.com/r/orgmode/comments/i6hl8b/image_preview_size_in_org_mode/
-      ;; shr-inhibit-images t
-      )
+(defun elfeed-prefs ()
+  "Set elfeed default preferences"
+  (interactive)
+  (setq elfeed-use-curl t
+        elfeed-curl-max-connections 8
+        elfeed-enclosure-default-dir "~/dwn"
+        elfeed-sort-order 'descending
+        elfeed-search-clipboard-type 'CLIPBOARD
+        elfeed-search-title-max-width 150
+        elfeed-search-title-min-width 100
+        elfeed-search-trailing-width 60
+        elfeed-show-truncate-long-urls t
+        elfeed-show-unique-buffers t
+        elfeed-search-filter "@1-week-ago +unread"
+        rmh-elfeed-org-files '("~/.config/doom/load/elfeed.org")
+        shr-max-image-proportion 0.5
+        flycheck-global-modes '(not . (elfeed-search-mode))
+        ;; https://old.reddit.com/r/orgmode/comments/i6hl8b/image_preview_size_in_org_mode/
+        ;; shr-inhibit-images t
+        )
+  )
+(elfeed-prefs)
 
 (defun elfeed-tag-selection-as (mytag)
   "Returns a function that tags an elfeed entry or selection as MYTAG"
@@ -193,7 +199,81 @@
     ;; (doom/load-session "~/.config/emacs/.local/etc/workspaces/float")
     (run-at-time nil (* 2 60 60) #'elfeed-update)
     (elfeed)
+    (elfeed-prefs)
     )
   )
 ;; (add-hook 'server-visit-hook 'start-elfeed)
 ;; (add-hook 'after-make-frame-functions 'start-elfeed)
+
+
+;; === Fetch Timings === {{{
+;; (add-hook 'elfeed-update-hooks
+;;           (lambda (feed)
+;;             (elfeed-log 'info "feed: %s: %f"
+;;                         feed
+;;                         (- (float-time)
+;;                            (cdr (assoc feed my/elfeed-update-times))))))
+
+;; (defvar my/elfeed-update-times nil)
+
+;; (cl-loop with elfeed--inhibit-update-init-hooks = t
+;;          for feed in (elfeed-feed-list)
+;;          for time = (float-time)
+;;          do
+;;          (push (cons feed time) my/elfeed-update-times)
+;;          (elfeed-update-feed feed))
+;; }}}
+
+
+;; === [[https://github.com/skeeto/elfeed/issues/293][Suggestion: Only redraw search buffer after refresh completes · Issue #293 · skeeto/elfeed · GitHub]] === {{{
+(defvar ap/elfeed-update-complete-hook nil
+  "Functions called with no arguments when `elfeed-update' is finished.")
+
+(defvar ap/elfeed-updates-in-progress 0
+  "Number of feed updates in-progress.")
+
+(defvar ap/elfeed-search-update-filter nil
+  "The filter when `elfeed-update' is called.")
+
+(defun ap/elfeed-update-complete-hook (&rest ignore)
+  "When update queue is empty, run `ap/elfeed-update-complete-hook' functions."
+  (when (= 0 ap/elfeed-updates-in-progress)
+    (run-hooks 'ap/elfeed-update-complete-hook)))
+
+(add-hook 'elfeed-update-hooks #'ap/elfeed-update-complete-hook)
+
+(defun ap/elfeed-update-message-completed (&rest _ignore)
+  (message "Feeds updated"))
+
+(add-hook 'ap/elfeed-update-complete-hook #'ap/elfeed-update-message-completed)
+
+(defun ap/elfeed-search-update-restore-filter (&rest ignore)
+  "Restore filter after feeds update."
+  (when ap/elfeed-search-update-filter
+    (elfeed-search-set-filter ap/elfeed-search-update-filter)
+    (setq ap/elfeed-search-update-filter nil)))
+
+(add-hook 'ap/elfeed-update-complete-hook #'ap/elfeed-search-update-restore-filter)
+
+(defun ap/elfeed-search-update-save-filter (&rest ignore)
+  "Save and change the filter while updating."
+  (setq ap/elfeed-search-update-filter elfeed-search-filter)
+  (setq elfeed-search-filter "#0"))
+
+;; NOTE: It would be better if this hook were run before starting the feed updates, but in
+;; `elfeed-update', it happens afterward.
+(add-hook 'elfeed-update-init-hooks #'ap/elfeed-search-update-save-filter)
+
+(defun ap/elfeed-update-counter-inc (&rest ignore)
+  (cl-incf ap/elfeed-updates-in-progress))
+
+(advice-add #'elfeed-update-feed :before #'ap/elfeed-update-counter-inc)
+
+(defun ap/elfeed-update-counter-dec (&rest ignore)
+  (cl-decf ap/elfeed-updates-in-progress)
+  (when (< ap/elfeed-updates-in-progress 0)
+    ;; Just in case
+    (setq ap/elfeed-updates-in-progress 0)))
+
+(add-hook 'elfeed-update-hooks #'ap/elfeed-update-counter-dec)
+;; }}}

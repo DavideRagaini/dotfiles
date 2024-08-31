@@ -1,16 +1,9 @@
 from libqtile.config import Screen
-from libqtile import bar, widget
+from libqtile import bar, widget, qtile, hook
 from colors import dracula
 import os
 
-colorscheme = dracula()
-(
-    colors,
-    background,
-    foreground,
-    workspace,
-    foregroundTwo,
-) = colorscheme
+colors= dracula()
 
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font ExtraBold",
@@ -37,14 +30,14 @@ main_bar = [
         rounded=True,
         disable_drag=True,
         padding=4,
-        active=colors[2],
-        inactive=colors[0],
-        highlight_color=[background, workspace],
+        active=colors[2], # with windows
+        inactive=colors[2], # without windows
+        highlight_color=[colors[0], colors[8]],
         this_screen_border=colors[8],
         this_current_screen_border=colors[7],
         other_screen_border=colors[3],
         other_current_screen_border=colors[3],
-        highlight_method="block",
+        highlight_method="border",
         hide_unused=True,
     ),
     #
@@ -53,7 +46,7 @@ main_bar = [
     #
     widget.Spacer(length=10),
     #
-    widget.Chord(background=background),
+    widget.Chord(foreground=colors[10]),
     #
     widget.WindowCount(foreground=colors[7]),
     #
@@ -81,7 +74,7 @@ main_bar = [
     ),
     #
     widget.CPU(
-        format="{load_percent:-2.1f}% {freq_current}GHz",
+        format="{load_percent:2.1f}% {freq_current}GHz",
         update_interval=1,
         foreground=colors[5],
         # background=foregroundTwo,
@@ -184,7 +177,7 @@ main_bar = [
     widget.Net(
         # fmt=" {}",
         # fmt="{}",
-        format="{down:4.0f}{down_suffix} {up:4.0f}{up_suffix}",
+        format="{down:5.0f}{down_suffix} {up:5.0f}{up_suffix}",
         prefix="k",
         update_interval=1,
         foreground=colors[9],
@@ -350,17 +343,33 @@ main_bar = [
 
 wallpaperPath = os.path.expanduser("~/.local/share/")
 
+bar_defaults = dict(
+    background="#1e1f24",
+    border_color="#cccccc",
+    border_width=1,
+    # margin=[ 3, 15 ,5 ,15 ],
+)
+
 main_screen = Screen(
+    # name="HDMI-A-1",
     bottom=bar.Bar(
         main_bar,
         30,
-        background="#1e1f24f2",
-        border_color="#aaaaaaf2",
-        border_width=1,
-        margin=[ 3, 15 ,5 ,15 ],
+        **bar_defaults,
     ),
     wallpaper=wallpaperPath + "mainbg",
     wallpaper_mode="fill",
 )
 
-screens = [main_screen]
+vert_screen = Screen(
+    # name="DVI-D-1",
+    bottom=bar.Bar(
+        [],
+        0,
+    ),
+    wallpaper=wallpaperPath + "vertbg",
+    wallpaper_mode="fill",
+)
+
+# screens = [ main_screen ]
+screens = [ main_screen, vert_screen]

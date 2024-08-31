@@ -2,76 +2,21 @@
 from os import environ as env
 from functions import *
 from libqtile.config import EzKey, KeyChord
-from libqtile.extension import DmenuRun
+# from libqtile.extension import DmenuRun
 
 # from libqtile.log_utils import logger
 # }}}
-# ======================= Variables ============= {{{
-M = "mod4"
-A = "mod1"
-S = "shift"
-C = "control"
-
-
-# }}}
-# ======================= dmenu ============= {{{
-def dmenu_defs():
-    opts = [
-        "IosevkaTerm Nerd Font Mono",
-        "bold",
-        "12",
-        "#181321",  # normal backgroun
-        "#FF92D0",  # normal foregroun
-        "#FF92D0",  # selected backgroun
-        "#181321",  # selected foregroun
-    ]
-
-    j = 0
-    for i in [
-        "DMENU_FN",
-        "DMENU_ST",
-        "DMENU_FS",
-        "DMENU_NB",
-        "DMENU_NF",
-        "DMENU_SB",
-        "DMENU_SF",
-    ]:
-        if i in env:
-            opts[j] = env[i]
-        j = j + 1
-
-    return opts
-
-
-dmenu_options = dmenu_defs()
-dmenu_defaults = dict(
-    dmenu_font=dmenu_options[0]
-    + ":style="
-    + dmenu_options[1]
-    + ":size="
-    + dmenu_options[2],
-    dmenu_ignorecase=True,
-    background=dmenu_options[3],
-    foreground=dmenu_options[4],
-    selected_background=dmenu_options[5],
-    selected_foreground=dmenu_options[6],
-)
-
-
-# }}}
 # ======================= Keybindings ============= {{{
 def bindings():
+    M = "mod4"
+    A = "mod1"
+    S = "shift"
+    C = "control"
     terminal = env["TERMINAL"]
-    browser = env["BROWSER"]
-    browserA = env["BROWSER2"]
-    browserP = env["BROWSER_PRIVATE"]
-    text_editor = "emacsclient -c"
-    term_text_editor = terminal + " -e emacsclient -nw"
 
     return [
         # ======================= Special Keys ======================= {{{
-        EzKey("<XF86HomePage>", lazy.group["SPD"].dropdown_toggle("btop")),
-        EzKey("M-<XF86HomePage>", lazy.group["SPD"].dropdown_toggle("htop")),
+        EzKey("<XF86HomePage>", lazy.spawn("wlopm --toggle \"*\"")),
         #
         # EzKey("<XF86Search>", lazy.spawn("")),
         #
@@ -117,8 +62,8 @@ def bindings():
         EzKey("<XF86Calculator>", lazy.group["SPD"].dropdown_toggle("calculator")),
         EzKey("M-<XF86Calculator>", lazy.spawn("systemctl suspend")),
         #
-        EzKey("<XF86Favorites>", lazy.screen.toggle_group()),
-        EzKey("M-<XF86Favorites>", focus_previous_window()),
+        EzKey("<XF86Favorites>", lazy.group["SPD"].dropdown_toggle("btop")),
+        EzKey("M-<XF86Favorites>", lazy.group["SPD"].dropdown_toggle("htop")),
         #
         EzKey("<XF86Explorer>", lazy.screen.toggle_group()),
         #
@@ -213,15 +158,14 @@ def bindings():
         # EzKey("M-q", lazy.window.kill()),
         # EzKey("M-C-q", lazy.shutdown()),
         #
-        EzKey("M-w", lazy.spawn(browser)),
-        EzKey("M-C-w", lazy.spawn(browserP)),
-        EzKey("M-S-w", lazy.spawn(browserA)),
+        EzKey("M-w", lazy.spawn(env["BROWSER"])),
+        EzKey("M-C-w", lazy.spawn(env["BROWSER2"])),
+        EzKey("M-S-w", lazy.spawn(env["BROWSER_PRIVATE"])),
         # # EzKey("M-w", lazy.group["SPD"].dropdown_toggle("float_mpv")),
         # #
         # # EzKey("M-e", lazy.group["SPD"].dropdown_toggle("agenda")),
-        EzKey("M-e", lazy.spawn(text_editor)),
-        EzKey("M-C-e", lazy.spawn(term_text_editor)),
-        EzKey("M-S-e", lazy.spawn("via -a")),
+        EzKey("M-e", lazy.spawn(terminal + " -e emacsclient -nw")),
+        EzKey("M-C-e", lazy.spawn("emacsclient -c")),
         #
         EzKey("M-r", lazy.group["SPD"].dropdown_toggle("file manager")),
         EzKey("M-C-r", lazy.spawn("qtile cmd-obj -o cmd -f validate_config") and lazy.restart()),
@@ -230,13 +174,17 @@ def bindings():
             "r",
             [
                 EzKey("h", move_floating_window(x=-10)),
-                EzKey("j", move_floating_window(y=-10)),
-                EzKey("k", move_floating_window(y=10)),
+                EzKey("j", move_floating_window(y=10)),
+                EzKey("k", move_floating_window(y=-10)),
                 EzKey("l", move_floating_window(x=10)),
-                EzKey("u", resize_floating_window(width=-10)),
-                EzKey("i", resize_floating_window(width=-10)),
-                EzKey("o", resize_floating_window(width=10)),
-                EzKey("p", resize_floating_window(width=10)),
+                EzKey("C-h", resize_floating_window(width=-10)),
+                EzKey("C-j", resize_floating_window(height=10)),
+                EzKey("C-k", resize_floating_window(height=-10)),
+                EzKey("C-l", resize_floating_window(width=10)),
+                EzKey("S-h", resize_floating_window(width=-10,height=-10)),
+                EzKey("S-j", resize_floating_window(width=-30,height=-30)),
+                EzKey("S-k", resize_floating_window(width=30,height=30)),
+                EzKey("S-l", resize_floating_window(width=10,height=10)),
             ],
             mode=True,
             name="resize/move floating window",
@@ -309,9 +257,12 @@ def bindings():
         #
         EzKey("M-<bracketleft>", lazy.screen.prev_group(skip_empty=True)),
         EzKey("M-S-<bracketleft>", lazy.window.move_down()),
+        EzKey("A-<bracketleft>", lazy.prev_screen()),
         #
         EzKey("M-<bracketright>", lazy.screen.next_group(skip_empty=True)),
         EzKey("M-S-<bracketright>", lazy.window.move_up()),
+        EzKey("A-<bracketright>", lazy.next_screen()),
+        #
         #
         EzKey("M-<backslash>", floating_corner_window("bottom right")),
         EzKey("M-S-<backslash>", floating_corner_window("top right")),
@@ -319,6 +270,16 @@ def bindings():
         EzKey("M-S-C-<backslash>", floating_corner_window("top left")),
         # }}}
         # ======================= Second Row ======================= {{{
+        KeyChord(
+            [M],
+            "a",
+            [
+                EzKey("x", lazy.spawn("keepassxc")),
+                EzKey("c", lazy.spawn("calibre")),
+            ],
+            mode=False,
+            name="Quick Launch",
+        ),
         # EzKey("M-a", lazy.next_screen()),
         # EzKey("M-C-a", lazy.function(window_to_next_screen, switch_screen=True)),
         # EzKey("M-A-a", add_treetab_section),
@@ -327,15 +288,31 @@ def bindings():
         #
         EzKey("M-d", lazy.spawncmd("run: ")),
         EzKey("M-C-d", lazy.spawn("via -r")),
-        EzKey("M-S-d", lazy.run_extension(DmenuRun(**dmenu_defaults))),
+        EzKey("M-S-d", lazy.spawn("via -a")),
+        # EzKey("M-S-d", lazy.run_extension(DmenuRun(**dmenu_defaults))),
         #
         EzKey("M-f", lazy.window.toggle_maximize(), lazy.window.keep_above()),
         EzKey("M-S-f", lazy.window.toggle_fullscreen()),
         EzKey("M-C-f", float_to_front()),
         #
-        EzKey("M-g", lazy.group["SPD"].toscreen(toggle=True)),
+        EzKey("M-g", toggle_layout_gap()),
+        KeyChord(
+            [M, C],
+            "g",
+            [
+                EzKey("k", resize_layout_gap(+1)),
+                EzKey("j", resize_layout_gap(-1)),
+                EzKey("C-k", resize_layout_gap(+5)),
+                EzKey("C-j", resize_layout_gap(-5)),
+                EzKey("S-k", resize_layout_gap(+10)),
+                EzKey("S-j", resize_layout_gap(-10)),
+            ],
+            mode=True,
+            name="Gaps",
+        ),
+        EzKey("M-S-g", lazy.group["SPD"].toscreen(toggle=True)),
+        EzKey("A-S-g", lazy.window.togroup("SPD")),
         # EzKey("M-C-g", focus_floating_window()),
-        EzKey("M-S-g", lazy.window.togroup("SPD")),
         #
         EzKey("M-h", lazy.layout.left()),
         EzKey("M-S-h", lazy.layout.shuffle_left()),
@@ -431,7 +408,6 @@ def bindings():
         EzKey("M-n", lazy.group["SPD"].dropdown_toggle("newmacs")),
         # EzKey("M-S-n", lazy.group["SPD"].dropdown_toggle("podcasts")),
         #
-        EzKey("A-<comma>", lazy.prev_screen()),
         EzKey("M-<comma>", lazy.spawn("dmpc toggle")),
         KeyChord(
             [M, C],
@@ -498,7 +474,8 @@ def bindings():
             name="MPV",
         ),
         #
-        EzKey("A-<period>", lazy.next_screen()),
+        EzKey("A-<period>", lazy.spawn("tppctl")),
+        EzKey("A-C-<period>", lazy.spawn("tppctl next")),
         EzKey("M-<period>", lazy.spawn("tppctl invert")),
         EzKey("M-C-<period>", lazy.spawn("tppctl pauseall")),
         EzKey("M-S-<period>", lazy.spawn("tppctl toggle")),
@@ -509,7 +486,7 @@ def bindings():
         EzKey("M-<space>", toggle_focus_main()),
         EzKey("M-C-<space>", lazy.layout.swap_main()),
         EzKey("M-S-<space>", lazy.window.toggle_floating()),
-        EzKey("M-A-<space>", lazy.layout.flip()),
+        EzKey("A-<space>", lazy.layout.flip()),
         #
         # EzKey("M-<Insert>", lazy.group["SPD"].dropdown_toggle("clipmenu")),
         EzKey("M-<Insert>", lazy.spawn("clipboardmenu")),
@@ -603,7 +580,9 @@ def dr_key_binder(keynames=None):
             keys = keynames
         else:
             # keys 1 to 9 and 0
-            keys = list(map(str, list(range(1, 10)) + [0]))
+            g = list(range(1, 10))
+            g.append(0)
+            keys = list(map(str, g))
 
         # bind all keys
         for keyname, group in zip(keys, dgroup.qtile.groups):
@@ -611,6 +590,7 @@ def dr_key_binder(keynames=None):
             key = EzKey("M-" + str(keyname), lazy.group[name].toscreen())
             key_s = EzKey("M-S-" + str(keyname), lazy.window.togroup(name))
             key_c = EzKey("M-C-" + str(keyname), merge_groups(int(name)))
+            # key_c = EzKey("M-C-" + str(keyname), merge_groups_v2(int(name)))
             dgroup.keys.extend([key, key_s, key_c])
             dgroup.qtile.config.keys.extend([key, key_s, key_c])
             dgroup.qtile.grab_key(key)

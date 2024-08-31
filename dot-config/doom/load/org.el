@@ -100,7 +100,7 @@
 
 (setq org-tag-alist
       '((:startgroup)
-                                        ; Put mutually exclusive tags here
+        ; Put mutually exclusive tags here
         ("@errand" . ?E)
         ("@home" . ?H)
         ("@work" . ?W)

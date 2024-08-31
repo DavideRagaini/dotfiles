@@ -14,11 +14,11 @@ local function get_temp_path()
     return example_temp_file_path:sub(1, temp_path_length)
 end
 
-tempDir = get_temp_path()
+local tempDir = get_temp_path()
 
-function join_paths(...)
+local function join_paths(...)
     local arg={...}
-    path = ""
+    local path = ""
     for i,v in ipairs(arg) do
         path = utils.join_path(path, tostring(v))
     end
@@ -30,7 +30,7 @@ local socket_dir = "mpv"
 os.execute("mkdir -p " .. join_paths(tempDir, socket_dir) .. " 2>/dev/null")
 mp.set_property("options/input-ipc-server", join_paths(tempDir, socket_dir, pid))
 
-function shutdown_handler()
+local function shutdown_handler()
     os.remove(join_paths(tempDir, socket_dir, pid))
 end
 mp.register_event("shutdown", shutdown_handler)

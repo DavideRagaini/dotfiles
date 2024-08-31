@@ -26,7 +26,7 @@ cmd open ${{
         application/json) $EDITOR "$fx" ;;
         application/lzma) atool --list -- "$fx" | bat ;;
         application/lzop) atool --list -- "$fx" | bat ;;
-        application/octet-stream) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        application/octet-stream) zathura --fork "$f" >/dev/null 2>&1 ;;
         application/pgp-encrypted) $EDITOR "$fx" ;;
         application/x-brotli) atool --list -- "$fx" | bat ;;
         application/x-iso9660-image) ;;
@@ -51,19 +51,20 @@ cmd open ${{
 
         audio/*) mpv "$fx" --no-config --no-audio-display --term-osd-bar ;;
 
-        application/vnd.amazon.ebook) ebook-viewer "$fx" ;;
-        application/epub+zip) ebook-viewer "$fx" ;;
-        application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        application/vnd.amazon.ebook) zathura --fork "$f" ;;
+        application/epub+zip) zathura --fork "$f" ;;
+        application/pdf) zathura --fork "$f" >/dev/null 2>&1 ;;
         # application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         application/postscrip) zathura --fork $fx >/dev/null 2>&1 ;;
         image/svg+xml) setsid -f display -- "$fx";;
-        image/vnd.djvu) zathura --fork "$fx" >/dev/null 2>&1 ;;
+        image/vnd.djvu) zathura --fork "$f" >/dev/null 2>&1 ;;
 
         image/x-xcf) setsid -f gimp "$fx" >/dev/null 2>&1 ;;
-        image/*) rotdir "$fx" |
-            grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-            nsxiv -aio 2>/dev/null |
-            lf-select & ;;
+        image/*) setsid -f imv-dir "$fx" ;;
+        # image/*) rotdir "$fx" |
+        #     grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
+        #     nsxiv -aio 2>/dev/null |
+        #     lf-select & ;;
 
         */xml) bat --paging=never --line-range :50 "$fx" ;;
         text/html) $BROWSER "$fx" ;;
