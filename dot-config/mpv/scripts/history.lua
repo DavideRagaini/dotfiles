@@ -153,7 +153,7 @@ local function history()
     path = mp.get_property("path")
     if grep(path, o.storage_path) then
         local title = mp.get_property("media-title")
-        local uploader = nil
+        local uploader = ""
 
         if file_exists(path) then
             local path_words = split(path, '/')
@@ -168,12 +168,6 @@ local function history()
         end
 
         if not is_empty(path) and not discard() then
-            if #title > 90 then
-                title = string.sub(title, 1, 86) .. " ..."
-            end
-            if #uploader > 30 then
-                uploader = string.sub(uploader, 1, 26) .. " ..."
-            end
             local line = string.format(
                 "%-14s\t%-30s\t%-90s\t%s",
                 os.date("%Y-%m-%d %H:%M:%S"),

@@ -3,25 +3,27 @@
     "position": "bottom",
 
     "modules-left": [
-        "sway/mode",
         "sway/workspaces",
         "sway/scratchpad",
-        "idle_inhibitor",
+        "sway/mode",
         "sway/window"
     ],
 
     "modules-right": [
+        "mpd",
         "cpu",
+        "custom/cpugov",
         "temperature",
-        "memory",
+        "custom/memory",
         "network",
-        "bluetooth",
+        "disk#root",
+        "disk#sd",
         "wireplumber",
-        "backlight",
-        "battery",
         "tray",
+        "custom/uptime",
         "clock#date",
-        "clock#time"
+        "clock#time",
+        "idle_inhibitor"
     ],
 
     // Modules 🔰
@@ -66,7 +68,7 @@
 
     "clock#date": {
         "interval": 3600,
-        "format": "📆 {:%d %b %Y}",
+        "format": "{:%d %b %Y}",
         "tooltip": true,
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
@@ -101,7 +103,7 @@
     "cpu": {
         "interval": 1,
         "tooltip": false,
-        "format": "{icon0}{icon1} {load} {usage:>2}% {avg_frequency:1.1f}",
+        "format": "{load} {icon0}{icon1}{icon2}{icon3} {usage}% @{avg_frequency}",
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
         "states": {
             "warning": 50,
@@ -109,9 +111,34 @@
         }
     },
 
-    "disk": {
+    "custom/memory": {
+    "interval": 30,
+    "exec": "sb-memory"
+    },
+
+    "custom/cpugov": {
+    "interval": 180,
+    "exec": "sb-tb_cpu"
+    },
+
+    "custom/uptime": {
+        "format": "{}",
+        "interval": 60,
+        "exec": "uptime | awk '{gsub (\",\",\"\"); print $3}'",
+    },
+
+    "disk#sd": {
         "interval": 30,
-        "format": "{path} {free}",
+        "format": "D:{free}/{total}",
+        "path": "/media/DataTB",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
+    },
+
+    "disk#root": {
+        "interval": 30,
+        "format": "R:{free}/{total}",
         "path": "/",
         "tooltip": true,
         "warning": 80,
@@ -128,9 +155,9 @@
 
     "memory": {
         "interval": 30,
-        "format": "💠 {percentage}%/{swapPercentage}%",
+        "format": "{used:2.1f}/{swapUsed:2.1f}",
         "states": {
-            "warning": 50,
+            "warning": 65,
             "critical": 70
         },
         "tooltip": false
@@ -138,20 +165,20 @@
 
     "network": {
         "interval": 5,
-        "format-wifi": "📡 {essid} ({signalStrength}%)",
-        "format-ethernet": "💻 {ifname}",
+        "format-wifi": "{essid} ({signalStrength}%)",
+        "format-ethernet": "{ifname} {bandwidthDownBytes} D/U {bandwidthUpBytes}",
         "format-disconnected": "🚫",
         "format-alt": "💻 {ipaddr}/{cidr}",
         "tooltip": false
     },
 
     "sway/mode": {
-        "format": " {}",
+        "format": "{}",
         "tooltip": false
     },
 
     "sway/scratchpad": {
-        "format": "  {count}",
+        "format": "{count}",
         "show-empty": false,
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
@@ -212,21 +239,12 @@
     },
 
     "wireplumber": {
-        "format": "{icon} {volume}%",
+        "format": "{volume}%",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
-        "format-icons": {
-            "headphone": "🎧",
-            "hands-free": "",
-            "headset": "🎧",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["🔈", "🔊"]
-        },
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "scroll-step": 5,
         "tooltip": false
