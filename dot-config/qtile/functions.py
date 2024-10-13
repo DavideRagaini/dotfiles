@@ -133,7 +133,7 @@ def toggle_sticky_windows(qtile, window=None):
 
 
 @hook.subscribe.setgroup
-async def move_sticky_windows():
+def move_sticky_windows():
     if sticky_windows:
         for window in sticky_windows:
             window.togroup()
@@ -200,7 +200,7 @@ def merge_groups(qtile, g=1):
 
 
 @lazy.function
-@hook.subscribe.restart
+# @hook.subscribe.restart
 def restore_all_merged_groups(qtile):
     global groupsMerged
     for group in groupsMerged:
@@ -210,7 +210,7 @@ def restore_all_merged_groups(qtile):
 
 
 @hook.subscribe.client_killed
-async def remove_merge_group_windows(window):
+def remove_merge_group_windows(window):
     for group in groupsMerged:
         if window in groupsMerged[group]:
             groupsMerged[group].remove(window)

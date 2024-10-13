@@ -1,41 +1,63 @@
+# ======================= Global Variables ======================= {{{
 set $M Mod4
 set $A Mod1
 set $C Control
 set $S Shift
-
-include "$(hostname).conf"
 
 set $term footclient
 set $drun bemenu-run
 # set $drun tofi-run | xargs swaymsg exec --
 # set $drun tofi-drun --drun-launch=true
 
-gaps inner 2
-gaps outer 2
+set $gaps 5
+# }}}
+# ======================= Imports ======================= {{{
+include "$(hostname).conf"
+include "bindings.conf"
+# ======================= Window Rules ======================= {{{
+for_window [title="dropdown|files|music|news|sysmon|mixer|calc"] {
+    move scratchpad
+    resize set $width $height
+    scratchpad show
+}
+for_window [shell=".*"] title_format "%title :: %shell"
+for_window [app_id="mpv"] fullscreen enable
+
+assign [app_id="emacs[client]?"]          workspace 1
+assign [app_id="firefox|librewolf|brave"] workspace 2
+assign [app_id="org.pwmt.zathura"]        workspace 3
+assign [app_id="org.keepassxc.KeePassXC"] workspace 8
+assign [app_id="mpv"]                     workspace 9
+
+assign [class="alacritty-emacsclient"] workspace 1
+assign [class="sioyek"]               workspace 3
+assign [class= "Ferdium|Gimp|calibre-gui|calibre"] workspace 8
+
+assign [title= "alacritty-emacs"]     workspace 1
+# }}}
+# ======================= Global Settings ======================= {{{
+gaps inner $gaps
+gaps outer $gaps
 smart_gaps on
-default_border pixel 1
+default_border pixel 2
 smart_borders on
 title_align center
 # hide_edge_borders both
-
-# class             border     backgr     text       indicator  child_border
-client.focused      #4e4262    #BD93F9    #282a36    #BD93F9    #bd93f9
-client.unfocused    #4e4262    #282a36    #FF79C6    #BD93F9    #44475a
-
 mouse_warping output
 focus_follows_mouse yes
 popup_during_fullscreen smart
 focus_wrapping no
-
-### Input configuration
-#
-# input * {
-# }
-
+# }}}
+# ======================= Colors ======================= {{{
+# class             border     backgr     text       indicator  child_border
+client.focused      #4e4262    #BD93F9    #282a36    #BD93F9    #bd93f9
+client.unfocused    #4e4262    #282a36    #FF79C6    #BD93F9    #44475a
+# }}}
+# ======================= Inputs ======================= {{{
 input type:keyboard {
     xkb_layout "us"
     xkb_variant "altgr-intl"
-    xkb_options "ctrl:swapcaps,altwin:swap_alt_win,altwin:escape,altwin:menu_win"
+    xkb_options "ctrl:swapcaps,altwin:swap_alt_win,altwin:menu_win"
     xkb_numlock enabled
     repeat_delay 300
     repeat_rate 50
@@ -53,244 +75,20 @@ input type:touchpad {
 seat seat0 xcursor_theme Breeze_Purple 16
 seat seat0 hide_cursor 5000
 seat seat0 hide_cursor when-typing enable
-
-### Output configuration
-#
-output * {
-	mode 1920x1080@60.00Hz
-	bg "${XDG_DATA_HOME:-$HOME/.local/share}/bg" fill
-}
-
-
-### Idle configuration
-#
-exec swayidle -w \
-    timeout 180 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
-
+# }}}
+# ======================= Laptop ======================= {{{
 set $laptop LVDS-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 bindsym --release XF86Sleep exec swaylock && doas sysact suspend
-
-bindsym $M+w               exec $term -T w3m -e w3m https://searx.be/
-bindsym $M+$S+w            exec librewolf
-# bindsym $M+$S+w          exec librewolf --private-window
-bindsym $M+e               exec $term -T emacs -e emacsclient -nw
-# bindsym $M+$S+e          exec emacsclient -c
-bindsym $M+p               exec dmpv queue
-bindsym $M+$S+p            exec dmpv append "$(wl-paste)"
-bindsym $M+$C+p            exec dmpv
-bindsym $M+Backspace       exec sysact Shutdown
-bindsym $M+$S+Backspace    exec sysact
-bindsym $M+$C+Backspace    exec sysact Suspend
-bindsym $M+y               exec ts dy video "$(wl-paste)"
-bindsym $M+$S+y            exec ts dy audio "$(wl-paste)"
-
-# bindsym $M+grave         exec makoctl dismiss -a
-bindsym $M+grave           exec dunstctl close
-bindsym $M+$S+grave        exec dunstctl history-pop
-bindsym $M+Tab             workspace back_and_forth
-bindsym XF86Explorer       workspace back_and_forth
-bindsym $M+semicolon       workspace back_and_forth
-bindsym $M+bracketleft     workspace prev
-bindsym $M+bracketright    workspace next
-
-bindsym $M+Insert          exec cliphist list | bemenu -l 5 -p "Clipboard:" | cliphist decode | wl-copy
-bindsym $M+$S+Insert       exec notify-send "Clipboard" "$(wl-paste)"
-
-bindsym $M+comma           exec dmpc toggle
-bindsym $M+period          exec tppctl invert
-bindsym $M+$S+period       exec tppctl toggle
-bindsym $M+$C+period       exec tppctl pauseall
-bindsym XF86AudioPlay      exec tppctl invert
-bindsym $M+XF86AudioPlay   exec dmpc toggle
-bindsym XF86AudioNext      exec dmpc next
-bindsym $M+XF86AudioNext   exec tppctl seek 10
-bindsym XF86AudioPrev      exec dmpc prev
-bindsym $M+XF86AudioPrev   exec tppctl seek -10
-
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym $M+XF86AudioMute     exec output-audio
-
-bindsym XF86HomePage         exec swaymsg "output HDMI-A-1 dpms toggle"
-
-bindsym $M+F3              exec wifi-toggle
-bindsym $M+F9              exec dmenumount
-bindsym $M+$S+F9           exec dmenuumount
-
-floating_modifier $M normal
-bindsym $M+$S+Return       exec $term tmux
-bindsym $M+$C+q            kill
-bindsym $M+d               exec $drun
-bindsym $M+$S+d            exec via -r
-bindsym $M+$C+d            exec via -a
-bindsym $M+$C+r            reload
-# bindsym $M+$C+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-bindsym $M+F12             exec swaymsg exit
-
-bindsym $M+h               focus left
-bindsym $M+j               focus down
-bindsym $M+k               focus up
-bindsym $M+l               focus right
-
-bindsym $M+Up              exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym $M+$S+Up           exec $term -e pulsemixer
-bindsym $M+$C+Up           exec output-audio
-bindsym $M+Down            exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym $M+$S+Down         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym $M+Left            exec tppctl seek -10
-bindsym $M+$S+Left         exec dmpc prev
-bindsym $M+Right           exec tppctl seek -10
-bindsym $M+$S+Right        exec dmpc next
-
-bindsym $M+$S+h       move left
-bindsym $M+$S+j       move down
-bindsym $M+$S+k       move up
-bindsym $M+$S+l       move right
-
-bindsym $M+1          workspace number 1
-bindsym $M+2          workspace number 2
-bindsym $M+3          workspace number 3
-bindsym $M+4          workspace number 4
-bindsym $M+5          workspace number 5
-bindsym $M+6          workspace number 6
-bindsym $M+7          workspace number 7
-bindsym $M+8          workspace number 8
-bindsym $M+9          workspace number 9
-bindsym $M+0          workspace number 10
-
-bindsym $M+$S+1       move container to workspace number 1
-bindsym $M+$S+2       move container to workspace number 2
-bindsym $M+$S+3       move container to workspace number 3
-bindsym $M+$S+4       move container to workspace number 4
-bindsym $M+$S+5       move container to workspace number 5
-bindsym $M+$S+6       move container to workspace number 6
-bindsym $M+$S+7       move container to workspace number 7
-bindsym $M+$S+8       move container to workspace number 8
-bindsym $M+$S+9       move container to workspace number 9
-bindsym $M+$S+0       move container to workspace number 10
-
-bindsym $M+i          splith
-bindsym $M+o          splitv
-bindsym $M+$C+s       layout stacking
-bindsym $M+$C+t       layout tabbed
-bindsym $M+$C+w       layout toggle split
-bindsym $M+f          fullscreen
-bindsym $M+$S+space   floating toggle
-bindsym $M+space      focus mode_toggle
-bindsym $M+a          focus parent
-bindsym $M+$S+a       focus child
-bindsym $M+s          sticky toggle
-
-for_window [title="files"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+r exec swaymsg [title="files"] scratchpad show || $term -T files -e lfcd
-
-for_window [title="dropdown"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+Return exec swaymsg [title="dropdown"] scratchpad show || $term -T dropdown -e tmux new-session -A -s dropdown
-
-for_window [title="music"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+m exec swaymsg [title="music"] scratchpad show || $term -T music -e mp
-
-for_window [title="news"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+n exec swaymsg [title="news"] scratchpad show || $term -T news -e newsboat
-
-for_window [title="pods"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+$S+n exec swaymsg [title="pods"] scratchpad show || $term -T pods -e podboat
-
-for_window [title="mpvFloat"] {
-    floating enable
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+c exec swaymsg [title="mpvFloat"] scratchpad show || mpv --player-operation-mode=pseudo-gui --geometry=15%-5-15
-
-for_window [title="pulsemixer"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym XF86AudioStop exec swaymsg [title="pulsemixer"] scratchpad show || $term -T pulsemixer -e pulsemixer
-bindsym $M+slash exec swaymsg [title="pulsemixer"] scratchpad show || $term -T pulsemixer -e pulsemixer
-
-for_window [title="sysmon"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+Escape exec swaymsg [title="sysmon"] scratchpad show || $term -T sysmon -e htop
-
-for_window [title="calc"] {
-    move scratchpad
-    resize set $width $height
-    scratchpad show
-}
-bindsym $M+apostrophe exec swaymsg [title="calc"] scratchpad show || $term -T calc -e wcalc -P -1 -c -q --ints -C -p -r --remember
-
-for_window [title="fzfmenu"] {
-    floating enable
-    resize set 720 480
-}
-
-for_window [shell=".*"] title_format "%title :: %shell"
-
-assign [class="emacs"]                workspace 1
-assign [title="emacs"]                workspace 1
-assign [app_id="emacs"]               workspace 1
-assign [app_id="emacsclient"]         workspace 1
-assign [class="emacsclient"]          workspace 1
-assign [title="emacsclient"]          workspace 1
-assign [class="qutebrowser"]          workspace 2
-assign [class="LibreWolf"]            workspace 2
-assign [title="lynx"]                 workspace 2
-assign [title="w3m"]                  workspace 2
-assign [app_id="org.pwmt.zathura"]    workspace 3
-assign [class="sioyek"]               workspace 3
-assign [class="Ferdium"]              workspace 8
-assign [app_id="mpv"]                 workspace 9
-
-bindsym $M+$S+minus    move scratchpad
-bindsym $M+minus       scratchpad show
-
-mode "resize" {
-    bindsym l        resize shrink width 10px
-    bindsym j        resize grow height 10px
-    bindsym k        resize shrink height 10px
-    bindsym h        resize grow width 10px
-    bindsym Left     resize shrink width 10px
-    bindsym Down     resize grow height 10px
-    bindsym Up       resize shrink height 10px
-    bindsym Right    resize grow width 10px
-    bindsym Return   mode "default"
-    bindsym Escape   mode "default"
-}
-bindsym $M+$S+r         mode "resize"
-
+# }}}
+# ======================= Autostart ======================= {{{
 exec mem-warn -t 6 -i 90 &
 exec wl-paste --watch cliphist store &
 exec foot --server &
 exec dunst &
-exec wlsunset -t 2400 -T 6500 -S 07:30 -s 19:00 -d 1800 &
-exec sleep 40 && $term -a 'emacs' -T 'footclient-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
+
+exec swayidle -w \
+    timeout 180 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+# }}}

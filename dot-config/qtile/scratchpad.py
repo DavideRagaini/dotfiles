@@ -69,8 +69,8 @@ class Scratchpad(object):
                     # ),
                     DropDown(
                         "newmacs",
-                        # "emacs --eval='(dr/start-elfeed)'",
-                        terminal + " -e emacsclient -nw --eval '(dr/start-elfeed)'",
+                        "emacs --eval='(dr/start-elfeed)'",
+                        # terminal + " -e emacsclient -nw --eval '(dr/start-elfeed)'",
                         width=0.9,
                         height=0.9,
                         x=0.05,

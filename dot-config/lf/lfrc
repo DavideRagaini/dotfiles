@@ -11,8 +11,8 @@ set relativenumber
 set drawbox
 set autoquit true
 set preview false
-source ~/.config/lf/sixel.conf
-# source ~/.config/lf/ueberzug.conf
+# source ~/.config/lf/sixel.conf
+source ~/.config/lf/ueberzug.conf
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
 set incsearch
@@ -60,7 +60,7 @@ cmd open ${{
         image/vnd.djvu) zathura --fork "$f" >/dev/null 2>&1 ;;
 
         image/x-xcf) setsid -f gimp "$fx" >/dev/null 2>&1 ;;
-        image/*) setsid -f imv-dir "$fx" ;;
+        image/*) setsid -f imv-dir "$fx"  >/dev/null 2>&1 ;;
         # image/*) rotdir "$fx" |
         #     grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
         #     nsxiv -aio 2>/dev/null |
@@ -81,6 +81,7 @@ cmd alt_open ${{
         # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
         application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         application/zip) zathura --fork "$fx" >/dev/null 2>&1;;
+        video/*) setsid -f mpv --no-config "$fx" -no-terminal ;;
         *) xdg-open "$fx" ;;
     esac
 }}
@@ -130,6 +131,7 @@ cmd moveto ${{
     for x in $fx; do
         eval mv -iv \"$x\" \"$dest\"
     done &&
+    sync
     notify-send "🚚 File(s) moved." "File(s) moved to $dest."
 }}
 
@@ -140,6 +142,7 @@ cmd copyto ${{
     for x in $fx; do
         eval cp -ivr \"$x\" \"$dest\"
     done &&
+    sync
     notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
@@ -188,19 +191,6 @@ cmd zle-init :{{
 
 &[[ -n "$ZLE_FIFO" ]] && lf -remote "send $id zle-init"
 
-cmd async_paste &{{
-    set -- $(cat ~/.local/share/lf/files)
-    mode="$1"
-    shift
-    case "$mode" in
-        copy) cp -rn -- "$@" .;;
-        move) mv -n -- "$@" .;;
-    esac
-    notify-send "aSync Done" "$(cat ~/.local/share/lf/files)"
-    rm ~/.local/share/lf/files
-    lf -remote "send clear"
-}}
-
 cmd dotofile &{{
     set -- $(cat ~/.local/share/lf/files)
     printf "%s\n\t" "$fx"
@@ -215,21 +205,53 @@ cmd size &{{
     lf -remote "send $id echo $(du -hc $fx | tail -n1)"
 }}
 
+cmd async_paste &{{
+    set -- $(cat ~/.local/share/lf/files)
+    time_start="$(date '+%s')"
+    mode="$1"
+    shift
+    case "$mode" in
+        copy) cp -rn -- "$@" .;;
+        move) mv -n -- "$@" .;;
+    esac
+    sync
+    time_end="$(date '+%s')"
+    time_diff="$(( time_end - time_start ))"
+    if [ $time_diff -gt 10 ]; then
+        h_time="$((time_diff / 3600)):$((time_diff / 60)):$((time_diff % 60))"
+        notify-send "$h_time ($time_diff) ASYNC done" "$(cat ~/.local/share/lf/files)"
+    else
+        notify-send "ASYNC done" "$(cat ~/.local/share/lf/files)"
+    fi
+    rm ~/.local/share/lf/files
+    lf -remote "send clear"
+}}
+
 cmd backup_paste %{{
     set -- $(cat ~/.local/share/lf/files)
+    time_start="$(date '+%s')"
     mode="$1"
     shift
     case "$mode" in
         copy) cp -r --backup=numbered -- "$@" .;;
         move) mv --backup=numbered -- "$@" .;;
     esac
-    notify-send "Backup Done" "$(cat ~/.local/share/lf/files)"
+    sync
+    time_end="$(date '+%s')"
+    time_diff="$(( time_end - time_start ))"
+    if [ $time_diff -gt 10 ]; then
+        h_time="$((time_diff / 3600)):$((time_diff / 60)):$((time_diff % 60))"
+        notify-send "$h_time ($time_diff) Backup done" "$(cat ~/.local/share/lf/files)"
+    else
+        notify-send "Backup done" "$(cat ~/.local/share/lf/files)"
+    fi
     rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
 
 cmd paste &{{
     set -- $(cat ~/.local/share/lf/files)
+    time_start="$(date '+%s')"
     mode="$1"
     shift
     case "$mode" in
@@ -240,14 +262,22 @@ cmd paste &{{
             while IFS= read -r line; do
                 lf -remote "send $id echo $line"
             done
-            cmd='rsync'
+            cmd='COPY'
             ;;
         move)
             mv -n -- "$@" .
-            cmd='mv'
+            cmd='MOVE'
             ;;
     esac
-    notify-send "$cmd done" "$(cat ~/.local/share/lf/files)"
+    sync
+    time_end="$(date '+%s')"
+    time_diff="$(( time_end - time_start ))"
+    if [ $time_diff -gt 10 ]; then
+        h_time="$((time_diff / 3600)):$((time_diff / 60)):$((time_diff % 60))"
+        notify-send "$h_time ($time_diff) $cmd done" "$(cat ~/.local/share/lf/files)"
+    else
+        notify-send "$cmd done" "$(cat ~/.local/share/lf/files)"
+    fi
     rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
@@ -311,6 +341,7 @@ cmd newfold ${{
     printf "Directory name: "
     mkdir -- "$newd"
     mv -- $fx "$newd"
+    sync
 }}
 
 cmd cut-add %{{
@@ -409,6 +440,7 @@ cmd compressvideo ${{
             *.mp4)
                 tempFilepath=$(echo "$pickedFilepath" | sed 's|.mp4|(CONVERTING).mp4|')
                 mv -f "$pickedFilepath" "$tempFilepath"
+                sync
                 ffmpeg -i "$tempFilepath" -vcodec libx265 -crf "$compressionRate" "$pickedFilepath"
                 rm -f -- "$tempFilepath"
                 ;;

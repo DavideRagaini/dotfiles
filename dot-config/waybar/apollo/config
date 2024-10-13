@@ -1,0 +1,208 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "ipc": "true",
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/scratchpad",
+        "sway/mode",
+        "sway/window"
+    ],
+
+    "modules-right": [
+        "mpd",
+        "cpu",
+        "temperature#cpu",
+        "temperature#nvme",
+        // "temperature#pch",
+        // "temperature#acpitz",
+        "custom/memory",
+        "custom/nvidia",
+        "network",
+        "disk#root",
+        "disk#data",
+        "disk#d25l1tb",
+        "wireplumber",
+        "custom/uptime",
+        "clock#date",
+        "clock#time",
+        "idle_inhibitor",
+        "tray"
+    ],
+
+    "cpu": {
+        "interval": 1,
+        "tooltip": false,
+        "format": "{load} {icon0}{icon1}{icon2}{icon3}{icon4}{icon5} {usage}% @{avg_frequency}",
+        "format-icons": ["0","1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+        "states": {
+            "warning": 50,
+            "critical": 75
+        }
+    },
+
+    "custom/memory": {
+    "interval": 30,
+    "exec": "sb-memory"
+    },
+
+    "custom/nvidia": {
+    "interval": 15,
+    "exec": "sb-nvgpu"
+    },
+
+    "custom/uptime": {
+        "format": "{}",
+        "interval": 60,
+        "exec": "uptime | awk '{gsub (\",\",\"\"); print $3}'",
+    },
+
+    "disk#root": {
+        "interval": 30,
+        "format": "R:{free}/{total}",
+        "path": "/",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
+    },
+
+    "disk#data": {
+        "interval": 30,
+        "format": "D:{free}/{total}",
+        "path": "/media/data",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
+    },
+
+    "disk#d25l1tb": {
+        "interval": 30,
+        "format": "d:{free}/{total}",
+        "path": "/media/d25l1tb",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "{used:2.1f}/{swapUsed:2.1f}",
+        "states": {
+            "warning": 65,
+            "critical": 70
+        },
+        "tooltip": false
+    },
+
+    "network": {
+        "interval": 1,
+        "format-wifi": "{essid} ({signalStrength}%)",
+        "format-ethernet": "{ifname} {bandwidthDownBytes} D/U {bandwidthUpBytes}",
+        "format-disconnected": "🚫",
+        "format-alt": "💻 {ipaddr}/{cidr}",
+        "tooltip": false
+    },
+
+    "sway/mode": {
+        "format": "{}",
+        "tooltip": false
+    },
+
+    "sway/scratchpad": {
+        "format": "{count}",
+        "show-empty": false,
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 80,
+        "tooltip": false
+    },
+
+    "sway/workspaces": {
+        "disable-scroll-wraparound": true,
+        "smooth-scrolling-threshold": 4,
+        "enable-bar-scroll": true,
+        "format": "{name}"
+    },
+
+    "temperature#pch": {
+        "thermal-zone": 0,
+        "critical-threshold": 60,
+        "format": "P{temperatureC}°",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#acpitz": {
+        "thermal-zone": 1,
+        "critical-threshold": 60,
+        "format": "A{temperatureC}°",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#cpu": {
+        "thermal-zone": 2,
+        "critical-threshold": 60,
+        "format": "{icon} {temperatureC}°",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#nvme": {
+        "critical-threshold": 60,
+        "format": "N{temperatureC}°",
+        "interval": 10,
+        "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
+        "tooltip": false
+    },
+
+"tray": {
+        "icon-size": 18
+        //"spacing": 10
+    },
+
+    "wireplumber": {
+        "format": "{volume}%",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "scroll-step": 5,
+        "tooltip": false
+    },
+
+    "clock#date": {
+        "interval": 3600,
+        "format": "{:%A, %B %d, %Y}",
+        "tooltip": false
+    },
+
+    "clock#time": {
+        "interval": 1,
+        "format": "{:%H:%M:%S}",
+        "tooltip": false
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+}

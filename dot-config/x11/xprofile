@@ -1,43 +1,45 @@
 #!/bin/sh
 
+export TERMINAL='alacritty'
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources" &
 xrdbpid=$!
 
-locker(){
-    LOCK_TIME=3 # Minutes
-    NOTIFY=45 # Seconds
-    xautolock \
-        -time "$LOCK_TIME" \
-        -notify "$NOTIFY" \
-        -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" \
-        -locker "systemctl suspend" \
-        -detectsleep
-}
+# locker(){
+#     LOCK_TIME=3 # Minutes
+#     NOTIFY=45 # Seconds
+#     xautolock \
+#         -time "$LOCK_TIME" \
+#         -notify "$NOTIFY" \
+#         -notifier "notify-send -u critical -t ${NOTIFY}000 'System will be locked' '$NOTIFY seconds left'" \
+#         -locker "systemctl suspend" \
+#         -detectsleep
+# }
 export CM_IGNORE_WINDOW=".* - KeePassXC.*"
 export LIBVA_DRIVER_NAME=vdpau
 export VDPAU_DRIVER=nvidia
+sed -i 's/size = 18/size = 9/' ~/.config/alacritty/alacritty.toml &
 # xrandr --output DVI-D-0 --primary --auto --pos 0x0 --rotate normal --output HDMI-0 --off # main dvi
-xrandr --output HDMI-0 --primary --auto --pos 0x0 --rotate normal --output DVI-D-0 --off # main hdmi
+xrandr --output HDMI-0 --primary --auto --pos 0x0 --rotate normal --scale 1 --output DVI-D-0 --off # main hdmi
 # xrandr --output HDMI-0  --rotate normal --pos 0x0 --auto --primary --output DVI-D-0 --rotate right --pos 1920x15 --auto # main hdmi + vert right
 # locker &
-conky &
+# conky &
 remaps &
-numlockx &
+# numlockx &
 xset dpms 0 0 180
-/nix/store/"$(find /nix/store/ -maxdepth 1 -mindepth 1 -type d -iname "*agent*" | grep polkit-gnome-agent | grep '^d' | awk '{print $9}')"/libexec/polkit-gnome-authentication-agent-1 &
+# /nix/store/"$(find /nix/store/ -maxdepth 1 -mindepth 1 -type d -iname "*agent*" | grep polkit-gnome-agent | grep '^d' | awk '{print $9}')"/libexec/polkit-gnome-authentication-agent-1 &
 
 {
     sleep 10
-    systemctl start --user graphical-session.target
-    clipmenud &
+    # systemctl start --user graphical-session.target
+    # clipmenud &
     # systemctl start --user picom.service
-    systemctl start --user redshift.service
-    systemctl start --user unclutter.service
-    sleep 20
-    $BROWSER &
+    # systemctl start --user redshift.service
+    # systemctl start --user unclutter.service
+    # sleep 20
+    # $BROWSER &
     # alacritty --class 'emacs,emacs' -T 'alacritty-emacsclient' -e emacsclient -e '(doom/quickload-session t)' -nw &
     emacsclient -e '(doom/quickload-session t)' -c &
-    sleep 30
+    # sleep 30
     # aw-qt &
     # sleep 90
     # syncthingtray

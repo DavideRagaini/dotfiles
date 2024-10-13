@@ -105,6 +105,7 @@
 *** [[https://yewtu.be/feed/channel/UCEIwxahdLz7bap-VDs9h35A][Steve Mould]]
 # *** [[https://yewtu.be/feed/channel/UCivA7_KLKWo43tFcCkFvydw][Applied Science]] :phy:
 *** Chemistry :chm:
+**** [[https://yewtu.be/feed/channel/UCU2GHednTIMRg-cIae4KFFA][Chimicazza]] :w:
 **** [[https://yewtu.be/feed/channel/UC1D3yD4wlPMico0dss264XA][NileBlue]] :w:
 **** [[https://yewtu.be/feed/channel/UCFhXFikryT4aFcLkLw2LBLA][NileRed]]
 **** [[https://yewtu.be/feed/channel/UCu6mSoMNzHQiBIOCkHUa2Aw][Cosy's Lab]]
@@ -122,14 +123,11 @@
 *** [[https://yewtu.be/feed/channel/UCfluW4btXJm3uzJZmLRykGg][Garage 52]] :w:
 *** [[https://yewtu.be/feed/channel/UCnROPoofp1Ds98QNi077aLg][MC Import]] :w:
 ** Chill :chill:
-*** [[https://yewtu.be/feed/channel/UClkUhTjFbQbtGfS14h9Vw5g][Martijn Doolaard]] :w:
-*** [[https://twitchrss.appspot.com/vodonly/yotobi][ytb]] :w:
+*** [[https://yewtu.be/feed/channel/UClkUhTjFbQbtGfS14h9Vw5g][Martijn Doolaard]]
+*** [[https://yewtu.be/feed/channel/UCqhjRUQGCnX4Y22kR_KD-Yg][Criticoni]]
+*** [[https://twitchrss.appspot.com/vodonly/yotobi][ytb]]
+*** [[https://twitchrss.appspot.com/vodonly/sabaku_no_sutoriimaa][sbk]]
 *** [[https://twitchrss.appspot.com/vodonly/parliamodivg][pdv]]
-# *** [[https://twitchrss.appspot.com/vodonly/itermosifoni][terms]]
-# *** [[https://twitchrss.appspot.com/vodonly/wartinsal][ws]]
-# *** [[https://twitchrss.appspot.com/vodonly/paoloidolo][pc]]
-# *** [[https://twitchrss.appspot.com/vodonly/enkk][nk]]
-# *** [[https://twitchrss.appspot.com/vodonly/dariomocciatwitch][dm]]
 ** Software :sw:
 *** [[https://twitchrss.appspot.com/vodonly/somecodingguy][somecodingguy]] :w:
 *** [[https://yewtu.be/feed/channel/UCMnULQ6F6kLDAHxofDWIbrw][Pirate Software]]
@@ -138,7 +136,7 @@
 *** [[https://kodi.tv/rss.xml][Kodi]]
 # *** [[https://ffmpeg.org/main.rss][ffmpeg]]
 *** wm :release:wm:
-**** [[https://github.com/qtile/qtile/releases.atom][qtile]
+**** [[https://github.com/qtile/qtile/releases.atom][qtile]]
 **** [[https://github.com/swaywm/sway/releases.atom][sway]]
 *** mpv :mpv:
 **** [[https://github.com/mpv-player/mpv/releases.atom][mpv]] :release:

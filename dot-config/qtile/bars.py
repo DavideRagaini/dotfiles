@@ -9,8 +9,12 @@ widget_defaults = dict(
     font="JetBrainsMono Nerd Font ExtraBold",
     fontsize=9,
     padding=8,
+    markup=False,
     # background=colors[0],  # #282a36
 )
+
+if qtile.core.name == "x11":
+    widget_defaults.update({'fontsize': 18})
 
 main_bar = [
     widget.GroupBox(
@@ -213,6 +217,55 @@ main_bar = [
     ),
 ]
 
+vert_bar = [
+    widget.GroupBox(
+        # borderwidth=3,
+        # highlight_method='block',
+        # active='#CAA9E0',
+        # block_highlight_text_color="#91B1F0",
+        # highlight_color='#4B427E',
+        # inactive='#282738',
+        # foreground='#4B427E',
+        # background='#353446',
+        # this_current_screen_border='#353446',
+        # this_screen_border='#353446',
+        # other_current_screen_border='#353446',
+        # other_screen_border='#353446',
+        # urgent_border='#353446',
+        rounded=True,
+        disable_drag=True,
+        padding=4,
+        active=colors[2], # with windows
+        inactive=colors[2], # without windows
+        highlight_color=[colors[0], colors[8]],
+        this_screen_border=colors[8],
+        this_current_screen_border=colors[7],
+        other_screen_border=colors[3],
+        other_current_screen_border=colors[3],
+        highlight_method="border",
+        hide_unused=True,
+    ),
+    #
+    widget.Spacer(length=10),
+    widget.CurrentLayout(foreground=colors[2]),
+    #
+    widget.Spacer(length=10),
+    #
+    widget.Chord(foreground=colors[10]),
+    #
+    widget.WindowCount(foreground=colors[7]),
+    #
+    widget.WindowName(
+        foreground=colors[8],
+    ),
+    #
+    widget.Prompt(
+        cursorblink=0.5,
+        prompt="&:",
+        foreground=colors[9],
+    ),
+]
+
 # from libqtile.lazy import lazy
 
 # sptctl = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."
@@ -364,12 +417,31 @@ main_screen = Screen(
 vert_screen = Screen(
     # name="DVI-D-1",
     bottom=bar.Bar(
-        [],
-        0,
+        vert_bar,
+        15,
+        **bar_defaults,
     ),
+    # bottom=bar.Bar(
+    #     [],
+    #     0,
+    # ),
     wallpaper=wallpaperPath + "vertbg",
     wallpaper_mode="fill",
 )
 
-# screens = [ main_screen ]
 screens = [ main_screen, vert_screen]
+
+# @subscribe.screen_change
+# def bar_size_monitor(qtile):
+#     global main_screen
+#     if qtile.current_screen.info()["width"] <= 3000:
+#         main_screen = Screen(
+#             # name="HDMI-A-1",
+#             bottom=bar.Bar(
+#                 main_bar,
+#                 15,
+#                 **bar_defaults,
+#             ),
+#             wallpaper=wallpaperPath + "mainbg",
+#             wallpaper_mode="fill",
+#         )

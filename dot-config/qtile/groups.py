@@ -136,7 +136,7 @@ class Groups(object):
                 matches=[
                     Match(
                         wm_class=regex(
-                            "KeePassXC|qBittorrent|calibre-gui|calibre|syncthingtray|qutebrowser",
+                            "Gimp|qBittorrent|calibre-gui|calibre|syncthingtray|qutebrowser",
                         ),
                     ),
                     Match(wm_class= "org.keepassxc.KeePassXC"),

@@ -33,8 +33,8 @@ export ANSIBLE_HOME="${XDG_CONFIG_HOME}/ansible"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible.cfg"
 export ANSIBLE_GALAXY_CACHE_DIR="${XDG_CACHE_HOME}/ansible/galaxy_cache"
 export AWT_TOOLKIT="MToolkit wmname LG3D" #May have to install wmname
-export BEMENU_BACKEND='wayland'
-export BEMENU_OPTS="--fb #24273a --ff #c6d0f5 --nb #24273a --nf #c6d0f5 --tb #24273a --hb #24273a --tf #e78284 --hf #e78284 --af #c6d0f5 --ab #24273a --bdr #ffffff --cf #e78284 --scf #e78284 --scb #24273a --fn \"${DMENU_FN:-IosevkaTermSlab Nerd Font Propo} ${DMENU_ST:-bold} ${DMENU_FS:-12}\" --no-overlap --wrap --scrollbar autohide --vim-esc-exits --border 1 --border-radius 5 --width-factor 0.90 --fork --counter always --auto-select --ifne --single-instance --accept-single --no-spacing -P '»' -p ' ~~~~~~ Select ~~~~~~ ' --hp 10 --monitor '-1'"
+# export BEMENU_BACKEND='wayland'
+export BEMENU_OPTS="--fb #24273a --ff #c6d0f5 --nb #24273a --nf #c6d0f5 --tb #24273a --hb #24273a --tf #e78284 --hf #e78284 --af #c6d0f5 --ab #24273a --bdr #ffffff --cf #e78284 --scf #e78284 --scb #24273a --fn \"${DMENU_FN:-IosevkaTermSlab Nerd Font Propo} ${DMENU_ST:-bold} ${DMENU_FS:-12}\" --no-overlap --wrap --scrollbar autohide --vim-esc-exits --border 1 --border-radius 5 --width-factor 0.90 --fork --counter always --auto-select --ifne --single-instance --no-spacing -P '»' -p ' ~~~~~~ Select ~~~~~~ ' --hp 10 --monitor '-1'"
 export CALIBRE_USE_DARK_PALETTE=1
 export CALIBRE_USE_SYSTEM_THEME=1
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -157,9 +157,12 @@ highdpi() {
     export QT_SCALE_FACTOR=1
 }
 
+export WM_START=0
 check_startup() {
     [ "$(tty)" = "/dev/tty1" ] &&
-        awk '{ exit ($1 > 40) }' /proc/uptime
+        [ -z "$(printenv WT_START)" ] &&
+        export WM_START=1 &&
+        awk '{ exit ($1 > 30) }' /proc/uptime
 }
 
 wayland_exports() {
@@ -180,13 +183,13 @@ qwtile() {
     export XDG_CURRENT_DESKTOP="qtile"
     wayland_exports
     export TERMINAL="foot"
-    exec qtile start -b wayland
+    dbus-run-session qtile start -b wayland
 }
 
 case "$HOSTNAME" in
     tinkerboard)
         export DMENU_FN='Fantasque Sans Mono'
-        export BEMENU_OPTS="--fb #24273a --ff #c6d0f5 --nb #24273a --nf #c6d0f5 --tb #24273a --hb #24273a --tf #e78284 --hf #e78284 --af #c6d0f5 --ab #24273a --bdr #ffffff --cf #e78284 --scf #e78284 --scb #24273a --fn 'Fantasque Sans Mono bold 12' --no-overlap --wrap --scrollbar autohide --width-factor 0.90 --fork --ifne --accept-single --no-spacing -P '»' -p ' ~~~~~~ Select ~~~~~~ ' --hp 10 --monitor '-1'"
+        export BEMENU_OPTS="--fb #24273a --ff #c6d0f5 --nb #24273a --nf #c6d0f5 --tb #24273a --hb #24273a --tf #e78284 --hf #e78284 --af #c6d0f5 --ab #24273a --bdr #ffffff --cf #e78284 --scf #e78284 --scb #24273a --fn 'Fantasque Sans Mono bold 12' --no-overlap --wrap --scrollbar autohide --width-factor 0.90 --fork --ifne --no-spacing -P '»' -p ' ~~~~~~ Select ~~~~~~ ' --hp 10 --monitor '-1'"
     ;;
     void)
         XDG_RUNTIME_DIR="/run/user/$(id -u)"
@@ -205,15 +208,18 @@ case "$HOSTNAME" in
         export LIBVA_DRIVER_NAME=nvidia
         export VDPAU_DRIVER=nvidia
 
+        export WLR_NO_HARDWARE_CURSORS=1
         export XCURSOR_SIZE=48
         export XCURSOR_THEME=Catppuccin-Macchiato-Dark-Cursors
         export BEMENU_SCALE=2
 
         highdpi
-         check_startup &&
-             ! pidof -s Xorg >/dev/null 2>&1 &&
+        check_startup &&
+            ! pidof -s Xorg >/dev/null 2>&1 &&
+            export XDG_CURRENT_DESKTOP="sway" &&
+            exec sway --unsupported-gpu
             # exec startx "$XINITRC"
-            qwtile
+            # qwtile
     ;;
     NT)
         XDG_RUNTIME_DIR="/run/user/$(id -u)"

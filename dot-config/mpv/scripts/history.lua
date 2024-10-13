@@ -155,7 +155,9 @@ local function history()
         local title = mp.get_property("media-title")
         local uploader = ""
 
-        if file_exists(path) then
+        if string.find(path, "http") ~= nil then
+            uploader = mp.get_property("metadata/by-key/uploader")
+        elseif file_exists(path) then
             local path_words = split(path, '/')
             uploader = string.format(
                 "%s/%s/%s",
@@ -163,8 +165,6 @@ local function history()
                 path_words[#path_words-3],
                 path_words[#path_words-2])
             -- path = string.gsub(path, os.getenv("HOME"), '~')
-        else
-            uploader = mp.get_property("metadata/by-key/uploader")
         end
 
         if not is_empty(path) and not discard() then
@@ -180,4 +180,4 @@ local function history()
 end
 
 mp.register_event("file-loaded", history)
-mp.register_event("shutdown", history)
+-- mp.register_event("shutdown", history)

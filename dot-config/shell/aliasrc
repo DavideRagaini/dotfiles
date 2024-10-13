@@ -52,6 +52,10 @@ NixOS | \"NixOS\")
         trrd="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F d -l" \
         trrl="doas ip netns exec pvt-net1 doas -u davide transmission-remote -l" \
         trru="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F u -l" \
+        trrr5="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:5 -l" \
+        trrr6="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:6 -l" \
+        trrr56="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:5 -F ~r:6 -l" \
+        wt="wtwitch" \
         qtcheck="qtile cmd-obj -o cmd -f validate_config"
 
     nshr() {
@@ -60,6 +64,10 @@ NixOS | \"NixOS\")
 
     trrr() {
         doas ip netns exec pvt-net1 doas -u davide transmission-remote -F "r:$1" -l
+    }
+
+    trrrn() {
+        doas ip netns exec pvt-net1 doas -u davide transmission-remote -F "r:$1" -F "~r:$2" -l
     }
 
     trre() {
@@ -156,7 +164,7 @@ alias \
     space-engine="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 
 dict() {
-    curl dict://dict.org/d:\$@
+    curl dict://dict.org/d:\\"$*"
 }
 
 yta() {

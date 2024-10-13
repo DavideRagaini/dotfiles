@@ -52,8 +52,8 @@ dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
 
 (cond
  ((string-equal (system-name) "Apollo")
-  (setq dr/dark-theme 'modus-vivendi
-        dr/font-size 28)
+  (setq dr/dark-theme 'catppuccin
+        dr/font-size 26)
   ;; (global-activity-watch-mode 1)
   (dr/high-resources)
   )
@@ -182,28 +182,6 @@ dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
 ;;   )
 
 ;; }}}
-;; ========= Clipboard Wayland ========= {{{
-(setq wl-copy-process nil)
-
-(defun wl-copy (text)
-  (setq wl-copy-process
-        (make-process
-         :name "wl-copy"
-         :buffer nil
-         :command '("wl-copy" "-f" "-n")
-         :connection-type 'pipe
-         :noquery t))
-  (process-send-string wl-copy-process text)
-  (process-send-eof wl-copy-process))
-
-(defun wl-paste ()
-  (if (and wl-copy-process (process-live-p wl-copy-process))
-      nil ; should return nil if we're the current paste owner
-    (shell-command-to-string "wl-paste -n | tr -d \r")))
-
-(setq interprogram-cut-function 'wl-copy)
-(setq interprogram-paste-function 'wl-paste)
-;; }}}
 ;; ========= Hydra ========= {{{
 (defhydra doom-window-resize-hydra (:hint nil)
   "vim motion evil-window-inc/dec-width/height"
@@ -231,9 +209,9 @@ dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
  (:prefix "SPC d"   :desc "dired"                         :n "d"   #'dired)
  (:prefix "SPC d"   :desc "dired"                         :n "i"   #'image-dired)
  ;;
- (:prefix "SPC h"   :desc "woman"                         :n "z"   #'woman)
- (:prefix "C-h"     :desc "woman"                         :n "z"   #'woman)
- (:prefix "SPC h"   :desc "man"                           :n "  h"   #'man)
+ ;; (:prefix "SPC h"   :desc "woman"                         :n "z"   #'woman)
+ ;; (:prefix "C-h"     :desc "woman"                         :n "z"   #'woman)
+ (:prefix "SPC h"   :desc "man"                           :n "h"   #'man)
  (:prefix "C-h"     :desc "man"                           :n "h"   #'man)
  ;;
  (:prefix "SPC m"   :desc "+org-todo-yesterday"           :n "y"   #'org-todo-yesterday)

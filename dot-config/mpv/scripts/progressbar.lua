@@ -230,12 +230,12 @@ settingsMeta.__index = settingsMeta
 setmetatable(settings, settingsMeta)
 settings:_migrate()
 local helpText = { }
-settings['hover-zone-height'] = 40
+settings['hover-zone-height'] = 10
 helpText['hover-zone-height'] = [[Sets the height of the rectangular area at the bottom of the screen that expands
 the progress bar and shows playback time information when the mouse is hovered
 over it.
 ]]
-settings['top-hover-zone-height'] = 10
+settings['top-hover-zone-height'] = 0
 helpText['top-hover-zone-height'] = [[Sets the height of the rectangular area at the top of the screen that shows the
 file name and system time when the mouse is hovered over it.
 ]]
