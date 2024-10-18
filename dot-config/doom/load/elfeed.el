@@ -197,7 +197,7 @@
   (interactive)
   (progn
     ;; (doom/load-session "~/.config/emacs/.local/etc/workspaces/float")
-    (run-at-time nil (* 2 60 60) #'elfeed-update)
+    (run-at-time nil (* 1 60 60) #'elfeed-update)
     (elfeed)
     (elfeed-prefs)
     )

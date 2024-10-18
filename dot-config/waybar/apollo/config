@@ -1,7 +1,7 @@
 {
     "layer": "top",
-    "position": "bottom",
-    "ipc": "true",
+    "position": "top",
+    "ipc": true,
 
     "modules-left": [
         "sway/workspaces",
@@ -34,6 +34,7 @@
     "cpu": {
         "interval": 1,
         "tooltip": false,
+        "min-length": 22,
         "format": "{load} {icon0}{icon1}{icon2}{icon3}{icon4}{icon5} {usage}% @{avg_frequency}",
         "format-icons": ["0","1", "2", "3", "4", "5", "6", "7", "8", "9"],
         // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
@@ -98,6 +99,7 @@
 
     "network": {
         "interval": 1,
+        "min-length": 26,
         "format-wifi": "{essid} ({signalStrength}%)",
         "format-ethernet": "{ifname} {bandwidthDownBytes} D/U {bandwidthUpBytes}",
         "format-disconnected": "🚫",
@@ -163,7 +165,7 @@
 
     "temperature#nvme": {
         "critical-threshold": 60,
-        "format": "N{temperatureC}°",
+        "format": "{temperatureC}°",
         "interval": 10,
         "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
         "tooltip": false

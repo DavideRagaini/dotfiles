@@ -77,7 +77,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export SUDO_ASKPASS="bemenu --password"
 # export TASKDATA="$XDG_DATA_HOME/task"
 # export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
-# export TERM="screen-256color"
+export TERM="xterm-24bit"
 export TERMINFO="$XDG_DATA_HOME/terminfo"
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
 export TEXMFHOME="$XDG_DATA_HOME/texmf"
@@ -91,6 +91,10 @@ export XCOMPOSECACHE="$XDG_CACHE_HOME"/xcompose
 export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java doesn't understand tiling windows
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 # export DMENU_FN='IosevkaTerm Nerd Font Mono:style=bold:size=12'
 # export DMENU_NB='#181321'
@@ -169,7 +173,7 @@ wayland_exports() {
      if [ "${XDG_VTNR}" -eq 1 ] && [ -z "${WAYLAND_DISPLAY}" ]; then
         export MOZ_ENABLE_WAYLAND=1
         export MOZ_WEBRENDER=1
-        export WLR_RENDERER_ALLOW_SOFTWARE=1
+        # export WLR_RENDERER_ALLOW_SOFTWARE=1
         export TERMINAL="footclient"
         export QT_QPA_PLATFORM='wayland-egl;xcb'
         export QT_WAYLAND_FORCE_DPI=physical
@@ -209,15 +213,16 @@ case "$HOSTNAME" in
         export VDPAU_DRIVER=nvidia
 
         export WLR_NO_HARDWARE_CURSORS=1
-        export XCURSOR_SIZE=48
+        export XCURSOR_SIZE=64
         export XCURSOR_THEME=Catppuccin-Macchiato-Dark-Cursors
         export BEMENU_SCALE=2
 
-        highdpi
+        # export WLR_RENDERER=vulkan
+
+        highdpi &&
         check_startup &&
             ! pidof -s Xorg >/dev/null 2>&1 &&
-            export XDG_CURRENT_DESKTOP="sway" &&
-            exec sway --unsupported-gpu
+            exec XDG_CURRENT_DESKTOP=sway dbus-run-session sway --unsupported-gpu -V > .sway-log 2>&1
             # exec startx "$XINITRC"
             # qwtile
     ;;

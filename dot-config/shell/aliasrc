@@ -48,7 +48,7 @@ NixOS | \"NixOS\")
         mpc="mpc --host=\"\$MPD_HOST\"" \
         qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
         pvt="doas ip netns exec pvt-net1 doas -u davide" \
-        pvtf="doas ip netns exec pvt-net1 doas -u davide nix-shell -p firefox --run firefox" \
+        pvtf="doas ip netns exec pvt-net1 doas -u davide firefox" \
         trrd="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F d -l" \
         trrl="doas ip netns exec pvt-net1 doas -u davide transmission-remote -l" \
         trru="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F u -l" \

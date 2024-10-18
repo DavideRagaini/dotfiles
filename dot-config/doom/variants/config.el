@@ -52,7 +52,7 @@ dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
 
 (cond
  ((string-equal (system-name) "Apollo")
-  (setq dr/dark-theme 'catppuccin
+  (setq dr/dark-theme 'modus-vivendi
         dr/font-size 26)
   ;; (global-activity-watch-mode 1)
   (dr/high-resources)

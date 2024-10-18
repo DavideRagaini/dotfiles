@@ -1,5 +1,5 @@
-@define-color background   #181321;
-/* @define-color background   rgba(24,19,33,0.80); */
+/* @define-color background   #181321; */
+@define-color background   rgba(24,19,33,0.80);
 /* @define-color foreground    #4e4262; */
 @define-color foreground   #FF79C6;
 /* @define-color foreground   #6e6282; */
@@ -21,7 +21,7 @@
     padding: 1px;
     box-shadow: none;
     text-shadow: none;
-    border-radius: 5px;
+    border-radius: 8px;
     -gtk-icon-shadow: none;
 }
 
@@ -33,9 +33,9 @@
     min-height: 0px;
     font-size: 14pt;
     font-weight: bold;
-    padding: 1px;
+    padding: 0px 1px 0px 1px;
     border: 2px solid rgba(255,255,255,0.7);
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 #battery,
