@@ -1,6 +1,6 @@
 {
     "layer": "top",
-    "position": "top",
+    "position": "bottom",
     "ipc": true,
 
     "modules-left": [
@@ -11,7 +11,8 @@
     ],
 
     "modules-right": [
-        "mpd",
+        // "custom/spt",
+        // "mpd",
         "cpu",
         "temperature#cpu",
         "temperature#nvme",
@@ -24,6 +25,7 @@
         "disk#data",
         "disk#d25l1tb",
         "wireplumber",
+        "custom/sink",
         "custom/uptime",
         "clock#date",
         "clock#time",
@@ -59,6 +61,17 @@
         "interval": 60,
         "exec": "uptime | awk '{gsub (\",\",\"\"); print $3}'",
     },
+
+    "custom/sink": {
+    "interval": 30,
+    "exec": "sb-sink"
+    },
+
+    "custom/spt": {
+    "interval": 60,
+    "exec": "[ -n \"$(pidof spotify_player)\" ] && spotify_player get key playback | jq -r '.item | .name, \" - \", .album.name, \" - \", [ .artists.[] | .name ], \" \"' | tr -d '\n,\"'"
+    },
+
 
     "disk#root": {
         "interval": 30,

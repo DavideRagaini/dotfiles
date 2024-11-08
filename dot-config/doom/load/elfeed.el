@@ -20,7 +20,7 @@
         elfeed-search-trailing-width 60
         elfeed-show-truncate-long-urls t
         elfeed-show-unique-buffers t
-        elfeed-search-filter "@1-week-ago +unread"
+        elfeed-search-filter "@2-week-ago +unread"
         rmh-elfeed-org-files '("~/.config/doom/load/elfeed.org")
         shr-max-image-proportion 0.5
         flycheck-global-modes '(not . (elfeed-search-mode))
@@ -226,54 +226,54 @@
 
 
 ;; === [[https://github.com/skeeto/elfeed/issues/293][Suggestion: Only redraw search buffer after refresh completes · Issue #293 · skeeto/elfeed · GitHub]] === {{{
-(defvar ap/elfeed-update-complete-hook nil
-  "Functions called with no arguments when `elfeed-update' is finished.")
+;; (defvar ap/elfeed-update-complete-hook nil
+;;   "Functions called with no arguments when `elfeed-update' is finished.")
 
-(defvar ap/elfeed-updates-in-progress 0
-  "Number of feed updates in-progress.")
+;; (defvar ap/elfeed-updates-in-progress 0
+;;   "Number of feed updates in-progress.")
 
-(defvar ap/elfeed-search-update-filter nil
-  "The filter when `elfeed-update' is called.")
+;; (defvar ap/elfeed-search-update-filter nil
+;;   "The filter when `elfeed-update' is called.")
 
-(defun ap/elfeed-update-complete-hook (&rest ignore)
-  "When update queue is empty, run `ap/elfeed-update-complete-hook' functions."
-  (when (= 0 ap/elfeed-updates-in-progress)
-    (run-hooks 'ap/elfeed-update-complete-hook)))
+;; (defun ap/elfeed-update-complete-hook (&rest ignore)
+;;   "When update queue is empty, run `ap/elfeed-update-complete-hook' functions."
+;;   (when (= 0 ap/elfeed-updates-in-progress)
+;;     (run-hooks 'ap/elfeed-update-complete-hook)))
 
-(add-hook 'elfeed-update-hooks #'ap/elfeed-update-complete-hook)
+;; (add-hook 'elfeed-update-hooks #'ap/elfeed-update-complete-hook)
 
-(defun ap/elfeed-update-message-completed (&rest _ignore)
-  (message "Feeds updated"))
+;; (defun ap/elfeed-update-message-completed (&rest _ignore)
+;;   (message "Feeds updated"))
 
-(add-hook 'ap/elfeed-update-complete-hook #'ap/elfeed-update-message-completed)
+;; (add-hook 'ap/elfeed-update-complete-hook #'ap/elfeed-update-message-completed)
 
-(defun ap/elfeed-search-update-restore-filter (&rest ignore)
-  "Restore filter after feeds update."
-  (when ap/elfeed-search-update-filter
-    (elfeed-search-set-filter ap/elfeed-search-update-filter)
-    (setq ap/elfeed-search-update-filter nil)))
+;; (defun ap/elfeed-search-update-restore-filter (&rest ignore)
+;;   "Restore filter after feeds update."
+;;   (when ap/elfeed-search-update-filter
+;;     (elfeed-search-set-filter ap/elfeed-search-update-filter)
+;;     (setq ap/elfeed-search-update-filter nil)))
 
-(add-hook 'ap/elfeed-update-complete-hook #'ap/elfeed-search-update-restore-filter)
+;; (add-hook 'ap/elfeed-update-complete-hook #'ap/elfeed-search-update-restore-filter)
 
-(defun ap/elfeed-search-update-save-filter (&rest ignore)
-  "Save and change the filter while updating."
-  (setq ap/elfeed-search-update-filter elfeed-search-filter)
-  (setq elfeed-search-filter "#0"))
+;; (defun ap/elfeed-search-update-save-filter (&rest ignore)
+;;   "Save and change the filter while updating."
+;;   (setq ap/elfeed-search-update-filter elfeed-search-filter)
+;;   (setq elfeed-search-filter "#0"))
 
-;; NOTE: It would be better if this hook were run before starting the feed updates, but in
-;; `elfeed-update', it happens afterward.
-(add-hook 'elfeed-update-init-hooks #'ap/elfeed-search-update-save-filter)
+;; ;; NOTE: It would be better if this hook were run before starting the feed updates, but in
+;; ;; `elfeed-update', it happens afterward.
+;; (add-hook 'elfeed-update-init-hooks #'ap/elfeed-search-update-save-filter)
 
-(defun ap/elfeed-update-counter-inc (&rest ignore)
-  (cl-incf ap/elfeed-updates-in-progress))
+;; (defun ap/elfeed-update-counter-inc (&rest ignore)
+;;   (cl-incf ap/elfeed-updates-in-progress))
 
-(advice-add #'elfeed-update-feed :before #'ap/elfeed-update-counter-inc)
+;; (advice-add #'elfeed-update-feed :before #'ap/elfeed-update-counter-inc)
 
-(defun ap/elfeed-update-counter-dec (&rest ignore)
-  (cl-decf ap/elfeed-updates-in-progress)
-  (when (< ap/elfeed-updates-in-progress 0)
-    ;; Just in case
-    (setq ap/elfeed-updates-in-progress 0)))
+;; (defun ap/elfeed-update-counter-dec (&rest ignore)
+;;   (cl-decf ap/elfeed-updates-in-progress)
+;;   (when (< ap/elfeed-updates-in-progress 0)
+;;     ;; Just in case
+;;     (setq ap/elfeed-updates-in-progress 0)))
 
-(add-hook 'elfeed-update-hooks #'ap/elfeed-update-counter-dec)
+;; (add-hook 'elfeed-update-hooks #'ap/elfeed-update-counter-dec)
 ;; }}}

@@ -46,8 +46,7 @@ bind ,ym hint -W exclaim_quiet ts dy -q mid -u
 bind ,yl hint -W exclaim_quiet ts dy -q low -u
 bind ,p hint -W exclaim_quiet mpv
 bind ,s hint -W exclaim_quiet streamlink best --player mpv
-bind ,zz zoom 200
-bind ,za zoom 150
+bind ,z zoom 225
 
 command hint_focus hint -;
 

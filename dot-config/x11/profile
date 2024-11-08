@@ -153,12 +153,12 @@ if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/lf/icons" ]; then
 fi
 
 highdpi() {
-    export GDK_SCALE=1
-    export GDK_DPI_SCALE=1
+    export GDK_SCALE=1.5
+    export GDK_DPI_SCALE=1.5
     export QT_FONT_DPI=192
-    export QT_AUTO_SCREEN_SCALE_FACTOR=1
-    export QT_ENABLE_HIGHDPI_SCALING=1
-    export QT_SCALE_FACTOR=1
+    export QT_AUTO_SCREEN_SCALE_FACTOR=1.5
+    export QT_ENABLE_HIGHDPI_SCALING=1.5
+    export QT_SCALE_FACTOR=1.5
 }
 
 export WM_START=0
@@ -173,9 +173,11 @@ wayland_exports() {
      if [ "${XDG_VTNR}" -eq 1 ] && [ -z "${WAYLAND_DISPLAY}" ]; then
         export MOZ_ENABLE_WAYLAND=1
         export MOZ_WEBRENDER=1
+        export MOZ_DBUS_REMOTE=1 # For shared clipboard with Xwayland apps
         # export WLR_RENDERER_ALLOW_SOFTWARE=1
         export TERMINAL="footclient"
-        export QT_QPA_PLATFORM='wayland-egl;xcb'
+        # export QT_QPA_PLATFORM='wayland-egl;xcb'
+        export QT_QPA_PLATFORM="wayland;xcb" # Only for Qt 5 apps
         export QT_WAYLAND_FORCE_DPI=physical
         export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
         export _JAVA_AWT_WM_NONREPARENTING=1
@@ -188,6 +190,10 @@ qwtile() {
     wayland_exports
     export TERMINAL="foot"
     dbus-run-session qtile start -b wayland
+}
+
+start_sway() {
+  XDG_CURRENT_DESKTOP=sway dbus-run-session sway "$1" -V > "$HOME/.sway-log" 2>&1
 }
 
 case "$HOSTNAME" in
@@ -218,13 +224,26 @@ case "$HOSTNAME" in
         export BEMENU_SCALE=2
 
         # export WLR_RENDERER=vulkan
+        # [[https://github.com/ventureoo/nvidia-tweaks?tab=readme-ov-file][GitHub - ventureoo/nvidia-tweaks: A collection of tweaks and improvements to the proprietary NVIDIA driver (Linux)]]
+        # export SDL_VIDEODRIVER=wayland # Can break some native games
+        export _JAVA_AWT_WM_NONREPARENTING=1
+        export XWAYLAND_NO_GLAMOR=1
+        # export __GL_THREADED_OPTIMIZATIONS=1
+        # export __GL_MaxFramesAllowed=1
+        # export __GL_YIELD="USLEEP"
+        # export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
 
         highdpi &&
         check_startup &&
             ! pidof -s Xorg >/dev/null 2>&1 &&
-            exec XDG_CURRENT_DESKTOP=sway dbus-run-session sway --unsupported-gpu -V > .sway-log 2>&1
+            exec start_sway --unsupported-gpu
             # exec startx "$XINITRC"
             # qwtile
+    ;;
+    bagaro)
+        check_startup &&
+            wayland_exports &&
+            start_sway
     ;;
     NT)
         XDG_RUNTIME_DIR="/run/user/$(id -u)"

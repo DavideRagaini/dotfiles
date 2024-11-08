@@ -45,7 +45,7 @@ vf () {
   if [ -n "$file" ]; then
     [ "$key" = ctrl-o ] &&
         opener "$file" ||
-            ${EDITOR:-$ALTERNATE_EDITOR} "$file"
+            nvim "$file"
   fi
 }
 

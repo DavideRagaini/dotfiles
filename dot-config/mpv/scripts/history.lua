@@ -43,14 +43,14 @@ end
 
 ----- file
 
-local function file_exists(path)
-    local f = io.open(path, "r")
+-- local function file_exists(path)
+--     local f = io.open(path, "r")
 
-    if f ~= nil then
-        io.close(f)
-        return true
-    end
-end
+--     if f ~= nil then
+--         io.close(f)
+--         return true
+--     end
+-- end
 
 -- function file_exists(file)
 --   -- some error codes:
@@ -131,7 +131,6 @@ end
 
 local function grep(key, f)
     local h = assert(io.open(f, 'r'))
-    local i = 1
     for line in h:lines() do
         local j = 1
         for value in (string.gmatch(line, "[^\t]+")) do
@@ -143,21 +142,29 @@ local function grep(key, f)
           end
           j = j+1
         end
-        i = i+1
     end
     h:close()
     return true
+end
+
+local function ytdlpfun(args)
+    local utils = require 'mp.utils'
+    local res = utils.subprocess({ args = args , cancellable = false })
+    if not res.error and res.status == 0 then
+        return tostring(res.stdout)
+    else
+        return "error"
+    end
 end
 
 local function history()
     path = mp.get_property("path")
     if grep(path, o.storage_path) then
         local title = mp.get_property("media-title")
-        local uploader = ""
+        local uploader = mp.get_property("metadata/by-key/uploader")
 
-        if string.find(path, "http") ~= nil then
-            uploader = mp.get_property("metadata/by-key/uploader")
-        elseif file_exists(path) then
+        if not string.find(path, "http") then
+        -- if file_exists(path) then
             local path_words = split(path, '/')
             uploader = string.format(
                 "%s/%s/%s",
@@ -165,12 +172,16 @@ local function history()
                 path_words[#path_words-3],
                 path_words[#path_words-2])
             -- path = string.gsub(path, os.getenv("HOME"), '~')
+        elseif uploader == nil then
+            uploader = ytdlpfun(
+                { 'yt-dlp', '--playlist-end=1', '--print', '%(uploader,channel)s', path }
+            )
         end
 
         if not is_empty(path) and not discard() then
             local line = string.format(
-                "%-14s\t%-30s\t%-90s\t%s",
-                os.date("%Y-%m-%d %H:%M:%S"),
+                "%-14s\t%-41s\t%-90s\t%s",
+                os.date("%Y/%m/%d %H:%M:%S"),
                 string.gsub(uploader,"\n",""),
                 title,
                 path)

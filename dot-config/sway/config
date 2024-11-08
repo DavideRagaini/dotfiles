@@ -7,8 +7,7 @@ set {
 
     $term footclient
     $drun bemenu-run
-    $drun tofi-run | xargs swaymsg exec --
-    $drun tofi-drun --drun-launch=true
+    # $drun tofi-run | xargs swaymsg exec --
 
     $gaps_inner 10
     $gaps_outer 5
@@ -19,17 +18,23 @@ set {
 
     $focus_prev_window swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes | .[] | .nodes | . [] | select(.nodes != null) | .nodes | .[] | select(.name != null) | "\(.id?) \(.name?)"' | bemenu -i -l 5 | awk '{print $1}')] focus
 }
-
-floating_modifier $M             normal
 # }}}
 # ======================= Imports ======================= {{{
 include {
     "bindings.conf"
     "$(hostname).conf"
 }
+# }}}
+# ======================= Workspaces ======================= {{{
+for_window [workspace=3] layout tabbed
+# for_window [workspace=4] layout tabbed
+# for_window [workspace=5] layout tabbed
+for_window [workspace=8] layout tabbed
+# for_window [workspace=9] layout tabbed
+# }}}
 # ======================= Window Rules ======================= {{{
 for_window {
-    [app_id="dropdown|files|music|news|sysmon"] {
+    [app_id="dropdown|files|music|news|sysmon|flemacs|agenda|[Ff]erdium"] {
         floating enable
         resize set 95 ppt 95 ppt
         move scratchpad
@@ -39,13 +44,6 @@ for_window {
     [app_id="calc"] {
         floating enable
         resize set 65 ppt 65 ppt
-        move scratchpad
-        scratchpad show
-    }
-
-    [app_id="flemacs"] {
-        floating enable
-        resize set 95 ppt 95 ppt
         move scratchpad
         scratchpad show
     }
@@ -91,13 +89,13 @@ hide_edge_borders smart
 mouse_warping output
 focus_follows_mouse yes
 popup_during_fullscreen smart
-focus_wrapping no
+focus_wrapping yes
 workspace_auto_back_and_forth yes
 # }}}
 # ======================= Colors ======================= {{{
 #      class        border     backgr     text       indicator  child_border
-client.focused      #4e4262    #BD93F9    #282a36    #BD93F9    #bd93f9
-client.unfocused    #4e4262    #282a36    #FF79C6    #BD93F9    #44475a
+client.focused      #4E4262    #282A36    #ff79c6    #282A36    #BD93F9
+client.unfocused    #4E4262    #282A36    #BD93F9    #282A36    #44475A
 # }}}
 # ======================= Inputs ======================= {{{
 input type:keyboard {
@@ -129,7 +127,6 @@ bindswitch {
     --reload --locked lid:on output $laptop disable
     --reload --locked lid:off output $laptop enable
 }
-bindsym --release XF86Sleep exec swaylock && doas sysact suspend
 # }}}
 # ======================= Autostart ======================= {{{
 exec {
@@ -137,5 +134,9 @@ exec {
     wl-paste --watch cliphist store &
     foot --server &
     track_prev_focus
+}
+
+exec_always {
+    autotiling -w 1 2 6 7 -l 2
 }
 # }}}

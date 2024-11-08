@@ -31,7 +31,7 @@
     color: @foreground;
     font-family: IosevkaTermSlab Nerd Font Propo;
     min-height: 0px;
-    font-size: 14pt;
+    font-size: 9pt;
     font-weight: bold;
     padding: 0px 1px 0px 1px;
     border: 2px solid rgba(255,255,255,0.7);
@@ -55,6 +55,7 @@
 #custom-memory,
 #custom-uptime,
 #custom-nvidia,
+#custom-sink,
 #user,
 #mpd,
 #mpris {
@@ -96,7 +97,6 @@
 }
 
 #mode,
-#scratchpad,
 #idle_inhibitor,
 #workspaces button:hover,
 #workspaces button.visible {
@@ -139,6 +139,7 @@ window#waybar.empty {
 #custom-memory,
 #custom-uptime,
 #custom-nvidia,
+#custom-sink,
 #disk,
 #clock.date,
 #clock.time {
@@ -148,9 +149,10 @@ window#waybar.empty {
 }
 
 #scratchpad {
-    border-radius: 10px 0px 0px 10px; /* sx */
+    /* border-radius: 10px 0px 0px 10px; /\* sx *\/ */
     padding-right: 3pt;
-    margin-right: 0px;
+    padding-left:  3pt;
+    margin-right: 3pt;
     margin-left:  3pt;
 }
 
