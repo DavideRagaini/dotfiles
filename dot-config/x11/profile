@@ -6,6 +6,8 @@ export BROWSER_PRIVATE="firefox --private-window"
 export EDITOR="emacsclient -nw"
 export FILE="lf"
 export READER="zathura"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 export TERMINAL="alacritty"
 export VISUAL="emacsclient -c"
 HOSTNAME="$(hostname)"
@@ -50,6 +52,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 export GRIPHOME="$XDG_CONFIG_HOME/grip"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+export GTK_THEME="Adwaita:dark"
 export HISTFILE="$XDG_STATE_HOME"/bash/history
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export IPFS_PATH="$XDG_DATA_HOME"/ipfs
@@ -182,6 +185,7 @@ wayland_exports() {
         export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
         export _JAVA_AWT_WM_NONREPARENTING=1
         # export XDG_SESSION_TYPE='wayland'
+        export GDK_BACKEND="wayland"
     fi
 }
 

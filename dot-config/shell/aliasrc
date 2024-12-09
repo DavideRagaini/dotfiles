@@ -47,8 +47,11 @@ NixOS | \"NixOS\")
         nshu="nix-shell -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs-unstable -p" \
         mpc="mpc --host=\"\$MPD_HOST\"" \
         qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
+        cbrs="nsh openvpn3 namespaced-openvpn --run 'doas namespaced-openvpn --namespace cbr --config /usr/openvpn/cbremote.ovpn'" \
+        cbr="s ip netns exec cbr sudo -u \$USER -i" \
         pvt="doas ip netns exec pvt-net1 doas -u davide" \
         pvtf="doas ip netns exec pvt-net1 doas -u davide firefox" \
+        trra="doas ip netns exec pvt-net1 doas -u davide transmission-remote -a" \
         trrd="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F d -l" \
         trrl="doas ip netns exec pvt-net1 doas -u davide transmission-remote -l" \
         trru="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F u -l" \
@@ -126,12 +129,25 @@ alias \
 
 # Colorize commands
 alias \
+    bathelp='bat --plain --language=help' \
     ccat="bat --pager=never" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
     ip='ip -color=auto' \
     l='eza -lg --icons --group-directories-first' \
     ll='eza -lag --icons --group-directories-first'
+
+batdiff() {
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+
+battail() {
+    tail -f "$@" | bat --paging=never -l log
+}
 
 # Abbreviations
 alias \
@@ -156,7 +172,7 @@ alias \
     zt="zathura"
 
 alias \
-    smooth-brown="sox -c2 --null -d synth 0:60 brownnoise band -n 210.0 1000.0 tremolo 0.0166 70.0 reverb 40.0 fade q 0.005 0:60 0.005 repeat -" \
+    smooth-brown="nix-shell -p sox --run 'sox -c2 --null -d synth 0:60 brownnoise band -n 210.0 1000.0 tremolo 0.0166 70.0 reverb 40.0 fade q 0.005 0:60 0.005 repeat -'" \
     smooth-white="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14" \
     deep-smooth-white="play -n synth whitenoise band -n 100 24 band -n 300 100 gain +20" \
     bells="mpv --no-config --no-video --audio-client-name=mpv-audio 'http://icecast.spc.org:8000/longplayer'" \

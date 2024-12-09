@@ -5,6 +5,9 @@ HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/zsh-history"
 HISTSIZE=1000000
 SAVEHIST=1000000
 
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
 # export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 # export PATH="$PATH:$HOME/.local/share/npm/bin/"
 # export PATH="$PATH:$HOME/.local/share/cargo/bin/"

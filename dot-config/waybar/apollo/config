@@ -1,6 +1,7 @@
 {
     "layer": "top",
     "position": "bottom",
+    "output": "HDMI-A-1",
     "ipc": true,
 
     "modules-left": [

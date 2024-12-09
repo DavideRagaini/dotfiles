@@ -26,11 +26,18 @@ include {
 }
 # }}}
 # ======================= Workspaces ======================= {{{
-for_window [workspace=3] layout tabbed
-# for_window [workspace=4] layout tabbed
-# for_window [workspace=5] layout tabbed
-for_window [workspace=8] layout tabbed
-# for_window [workspace=9] layout tabbed
+for_window {
+    [workspace=3] layout tabbed
+    [workspace=4] layout tabbed
+    # [workspace=5] layout tabbed
+    [workspace=6] layout tabbed
+    [workspace=8] layout tabbed
+    [workspace=9] layout tabbed
+}
+
+exec_always {
+    autotiling -w 1 2 5 7 -l 2
+}
 # }}}
 # ======================= Window Rules ======================= {{{
 for_window {
@@ -72,6 +79,8 @@ assign {
     [class="sioyek"]                   workspace 3
     [class= "Ferdium|Gimp"]            workspace 8
     [class= "calibre-gui|calibre"]     workspace 8
+    [class= "calibre-gui|calibre"]     workspace 8
+    [class="org.remmina.Remmina"]      workspace 8
 
     [title= "temacs"]                  workspace 1
 }
@@ -85,7 +94,7 @@ smart_gaps on
 default_border pixel 2
 smart_borders on
 title_align center
-hide_edge_borders smart
+hide_edge_borders --i3 smart
 mouse_warping output
 focus_follows_mouse yes
 popup_during_fullscreen smart
@@ -93,15 +102,31 @@ focus_wrapping yes
 workspace_auto_back_and_forth yes
 # }}}
 # ======================= Colors ======================= {{{
-#      class        border     backgr     text       indicator  child_border
-client.focused      #4E4262    #282A36    #ff79c6    #282A36    #BD93F9
-client.unfocused    #4E4262    #282A36    #BD93F9    #282A36    #44475A
+set {
+    $background '#282a36'
+    $bgselected '#44475a'
+    $foreground '#f8f8f2'
+    $fgselected '#f8f8f2'
+    $cyan       '#8be9fd'
+    $green      '#50fa7b'
+    $orange     '#ffb86c'
+    $pink       '#ff79c6'
+    $purple     '#bd93f9'
+    $red        '#ff5555'
+    $yellow     '#f1fa8c'
+}
+#      class                 border         background     text       indicator  child_border
+client.focused               $bgselected    $background    $pink      $red       $pink
+client.focused_inactive      $bgselected    $background    $orange    $cyan      $purple
+client.focused_tab_title     $bgselected    $background    $orange    $cyan      $bgselected
+client.unfocused             $bgselected    $background    $purple    $orange    $bgselected
+client.urgent                $bgselected    $background    $red       $yellow    $bgselected
 # }}}
 # ======================= Inputs ======================= {{{
 input type:keyboard {
     xkb_layout "us"
     xkb_variant "altgr-intl"
-    xkb_options "ctrl:swapcaps,altwin:swap_alt_win,altwin:menu_win"
+    xkb_options "ctrl:swapcaps,altwin:swap_alt_win"
     xkb_numlock enabled
     repeat_delay 300
     repeat_rate 50
@@ -134,9 +159,5 @@ exec {
     wl-paste --watch cliphist store &
     foot --server &
     track_prev_focus
-}
-
-exec_always {
-    autotiling -w 1 2 6 7 -l 2
 }
 # }}}
