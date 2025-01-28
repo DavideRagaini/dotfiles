@@ -10,8 +10,8 @@ c.bindings.commands["normal"] = {
     ",dt": "hint links spawn transadd '{hint-url}'",
     ",mm": "hint links spawn --detach dmpv music '{hint-url}'",
     ",ms": "hint links spawn --detach dmpv save_music '{hint-url}'",
-    ",va": "hint links spawn --detach dmpv2 '{hint-url}'",
-    ",vA": "hint links spawn --detach dmpv aplay '{hint-url}'",
+    ";a": "hint links spawn --detach dmpv append '{hint-url}'",
+    ";v": "hint links spawn --detach dmpv aplay '{hint-url}'",
     ",ve": "hint links spawn --detach dmpv enqueue '{hint-url}'",
     ",vp": "hint links spawn --detach dmpv eplay '{hint-url}'",
     ",vs": "hint links spawn --detach streamlink --player mpv '{hint-url}' best",
@@ -19,8 +19,8 @@ c.bindings.commands["normal"] = {
     ",V": 'hint links spawn + environ["BROWSER"] + {hint-url}',
     ",\\": 'spawn dmenuhandler "{url}"',
     "<y><o>": "yank inline [[{url}][{title}]]",
-    "tdd": "config-cycle colors.webpage.darkmode.enabled true false",
-    "tdr": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
+    "td": "config-cycle colors.webpage.darkmode.enabled true false",
+    # "tdr": "config-cycle colors.webpage.darkmode.enabled true false;; restart",
     "tds": 'config-cycle content.user_stylesheets ~/.config/qutebrowser/dracula.css ""',
     # ",g": 'hint links spawn funnel "{hint-url}"',
     "xs": "config-cycle statusbar.show always never",
@@ -45,6 +45,7 @@ c.url.start_pages = [startpage]
 c.window.title_format = ("{private}{perc}[{scroll_pos}]:{current_title} {title_sep} {current_url}")
 c.window.hide_decoration = True
 c.fonts.default_size = "8pt"
+c.fonts.default_family = "IosevkaTermSlab Nerd Font Propo"
 # }}}
 # ======================= Search Engines ============= {{{
 c.url.searchengines = {
@@ -54,9 +55,10 @@ c.url.searchengines = {
     "g": "https://www.google.com/search?q={}",
     "i": "https://searx.be/search?q={}&language=it-IT",
     "l": "https://libgen.is/search.php?req={}&open=0&res=100&view=detailed&phrase=1&column=title",
-    "no": "https://search.nixos.org/options?channel=23.05&from=0&size=50&sort=relevance&type=packages&query={}",
-    "np": "https://search.nixos.org/packages?channel=23.05&show=dracula-theme&from=0&size=50&sort=relevance&type=packages&query={}",
+    "no": "https://search.nixos.org/options?packages&query={}",
+    "np": "https://search.nixos.org/packages?packages&query={}",
     "nw": "https://nixos.wiki/index.php?search={}&title=Special%3ASearch&profile=default&fulltext=1",
+    "hm": "https://mipmip.github.io/home-manager-option-search/?query={}",
     "s": "https://startpage.com/sp/search?query={}",
     "u": "https://www.urbandictionary.com/define.php?term={}",
     "w": "https://en.wikipedia.org/?search={}",
@@ -98,11 +100,11 @@ c.auto_save.session = True
 c.content.autoplay = False
 c.content.blocking.method = "both"
 c.content.canvas_reading = False
-c.content.cookies.accept = "no-3rdparty"
+c.content.cookies.accept = "never"
 c.content.geolocation = False
 c.content.headers.accept_language = "en-US,en;q=0.5"
 c.content.headers.custom = { "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" }
-c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 c.content.javascript.clipboard = "none"
 c.content.pdfjs = False
 c.content.webgl = False
@@ -115,7 +117,6 @@ c.fileselect.multiple_files.command = fileselect_cmd
 c.fileselect.single_file.command = fileselect_cmd
 # }}}
 # ======================= Dark Mode ============= {{{
-c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.contrast = -0.022
 c.colors.webpage.darkmode.policy.images = "never"

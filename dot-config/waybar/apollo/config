@@ -1,7 +1,6 @@
 {
     "layer": "top",
     "position": "bottom",
-    "output": "HDMI-A-1",
     "ipc": true,
 
     "modules-left": [
@@ -15,12 +14,12 @@
         // "custom/spt",
         // "mpd",
         "cpu",
-        "temperature#cpu",
+        // "temperature#cpu",
         "temperature#nvme",
         // "temperature#pch",
         // "temperature#acpitz",
         "custom/memory",
-        "custom/nvidia",
+        // "custom/nvidia",
         "network",
         "disk#root",
         "disk#data",
@@ -146,7 +145,7 @@
         "format": "{name}"
     },
 
-    "temperature#pch": {
+    "temperature#gpu": {
         "thermal-zone": 0,
         "critical-threshold": 60,
         "format": "P{temperatureC}°",

@@ -1,5 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;; ========= Functions ========= {{{
+(defun dr/restore-session()
+  (interactive)
+  (progn (doom-load-session "/home/davide/.config/emacs/.local/etc/workspaces/agenda")))
+
 (defun dr/ispell-settings()
   (after! ispell
     (setq ispell-program-name "hunspell"
@@ -37,12 +41,19 @@
   (if (eq (car custom-enabled-themes) dr/dark-theme)
       (load-theme dr/light-theme)
     (load-theme dr/dark-theme)))
+
+(defun dr/progmode ()
+  (interactive)
+    (setopt display-fill-column-indicator-column 99)
+    (display-fill-column-indicator--turn-on)
+    ;; (display-fill-column-indicator-mode)
+    (visual-line-fill-column-mode 0))
 ;; }}}
 ;; ========= Bootstraps ========= {{{
 (setq dr/font-size 13
       dr/main-font-family "IosevkaTerm Nerd Font Mono"
 
-dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
+      dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
       dr/serif-font-family "Garamond Libre"
       dr/variable-pitch-font-family "Overpass Nerd Font"
       dr/symbol-font-family "JuliaMono"
@@ -51,8 +62,8 @@ dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
       )
 
 (cond
- ((string-equal (system-name) "Apollo")
-  (setq dr/dark-theme 'modus-vivendi
+ ((string-equal (system-name) "jane")
+  (setq dr/dark-theme 'catppuccin
         dr/font-size 26)
   ;; (global-activity-watch-mode 1)
   (dr/high-resources)

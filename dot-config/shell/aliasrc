@@ -48,6 +48,7 @@ NixOS | \"NixOS\")
         mpc="mpc --host=\"\$MPD_HOST\"" \
         qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
         cbrs="nsh openvpn3 namespaced-openvpn --run 'doas namespaced-openvpn --namespace cbr --config /usr/openvpn/cbremote.ovpn'" \
+        cbrt="s ip netns exec cbr sudo -u \$USER -i foot" \
         cbr="s ip netns exec cbr sudo -u \$USER -i" \
         pvt="doas ip netns exec pvt-net1 doas -u davide" \
         pvtf="doas ip netns exec pvt-net1 doas -u davide firefox" \
@@ -159,6 +160,7 @@ alias \
     mpa="mpv --no-video --audio-client-name=mpv-audio " \
     pip="python3 -m pip" \
     pips="python3 -m pip_search" \
+    ferdium="ferdium --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto >/dev/null 2>&1" \
     pw="pipe-viewer" \
     q="exit" \
     s="doas" \

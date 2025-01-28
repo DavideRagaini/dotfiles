@@ -36,7 +36,7 @@ set window-title-basename true
 set statusbar-home-tilde true
 set statusbar-page-percent true
 
-set font "Iosevka Nerd Font 20"
+set font "Iosevka Nerd Font 11"
 set recolor true
 
 set notification-error-bg       rgba(255,85,85,1)     # Red

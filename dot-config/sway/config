@@ -48,6 +48,13 @@ for_window {
         scratchpad show
     }
 
+    [title="flemacs"] {
+        floating enable
+        resize set 95 ppt 95 ppt
+        move scratchpad
+        scratchpad show
+    }
+
     [app_id="calc"] {
         floating enable
         resize set 65 ppt 65 ppt

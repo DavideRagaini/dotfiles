@@ -1,15 +1,15 @@
 #!/bin/sh
 
-export BROWSER="firefox"
-export BROWSER2="brave"
+export BROWSER="qutebrowser"
+export BROWSER2="firefox"
 export BROWSER_PRIVATE="firefox --private-window"
-export EDITOR="emacsclient -nw"
+export EDITOR="nvim"
 export FILE="lf"
 export READER="zathura"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
 export TERMINAL="alacritty"
-export VISUAL="emacsclient -c"
+# export VISUAL="emacsclient -c"
 HOSTNAME="$(hostname)"
 export HOSTNAME
 
@@ -52,7 +52,7 @@ export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 export GRIPHOME="$XDG_CONFIG_HOME/grip"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
-export GTK_THEME="Adwaita:dark"
+# export GTK_THEME="Adwaita:dark"
 export HISTFILE="$XDG_STATE_HOME"/bash/history
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export IPFS_PATH="$XDG_DATA_HOME"/ipfs
@@ -80,7 +80,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export SUDO_ASKPASS="bemenu --password"
 # export TASKDATA="$XDG_DATA_HOME/task"
 # export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
-export TERM="xterm-24bit"
+# export TERM="xterm-24bit"
 export TERMINFO="$XDG_DATA_HOME/terminfo"
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
 export TEXMFHOME="$XDG_DATA_HOME/texmf"
@@ -156,12 +156,12 @@ if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/lf/icons" ]; then
 fi
 
 highdpi() {
-    export GDK_SCALE=1.5
-    export GDK_DPI_SCALE=1.5
+    export GDK_SCALE=1.25
+    export GDK_DPI_SCALE=1.25
     export QT_FONT_DPI=192
-    export QT_AUTO_SCREEN_SCALE_FACTOR=1.5
-    export QT_ENABLE_HIGHDPI_SCALING=1.5
-    export QT_SCALE_FACTOR=1.5
+    export QT_AUTO_SCREEN_SCALE_FACTOR=1
+    export QT_ENABLE_HIGHDPI_SCALING=1
+    # export QT_SCALE_FACTOR=1.5
 }
 
 export WM_START=0
@@ -196,8 +196,22 @@ qwtile() {
     dbus-run-session qtile start -b wayland
 }
 
+nvidia_wayland() {
+    export WLR_NO_HARDWARE_CURSORS=1
+    export WLR_RENDERER=vulkan
+    # [[https://github.com/ventureoo/nvidia-tweaks?tab=readme-ov-file][GitHub - ventureoo/nvidia-tweaks: A collection of tweaks and improvements to the proprietary NVIDIA driver (Linux)]]
+    export SDL_VIDEODRIVER=wayland # Can break some native games
+    export _JAVA_AWT_WM_NONREPARENTING=1
+    export XWAYLAND_NO_GLAMOR=1
+    export __GL_THREADED_OPTIMIZATIONS=1
+    export __GL_MaxFramesAllowed=1
+    export __GL_YIELD="USLEEP"
+    export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+
+}
+
 start_sway() {
-  XDG_CURRENT_DESKTOP=sway dbus-run-session sway "$1" -V > "$HOME/.sway-log" 2>&1
+  XDG_CURRENT_DESKTOP=sway dbus-run-session sway -V > "$HOME/.sway-log" 2>&1
 }
 
 case "$HOSTNAME" in
@@ -212,35 +226,18 @@ case "$HOSTNAME" in
 esac
 
 case "$HOSTNAME" in
-    Apollo)
+    jane)
         export MPD_HOST="/run/user/1000/mpd/socket"
         export MPD_HOST="${XDG_RUNTIME_DIR}/mpd/socket"
 
-        export GBM_BACKEND=nvidia-drm
-        export __GLX_VENDOR_LIBRARY_NAME=nvidia
-        export ENABLE_VKBASALT=1
-        export LIBVA_DRIVER_NAME=nvidia
-        export VDPAU_DRIVER=nvidia
-
-        export WLR_NO_HARDWARE_CURSORS=1
         export XCURSOR_SIZE=64
         export XCURSOR_THEME=Catppuccin-Macchiato-Dark-Cursors
         export BEMENU_SCALE=2
 
-        # export WLR_RENDERER=vulkan
-        # [[https://github.com/ventureoo/nvidia-tweaks?tab=readme-ov-file][GitHub - ventureoo/nvidia-tweaks: A collection of tweaks and improvements to the proprietary NVIDIA driver (Linux)]]
-        # export SDL_VIDEODRIVER=wayland # Can break some native games
-        export _JAVA_AWT_WM_NONREPARENTING=1
-        export XWAYLAND_NO_GLAMOR=1
-        # export __GL_THREADED_OPTIMIZATIONS=1
-        # export __GL_MaxFramesAllowed=1
-        # export __GL_YIELD="USLEEP"
-        # export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
-
         highdpi &&
         check_startup &&
             ! pidof -s Xorg >/dev/null 2>&1 &&
-            exec start_sway --unsupported-gpu
+            exec start_sway
             # exec startx "$XINITRC"
             # qwtile
     ;;

@@ -30,7 +30,7 @@
        ophints             ; highlight the region an operation acts on
        (popup +defaults +all)  ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
-       ;;(treemacs +lsp)   ; a project drawer, like neotree but cooler
+       treemacs            ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
@@ -75,7 +75,7 @@
        biblio            ; Writes a PhD for you (citation needed)
        debugger            ; FIXME stepping through code, to help you add bugs
        direnv
-       ;;docker
+       docker
        editorconfig        ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
