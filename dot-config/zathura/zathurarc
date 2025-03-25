@@ -22,7 +22,7 @@ set page-padding 3
 set scroll-hstep 10
 set zoom-step 5
 
-set adjust-open width
+set adjust-open best-fit
 set guioptions none
 set scroll-page-aware true
 # set scroll-wrap true

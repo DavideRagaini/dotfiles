@@ -100,6 +100,7 @@
       trash-directory "~/.local/share/Trash/files/"
       +lookup-open-url-fn #'eww
       which-key-idle-delay 0.3
+      +latex-viewers '(zathura)
       confirm-kill-emacs nil)
 
 (add-to-list 'auto-mode-alist

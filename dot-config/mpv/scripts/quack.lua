@@ -2,7 +2,7 @@ local options = require 'mp.options'
 
 local o = {
     ducksecs = 1, -- lol
-    duckratio = 0.75
+    duckratio = 0.5
 }
 options.read_options(o)
 
@@ -20,6 +20,8 @@ local function update_quack()
 end
 
 local function engage_ducking(name, val)
+    local msg = require("mp.msg")
+    msg.info('Quack')
     pos = mp.get_property_number("time-pos")
     if val == nil or val == false then
         return
@@ -42,3 +44,4 @@ local function engage_ducking(name, val)
 end
 
 mp.observe_property("seeking", "bool", engage_ducking)
+mp.observe_property("pause", "bool", engage_ducking)
