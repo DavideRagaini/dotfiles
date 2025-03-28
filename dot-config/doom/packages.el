@@ -10,9 +10,12 @@
   )
  )
 
-(package! citar-embark)
-(package! wikinfo)
-(package! wikinforg)
+(package! org-yaap
+  :recipe (:host gitlab :repo "grinn.amy/org-yaap")
+  )
+;; (package! citar-embark)
+;; (package! wikinfo)
+;; (package! wikinforg)
 (package! dired-subtree)
 (package! org-ref)
 (package! nov)

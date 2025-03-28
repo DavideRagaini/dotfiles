@@ -217,7 +217,7 @@ start_sway() {
 case "$HOSTNAME" in
     tinkerboard)
         export DMENU_FN='Fantasque Sans Mono'
-        export BEMENU_OPTS="--fb #24273a --ff #c6d0f5 --nb #24273a --nf #c6d0f5 --tb #24273a --hb #24273a --tf #e78284 --hf #e78284 --af #c6d0f5 --ab #24273a --bdr #ffffff --cf #e78284 --scf #e78284 --scb #24273a --fn 'Fantasque Sans Mono bold 12' --no-overlap --wrap --scrollbar autohide --width-factor 0.90 --fork --ifne --no-spacing -P '»' -p ' ~~~~~~ Select ~~~~~~ ' --hp 10 --monitor '-1'"
+        export BEMENU_OPTS="--fb #24273a --ff #c6d0f5 --nb #24273a --nf #c6d0f5 --tb #24273a --hb #24273a --tf #e78284 --hf #e78284 --af #c6d0f5 --ab #24273a --bdr #ffffff --cf #e78284 --scf #e78284 --scb #24273a --fn 'Fantasque Sans Mono bold 12' --no-overlap --wrap --scrollbar autohide --width-factor 0.90 --fork --ifne --no-spacing -P '»' -p ' ~~~~~~ Select ~~~~~~ ' --hp 10 --monitor '-2'"
     ;;
     void)
         XDG_RUNTIME_DIR="/run/user/$(id -u)"

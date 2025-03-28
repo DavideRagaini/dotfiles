@@ -92,7 +92,7 @@ dot-config/transmission/**
 !dot-config/transmission/settings.json
 
 dot-config/waybar/config
-dot-config/waybar/style.css
+dot-config/waybar/config.jsonc
 
 dot-config/zsh/plugins
 dot-config/zsh/.z*

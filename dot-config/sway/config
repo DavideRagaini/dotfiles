@@ -77,15 +77,17 @@ for_window {
 
 assign {
     [app_id="emacs[client]?"]          workspace 1
-    [app_id="firefox|librewolf|brave"] workspace 2
+    [app_id="qutebrowser"]             workspace 2
     [app_id="org.pwmt.zathura"]        workspace 3
+    [app_id="firefox|librewolf"]       workspace 4
+    [app_id="chromium|brave"]          workspace 4
     [app_id="org.keepassxc.KeePassXC"] workspace 8
+    [app_id= "com.github.wwmm.easyeffects"] workspace 8
     [app_id="mpv"]                     workspace 9
 
     [class="term-emacsclient"]         workspace 1
     [class="sioyek"]                   workspace 3
     [class= "Ferdium|Gimp"]            workspace 8
-    [class= "calibre-gui|calibre"]     workspace 8
     [class= "calibre-gui|calibre"]     workspace 8
     [class="org.remmina.Remmina"]      workspace 8
 

@@ -30,9 +30,11 @@ c.bindings.commands["normal"] = {
 # }}}
 # ======================= User Interface ============= {{{
 dracula.blood(c, {'spacing': {'vertical': 6, 'horizontal': 8}})
+c.downloads.location.directory = environ["HOME"] + "/dwn/qutebrowser"
 c.downloads.location.suggestion = "both"
 c.downloads.position = "bottom"
-# c.downloads.remove_finished = 20000
+c.downloads.remove_finished = 30000
+# c.downloads.open_dispatcher = ""
 c.scrolling.smooth = False
 c.session.lazy_restore = True
 c.statusbar.show = "in-mode"

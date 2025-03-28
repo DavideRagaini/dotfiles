@@ -162,6 +162,10 @@
 ;; (add-hook! 'mixed-pitch-mode-hook (whitespace-mode nil))
 ;; }}}
 ;; ========= use-package! ========= {{{
+(use-package! org-yaap
+  :config
+  (org-yaap-mode 1))
+
 ;; (use-package! magit-todos
 ;;   :after magit
 ;;   :config (magit-todos-mode 1))
