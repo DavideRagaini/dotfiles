@@ -81,6 +81,7 @@ assign {
     [app_id="org.pwmt.zathura"]        workspace 3
     [app_id="firefox|librewolf"]       workspace 4
     [app_id="chromium|brave"]          workspace 4
+    [app_id="libreoffice-calc"]        workspace 4
     [app_id="org.keepassxc.KeePassXC"] workspace 8
     [app_id= "com.github.wwmm.easyeffects"] workspace 8
     [app_id="mpv"]                     workspace 9

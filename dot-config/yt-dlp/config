@@ -1,3 +1,4 @@
 -o '%(uploader)s/%(playlist&{}|)s/[%(upload_date>%Y-%m-%d)s] %(playlist_index&{} |)s%(title)s.%(ext)s'
 -P "~/vid/downloads"
 -S "res:1080,codec:h264,fps"
+--add-metadata

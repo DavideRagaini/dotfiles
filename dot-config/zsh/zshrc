@@ -49,7 +49,7 @@ AUTO_NOTIFY_IGNORE+=("lf" "f" "nvim" "vim" "emacsclient" "emacs" \
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Key-bindings
-bindkey "^j" down-line-or-beginning-search # Down
+bindkey "^i" down-line-or-beginning-search # Down
 bindkey "^k" up-line-or-beginning-search # Up
 bindkey "^n" down-line-or-beginning-search # Down
 bindkey "^p" up-line-or-beginning-search # Up

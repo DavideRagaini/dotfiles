@@ -71,7 +71,7 @@ cmd open ${{
         text/troff) man ./ "${file}" | col -b ;;
         text/*) $EDITOR "$fx" ;;
 
-        video/*) setsid -f mpv "$fx" -no-terminal ;;
+        video/*) setsid -f mpv "$fx" --no-terminal ;;
         *) xdg-open "$fx" ;;
     esac
 }}

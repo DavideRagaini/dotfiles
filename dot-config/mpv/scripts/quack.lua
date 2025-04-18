@@ -20,8 +20,6 @@ local function update_quack()
 end
 
 local function engage_ducking(name, val)
-    local msg = require("mp.msg")
-    msg.info('Quack')
     pos = mp.get_property_number("time-pos")
     if val == nil or val == false then
         return

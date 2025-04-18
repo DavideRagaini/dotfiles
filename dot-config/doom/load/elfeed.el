@@ -112,7 +112,7 @@
   (when (elfeed-entry-p entry)
     (let ((link (elfeed-entry-link entry)))
       (elfeed-exclusive-tag-selection-as 'd)
-      (call-process-shell-command (format "ts dy -q audio -u \"%s\"" link) nil 0)
+      (call-process-shell-command (format "ts yt-dlp -x \"%s\"" link) nil 0)
       )))
 
 ;;;###autoload
@@ -122,7 +122,7 @@
   (when (elfeed-entry-p entry)
     (let ((link (elfeed-entry-link entry)))
       (elfeed-exclusive-tag-selection-as 'd)
-      (call-process-shell-command (format "ts dy -q high -u \"%s\"" link) nil 0)
+      (call-process-shell-command (format "ts yt-dlp \"%s\"" link) nil 0)
       )))
 
 ;; prot-elfeed.el
