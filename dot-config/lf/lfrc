@@ -81,7 +81,7 @@ cmd alt_open ${{
         # application/pdf) zathura --fork "$fx" >/dev/null 2>&1 ;;
         application/pdf) setsid -f sioyek --new-window "$fx" >/dev/null 2>&1 ;;
         application/zip) zathura --fork "$fx" >/dev/null 2>&1;;
-        video/*) setsid -f mpv --no-config "$fx" -no-terminal ;;
+        video/*) setsid -f mpv --no-config -no-terminal "$fx" ;;
         *) xdg-open "$fx" ;;
     esac
 }}
@@ -257,7 +257,7 @@ cmd paste &{{
     case "$mode" in
         copy)
             # rsync -auvrhP --ignore-existing --info=progress2 -- "$@" . |
-            rsync -avP --ignore-existing --progress -- "$@" . |
+            rsync -rvP --progress -- "$@" . |
             stdbuf -i0 -o0 -e0 tr '\r' '\n' |
             while IFS= read -r line; do
                 lf -remote "send $id echo $line"

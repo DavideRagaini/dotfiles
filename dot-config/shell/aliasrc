@@ -125,7 +125,7 @@ alias \
     mkd="mkdir -pv" \
     mv="mv -iv" \
     rm="rm -vI" \
-    rsync="rsync -uavhrP --info=progress2"
+    rsync="rsync -urvhrP --info=progress2"
 # unxz="unxz -v"
 
 # Colorize commands
@@ -180,6 +180,14 @@ alias \
     bells="mpv --no-config --no-video --audio-client-name=mpv-audio 'http://icecast.spc.org:8000/longplayer'" \
     space-void="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1" \
     space-engine="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
+
+randstring() {
+    tr -dc A-Za-z0-9 </dev/urandom | head -c "${1:-16}"; echo
+}
+
+randpw() {
+    openssl rand -base64 "${1:-16}"
+}
 
 dict() {
     curl dict://dict.org/d:\\"$*"

@@ -62,7 +62,8 @@
       )
 
 (cond
- ((string-equal (system-name) "jane")
+ ((or (string-equal (system-name) "jane")
+      (string-equal (system-name) "somaro"))
   (setq dr/dark-theme 'catppuccin
         dr/font-size 26)
   ;; (global-activity-watch-mode 1)

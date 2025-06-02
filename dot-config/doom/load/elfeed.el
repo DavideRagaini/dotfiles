@@ -112,7 +112,7 @@
   (when (elfeed-entry-p entry)
     (let ((link (elfeed-entry-link entry)))
       (elfeed-exclusive-tag-selection-as 'd)
-      (call-process-shell-command (format "ts yt-dlp -x \"%s\"" link) nil 0)
+      (call-process-shell-command (format "ts yt-dlp --config-locations ~/.config/yt-dlp/config -x \"%s\"" link) nil 0)
       )))
 
 ;;;###autoload
