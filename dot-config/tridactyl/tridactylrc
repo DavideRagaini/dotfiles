@@ -21,159 +21,76 @@ settings.startToShowEmoji = 2;
 settings.tabsThreshold = 0;
 settings.omnibarMaxResults = 20;
 settings.focusFirstCandidate = true;
+
+command hint_focus hint -;
 "" }}}
 "" ========== Bindings ========== {{{
 unbind ;a
-bind ;a hint -W exclaim_quiet dmpv append
+unbind ;b
 unbind ;f
+unbind <C-y>
+unbind J
+unbind K
+unbind O
+unbind X
+unbind gr
+unbind t
+unbind x
+bind ,<Space> nohlsearch
+bind / fillcmdline find
+bind ;a hint -W exclaim_quiet dmpv append
+bind ;b fillcmdline bmarks
 bind ;f hint -W exclaim_quiet dmpv aplay
-bind ,b hint -W exclaim_quiet bm s
-unbind ;e
-bind ;e hint -W exclaim_quiet dmpv enqueue
-unbind ;r
-bind ,r hint -W exclaim_quiet dmpv eplay
-bind ,m hint -W exclaim_quiet dmpv music
-bind ,M hint -W exclaim_quiet dmpv save_music
-bind ,c hint -W exclaim_quiet clipf
-bind ,dd jsb -p tri.native.run('wget ', JS_ARG)
-bind ,df hint -W exclaim_quiet wget
-bind ,dg hint -W exclaim_quiet gallery-dl
-bind ,dt hint -W exclaim_quiet transadd
-bind ,ya hint -W exclaim_quiet ts dy -q audio -u
-bind ,yV hint -W exclaim_quiet ts dy -q highest -u
-bind ,yv hint -W exclaim_quiet ts dy -q high -u
-bind ,ym hint -W exclaim_quiet ts dy -q mid -u
-bind ,yl hint -W exclaim_quiet ts dy -q low -u
-bind ,p hint -W exclaim_quiet mpv
-bind ,s hint -W exclaim_quiet streamlink best --player mpv
-bind ,z zoom 225
-
-command hint_focus hint -;
-
-bind ;C composite hint_focus; !s xdotool key Menu
-bind gd tabdetach
+bind ;v hint -W exclaim_quiet mpv
+bind <C-y> fillcmdline tgroupswitch
+bind ? fillcmdline find -?
+bind J tabnext
+bind K tabprev
+bind N findnext -1
+bind O fillcmdline tabopen
+bind X stop
 bind gD composite tabduplicate
-bind gR reader --tab
+bind gd tabdetach
 bind gh followpage prev
 bind gl followpage next
-bind gc composite js window.location.href | gitclone
-bind ;gc hint -qW gitclone
-bind gd tabdetach
-"" bind v composite hint -pipe a href | js -p tri.excmds.shellescape(JS_ARG) | exclaim_quiet mpv --ontop
-"" bind V js tri.excmds.shellescape(document.location.href).then(url => tri.native.run(`mpv --ontop '${url}'`))
-bind ;v composite hint -qpipe a href | js -p JS_ARG.map(h => `'${h}'`).join(" ") | ! mpv
-bind <A-v> playAllVideos
+bind gm fillcmdline tabmove
+bind gr reader --tab
+bind n findnext 1
+bind tp tabpush
+bind tt fillcmdline taball
+bind x tabclose
 "" }}}
 "" ========== Aliases ========== {{{
-alias tabsort jsb browser.tabs.query({}).then(tabs => tabs.sort((t1, t2) => t1.url.localeCompare(t2.url)).forEach((tab, index) => browser.tabs.move(tab.id, {index})))
-alias tabuniq jsb browser.tabs.query({}).then(tabs => browser.tabs.remove(tabs.filter((tab, index) => tabs.slice(index + 1).find(t => t.url == tab.url)).map(tab => tab.id)))
-alias slideshow js tri.excmds.tabqueue(Array.from(new Set(Array.from(document.querySelectorAll("a")).map(e=>e.href).filter(h=>/\.(jpe?g)|(png)|(webp)$/i.test(h)))))
-alias playAllVideos js tri.native.run("mpv --really-quiet --ontop " + Array.from(document.querySelectorAll("a, iframe, video")).reduce((s, e) => {let r=(/^https?:\/\/((www.)?youtu((\.be\/)|(be\.com\/((embed\/)|(watch\?v=))))[^ ]+)|(.+\.webm)$/);let l="";if(e.tagName=="IFRAME")l=e.src.match(r);else if(e.tagName=="A")l=e.href.match(r)||e.innerText.match(r);else if(e.tagName=="VIDEO")l=[e.currentSrc?e.currentSrc:e.src];console.log(l);return s+(l && l.length > 0 && s.indexOf(l[0])<0?"'"+l[0]+"' ":"")},""))
-alias gitclone jsb -p tri.native.run("git clone --depth=1 '" + JS_ARG + "' /home/davide/Packages" + JS_ARG.split("/").slice(-1))
-alias rsssave jsb -p tri.native.run('cat >> ~/.config/newsboat/urls', JS_ARG + "\n")
-"" }}}
 "" ========== SearchUrls ========== {{{
-jsb Object.keys(tri.config.get("searchurls")).reduce((prev, u) => prev.catch(()=>{}).then(_ => tri.excmds.setnull("searchurls." + u)), Promise.resolve())
-
 set searchengine https://searx.be/search?q=%s
 
-set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
 set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s
 set searchurls.g https://www.google.com/search?q=%s
-set searchurls.G https://wiki.gentoo.org/wiki/%s
-set searchurls.i https://searx.be/search?q=%s&language=it-IT
-set searchurls.I https://searx.be/search?q=%s&language=it-IT
-# set searchurls.y https://yewtu.be/search?q=%s
-set searchurls.y https://piped.video/results?search_query=%s
-set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
-set searchurls.a https://wiki.archlinux.org/index.php?title=Special%3ASearch&search=%s
-set searchurls.d https://duckduckgo.com/?t=hd&va=u&q=%s
-set searchurls.g https://www.google.com/search?q=%s
-set searchurls.G https://wiki.gentoo.org/wiki/%s
 set searchurls.i https://searx.be/search?q=%s&language=it-IT
 set searchurls.y https://yewtu.be/search?q=%s
 set searchurls.w https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
+
 set searchurls.wi https://it.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
 set searchurls.az https://www.amazon.it/s/?field-keywords=%s
 
-set searchurls.np https://search.nixos.org/packages?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=%s
-set searchurls.no https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.np https://search.nixos.org/packages?from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.no https://search.nixos.org/options?from=0&size=50&sort=relevance&type=packages&query=%s
 set searchurls.ho https://mipmip.github.io/home-manager-option-search/?query=%s
 set searchurls.nw https://nixos.wiki/index.php?title=Special:Search&search=%s
 
 set searchurls.gs https://scholar.google.com/scholar?q=%s
-set searchurls.lg https://libgen.li/index.php?req=%s&columns%5B%5D=t&columns%5B%5D=a&columns%5B%5D=s&columns%5B%5D=y&columns%5B%5D=p&columns%5B%5D=i&objects%5B%5D=f&objects%5B%5D=e&objects%5B%5D=s&objects%5B%5D=a&objects%5B%5D=p&objects%5B%5D=w&topics%5B%5D=l&topics%5B%5D=c&topics%5B%5D=f&topics%5B%5D=a&topics%5B%5D=m&topics%5B%5D=r&topics%5B%5D=s&res=100&covers=on&showch=on&gmode=on&filesuns=all
-set searchurls.sh https://sci-hub.se/%s
-set searchurls.qd https://docs.qtile.org/en/latest/search.html?q=%s&check_keywords=yes&area=default
 
 set searchurls.tce https://www.treccani.it/enciclopedia/ricerca/%s
 set searchurls.tcv https://www.treccani.it/vocabolario/ricerca/%s
-set searchurls.qds https://docs.qtile.org/en/latest/search.html?q=%s&check_keywords=yes&area=default
 set searchurls.tcs https://www.treccani.it/vocabolario/convoglio_(Sinonimi-e-Contrari)/%s
-"" }}}
-"" ========== Remaps ========== {{{
-unbind t
-bind t fillcmdline taball
-
-unbind O
-bind O fillcmdline tabopen
-
-unbind d
-bind d scrollpage 0.5
-unbind D
-bind D composite tabclose | tab
-unbind <C-d>
-bind <C-D> composite tabprev; tabclose #
-bind <C-d> scrollpage 1
-
-unbind u
-bind u scrollpage -0.5
-unbind U
-bind U undo
-unbind <C-u>
-bind <C-u> scrollpage -0.5
-# bind <C-u> undo window
-
-unbind x
-bind x tabclose
-unbind X
-bind X stop
-
-bind --mode=normal <C-P> winopen -private
-bind --mode=ex     <C-a> text.beginning_of_line
-bind --mode=insert <C-a> text.beginning_of_line
-bind --mode=input  <C-a> text.beginning_of_line
-bind --mode=ex     <C-e> text.end_of_line
-bind --mode=insert <C-e> text.end_of_line
-bind --mode=input  <C-e> text.end_of_line
-bind --mode=ex     <C-f> text.forward_word
-bind --mode=insert <C-f> text.forward_word
-bind --mode=input  <C-f> text.forward_word
-bind --mode=ex     <C-k> text.kill_line
-bind --mode=insert <C-k> text.kill_line
-bind --mode=input  <C-k> text.kill_line
-bind --mode=ex     <C-u> text.backward_kill_line
-bind --mode=insert <C-u> text.backward_kill_line
-bind --mode=input  <C-u> text.backward_kill_line
-bind --mode=ex     <C-V> composite getclip selection | text.insert_text
-bind --mode=insert <C-V> composite getclip selection | text.insert_text
-bind --mode=input  <C-V> composite getclip selection | text.insert_text
-bind --mode=ex     <C-w> text.backward_kill_word
-bind --mode=insert <C-w> text.backward_kill_word
-bind --mode=input  <C-w> text.backward_kill_word
-
-set findcase insensitive
-bind ,<Space> nohlsearch
-bind / fillcmdline find
-bind ? fillcmdline find -?
-bind n findnext
-bind N findnext -1
-bind <Escape> composite mode normal ; hidecmdline ; nohlsearch
 "" }}}
 
 "" https://github.com/tridactyl/tridactyl/wiki/Exemplar-.tridactylrc-files
-
 "" ========== autocmd ========== {{{
-# autocmd DocStart searx.be zoom 200
-# autocmd DocStart github.com zoom 200
+autocmd DocStart *.sohomar.duckdns.org mode ignore
+autocmd DocStart [0-9]+.[0-9]+[0-9]+.[0-9]+ mode ignore
 "" }}}
+
+# :bs (async function(){var d=document,b=d.body;function create(tag,parent){const elm=(parent||b).appendChild(d.createElement(tag));return elm}const file=await promptFile();const text=await blobToText(file);const json=JSON.parse(text);const keywordList=findKeyword(json);const rc=keywordList.map(m=>`set searchurls.${m.keyword} ${m.uri}`).join("\n");window.rc=rc;return source("--url","data:text/plain,"+encodeURIComponent(rc));function promptFile(){return new Promise(ok=>{const input=create("input");input.type="file";input.oninput=(event=>{const file=event.target.files[0];if(file){ok(file);sleep(1).then(()=>input.remove())}else sleep(1).then(()=>event.target.click())});input.click()})}function sleep(second){return new Promise(wake=>setTimeout(wake,second*1e3))}function blobToText(blob){return new Promise(ok=>{const reader=new FileReader;reader.onload=(event=>ok(event.target.result));reader.readAsText(blob)})}function findKeyword(json){const list=[];if(Array.isArray(json.children)){for(const child of json.children){list.push(...findKeyword(child))}}if(json.uri&&json.keyword)list.push({uri:json.uri,keyword:json.keyword});return list}})();
+
+command tabpush_and_focus jsb void async function(){const tab=await activeTab();const tabId=tab.id;const oldWindowId=tab.windowId;fillcmdline("tabpush");await new Promise(ok=>{browser.tabs.onActivated.addListener(function leftCurrentTab(event){browser.tabs.onActivated.removeListener(leftCurrentTab);ok()})});const tabNow=await browser.tabs.get(tabId);if(tabNow.windowId==oldWindowId)return;browser.tabs.update(tabId,{active:true});browser.windows.update(tabNow.windowId,{focused:true})}();

@@ -59,6 +59,7 @@ NixOS | \"NixOS\")
         trrr5="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:5 -l" \
         trrr6="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:6 -l" \
         trrr56="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:5 -F ~r:6 -l" \
+        chrome="chromium --ozone-platform=wayland --enable-features=AcceleratedVideoDecodeLinuxGL --enable-features=VaapiVideoDecoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE --force-device-scale-factor=1.0 --gtk-version=4 --enable-features=WaylandPerSurfaceScale,WaylandUiScale" \
         wt="wtwitch" \
         qtcheck="qtile cmd-obj -o cmd -f validate_config"
 
@@ -80,12 +81,12 @@ NixOS | \"NixOS\")
 
     pre_switch() {
         DIR="$HOME/.mozilla/firefox/nixhm"
-        rm "$DIR/containers.json"
-        mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
-        mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
-        rm "$DIR/containers.json"
-        rm "$HOME/.local/share/applications/mimeapps.list"
-        mv "$HOME/.config/ncmpcpp" "$HOME/.config/ncmpcpp-dot"
+        [ -e "$DIR/containers.json" ] && rm "$DIR/containers.json"
+        [ -e "$DIR/chrome/userChrome.css" ] && mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
+        [ -e "$DIR/chrome/userContent.css" ] && mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
+        [ -e "$DIR/containers.json" ] && rm "$DIR/containers.json"
+        [ -e "$HOME/.local/share/applications/mimeapps.list" ] && rm "$HOME/.local/share/applications/mimeapps.list"
+        [ -e "$HOME/.config/ncmpcpp" ] && mv "$HOME/.config/ncmpcpp" "$HOME/.config/ncmpcpp-dot"
     }
 
     post_switch() {

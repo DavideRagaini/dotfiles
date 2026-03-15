@@ -49,13 +49,13 @@ AUTO_NOTIFY_IGNORE+=("lf" "f" "nvim" "vim" "emacsclient" "emacs" \
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Key-bindings
-bindkey "^i" down-line-or-beginning-search # Down
+bindkey "^u" down-line-or-beginning-search # Down
 bindkey "^k" up-line-or-beginning-search # Up
 bindkey "^n" down-line-or-beginning-search # Down
 bindkey "^p" up-line-or-beginning-search # Up
-bindkey '^[[P' delete-char
-bindkey '^[[3~' delete-char
-bindkey '^H' delete-char
+# bindkey '^[[P' delete-char
+# bindkey '^[[3~' delete-char
+# bindkey '^H' delete-char
 bindkey '^s' doas-command-line
 bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
@@ -64,10 +64,10 @@ bindkey -r "^d"
 bindkey -r "^u"
 bindkey '^[[28;5;9~' autosuggest-execute
 bindkey -s '^v' '"$(pclip)"'
-bindkey -s '^o' '^ulfcd^M'
+# bindkey -s '^o' '^ulfcd^M'
 bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 # bindkey -s '^v' 'nvim $(fzf)^M'
-bindkey -s '^b' 'vf^M'
+# bindkey -s '^b' 'vf^M'
 bindkey -s '^z' 'zi^M'
 bindkey -v '^?' backward-delete-char
 

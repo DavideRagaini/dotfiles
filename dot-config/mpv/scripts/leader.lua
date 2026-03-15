@@ -58,6 +58,13 @@ mp.add_timeout(0.3, function()
       { ',', 'script-message osc-chapterlist 4 ; show-text "${osd-ass-cc/0}{an9}${osd-ass-cc/1}${chapter-list}"', 'show chapterlist' },
       { 'q', 'quit-watch-later', 'exit and remember the playback position' },
 
+      { 'e', 'prefix', 'audio', {
+        { 'h', 'apply-profile high-quality', 'high quality profile' },
+        { 's', 'apply-profile surround', 'surround profile' },
+        { 'm', 'apply-profile movie', 'movie profile' },
+        { 'r', 'apply-profile low-quality', 'low quality profile' },
+      } },
+
       { 'a', 'prefix', 'audio', {
         { '+', 'add audio-delay 0.100', 'change audio/video sync by delaying the audio' },
         { '-', 'add audio-delay -0.100', 'change audio/video sync by shifting the audio' },
@@ -111,8 +118,19 @@ mp.add_timeout(0.3, function()
 
       { 'h', 'prefix', 'shaders', {
         { 'R', 'show-text "Shaders: ${glsl-shaders}"' },
-        { 'i', 'cycle-values glsl-shaders toggle "~~/shaders/invert.glsl"', 'invert color shader' },
-        { 'l', 'cycle-values glsl-shaders toggle "~~/shaders/LumaSharpenHook.glsl"', 'LumaSharpenHook shader' },
+        { 'i', 'cycle-values glsl-shaders "~~/shaders/invert.glsl"', 'invert color shader' },
+        { 'l', 'cycle-values glsl-shaders "~~/shaders/LumaSharpenHook.glsl"', 'LumaSharpenHook shader' },
+        { 'c', 'cycle-values glsl-shaders "~~/shaders/CAS-scaled.glsl"', 'FidelityFX Contrast Adaptive Sharpening (CAS)' },
+        { 'f', 'cycle-values glsl-shaders "~~/shaders/FSR.glsl"', 'FidelityFX Super Resolution (FSR)' },
+        { 'a', 'prefix', 'anime4k', {
+            { '0', 'no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"', 'anime4k clear' },
+            { '1', 'no-osd change-list glsl-shaders set "~~/shaders//Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Restore_CNN_VL.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode A (HQ)"', 'anime4k 1080' },
+            { '2', 'no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/4K_Restore_CNN_Soft_VL.glsl:~~/shaders/4K_Upscale_CNN_x2_VL.glsl:~~/shaders/4K_AutoDownscalePre_x2.glsl:~~/shaders/4K_AutoDownscalePre_x4.glsl:~~/shaders/4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode B (HQ)"', 'anime4k 720' },
+            { '3', 'no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_VL.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode C (HQ)"', 'anime4k 480' },
+            { '4', 'no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Restore_CNN_VL.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Anime4K_Restore_CNN_M.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode A+A (HQ)"', 'anime4k preset 4' },
+            { '5', 'no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Restore_CNN_Soft_VL.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_VL.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Restore_CNN_Soft_M.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode B+B (HQ)"', 'anime4k preset 5' },
+            { '6', 'no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl:~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_VL.glsl:~~/shaders/Anime4K_AutoDownscalePre_x2.glsl:~~/shaders/Anime4K_AutoDownscalePre_x4.glsl:~~/shaders/Anime4K_Restore_CNN_M.glsl:~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode C+A (HQ)"', 'anime4k preset 6' },
+        } },
         { 'r', 'set gamma 0' },
       } },
 

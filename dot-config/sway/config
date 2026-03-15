@@ -36,7 +36,7 @@ for_window {
 }
 
 exec_always {
-    autotiling -w 1 2 5 7 -l 2
+    autotiling -w 1 2 5 7 10 11 12 13 14 -l 2
 }
 # }}}
 # ======================= Window Rules ======================= {{{
@@ -44,6 +44,7 @@ for_window {
     [app_id="dropdown|files|music|news|sysmon|flemacs|agenda|[Ff]erdium"] {
         floating enable
         resize set 95 ppt 95 ppt
+        move position center
         move scratchpad
         scratchpad show
     }
@@ -51,6 +52,7 @@ for_window {
     [title="flemacs"] {
         floating enable
         resize set 95 ppt 95 ppt
+        move position center
         move scratchpad
         scratchpad show
     }
@@ -58,6 +60,7 @@ for_window {
     [app_id="calc"] {
         floating enable
         resize set 65 ppt 65 ppt
+        move position center
         move scratchpad
         scratchpad show
     }
@@ -65,6 +68,7 @@ for_window {
     [app_id="mixer"] {
         floating enable
         resize set 65 ppt 35 ppt
+        move position center
         move scratchpad
         scratchpad show
     }
@@ -102,6 +106,7 @@ gaps {
 }
 smart_gaps on
 default_border pixel 2
+default_orientation auto
 smart_borders on
 title_align center
 hide_edge_borders --i3 smart
@@ -137,9 +142,19 @@ input type:keyboard {
     xkb_layout "us"
     xkb_variant "altgr-intl"
     xkb_options "ctrl:swapcaps,altwin:swap_alt_win"
+    # xkb_options "altwin:swap_alt_win"
     xkb_numlock enabled
     repeat_delay 300
     repeat_rate 50
+}
+
+input type:pointer {
+    left_handed disabled
+    tap enabled
+    natural_scroll disabled
+    dwt enabled
+    accel_profile "adaptive"
+    pointer_accel 1
 }
 
 input type:touchpad {
@@ -168,6 +183,6 @@ exec {
     mem-warn -t 6 -i 90 &
     wl-paste --watch cliphist store &
     foot --server &
-    track_prev_focus
+    # track_prev_focus
 }
 # }}}

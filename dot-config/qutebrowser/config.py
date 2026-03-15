@@ -14,18 +14,33 @@ catppuccin.setup(c, "mocha", False)
 # import dracula  # User Interface
 # dracula.blood(c, {"spacing": {"vertical": 6, "horizontal": 8}})
 # }}}
+# ======================= Tests ============= {{{
+# c.qt.args = ["stylesheet " + environ["HOME"] + "/.local/share/qutebrowser/fix-tooltips.qss", "enable-gpu-rasterization", "ignore-gpu-blocklist", "use-gl=egl", "enable-accelerated-video-decode"]
+c.qt.chromium.experimental_web_platform_features = "always"
+c.qt.workarounds.disable_hangouts_extension = True
+c.statusbar.widgets = ["keypress", "search_match", "url", "progress", "clock"]
+
+# }}}
 # ======================= User Interface ============= {{{
+c.completion.height = "33%"
+c.completion.timestamp_format = "%a, %b %d %H:%M:%S"
+c.completion.web_history.max_items = 20
+c.content.default_encoding = "utf-8"
 c.downloads.location.directory = environ["HOME"] + "/dwn/qutebrowser"
+c.downloads.location.prompt = False
 c.downloads.location.suggestion = "both"
+# c.downloads.open_dispatcher = ""
 c.downloads.position = "bottom"
 c.downloads.remove_finished = 30000
-# c.downloads.open_dispatcher = ""
+c.input.insert_mode.auto_leave = True
+c.input.insert_mode.auto_load = True
 c.scrolling.smooth = False
 c.session.lazy_restore = True
 c.statusbar.show = "in-mode"
 c.tabs.last_close = "default-page"
 c.tabs.position = "bottom"
 c.tabs.show = "switching"
+c.tabs.show_switching_delay = 1000
 startpage = "file://" + environ["HOME"] + "/.local/src/startpage/index.html"
 c.url.default_page = startpage
 c.url.start_pages = [startpage]
@@ -33,15 +48,34 @@ c.window.title_format = (
     "{private}{perc}[{scroll_pos}]:{current_title} {title_sep} {current_url}"
 )
 c.window.hide_decoration = True
-c.fonts.default_size = "8pt"
+c.fonts.default_size = "9pt"
 c.fonts.default_family = "IosevkaTermSlab Nerd Font Propo"
+# c.fonts.default_family = 'GoMono Nerd Font'
+# c.fonts.default_size = '16pt'
+# c.fonts.messages.error = '16pt GoMono Nerd Font'
+# c.fonts.messages.info = '16pt GoMono Nerd Font'
+# c.fonts.messages.warning = '16pt GoMono Nerd Font'
+# c.fonts.statusbar = '16pt GoMono Nerd Font'
+# c.fonts.downloads = '16pt GoMono Nerd Font'
+# c.fonts.prompts = '16pt Victor Mono Nerd Font'
+# c.fonts.keyhint = '16pt GoMono Nerd Font'
+# c.fonts.hints = '16pt GoMono Nerd Font'
+# c.fonts.contextmenu = '17pt GoMono Nerd Font'
+# c.fonts.completion.category = 'bold 16pt GoMono Nerd Font'
+# c.fonts.tooltip = '15pt Victor Mono Nerd Font'
+# c.fonts.completion.entry = '16pt GoMono Nerd Font'
+# c.fonts.tabs.selected = 'italic 16pt GoMono Nerd Font'
+# c.fonts.tabs.unselected = '16pt GoMono Nerd Font'
+# c.fonts.messages.info = 'italic 16pt GoMono Nerd Font'
+# c.fonts.messages.error = 'italic 16pt GoMono Nerd Font'
+# c.fonts.messages.warning = 'italic 16pt GoMono Nerd Font'
 # }}}
 # ======================= Search Engines ============= {{{
 c.url.searchengines = {
-    "DEFAULT": "https://searx.be/search?q={}",
+    "g": "https://searx.be/search?q={}",
+    "DEFAULT": "https://www.google.com/search?q={}",
     "a": "https://wiki.archlinux.org/?search={}",
     "d": "https://duckduckgo.com/?q={}",
-    "g": "https://www.google.com/search?q={}",
     "i": "https://searx.be/search?q={}&language=it-IT",
     "l": "https://libgen.is/search.php?req={}&open=0&res=100&view=detailed&phrase=1&column=title",
     "no": "https://search.nixos.org/options?packages&query={}",
@@ -83,14 +117,14 @@ c.bindings.commands["insert"] = {
 c.auto_save.session = True
 c.content.autoplay = False
 c.content.blocking.method = "both"
-c.content.canvas_reading = False
-c.content.cookies.accept = "never"
+# c.content.canvas_reading = False
+c.content.cookies.accept = "no-3rdparty"
 c.content.geolocation = False
-c.content.headers.accept_language = "en-US,en;q=0.5"
-c.content.headers.custom = {
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-}
-c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+# c.content.headers.accept_language = "en-US,en;q=0.5"
+# c.content.headers.custom = {
+#     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+# }
+# c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 "
 c.content.javascript.clipboard = "none"
 c.content.pdfjs = False
 c.content.webgl = False
@@ -172,7 +206,7 @@ c.bindings.commands["normal"] = {
     "xt": "config-cycle tabs.show always never",
     "xx": "config-cycle tabs.show always never;; config-cycle statusbar.show always never",
     "tr": "restart",
-    "tsph": "js-whitelist-site",
-    "tspu": "js-whitelist-domain"
+    # "tsph": "js-whitelist-site",
+    # "tspu": "js-whitelist-domain"
 }
 # }}}
