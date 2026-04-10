@@ -29,7 +29,7 @@
     border: none;
     border-radius: 4px;
     font-family: GoMono Nerd Font, JetBrainsMono Nerd Font, Font Awesome;
-    font-size: 20px;
+    font-size: 9px;
     font-weight: bold;
     min-height: 0;
 }
@@ -116,6 +116,7 @@ button:hover {
 #custom-sink,
 #custom-uptime,
 #disk,
+#battery,
 #temperature,
 #mode,
 #tray {
@@ -153,6 +154,7 @@ button:hover {
     color: @mantle;
 }
 
+#battery,
 #custom-uptime,
 #clock {
     background-color: @green;

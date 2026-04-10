@@ -9,8 +9,8 @@ set {
     $drun bemenu-run
     # $drun tofi-run | xargs swaymsg exec --
 
-    $gaps_inner 10
-    $gaps_outer 5
+    $gaps_inner 2
+    $gaps_outer 2
 
     $laptop LVDS-1
 
@@ -21,8 +21,8 @@ set {
 # }}}
 # ======================= Imports ======================= {{{
 include {
-    "bindings.conf"
-    "$(hostname).conf"
+    "module/bindings.conf"
+    "machine/$(hostname).conf"
 }
 # }}}
 # ======================= Workspaces ======================= {{{
@@ -30,13 +30,29 @@ for_window {
     [workspace=3] layout tabbed
     [workspace=4] layout tabbed
     # [workspace=5] layout tabbed
-    [workspace=6] layout tabbed
+    [workspace=7] layout tabbed
     [workspace=8] layout tabbed
     [workspace=9] layout tabbed
+
+    [workspace=10] layout tabbed
+    [workspace=11] layout tabbed
+    [workspace=12] layout tabbed
+    [workspace=13] layout tabbed
+    [workspace=14] layout tabbed
+
+    [workspace=15] layout tabbed
+    [workspace=16] layout tabbed
+    [workspace=17] layout tabbed
+    [workspace=18] layout tabbed
+    [workspace=19] layout tabbed
+    [workspace=20] layout tabbed
 }
 
 exec_always {
-    autotiling -w 1 2 5 7 10 11 12 13 14 -l 2
+    autotiling -l 2 -w \
+        1 2 5 \ # Main
+        10 11 12 13 14 \ #
+        21 22 23 24 # eDP
 }
 # }}}
 # ======================= Window Rules ======================= {{{
@@ -80,20 +96,19 @@ for_window {
 }
 
 assign {
-    [app_id="emacs[client]?"]          workspace 1
-    [app_id="chromium|brave"]          workspace 4
+    [app_id="emacs[client]?"]          workspace 0
+    [app_id="firefox|librewolf"]       workspace 1
+    [app_id="chromium|brave"]          workspace 14
     [app_id="libreoffice-calc"]        workspace 4
-    [app_id="org.keepassxc.KeePassXC"] workspace 8
-    [app_id= "com.github.wwmm.easyeffects"] workspace 8
     [app_id="mpv"]                     workspace 9
-    [app_id="qutebrowser"]             workspace 10
-    [app_id="firefox|librewolf"]       workspace 10
-    [app_id="org.pwmt.zathura"]        workspace 11
+    [app_id="qutebrowser"]             workspace 15
+    [app_id="org.pwmt.zathura"]        workspace 16
+    [app_id="thunderbird"]             workspace 18
+    [app_id="brave-mdhklhaglcijaohkkndgcmnphmnnfkdk-Default"] workspace 19
 
     [class="term-emacsclient"]         workspace 1
-    [class="sioyek"]                   workspace 3
-    [class= "Ferdium|Gimp"]            workspace 8
-    [class= "calibre-gui|calibre"]     workspace 8
+    [class="sioyek"]                   workspace 16
+    [class= "Ferdium"]                 workspace 19
     [class="org.remmina.Remmina"]      workspace 8
 
     [title= "temacs"]                  workspace 1
@@ -164,6 +179,18 @@ input type:touchpad {
     middle_emulation enabled
     # accel_profile "flat"
     # pointer_accel 0.5
+}
+
+input 13364:480:Keychron_Keychron_Q11 {
+
+    xkb_layout "us"
+    xkb_variant "altgr-intl"
+    # xkb_options "ctrl:swapcaps"
+    # xkb_options "ctrl:swapcaps,altwin:swap_alt_win"
+    xkb_options "altwin:swap_alt_win"
+    xkb_numlock enabled
+    repeat_delay 300
+    repeat_rate 50
 }
 
 seat {

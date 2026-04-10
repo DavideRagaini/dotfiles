@@ -36,12 +36,13 @@ unbind X
 unbind gr
 unbind t
 unbind x
-bind ,<Space> nohlsearch
+"" bind ,<Space> nohlsearch
 bind / fillcmdline find
 bind ;a hint -W exclaim_quiet dmpv append
 bind ;b fillcmdline bmarks
 bind ;f hint -W exclaim_quiet dmpv aplay
 bind ;v hint -W exclaim_quiet mpv
+bind ;m hint -W exclaim_quiet dmpv music
 bind <C-y> fillcmdline tgroupswitch
 bind ? fillcmdline find -?
 bind J tabnext
@@ -49,11 +50,11 @@ bind K tabprev
 bind N findnext -1
 bind O fillcmdline tabopen
 bind X stop
-bind gD composite tabduplicate
-bind gd tabdetach
-bind gh followpage prev
-bind gl followpage next
-bind gm fillcmdline tabmove
+"" bind gD composite tabduplicate
+"" bind gd tabdetach
+"" bind gh followpage prev
+"" bind gl followpage next
+"" bind gm fillcmdline tabmove
 bind gr reader --tab
 bind n findnext 1
 bind tp tabpush
@@ -61,6 +62,7 @@ bind tt fillcmdline taball
 bind x tabclose
 "" }}}
 "" ========== Aliases ========== {{{
+"" }}}
 "" ========== SearchUrls ========== {{{
 set searchengine https://searx.be/search?q=%s
 
