@@ -1,0 +1,17 @@
+{
+    "modules-left": [
+        "sway/workspaces",
+        "sway/scratchpad",
+        "sway/mode",
+        "sway/window"
+    ],
+
+    "modules-right": [
+        "custom/spt",
+        "mpd",
+        "clock#date",
+        "clock#time",
+        "idle_inhibitor",
+        "tray"
+    ]
+}

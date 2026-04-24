@@ -74,11 +74,17 @@ button:hover {
 #workspaces button:hover {
     box-shadow: inherit;
     text-shadow: inherit;
-    background-image: linear-gradient(0deg, @surface1, @mantle);
+    background-image: linear-gradient(0deg, @flamingo, @mantle);
+}
+
+#workspaces button.visible {
+    background-image: linear-gradient(0deg, @lavender, @mauve);
+    box-shadow: inset 0 -3px @text;
+    color: @base;
 }
 
 #workspaces button.focused {
-    background-image: linear-gradient(0deg, @lavender, @mauve);
+    background-image: linear-gradient(0deg, @rosewater, @flamingo);
     box-shadow: inset 0 -3px @text;
     color: @base;
 }

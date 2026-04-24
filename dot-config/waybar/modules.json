@@ -1,0 +1,236 @@
+{
+    "sway/workspaces": {
+        "disable-scroll-wraparound": true,
+        "smooth-scrolling-threshold": 4,
+        "enable-bar-scroll": true,
+        "format": "{name}"
+    },
+
+    "sway/mode": {
+        "format": "{}",
+        "tooltip": false
+    },
+
+    "sway/scratchpad": {
+        "format": "{count}",
+        "show-empty": false,
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 80,
+        "tooltip": false
+    },
+
+    "cpu": {
+        "interval": 1,
+        "tooltip": false,
+        "min-length": 22,
+      "format": "{load} {icon0}{icon1}{icon2}{icon3}{icon4} {usage:03d}% @{avg_frequency:2.2f}",
+        "format-icons": [ "0","1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+        "states": {
+            "warning": 50,
+            "critical": 75
+        }
+    },
+
+    "temperature#cpu": {
+        "critical-threshold": 60,
+        "format": "{icon} {temperatureC}°",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#gpu": {
+        "thermal-zone": 0,
+        "critical-threshold": 60,
+        "format": "P{temperatureC}°",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#nvme1": {
+        "thermal-zone": 0,
+        "critical-threshold": 60,
+        "format": "P{temperatureC}°",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#nvme2": {
+        "thermal-zone": 0,
+        "critical-threshold": 60,
+        "format": "P{temperatureC}°",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#gpu": {
+        "thermal-zone": 0,
+        "critical-threshold": 60,
+        "format": "P{temperatureC}°",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#acpitz": {
+        "thermal-zone": 1,
+        "critical-threshold": 60,
+        "format": "A{temperatureC}°",
+        "interval": 10,
+        "tooltip": false
+    },
+
+    "temperature#nvme": {
+        "critical-threshold": 60,
+        "format": "{temperatureC}°",
+        "interval": 10,
+        "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
+        "tooltip": false
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "{used:2.1f}/{swapUsed:2.1f} ({percentage}/{swapPercentage})",
+        "format-alt": "{percentage} - {total} / {swapPercentage:2.1f} - {swapTotal}",
+        "states": {
+            "warning": 65,
+            "critical": 70
+        },
+        "tooltip": false
+    },
+
+    "custom/memory": {
+    "interval": 30,
+    "exec": "sb-memory"
+    },
+
+    "network#def": {
+        "interval": 60,
+        "format-wifi": "{essid}@{frequency} ({signaldBm}dBm/{signalStrength}%)",
+        "format-ethernet": "{ifname}",
+        "format-disconnected": "🚫",
+        "format-alt": "💻 {ipaddr}/{cidr} {gwaddr}",
+        "tooltip": false
+    },
+
+    "network#speed": {
+        "interval": 1,
+        "min-length": 20,
+        "format": "{bandwidthDownBytes} D/U {bandwidthUpBytes}",
+        "format-disconnected": "🚫",
+        "format-alt": "{bandwidthDownBits}/{bandwidthUpBits}",
+        "tooltip": false
+    },
+
+    "disk#root": {
+        "interval": 300,
+        "format": "R:{used}/{total}",
+        "format-alt": "R:{free}/{total}",
+        "tooltip": false,
+        "warning": 80,
+        "critical": 90
+    },
+
+    "disk#home": {
+        "interval": 300,
+        "format": "d:{used}/{total}",
+        "format-alt":  "d:{free}/{total}",
+        "tooltip": false,
+        "warning": 80,
+        "critical": 90
+    },
+
+    "disk#data": {
+        "interval": 300,
+        "format": "D:{used}/{total}",
+        "format-alt":  "D:{free}/{total}",
+        "tooltip": false,
+        "warning": 80,
+        "critical": 90
+    },
+
+    "custom/nvidia": {
+    "interval": 15,
+    "exec": "sb-nvgpu"
+    },
+
+    "wireplumber": {
+        "format": "{volume}%",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "scroll-step": 5,
+        "tooltip": false
+    },
+
+    "custom/sink": {
+    "interval": 30,
+    "exec": "sb-sink"
+    },
+
+    "custom/spt": {
+    "interval": 60,
+    "exec": "[ -n \"$(pidof spotify_player)\" ] && spotify_player get key playback | jq -r '.item | .name, \" - \", .album.name, \" - \", [ .artists.[] | .name ], \" \"' | tr -d '\n,\"'"
+    },
+"tray": {
+        "icon-size": 18
+        //"spacing": 10
+    },
+
+    "battery": {
+        "bat": "BAT0",
+        "interval": 60,
+        "states": {
+                "warning": 50,
+                "critical": 30
+        },
+        "events": {
+                "on-discharging-warning": "notify-send -u normal 'Low Battery'",
+                "on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
+                "on-charging-100": "notify-send -u normal 'Battery Full!'"
+        },
+        "format-time": "{H}:{M}",
+        "format": "{icon} {power}W {capacity}% {time}",
+        // "format-icons": ["<U+F244>", "<U+F243>", "<U+F242>", "<U+F241>", "<U+F240>"],
+    },
+
+    "custom/uptime": {
+        "format": "{}",
+        "interval": 60,
+        "exec": "uptime | awk '{gsub (\",\",\"\"); print $3}'",
+    },
+
+    "clock#date": {
+        "interval": 3600,
+        "format": "{:%A, %B %d, %Y}",
+        "tooltip": false
+    },
+
+    "clock#time": {
+        "interval": 1,
+        "format": "{:%H:%M:%S}",
+        "tooltip": false
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    }
+}

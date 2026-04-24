@@ -57,7 +57,7 @@ exec_always {
 # }}}
 # ======================= Window Rules ======================= {{{
 for_window {
-    [app_id="dropdown|files|music|news|sysmon|flemacs|agenda|[Ff]erdium"] {
+    [app_id="dropdown|files|music|news|sysmon|agenda"] {
         floating enable
         resize set 95 ppt 95 ppt
         move position center
@@ -96,22 +96,22 @@ for_window {
 }
 
 assign {
-    [app_id="emacs[client]?"]          workspace 0
-    [app_id="firefox|librewolf"]       workspace 1
-    [app_id="chromium|brave"]          workspace 14
-    [app_id="libreoffice-calc"]        workspace 4
-    [app_id="mpv"]                     workspace 9
-    [app_id="qutebrowser"]             workspace 15
-    [app_id="org.pwmt.zathura"]        workspace 16
-    [app_id="thunderbird"]             workspace 18
-    [app_id="brave-mdhklhaglcijaohkkndgcmnphmnnfkdk-Default"] workspace 19
+    [title= "temacs"]                  workspace 0
 
-    [class="term-emacsclient"]         workspace 1
-    [class="sioyek"]                   workspace 16
-    [class= "Ferdium"]                 workspace 19
     [class="org.remmina.Remmina"]      workspace 8
+    [class="sioyek"]                   workspace 16
+    [class="term-emacsclient"]         workspace 1
 
-    [title= "temacs"]                  workspace 1
+    [app_id="brave-mdhklhaglcijaohkkndgcmnphmnnfkdk-Default"] workspace 20
+    [app_id="chromium|brave"]          workspace 14
+    [app_id="emacs[client]?"]          workspace 0
+    [app_id="ferdium"]                 workspace 19
+    [app_id="firefox|librewolf"]       workspace 1
+    [app_id="libreoffice*"]            workspace 4
+    [app_id="mpv"]                     workspace 9
+    [app_id="org.pwmt.zathura"]        workspace 16
+    [app_id="qutebrowser"]             workspace 15
+    [app_id="thunderbird"]             workspace 18
 }
 # }}}
 # ======================= Global Settings ======================= {{{
@@ -154,14 +154,26 @@ client.urgent                $bgselected    $background    $red       $yellow   
 # }}}
 # ======================= Inputs ======================= {{{
 input type:keyboard {
-    xkb_layout "us"
-    xkb_variant "altgr-intl"
-    xkb_options "ctrl:swapcaps,altwin:swap_alt_win"
-    # xkb_options "altwin:swap_alt_win"
+    xkb_layout us
+    xkb_variant altgr-intl
+    # xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
+    xkb_options "altwin:swap_lalt_lwin"
     xkb_numlock enabled
     repeat_delay 300
     repeat_rate 50
 }
+
+input 13364:480:Keychron_Keychron_Q11 {
+    xkb_options "altwin:swap_lalt_lwin"
+}
+
+# input 1:1:AT_Translated_Set_2_keyboard {
+#     xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
+# }
+
+# input 5050:24:Barcode_Reader {
+#     xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
+# }
 
 input type:pointer {
     left_handed disabled
@@ -179,18 +191,6 @@ input type:touchpad {
     middle_emulation enabled
     # accel_profile "flat"
     # pointer_accel 0.5
-}
-
-input 13364:480:Keychron_Keychron_Q11 {
-
-    xkb_layout "us"
-    xkb_variant "altgr-intl"
-    # xkb_options "ctrl:swapcaps"
-    # xkb_options "ctrl:swapcaps,altwin:swap_alt_win"
-    xkb_options "altwin:swap_alt_win"
-    xkb_numlock enabled
-    repeat_delay 300
-    repeat_rate 50
 }
 
 seat {

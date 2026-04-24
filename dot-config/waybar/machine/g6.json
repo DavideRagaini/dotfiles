@@ -1,0 +1,77 @@
+[
+    {
+        "layer": "top",
+        "position": "bottom",
+        "ipc": true,
+
+        "include": [
+            "modules.json"
+        ],
+
+        "output": [
+            "eDP-1",
+            "BOE 0x0B76 Unknown",
+
+            "LG Electronics LG Ultra HD 0x000641E4",
+            "LG Electronics 2D FHD LG TV 0x01010101",
+
+            "LG Electronics LG FHD 0x000412A6",
+            "BNQ BenQ BL2381T D3M0091801Q"
+        ],
+
+        "modules-left": [
+            "sway/workspaces",
+            "sway/scratchpad",
+            "sway/mode",
+            "sway/window"
+        ],
+
+        "modules-right": [
+            "cpu",
+            "temperature#cpu",
+            "memory",
+            "network#def",
+            "network#speed",
+            "disk#root",
+            "wireplumber",
+            "custom/sink",
+            "battery",
+            "custom/uptime",
+            "clock#date",
+            "clock#time",
+            "idle_inhibitor",
+            "tray"
+        ],
+
+        "cpu": {
+            "format": "{load} {icon0}{icon1}{icon2}{icon3}{icon4}|{icon5}{icon6}{icon7}{icon8}{icon9}|{icon10}{icon11}{icon12}{icon13}{icon14}|{icon15}{icon16}{icon17}{icon18}{icon19} {usage:03d}% @{avg_frequency:2.2f}"
+        },
+
+        "temperature#cpu": {"thermal-zone": 7},
+
+        "temperature#nvme1": {"thermal-zone": 0},
+
+        "temperature#nvme2": {"thermal-zone": 2},
+
+        "disk#root": {"path": "/"},
+
+        "disk#home": {"path": "/home"},
+
+        "disk#data": {"path": "/media/"}
+    },
+    {
+        "layer": "top",
+        "position": "bottom",
+        "ipc": true,
+
+        "include": [
+            "vlayout.json",
+            "modules.json"
+        ],
+
+        "output": [
+            "BNQ BenQ GW2470 7AG00620019",
+            "LG Electronics LG FHD 0x0004134D"
+        ]
+    }
+]

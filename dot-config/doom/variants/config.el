@@ -44,41 +44,31 @@
 
 (defun dr/progmode ()
   (interactive)
-    (setopt display-fill-column-indicator-column 99)
-    (display-fill-column-indicator--turn-on)
-    ;; (display-fill-column-indicator-mode)
-    (visual-line-fill-column-mode 0))
+  (setopt display-fill-column-indicator-column 99)
+  (display-fill-column-indicator--turn-on)
+  ;; (display-fill-column-indicator-mode)
+  (visual-line-fill-column-mode 0))
 ;; }}}
 ;; ========= Bootstraps ========= {{{
-(setq dr/font-size 13
-      dr/main-font-family "IosevkaTerm Nerd Font Mono"
+(setq dr/font-size 12
+      dr/main-font-family "Iosevka Nerd Font Mono"
 
-      dr/big-font-family "IosevkaTermSlab Nerd Font Mono"
-      dr/serif-font-family "Garamond Libre"
-      dr/variable-pitch-font-family "Overpass Nerd Font"
-      dr/symbol-font-family "JuliaMono"
+      dr/big-font-family "Iosevka Nerd Font Mono"
+      dr/serif-font-family "IosevkaTermSlab Nerd Font Propo"
+      dr/variable-pitch-font-family "Iosevka Nerd Font Propo"
+      dr/symbol-font-family "Symbols Nerd Font"
       dr/light-theme 'leuven
       dr/dark-theme 'modus-vivendi
       )
 
 (cond
  ((or (string-equal (system-name) "jane")
+      (string-equal (system-name) "wldr")
       (string-equal (system-name) "somaro"))
   (setq dr/dark-theme 'catppuccin
-        dr/font-size 26)
+        dr/font-size 14)
   ;; (global-activity-watch-mode 1)
   (dr/high-resources)
-  )
- ((eq system-type 'windows-nt)
-  (setq dr/main-font-family "cascadia code"
-        dr/big-font-family "cascadia code"
-        dr/variable-pitch-font-family "microsoft sans serif"
-        dr/symbol-font-family "cascadia code"
-        dr/serif-font-family "times new roman"
-        dr/variable-pitch-font-family "sagoe print"
-        dr/light-theme 'leuven
-        dr/dark-theme 'catppuccin
-        )
   )
  )
 ;; }}}
@@ -94,7 +84,6 @@
       doom-symbol-font (font-spec :family dr/symbol-font-family :size dr/font-size)
       doom-theme dr/dark-theme
       compilation-scroll-output t
-      whitespace-style '(face trailing newline missing-newline-at-eof empty big-indent space-mark tab-mark)
       line-spacing 2
       scroll-margin 10
       delete-by-moving-to-trash t
@@ -166,6 +155,17 @@
 (use-package! org-yaap
   :config
   (org-yaap-mode 1))
+
+(use-package! whitespace
+  :config
+  (setq
+   whitespace-style '(face tabs tab-mark trailing newline newline-mark)
+   whitespace-display-mappings '(
+                                 (space-mark   ?\     [?\u00B7]     [?.])
+                                 (space-mark   ?\xA0  [?\u00A4]     [?_])
+                                 (newline-mark ?\n    [182 ?\n])
+                                 (tab-mark     ?\t    [?\u00BB ?\t] [?\\ ?\t])))
+  (global-whitespace-mode +1))
 
 ;; (use-package! magit-todos
 ;;   :after magit
