@@ -1,0 +1,46 @@
+[mgr]
+    ratio = [ 1,2,4 ]
+    sort_by = "natural"
+    sort_sensitive = false
+    sort_dir_first = true
+    sort_translit = false
+    linemode = "mtime"
+    show_symlink = true
+    mouse_events = [ "click", "scroll", "touch", "move", "drag" ]
+
+[preview]
+    wrap = "yes"
+    max_width = 2000
+    max_height = 2000
+    image_delay = 30
+    image_quality = 75
+
+[opener]
+    play = [{ run = "mpv %s", orphan = true, for = "unix" },]
+    edit = [{ run = "emacsclient -c %s -a emacs", block = true, for = "unix" },]
+    open = [{ run = "xdg-open %s1", desc = "Open" },]
+
+[input]
+    cursor_blink = true
+
+# [confirm]
+
+[open]
+    prepend_rules = [
+        { url = "*.json", use = "edit" },
+        { url = "*.html", use = [ "open", "edit" ] },
+    ]
+    append_rules = [
+        { url = "emacsclient -c %s -a emacs", use = "my-fallback" },
+    ]
+
+    rules = [
+        { mime = "text/*", use = "edit" },
+        { mime = "video/*", use = "play" },
+
+        # { mime = "application/json", use = "edit" },
+        { url = "*.json", use = "edit" },
+
+        # Multiple openers for a single rule
+        { url = "*.html", use = [ "open", "edit" ] },
+    ]

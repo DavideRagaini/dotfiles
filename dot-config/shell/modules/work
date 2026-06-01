@@ -1,0 +1,6 @@
+#!/bin/sh
+
+alias \
+    euinr="nsh openvpn3 namespaced-openvpn --run 'doas namespaced-openvpn --namespace euin --config /usr/vpn/ovpn/davide.ragaini@eurocom/davide.ragaini@eurocom.ovpn '" \
+    euint="s ip netns exec euin sudo -u \$USER -i foot" \
+    euine="s ip netns exec euin sudo -u \$USER -i"

@@ -1,132 +1,23 @@
 #!/bin/sh
 
-case "$(printenv XDG_SESSION_TYPE)" in
-wayland)
-    alias \
-        2f="tmux split -h lf; lf" \
-        listclip="cliphist list | fzf | cliphist decode | wl-copy" \
-        f="lf"
-    # cclip="wl-copy" \
-    # pclip="wl-paste"
-    ;;
-tty | x11)
-    alias \
-        2f="tmux split -h lfcd; lfcd" \
-        f="lfcd"
-    # cclip="xclip -selection clipboard" \
-    # pclip="xclip -selection clipboard -o"
-    ;;
-esac
-
 case "$(grep "^NAME=" /etc/os-release | cut -f2 -d'=')" in
 Void | \"Void\")
-    alias \
-        xbi="doas xbps-install -S" \
-        xu="doas xbps-install -Su" \
-        xr="doas xbps-remove -R" \
-        sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
-
-    sxi() {
-        LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
-        [ -z "$LIST" ] && return
-        doas xbps-install -Sy "$LIST"
-    }
-
-    alias \
-        xq="xbps-query -Rs" \
-        xgot="xbps-query -l | fzf"
-
-    sxq() {
-        xbps-query -Rs "$1" | fzf
-    }
+    . "${XDG_CONFIG_HOME:-$HOME/.config}/shell/modules/void"
     ;;
 NixOS | \"NixOS\")
-    alias \
-        hm="home-manager" \
-        nsh="nix-shell -p" \
-        nshu="nix-shell -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs-unstable -p" \
-        mpc="mpc --host=\"\$MPD_HOST\"" \
-        qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
-        cbrs="nsh openvpn3 namespaced-openvpn --run 'doas namespaced-openvpn --namespace cbr --config /usr/openvpn/cbremote.ovpn'" \
-        cbrt="s ip netns exec cbr sudo -u \$USER -i foot" \
-        cbr="s ip netns exec cbr sudo -u \$USER -i" \
-        pvt="doas ip netns exec pvt-net1 doas -u davide" \
-        pvtf="doas ip netns exec pvt-net1 doas -u davide firefox" \
-        trra="doas ip netns exec pvt-net1 doas -u davide transmission-remote -a" \
-        trrd="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F d -l" \
-        trrl="doas ip netns exec pvt-net1 doas -u davide transmission-remote -l" \
-        trru="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F u -l" \
-        trrr5="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:5 -l" \
-        trrr6="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:6 -l" \
-        trrr56="doas ip netns exec pvt-net1 doas -u davide transmission-remote -F r:5 -F ~r:6 -l" \
-        chrome="chromium --ozone-platform=wayland --enable-features=AcceleratedVideoDecodeLinuxGL --enable-features=VaapiVideoDecoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE --force-device-scale-factor=1.0 --gtk-version=4 --enable-features=WaylandPerSurfaceScale,WaylandUiScale" \
-        wt="wtwitch" \
-        qtcheck="qtile cmd-obj -o cmd -f validate_config"
-
-    nshr() {
-        nix-shell -p "$1" --run "$@"
-    }
-
-    trrr() {
-        doas ip netns exec pvt-net1 doas -u davide transmission-remote -F "r:$1" -l
-    }
-
-    trrrn() {
-        doas ip netns exec pvt-net1 doas -u davide transmission-remote -F "r:$1" -F "~r:$2" -l
-    }
-
-    trre() {
-        doas ip netns exec pvt-net1 doas -u davide transmission-remote "$@"
-    }
-
-    pre_switch() {
-        DIR="$HOME/.mozilla/firefox/nixhm"
-        [ -e "$DIR/containers.json" ] && rm "$DIR/containers.json"
-        [ -e "$DIR/chrome/userChrome.css" ] && mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
-        [ -e "$DIR/chrome/userContent.css" ] && mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
-        [ -e "$DIR/containers.json" ] && rm "$DIR/containers.json"
-        [ -e "$HOME/.local/share/applications/mimeapps.list" ] && rm "$HOME/.local/share/applications/mimeapps.list"
-        [ -e "$HOME/.config/ncmpcpp" ] && mv "$HOME/.config/ncmpcpp" "$HOME/.config/ncmpcpp-dot"
-    }
-
-    post_switch() {
-        DIR="$HOME/.mozilla/firefox/nixhm"
-        mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
-        mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
-        mv "$HOME/.config/ncmpcpp-dot" "$HOME/.config/ncmpcpp"
-    }
-
-    hms() {
-        pre_switch
-        home-manager switch
-        post_switch
-    }
-
-    hmu() {
-        pre_switch
-        cd "$HOME/.config/home-manager" &&
-            nix flake update &&
-            cd "$HOME" &&
-            home-manager switch 2>&1 |
-            tee "$HOME/.local/hm_last.log"
-        post_switch
-    }
+    . "${XDG_CONFIG_HOME:-$HOME/.config}/shell/modules/nixos"
     ;;
 Ubuntu | Armbian | \"Ubuntu\" | \"Armbian\") ;;
 esac
 
-y() {
-    set -- "$@" --cwd-file "$(mktemp -t yazi-cwd.XXXXXX)"
-    command yazi "$@"
-    shift $(($# - 1))
-    set -- "$(
-        command cat <"$1"
-        printf .
-        rm -f -- "$1"
-    )"
-    set -- "${1%.}"
-    [ "$1" != "$PWD" ] && [ -d "$1" ] && command cd -- "$1"
-}
+alias \
+    cclip="wl-copy" \
+    pclip="wl-paste" \
+    chrome="chromium --ozone-platform=wayland --enable-features=AcceleratedVideoDecodeLinuxGL --enable-features=VaapiVideoDecoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE --force-device-scale-factor=1.0 --gtk-version=4 --enable-features=WaylandPerSurfaceScale,WaylandUiScale" \
+    f="lf" \
+    listclip="cliphist list | fzf | cliphist decode | wl-copy" \
+    mpc="mpc --host=\"\$MPD_HOST\"" \
+    wt="wtwitch"
 
 # Override GNU defaults
 alias \
@@ -151,18 +42,6 @@ alias \
     ip='ip -color=auto' \
     l='eza -lg --icons --group-directories-first' \
     ll='eza -lag --icons --group-directories-first'
-
-batdiff() {
-    git diff --name-only --relative --diff-filter=d | xargs bat --diff
-}
-
-help() {
-    "$@" --help 2>&1 | bathelp
-}
-
-battail() {
-    tail -f "$@" | bat --paging=never -l log
-}
 
 # Abbreviations
 alias \
@@ -195,12 +74,48 @@ alias \
     space-void="play -n -c1 synth whitenoise band -n 100 20 band -n 50 20 gain +25  fade h 1 864000 1" \
     space-engine="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 
+# Miscellaneous
+alias \
+    ffmpeg="ffmpeg -hide_banner" \
+    ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
+    mpv-update-plugins="find \"\$XDG_CONFIG_HOME/mpv/modules\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull" \
+    zsh-update-plugins="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull" \
+    search_commit="fzf --multi --ansi --preview='head -50 {+}' &&
+		git log --oneline |
+		fzf --multi --ansi --preview='git show {+1}'"
+
+y() {
+    set -- "$@" --cwd-file "$(mktemp -t yazi-cwd.XXXXXX)"
+    command yazi "$@"
+    shift $(($# - 1))
+    set -- "$(
+        command cat <"$1"
+        printf .
+        rm -f -- "$1"
+    )"
+    set -- "${1%.}"
+    [ "$1" != "$PWD" ] && [ -d "$1" ] && command cd -- "$1" || exit
+}
+
+batdiff() {
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+
+battail() {
+    tail -f "$@" | bat --paging=never -l log
+}
+
 randstring() {
-    tr -dc A-Za-z0-9 </dev/urandom | head -c "${1:-16}"; echo
+    tr -dc A-Za-z0-9 </dev/urandom | head -c "${1:-16}"
+    echo
 }
 
 randpw() {
-    openssl rand -base64 "${1:-16}"
+    openssl rand -base64 "${1:-32}"
 }
 
 dict() {
@@ -215,18 +130,6 @@ modules_update() {
     find "$1" -type d -exec test -e '{}/.git' ';' -print0 |
         xargs -I {} -0 git -C {} pull origin master
 }
-
-alias \
-    search_commit="fzf --multi --ansi --preview='head -50 {+}' &&
-		git log --oneline |
-		fzf --multi --ansi --preview='git show {+1}'"
-
-# Miscellaneous
-alias \
-    ffmpeg="ffmpeg -hide_banner" \
-    ref="shortcuts >/dev/null; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/shortcutrc ; source \${XDG_CONFIG_HOME:-\$HOME/.config}/shell/zshnameddirrc" \
-    mpv-update-plugins="find \"\$XDG_CONFIG_HOME/mpv/modules\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull" \
-    zsh-update-plugins="find \"\$ZDOTDIR/plugins\" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
 
 [ -f "$XINITRC" ] && alias startx="startx \$XINITRC"
 

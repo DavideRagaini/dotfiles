@@ -1,0 +1,5 @@
+#!/bin/sh
+
+alias \
+    qtlog="less -N +F \$HOME/.local/share/qtile/qtile.log" \
+    qtcheck="qtile cmd-obj -o cmd -f validate_config"

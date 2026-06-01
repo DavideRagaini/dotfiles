@@ -1,0 +1,49 @@
+#!/bin/sh
+
+alias \
+    hm="home-manager" \
+    nsh="nix-shell -p" \
+    nshu="nix-shell -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs-unstable -p"
+
+nshr() {
+    nix-shell -p "$1" --run "$@"
+}
+
+pre_switch() {
+    DIR="$HOME/.mozilla/firefox/nixhm"
+    [ -e "$DIR/containers.json" ] && rm "$DIR/containers.json"
+    [ -e "$DIR/chrome/userChrome.css" ] && mv "$DIR/chrome/userChrome.css" "$DIR/chrome/userChrome0.css"
+    [ -e "$DIR/chrome/userContent.css" ] && mv "$DIR/chrome/userContent.css" "$DIR/chrome/userContent0.css"
+    [ -e "$DIR/containers.json" ] && rm "$DIR/containers.json"
+    [ -e "$HOME/.local/share/applications/mimeapps.list" ] && rm "$HOME/.local/share/applications/mimeapps.list"
+    [ -e "$HOME/.config/ncmpcpp" ] && mv "$HOME/.config/ncmpcpp" "$HOME/.config/ncmpcpp-dot"
+}
+
+post_switch() {
+    DIR="$HOME/.mozilla/firefox/nixhm"
+    mv "$DIR/chrome/userChrome0.css" "$DIR/chrome/userChrome.css"
+    mv "$DIR/chrome/userContent0.css" "$DIR/chrome/userContent.css"
+    mv "$HOME/.config/ncmpcpp-dot" "$HOME/.config/ncmpcpp"
+}
+
+hms() {
+    pre_switch
+    home-manager switch
+    post_switch
+}
+
+hmu() {
+    pre_switch
+    cd "$HOME/.config/home-manager" &&
+        nix flake update &&
+        cd "$HOME" &&
+        home-manager switch 2>&1 |
+        tee "$HOME/.local/hm_last.log"
+    post_switch
+}
+
+dotfiles_deploy () {
+    cd "${HOME}/.local/src/dotfiles" || exit
+    stow -v dot-config -t ~/.config --ignore "dunst|gtk.*|mimeapps.list|ncmpcpp|spotify.*|udiskie"
+    cd || exit
+}

@@ -37,6 +37,7 @@ zsh_add_file "zsh-prompt"
 [ -f "$HOME/.config/shell/aliasrc" ] && . "$HOME/.config/shell/aliasrc"
 
 # Plugins
+plugins=(git ssh-agent)
 zsh_add_plugin "Aloxaf/fzf-tab"
 zsh_add_plugin "hlissner/zsh-autopair"
 zsh_add_plugin "joshskidmore/zsh-fzf-history-search"

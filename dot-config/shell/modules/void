@@ -1,0 +1,21 @@
+#!/bin/sh
+
+alias \
+    xbi="doas xbps-install -S" \
+    xu="doas xbps-install -Su" \
+    xr="doas xbps-remove -R" \
+    sxr="xbps-query -l | fzf | cut -d ' ' -f 2 | xargs -r -I % doas xbps-remove -Ry %"
+
+sxi() {
+    LIST="$(xbps-query -Rs "$1" | fzf | cut -d' ' -f2)"
+    [ -z "$LIST" ] && return
+    doas xbps-install -Sy "$LIST"
+}
+
+alias \
+    xq="xbps-query -Rs" \
+    xgot="xbps-query -l | fzf"
+
+sxq() {
+    xbps-query -Rs "$1" | fzf
+}

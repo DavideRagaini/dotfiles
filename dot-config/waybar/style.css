@@ -41,6 +41,10 @@ window#waybar {
     color: @text;
 }
 
+window#waybar {
+  background-color: alpha(black, 0.99)
+}
+
 window#waybar.hidden {
     opacity: 0.2;
 }
