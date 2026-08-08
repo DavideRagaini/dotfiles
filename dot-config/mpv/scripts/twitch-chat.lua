@@ -1,10 +1,11 @@
 --[[
 
-License: https://github.com/CrendKing/mpv-twitch-chat/blob/master/LICENSE
+License: https://github.com/CrendKing/mpv-twitch-chat/blob/master/LICENSE.txt
 
 Options:
 
-    twitch_client_id: Client ID to be used to request the comments from Twitch API.
+    twitch_client_id: Client ID to be used to request the comments from Twitch API. By default use yt-dlp's Twitch client ID.
+        It is recommended to create and use your own client ID.
 
     show_name: Whether to show the commenter's name.
 
@@ -26,21 +27,21 @@ Options:
 local TWITCH_GRAPHQL_URL = 'https://gql.twitch.tv/gql'
 
 local o = {
-    -- twitch_client_id='jzkbprff40iqj646a697cyrvl0zt2m6',
-    twitch_client_id='kimne78kx3ncx6brgo4mv6wki5h1ko',
-    -- twitch_client_id='kd1unb4b3q4t58fwlpcbzcbnm76a8fp',
-    show_name = true,
+    twitch_client_id = 'ue6666qo983tsx6so1t0vnawi233wa',
+    -- twitch_client_id='kimne78kx3ncx6brgo4mv6wki5h1ko',
+    show_name = false,
     color = true,
-    duration_multiplier = 30,
-    max_duration = 15,
-    max_message_length = 100,
+    duration_multiplier = 10,
+    max_duration = 10,
+    max_message_length = 40,
     fetch_aot = 1,
 }
 
-local options = require 'mp.options'
-options.read_options(o)
+require('mp.options').read_options(o)
 
 local utils = require 'mp.utils'
+
+local TRACK_TITLE = 'Twitch Chat'
 
 -- sid to be operated on
 local chat_sid
@@ -92,26 +93,26 @@ local function break_message_body(message_body)
 end
 
 local function load_twitch_chat(is_new_session)
-    if not chat_sid or not twitch_video_id  then
+    if not chat_sid or not twitch_video_id then
         return
     end
 
     local request_body = {
         ['operationName'] = 'VideoCommentsByOffsetOrCursor',
         ['variables'] = {
-            ['videoID'] = twitch_video_id
+            ['videoID'] = twitch_video_id,
         },
         ['extensions'] = {
             ['persistedQuery'] = {
                 ['version'] = 1,
-                ['sha256Hash'] = 'b70a3591ff0f4e0313d126c6a1502d79a1c02baebb288227c582044aa76adf6a'
-            }
-        }
+                ['sha256Hash'] = 'b70a3591ff0f4e0313d126c6a1502d79a1c02baebb288227c582044aa76adf6a',
+            },
+        },
     }
 
     if is_new_session then
         local time_pos = mp.get_property_native('time-pos')
-        if not time_pos then
+        if time_pos == nil then
             return
         end
 
@@ -125,7 +126,7 @@ local function load_twitch_chat(is_new_session)
     local sp_ret = mp.command_native({
         name = 'subprocess',
         capture_stdout = true,
-        args = {'curl', '--request', 'POST', '--header', string.format('Client-ID: %s', o.twitch_client_id), '--data', utils.format_json(request_body), '--silent', TWITCH_GRAPHQL_URL},
+        args = { 'curl', '--request', 'POST', '--header', string.format('Client-ID: %s', o.twitch_client_id), '--data', utils.format_json(request_body), '--silent', TWITCH_GRAPHQL_URL },
     })
 
     if sp_ret.status ~= 0 then
@@ -142,7 +143,7 @@ local function load_twitch_chat(is_new_session)
     end
 
     local comments = resp_json.data.video.comments.edges
-    if not comments then
+    if comments == nil then
         mp.msg.error(string.format('Failed to download comments JSON: %s', sp_ret.stdout))
         return
     end
@@ -217,12 +218,12 @@ local function load_twitch_chat(is_new_session)
 
     mp.command_native({
         name = 'sub-remove',
-        id = chat_sid
+        id = chat_sid,
     })
     mp.command_native({
         name = 'sub-add',
         url = string.format('memory://%s%s', curr_segment, next_segment),
-        title = 'Twitch Chat'
+        title = TRACK_TITLE,
     })
     chat_sid = mp.get_property_native('sid')
 
@@ -231,38 +232,41 @@ end
 
 local function init()
     twitch_video_id = nil
+
+    if mp.get_property_native('path'):find('^https://www.twitch.tv/videos/') ~= nil then
+        -- the placeholder subtitle track must contain valid subtitle content (in any mpv supported format)
+        -- currently using the minimum content of SubRip, which Twitch also uses, for consistency
+        -- Other minimum placeholders also work, such as "memory://WEBVTT"
+        mp.command_native({
+            name = 'sub-add',
+            url = 'memory://0\n0:0:0,0 --> 0:0:0,0',
+            flags = 'auto',
+            title = TRACK_TITLE,
+        })
+    end
 end
 
 local function timer_callback(is_new_session)
     local last_msg_offset = load_twitch_chat(is_new_session)
     if last_msg_offset then
         local fetch_delay = last_msg_offset - mp.get_property_native('time-pos') - o.fetch_aot
-        timer = mp.add_timeout(fetch_delay, function()
+        timer = mp.add_timeout(fetch_delay, function ()
             timer_callback(false)
         end)
     end
 end
 
 local function handle_track_change(name, sid)
-    if not sid and timer then
+    if sid == nil and timer ~= nil then
         timer:kill()
         timer = nil
-    elseif sid and not timer then
-        if not twitch_video_id then
-            local sub_filename = mp.get_property_native('current-tracks/sub/external-filename')
-            if sub_filename then
-                local twitch_client_id_from_track
-                twitch_video_id, twitch_client_id_from_track = sub_filename:match('https://api%.twitch%.tv/v5/videos/(%d+)/comments%?client_id=(%w+)')
-
-                if twitch_client_id_from_track and o.twitch_client_id == '' then
-                    o.twitch_client_id = twitch_client_id_from_track
-                end
-            end
+    elseif sid ~= nil and timer == nil then
+        if twitch_video_id == nil then
+            twitch_video_id = mp.get_property_native('path'):match('https://www%.twitch%.tv/videos/(%d+)')
         end
 
         if twitch_video_id then
             chat_sid = sid
-            mp.commandv('sub-remove', chat_sid)
             timer_callback(true)
         end
     end
@@ -284,7 +288,7 @@ local function handle_pause(name, is_paused)
     end
 end
 
-mp.register_event('start-file', init)
+mp.register_event('file-loaded', init)
 mp.observe_property('current-tracks/sub/id', 'native', handle_track_change)
 mp.register_event('seek', handle_seek)
 mp.observe_property('pause', 'native', handle_pause)

@@ -26,6 +26,12 @@ post_switch() {
     mv "$HOME/.config/ncmpcpp-dot" "$HOME/.config/ncmpcpp"
 }
 
+hmb() {
+    pre_switch
+    home-manager build
+    post_switch
+}
+
 hms() {
     pre_switch
     home-manager switch

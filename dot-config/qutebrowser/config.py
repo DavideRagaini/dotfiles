@@ -124,7 +124,7 @@ c.content.geolocation = False
 # c.content.headers.custom = {
 #     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 # }
-# c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 "
+c.content.headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
 c.content.javascript.clipboard = "none"
 c.content.pdfjs = False
 c.content.webgl = False

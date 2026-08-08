@@ -11,7 +11,7 @@ set newtab about:blank
 set hintdelay 0
 set hintuppercase false
 
-colourscheme dracula
+colourscheme quake-violet
 
 settings.scrollStepSize = 300;
 settings.hintAlign = "left";

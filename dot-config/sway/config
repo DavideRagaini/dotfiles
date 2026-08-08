@@ -57,7 +57,7 @@ exec_always {
 # }}}
 # ======================= Window Rules ======================= {{{
 for_window {
-    [app_id="dropdown|files|music|news|sysmon|agenda"] {
+    [app_id="dropdown|files|music|news|sysmon"] {
         floating enable
         resize set 95 ppt 95 ppt
         move position center
@@ -65,7 +65,7 @@ for_window {
         scratchpad show
     }
 
-    [title="flemacs"] {
+    [title="flemacs|agenda"] {
         floating enable
         resize set 95 ppt 95 ppt
         move position center
@@ -89,6 +89,7 @@ for_window {
         scratchpad show
     }
 
+    [app_id="libreoffice*"] floating disable
     [title="^Opening .*" app_id="org.mozilla.firefox"] floating enable, move workspace current, urgent enable, move position center
     [title="."] title_format "<b>%title</b> (%app_id)"
     [shell="xwayland"] title_format "[XWayland] %title"
@@ -97,24 +98,33 @@ for_window {
 }
 
 assign {
-    [title= "temacs"]                  workspace 0
-    [title= "Email"]                   workspace 18
+    [title=".*[Pp]rivate.*"]           workspace 17
+    [title="Mozilla Firefox Private Browsing"] workspace 17
+    [title=".*[Ww]isp[Gg]est.*|.*[Ww]yc [Mm]anager.*|.*INOLTRE_METRO_NETWORK.*|.*[Rr]adius [Mm]anager.*"] workspace 7
+    [title="temacs"]                   workspace 20
+    [title="Email"]                    workspace 18
+    [title="ORG"]                      workspace 0
 
+    [class="Ferdium"]                  workspace 19
     [class="sioyek"]                   workspace 16
     [class="term-emacsclient"]         workspace 1
+    [class="xfreerdp"]                 workspace 6
 
+    [app_id="com.github.wwmm.easyeffects"] workspace 7
     [app_id="baseterm"]                workspace 10
     [app_id="brave-mdhklhaglcijaohkkndgcmnphmnnfkdk-Default"] workspace 20
+    [app_id="brave|librewolf"]         workspace 3
     [app_id="chromium"]                workspace 13
-    [app_id="emacs[client]?"]          workspace 0
+    [app_id="code"]                    workspace 17
+    [app_id="emacs[client]?"]          workspace 2
     [app_id="ferdium"]                 workspace 19
-    [app_id="firefox|librewolf|brave"] workspace 1
+    [app_id="firefox|qutebrowser"]     workspace 1
     [app_id="libreoffice*"]            workspace 4
     [app_id="mpv"]                     workspace 9
     [app_id="org.pwmt.zathura"]        workspace 16
     [app_id="org.remmina.Remmina"]     workspace 8
-    [app_id="qutebrowser"]             workspace 15
     [app_id="thunderbird"]             workspace 18
+    [app_id="winboat"]                 workspace 8
 
 }
 # }}}
@@ -161,7 +171,7 @@ input type:keyboard {
     xkb_layout us
     xkb_variant altgr-intl
     # xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
-    # xkb_options "altwin:swap_lalt_lwin"
+    xkb_options "altwin:swap_lalt_lwin"
     xkb_numlock enabled
     repeat_delay 300
     repeat_rate 50
@@ -206,3 +216,6 @@ exec {
     # track_prev_focus
 }
 # }}}
+
+# javascript:f=document.createElement('form');f.method='post';f.action='http://wispgest.inoltre.it:8080/index.php?p=customer&d=list&search=1';i=document.createElement('input');i.name='name';i.value='%s';f.appendChild(i);document.body.appendChild(f);f.submit();
+# javascript:document.write('<form name="f" action="http://wispgest.inoltre.it:8080/index.php?p=customer&d=list&search=1" method="POST"><input type="hidden" name="name" value="%s"></form><script>f.submit();</script>');

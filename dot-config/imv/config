@@ -2,7 +2,7 @@
 list_files_at_exit=true
 loop_input=true
 overlay=true
-overlay_font=Iosevka Nerd Font Propo
+overlay_font=Liberation Mono:10
 overlay_position_bottom=true
 scaling_mode=full
 background=1e1f24

@@ -18,6 +18,8 @@
 [opener]
     play = [{ run = "mpv %s", orphan = true, for = "unix" },]
     edit = [{ run = "emacsclient -c %s -a emacs", block = true, for = "unix" },]
+    pdfopen = [{ run = "zathura %s", orphan=true, for = "unix" },]
+    imgopen = [{ run = "imv-dir %s", orphan=true, for = "unix" },]
     open = [{ run = "xdg-open %s1", desc = "Open" },]
 
 [input]
@@ -37,6 +39,8 @@
     rules = [
         { mime = "text/*", use = "edit" },
         { mime = "video/*", use = "play" },
+        { mime = "image/*", use = "imgopen" },
+        { mime = "application/pdf", use = "pdfopen" },
 
         # { mime = "application/json", use = "edit" },
         { url = "*.json", use = "edit" },

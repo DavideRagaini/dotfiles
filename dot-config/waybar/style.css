@@ -28,8 +28,8 @@
 * {
     border: none;
     border-radius: 4px;
-    font-family: GoMono Nerd Font, JetBrainsMono Nerd Font, Font Awesome;
-    font-size: 9px;
+    font-family: Liberation Mono, GoMono Nerd Font, JetBrainsMono Nerd Font, Font Awesome, monospace;
+    font-size: 10px;
     font-weight: bold;
     min-height: 0;
 }
