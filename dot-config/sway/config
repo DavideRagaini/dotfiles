@@ -34,7 +34,7 @@ for_window {
     [workspace=8] layout tabbed
     [workspace=9] layout tabbed
 
-    [workspace=10] layout tabbed
+    # [workspace=10] layout tabbed
     [workspace=11] layout tabbed
     [workspace=12] layout tabbed
     [workspace=13] layout tabbed
@@ -51,7 +51,7 @@ for_window {
 exec_always {
     autotiling -l 2 -w \
         1 2 5 \ # Main
-        10 11 12 13 14 \ #
+        11 12 13 14 \ #
         21 22 23 24 # eDP
 }
 # }}}
@@ -138,7 +138,7 @@ default_border pixel 2
 default_orientation auto
 smart_borders on
 title_align center
-hide_edge_borders --i3 smart
+hide_edge_borders --i3 smart_no_gaps
 mouse_warping output
 focus_follows_mouse yes
 popup_during_fullscreen smart
@@ -214,6 +214,24 @@ exec {
     wl-paste --watch cliphist store &
     foot --server &
     # track_prev_focus
+    wlsunset -t 2400 -T 6500 -S 06:30 -s 20:00 -d 1800 &
+
+    emacsclient -e '(doom/quickload-session t)' -c &
+    firefox &
+    footclient -a code -e tmux new-session -A -s code opencode &
+    footclient -a code -e tmux new-session -A -s  zsh &
+
+    # swayidle -w \
+    #          timeout 290 'swaymsg "output * dpms off"' \
+    #          resume 'swaymsg "output * dpms on"' \
+    #          timeout 300 'swaylock -f -c 000000' \
+    #          before-sleep 'swaylock'
+
+        # timeout 180 'brightnessctl s 1%' resume 'brightnessctl s 35%' \
+    swayidle -w \
+        timeout 290 'sway-power-outputs off"' resume 'sway-power-outputs on"' \
+        timeout 300 'swaylock -f -c 000000' before-sleep 'swaylock -f' \
+        timeout 1800 'systemctl suspend-then-hibernate' before-sleep 'swaylock -f'
 }
 # }}}
 

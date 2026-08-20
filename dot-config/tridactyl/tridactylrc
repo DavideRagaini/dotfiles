@@ -64,34 +64,33 @@ bind x tabclose
 "" ========== Aliases ========== {{{
 "" }}}
 "" ========== SearchUrls ========== {{{
-set searchengine https://searx.be/search?q=%s
+set searchengine https://www.startpage.com/do/search?cat=web&language=english&lui=english&t=device&qadf=none&qsr=all&query=%s
 
+set searchurls.@r https://dma.inoltre.it/radiusmanager/admin.php?cont=edit_user&username=%s
+
+set searchurls.@g https://www.google.com/search?q=%s
 set searchurls.@d https://duckduckgo.com/?t=hd&va=u&q=%s
-"" set searchurls.@g https://www.google.com/search?q=%s
-"" set searchurls.@i https://searx.be/search?q=%s&language=it-IT
-"" set searchurls.@y https://yewtu.be/search?q=%s
+
 set searchurls.@we https://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
+set searchurls.@wi https://it.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
+set searchurls.@az https://www.amazon.it/s/?field-keywords=%s
 
-"" set searchurls.@r https://dma.inoltre.it/radiusmanager/admin.php?cont=edit_user&username=%s
-
-"" set searchurls.@wi https://it.wikipedia.org/w/index.php?title=Special%3ASearch&search=%s
-"" set searchurls.@az https://www.amazon.it/s/?field-keywords=%s
-
-"" set searchurls.@np https://search.nixos.org/packages?from=0&size=50&sort=relevance&type=packages&query=%s
-"" set searchurls.@no https://search.nixos.org/options?from=0&size=50&sort=relevance&type=packages&query=%s
-"" set searchurls.@ho https://mipmip.github.io/home-manager-option-search/?query=%s
-"" set searchurls.@nw https://nixos.wiki/index.php?title=Special:Search&search=%s
+set searchurls.@np https://search.nixos.org/packages?from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.@no https://search.nixos.org/options?from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.@nw https://nixos.wiki/index.php?title=Special:Search&search=%s
 
 set searchurls.@gs https://scholar.google.com/scholar?q=%s
 
 set searchurls.@tce https://www.treccani.it/enciclopedia/ricerca/%s
 set searchurls.@tcv https://www.treccani.it/vocabolario/ricerca/%s
 set searchurls.@tcs https://www.treccani.it/vocabolario/convoglio_(Sinonimi-e-Contrari)/%s
-"" }}}
 
-"" https://github.com/tridactyl/tridactyl/wiki/Exemplar-.tridactylrc-files
+set searchurls.@y https://yewtu.be/search?q=%s
+set searchurls.@yy https://www.youtube.com/results?search_query=%s
+"" }}}
 "" ========== autocmd ========== {{{
 autocmd DocStart *.sohomar.duckdns.org mode ignore
+autocmd DocStart kvm.sohomar.duckdns.org mode ignore
 autocmd DocStart [0-9]+.[0-9]+[0-9]+.[0-9]+ mode ignore
 "" }}}
 "" ========== URL customs ========== {{{
@@ -101,11 +100,6 @@ unbindurl https://eurocominnovazione.huducloud.com /
 
 command tabpush_and_focus jsb void async function(){const tab=await activeTab();const tabId=tab.id;const oldWindowId=tab.windowId;fillcmdline("tabpush");await new Promise(ok=>{browser.tabs.onActivated.addListener(function leftCurrentTab(event){browser.tabs.onActivated.removeListener(leftCurrentTab);ok()})});const tabNow=await browser.tabs.get(tabId);if(tabNow.windowId==oldWindowId)return;browser.tabs.update(tabId,{active:true});browser.windows.update(tabNow.windowId,{focused:true})}();
 
-# command postopen js -p fetch("http://wispgest.inoltre.it:8080/index.php", {
-#   method: "POST",
-#   body: new URLSearchParams({ query: JS_ARGS.join(" ") })
-# }).then(r => r.text()).then(html => {
-#   const w = window.open();
-#   w.document.write(html);
-#   w.document.close();
-# })
+"" ========== Resources ========== {{{
+"" https://github.com/tridactyl/tridactyl/wiki/Exemplar-.tridactylrc-files
+"" }}}

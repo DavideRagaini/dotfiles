@@ -1,0 +1,58 @@
+[
+    {
+        "layer": "top",
+        "position": "bottom",
+        "ipc": true,
+
+        "include": [
+            "modules.json"
+        ],
+
+        "output": [
+            "LG Electronics LG Ultra HD 0x000641E4",
+            "LG Electronics 2D FHD LG TV 0x01010101"
+        ],
+
+        "modules-left": [
+            "sway/workspaces",
+            "sway/scratchpad",
+            "sway/mode",
+            "sway/window"
+        ],
+
+        "modules-right": [
+            "cpu",
+            "temperature#cpu",
+            "memory",
+            "network#def",
+            "network#speed",
+            "disk#root",
+            "wireplumber",
+            "custom/sink",
+            "battery",
+            "custom/uptime",
+            "clock#date",
+            "clock#time",
+            "idle_inhibitor",
+            "tray"
+        ],
+
+        "cpu": {
+            "format": "{load} {icon0}{icon1}{icon2}{icon3}|{icon4}{icon5}{icon6}{icon7}|{icon8}{icon9}{icon10}{icon11}|{icon12}{icon13}{icon14}{icon15}|{icon16}{icon17}{icon18}{icon19}|{icon20}{icon21}{icon22}{icon23} {usage:03d}% @{avg_frequency:2.2f}"
+        }
+    },
+    {
+        "layer": "top",
+        "position": "bottom",
+        "ipc": true,
+
+        "include": [
+            "vlayout.json",
+            "modules.json"
+        ],
+
+        "output": [
+            "BNQ BenQ GW2470 7AG00620019"
+        ]
+    }
+]

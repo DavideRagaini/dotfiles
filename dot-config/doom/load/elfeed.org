@@ -1,4 +1,5 @@
 * root :elfeed:
+# https://youtube.com/feeds/videos.xml?channel_id=
 # ** Programming :programming:
 # *** [[https://this-week-in-rust.org/rss.xml][This Week in Rust]] :rust:
 # ** News :news:
@@ -6,137 +7,156 @@
 # **** http://feeds.bbci.co.uk/news/rss.xml
 # ** [[https://dyn.keepa.com/v2/user/rss/?feed=3s870pff177ohgninibgq9g0jpbu9n5r][keepa]]
 ** Blogs :blogs:
+*** [[https://simonwillison.net/series/using-llms.atom][Simon Willison Using LLMs]]
+*** [[https://www.gingerbill.org/article/index.xml][GingerBill]]
 # *** https://xeiaso.net/blog.rss :cs:
 # *** https://opensource.com/taxonomy/term/6803/feed :lnx:
 # *** https://www.topbug.net/blog/category/unix-variants/gnu-lnx/feed/ :lnx:
 # *** https://www.righto.com/feeds/posts/default :el:
 ** Podcasts :F:pod:
-*** [[https://yewtu.be/feed/channel/UCMOiTfbUXxUFqJJtCQGHrrA][Michele Boldrin]] :w:
-*** [[https://yewtu.be/feed/channel/UCa2C45YKJGkXr9jQV2TYAkA][Mirko Campochiari]]
-*** [[https://yewtu.be/feed/channel/UCeieWsvQm00yw4GzBNLzJPw][Avvocato dell'atomo]] :w:stem:
-*** [[https://yewtu.be/feed/channel/UCrdEJmK5bgFte04-UF7o29Q][Liberi Oltre]] :w:
-*** [[https://yewtu.be/feed/channel/UCX_PQRmLqxhQ3vAEl1Va4mA][Costantino de blasi]] :w:
-*** [[https://yewtu.be/feed/channel/UCNSFH6m4JlzexDWxJSniqMg][Agorà]] :w:
-*** [[https://yewtu.be/feed/channel/UCWKJtC_ekM-CUg3kB9-5gZw][Stem]] :w:
-*** [[https://yewtu.be/feed/channel/UCl2mFZoRqjw_ELax4Yisf6w][Luis Rossman]] :tech:
-*** [[https://yewtu.be/feed/channel/UCUkJ4Ue84_RxoRwDY7cctww][ivan]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCMOiTfbUXxUFqJJtCQGHrrA][Michele Boldrin]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCa2C45YKJGkXr9jQV2TYAkA][Mirko Campochiari]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCeieWsvQm00yw4GzBNLzJPw][Avvocato dell'atomo]] :stem:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCrdEJmK5bgFte04-UF7o29Q][Liberi Oltre]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCX_PQRmLqxhQ3vAEl1Va4mA][Costantino de blasi]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCNSFH6m4JlzexDWxJSniqMg][Agorà]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCWKJtC_ekM-CUg3kB9-5gZw][Stem]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCl2mFZoRqjw_ELax4Yisf6w][Luis Rossman]] :tech:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCUkJ4Ue84_RxoRwDY7cctww][ivan]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCaM-zH6ji5kWncFMaBBc7Yg][Wesa]]
 ** Linux :lnx:
-*** [[https://yewtu.be/feed/channel/UC7YOGHUfC1Tb6E4pudI9STA][Mental Outlaw]] :w:
-*** [[https://yewtu.be/feed/channel/UCld68syR8Wi-GY_n4CaoJGA][BrodieRobertson]] :w:
-# *** [[https://yewtu.be/feed/channel/UCtYg149E_wUGVmjGz-TgyNA][Chris Titus Talk]]
-# *** [[https://yewtu.be/feed/channel/UCg6gPGh8HU2U01vaFCAsvmQ][Chris Titus]] :w:
-# *** [[https://invidious.nerdvpn.de/feed/channel/UCriRR_CzOny-akXyk1R-oDQ][NapoleonWils0n]]
-# *** [[https://yewtu.be/feed/channel/UCVls1GmFKf6WlTraIb_IaJg][DistroTube]]
-*** [[https://yewtu.be/feed/channel/UCeZyoDTk0J-UPhd7MUktexw][LibrePhoenix]] :w:
-# *** [[https://yewtu.be/feed/channel/UC2eYFnH61tmytImy1mTYvhA][Luke Smith]]
-*** [[https://yewtu.be/feed/channel/UCsnGwSIHyoYN0kiINAGUKxg][Wolfgang]] :w:
-*** [[https://yewtu.be/feed/channel/UC5UAwBUum7CPN5buc-_N1Fw][TLE]] :w:
-*** [[https://yewtu.be/feed/channel/UCmyGZ0689ODyReHw3rsKLtQ][Michael Tunnel]] :w:
-# *** [[https://yewtu.be/feed/channel/UCZ4HO8or08HUGUzA0w8Tagw][Flux Harmonic]]
-*** [[https://yewtu.be/feed/channel/UC9x0AN7BWHpCDHSm9NiJFJQ][NetworkChuck]]
-*** [[https://yewtu.be/feed/channel/UCR-DXc1voovS8nhAvccRZhg][Jeff Geerling]] :w:
-# *** [[https://yewtu.be/feed/channel/UCsd6hP-zzIkCpw8XGw7Osyw][Geerling Engineering]]
-# *** [[https://yewtu.be/feed/channel/UCu7_D0o48KbfhpEohoP7YSQ][Andreas Spiess]] :w:
-# *** [[https://yewtu.be/feed/channel/UCJXa3_WNNmIpewOtCHf3B0g][LaurieWierd]]
-*** [[https://yewtu.be/feed/channel/UCnDDucQDLncrauOCmanCIgw][Morro]] :w:
-*** [[https://yewtu.be/feed/channel/UCOWcZ6Wicl-1N34H0zZe38w][Level1Linux]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA][Mental Outlaw]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA][BrodieRobertson]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCtYg149E_wUGVmjGz-TgyNA][Chris Titus Talk]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ][Chris Titus]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCRq87C6FUHWWaKkImDeMVBw][Maple Circuit]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCriRR_CzOny-akXyk1R-oDQ][NapoleonWils0n]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg][DistroTube]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCeZyoDTk0J-UPhd7MUktexw][LibrePhoenix]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC65_CVnMw6hvPET_DRDg3GA][tony, btw]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA][Luke Smith]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC_zBdZ0_H_jn41FDRG7q4Tw][Vimjoyer]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg][Wolfgang]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw][TLE]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCmyGZ0689ODyReHw3rsKLtQ][Michael Tunnel]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCZ4HO8or08HUGUzA0w8Tagw][Flux Harmonic]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC9x0AN7BWHpCDHSm9NiJFJQ][NetworkChuck]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCR-DXc1voovS8nhAvccRZhg][Jeff Geerling]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCsd6hP-zzIkCpw8XGw7Osyw][Geerling Engineering]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCu7_D0o48KbfhpEohoP7YSQ][Andreas Spiess]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC1fbn6v4YGulRoiNGJNfGdw][Sneaky Subnet]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCJXa3_WNNmIpewOtCHf3B0g][LaurieWierd]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCnDDucQDLncrauOCmanCIgw][Morro]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCOWcZ6Wicl-1N34H0zZe38w][Level1Linux]]
 ** Economy
-*** [[https://yewtu.be/feed/channel/UCBOtZaVafz_5OmUrqJAVStQ][Mr.RIP]] :w:
-*** [[https://www.twitch.tv/retireinprogress/][RetireInProgressTW]]
-*** [[https://yewtu.be/feed/channel/UCq5fU1zDj0KcdWM6wjI0jhA][Economia Italia]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCBOtZaVafz_5OmUrqJAVStQ][Mr.RIP]] :w:
+# *** [[https://www.twitch.tv/retireinprogress/][RetireInProgressTW]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCq5fU1zDj0KcdWM6wjI0jhA][Economia Italia]] :w:
 ** Emacs :emacs:
 # *** [[https://twitchrss.appspot.com/vodonly/susampal][SusamPal]] :Books:
-*** [[https://yewtu.be/feed/channel/UCAiiOTio8Yu69c3XnR7nQBQ][System Crafters]]
-*** [[https://yewtu.be/feed/channel/UCJetJ7nDNLlEzDLXv7KIo0w][Gavin Freeborn]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ][System Crafters]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCJetJ7nDNLlEzDLXv7KIo0w][Gavin Freeborn]] :w:
 # *** [[https://systemcrafters.net/rss/news.xml][System Crafters blog]] :blog:
 # *** [[https://sachachua.com/blog/feed][sachachua]] :blog:emacs:
 # *** [[https://susam.net/maze/feed.xml][susam net]] :blog:lnx:
 ** STEM :stem:
-*** [[https://yewtu.be/feed/channel/UC1yNl2E66ZzKApQdRuTQ4tw][Sabine Hossenfelder]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC1yNl2E66ZzKApQdRuTQ4tw][Sabine Hossenfelder]] :w:
 # *** [[https://piped.privacydev.net/channel/UC3BXcpYFCzTndJ9Fisi32qg][Climate Chat]] :w:
-*** [[https://yewtu.be/feed/channel/UCHnyfMqiRRG1u-2MsSQLbXA][Veritasium]] :w:
-*** [[https://yewtu.be/feed/channel/UCj1VqrHhDte54oLgPG4xpuQ][Stuff Made Here]] :w:
-# *** [[https://yewtu.be/feed/channel/UCWizIdwZdmr43zfxlCktmNw][Alec Steele]]
-# *** [[https://yewtu.be/feed/channel/UCYrX5FiWjiPd0JytMh6NX1Q][Kathy Loves Physics & History]] :w:
-*** [[https://yewtu.be/feed/channel/UC6107grRI4m0o2-emgoDnAA][SmarterEveryDay]] :w:
-# *** [[https://yewtu.be/feed/channel/UC8VkNBOwvsTlFjoSnNSMmxw][SmarterEveryDay2]]
-*** [[https://yewtu.be/feed/channel/UCy0tKL1T7wFoYcxCe0xjN6Q][Technology Connections]] :w:
-*** [[https://yewtu.be/feed/channel/UClRwC5Vc8HrB6vGx6Ti-lhA][Technology Connextras]] :w:
-# *** [[https://yewtu.be/feed/channel/UCWFKCr40YwOZQx8FHU_ZqqQ][JerryRigEverything]]
-# ** Math :math:
-# *** [[https://yewtu.be/feed/channel/UCYO_jab_esuFRV4b17AJtAw][3Blue1Brown]] :w:
-# *** [[https://yewtu.be/feed/channel/UCv0nF8zWevEsSVcmz6mlw6A][vcubingx]] :w:
-# *** [[https://yewtu.be/feed/channel/UCrlZs71h3mTR45FgQNINfrg][Mathemaniac]]
-# *** [[https://yewtu.be/feed/channel/UC1_uAIS3r8Vu6JjXWvastJg][Mathologer]]
-# *** [[https://yewtu.be/feed/channel/UCoxcjq-8xIDTYp3uz647V5A][Numberphile]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCm5H2LH2ISgpX-X5-SP4Vrg][Matteo Flora]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCHnyfMqiRRG1u-2MsSQLbXA][Veritasium]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCj1VqrHhDte54oLgPG4xpuQ][Stuff Made Here]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCWizIdwZdmr43zfxlCktmNw][Alec Steele]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCYrX5FiWjiPd0JytMh6NX1Q][Kathy Loves Physics & History]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC6107grRI4m0o2-emgoDnAA][SmarterEveryDay]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UC8VkNBOwvsTlFjoSnNSMmxw][SmarterEveryDay2]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCy0tKL1T7wFoYcxCe0xjN6Q][Technology Connections]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UClRwC5Vc8HrB6vGx6Ti-lhA][Technology Connextras]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCWFKCr40YwOZQx8FHU_ZqqQ][JerryRigEverything]]
+** Math :math:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw][3Blue1Brown]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCv0nF8zWevEsSVcmz6mlw6A][vcubingx]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCrlZs71h3mTR45FgQNINfrg][Mathemaniac]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC1_uAIS3r8Vu6JjXWvastJg][Mathologer]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A][Numberphile]]
 ** Electronics :el:
-# *** [[https://yewtu.be/feed/channel/UCS0N5baNlQWJCUrhCEo8WlA][Ben Eater]] :w:
-*** [[https://yewtu.be/feed/channel/UC6mIxFTvXkWQVEHPsEdflzQ][GreatScott]]
-# *** [[https://yewtu.be/feed/channel/UCJ0-OtVpF0wOKEqT2Z1HEtA][ElectroBOOM]]
-*** [[https://yewtu.be/feed/channel/UC1O0jDlG51N3jGf6_9t-9mw][Marco Reps]] :w:
-# *** [[https://yewtu.be/feed/channel/UCafxR2HWJRmMfSdyZXvZMTw][LOOK MOM NO COMPUTER]] :mus:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCS0N5baNlQWJCUrhCEo8WlA][Ben Eater]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC6mIxFTvXkWQVEHPsEdflzQ][GreatScott]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCJ0-OtVpF0wOKEqT2Z1HEtA][ElectroBOOM]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC1O0jDlG51N3jGf6_9t-9mw][Marco Reps]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCafxR2HWJRmMfSdyZXvZMTw][LOOK MOM NO COMPUTER]] :mus:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC2OYnh5nKWUnzj5D1Xt9Kdw][Sayaka]]
 ** Computer Science :cs:
-# *** [[https://yewtu.be/feed/channel/UC9-y-6csu5WGm29I7JiwpnA][Computerphile]]
-*** [[https://yewtu.be/feed/channel/UC8ENHE5xdFSwx71u3fDH5Xw][ThePrimeagen]] :w:
-*** [[https://yewtu.be/feed/channel/UCUyeluBRhGPCW4rPe_UvBZQ][ThePrimeTime]]
-# *** [[https://yewtu.be/feed/channel/UCVk4b-svNJoeytrrlOixebQ][TheVimeagen]] :vim:
-# *** [[https://yewtu.be/feed/channel/UCZ_cuJGBis0vi6U3bWmvDIg][FaceDev]] :w:
-# *** [[https://yewtu.be/feed/channel/UCDY981jZta5C5A6kQXioGUg][denvaar]] :w:vim:
-# *** [[https://yewtu.be/feed/channel/UCIYIsJWfps2RwOzJlhwnoEw][Vojtěch Pröschl]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA][Computerphile]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC6biysICWOJ-C3P4Tyeggzg][Low Level]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw][ThePrimeagen]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCUyeluBRhGPCW4rPe_UvBZQ][ThePrimeTime]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC1Qs8NS1cGoJFm4xGgaCs5A][TheStandupPod]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCUSck1dOH7VKmG4lRW7tZXg][GingerBill]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCDDG9vOcmgwlslJJpCWjqOg][Salvatore Sanfilippo]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC9J9u3apteD0EuFjzRpt71w][Wookash Podcast]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCJXa3_WNNmIpewOtCHf3B0g][Laurie]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCVk4b-svNJoeytrrlOixebQ][TheVimeagen]] :vim:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCZ_cuJGBis0vi6U3bWmvDIg][FaceDev]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCDY981jZta5C5A6kQXioGUg][denvaar]] :w:vim:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCIYIsJWfps2RwOzJlhwnoEw][Vojtěch Pröschl]] :w:
 ** Tech :tech:
-*** [[https://yewtu.be/feed/channel/UC4w1YQAJMWOz4qtxinq55LQ][Level1Tech]]
-*** [[https://yewtu.be/feed/channel/UChIs72whgZI9w6d6FhwGGHA][Gamer Nexus]]
-*** [[https://yewtu.be/feed/channel/UCv6J_jJa8GJqFwQNgNrMuww][Serve The Home]]
-*** [[https://yewtu.be/feed/channel/UCHkYOD-3fZbuGhwsADBd9ZQ][Lawrence Systems]]
-*** [[https://yewtu.be/feed/channel/UCXuqSBlHAE6Xw-yeJA0Tunw][Linus Tech Tips]]
-# *** [[https://yewtu.be/feed/channel/UCO8DQrSp5yEP937qNqTooOw][Strange Parts]]
-# *** [[https://yewtu.be/feed/channel/UCqL9sqfRCcIlqwazHpr9Ohg][Strange Parts Live YT]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UC4w1YQAJMWOz4qtxinq55LQ][Level1Tech]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCbRP3c757lWg9M-U7TyEkXA][Theo - t3.gg]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UChIs72whgZI9w6d6FhwGGHA][Gamer Nexus]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCv6J_jJa8GJqFwQNgNrMuww][Serve The Home]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCHkYOD-3fZbuGhwsADBd9ZQ][Lawrence Systems]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw][Linus Tech Tips]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCgdTVe88YVSrOZ9qKumhULQ][Hardware Haven]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCO8DQrSp5yEP937qNqTooOw][Strange Parts]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCqL9sqfRCcIlqwazHpr9Ohg][Strange Parts Live YT]]
 ** Physics :phy:
-# *** [[https://yewtu.be/feed/channel/UCvBqzzvUBLCs8Y7Axb-jZew][Sixty Symbols]]
-*** [[https://yewtu.be/feed/channel/UCyE9-Zvq3xxWGS5Okf-TWwg][Random Physics]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCvBqzzvUBLCs8Y7Axb-jZew][Sixty Symbols]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCyE9-Zvq3xxWGS5Okf-TWwg][Random Physics]]
 ** Cuisine :csn:
-# *** [[https://yewtu.be/feed/channel/UC8IKIlUPgPZ_NA1jKbsMfXw][Scienza in Cucina]]
-*** [[https://yewtu.be/feed/channel/UCETyhmgxupv93Ix4VnIiQJQ][Italia Squisita]]
-# *** [[https://yewtu.be/feed/channel/UCVjlpEjEY9GpksqbEesJnNA][Uncle Roger]]
-*** [[https://yewtu.be/feed/channel/UCPzFLpOblZEaIx2lpym1l1A][Alex]]
-# *** [[https://yewtu.be/feed/channel/UChBEbMKI1eCcejTtmI32UEw][Joshua Weissman]]
-# *** [[https://yewtu.be/feed/channel/UCnB5HTIi44wDBD56KeT2hNA][Guga]]
-# "https://yewtu.be/feed/channel/UCEfPHqcy3YcsvSMaBl1UhCQ" cuisine;; "~Esther Choi"
-# "https://yewtu.be/feed/channel/UC9TM3Lrth8MQjHrttZJZiEw" cuisine;; "~Adam Liaw"
-# "https://yewtu.be/feed/channel/UChrcDm7u2mF3II4F7idmXiQ" cuisine;; "~Chef Wang Gang"
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UC8IKIlUPgPZ_NA1jKbsMfXw][Scienza in Cucina]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCETyhmgxupv93Ix4VnIiQJQ][Italia Squisita]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCVjlpEjEY9GpksqbEesJnNA][Uncle Roger]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCPzFLpOblZEaIx2lpym1l1A][Alex]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UChBEbMKI1eCcejTtmI32UEw][Joshua Weissman]]
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCnB5HTIi44wDBD56KeT2hNA][Guga]]
+# "https://youtube.com/feeds/videos.xml?channel_id=UCEfPHqcy3YcsvSMaBl1UhCQ" cuisine;; "~Esther Choi"
+# "https://youtube.com/feeds/videos.xml?channel_id=UC9TM3Lrth8MQjHrttZJZiEw" cuisine;; "~Adam Liaw"
+# "https://youtube.com/feeds/videos.xml?channel_id=UChrcDm7u2mF3II4F7idmXiQ" cuisine;; "~Chef Wang Gang"
 ** Science :sci:
-*** [[https://yewtu.be/feed/channel/UCQPnCKNfzKn4OmPrx1KDWvg][EntropyForLife]] :w:
-*** [[https://yewtu.be/feed/channel/UCH-y44M0pvwaZx2rTq0rJoQ][Barbascura]] :w:
-*** [[https://yewtu.be/feed/channel/UCHi6Q3Z-5oJUC691WLlSntA][Barbascura eXtra]] :w:
-*** [[https://yewtu.be/feed/channel/UCEIwxahdLz7bap-VDs9h35A][Steve Mould]]
-# *** [[https://yewtu.be/feed/channel/UCivA7_KLKWo43tFcCkFvydw][Applied Science]] :phy:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCQPnCKNfzKn4OmPrx1KDWvg][EntropyForLife]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCH-y44M0pvwaZx2rTq0rJoQ][Barbascura]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCHi6Q3Z-5oJUC691WLlSntA][Barbascura eXtra]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCEIwxahdLz7bap-VDs9h35A][Steve Mould]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCivA7_KLKWo43tFcCkFvydw][Applied Science]] :phy:
 *** Chemistry :chm:
-**** [[https://yewtu.be/feed/channel/UCU2GHednTIMRg-cIae4KFFA][Chimicazza]] :w:
-**** [[https://yewtu.be/feed/channel/UC1D3yD4wlPMico0dss264XA][NileBlue]] :w:
-**** [[https://yewtu.be/feed/channel/UCFhXFikryT4aFcLkLw2LBLA][NileRed]]
-**** [[https://yewtu.be/feed/channel/UCu6mSoMNzHQiBIOCkHUa2Aw][Cosy's Lab]]
-# **** [[https://yewtu.be/feed/channel/UCJphwa8Wsgzsm1zJS4sm-mA][Dario Bressanini]]
+**** [[https://youtube.com/feeds/videos.xml?channel_id=UCU2GHednTIMRg-cIae4KFFA][Chimicazza]] :w:
+**** [[https://youtube.com/feeds/videos.xml?channel_id=UC1D3yD4wlPMico0dss264XA][NileBlue]] :w:
+**** [[https://youtube.com/feeds/videos.xml?channel_id=UCFhXFikryT4aFcLkLw2LBLA][NileRed]]
+**** [[https://youtube.com/feeds/videos.xml?channel_id=UCu6mSoMNzHQiBIOCkHUa2Aw][Cosy's Lab]]
+**** [[https://youtube.com/feeds/videos.xml?channel_id=UCJphwa8Wsgzsm1zJS4sm-mA][Dario Bressanini]]
 ** Pseudo-Science
-# *** [[https://yewtu.be/feed/channel/UCqYPhGiB9tkShZorfgcL2lA][What I've Learned]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCqYPhGiB9tkShZorfgcL2lA][What I've Learned]]
 ** Music :mus:
-*** [[https://yewtu.be/feed/channel/UCyDZai57BfE_N0SaBkKQyXg][Rob Scallon]]
-*** [[https://yewtu.be/feed/channel/UCjewxGh1Gx5i5Uzxn0v-TPw][The Punk Rock MBA]]
-# *** [[https://yewtu.be/feed/channel/UCSr_y4ax0ZOf4MNrVnZEH5A][Mavrus]] :w:
-# *** [[http://www.ottonepesante.it/?feed=gigpress][Ottone Pesante]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCyDZai57BfE_N0SaBkKQyXg][Rob Scallon]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCjewxGh1Gx5i5Uzxn0v-TPw][The Punk Rock MBA]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCSr_y4ax0ZOf4MNrVnZEH5A][Mavrus]] :w:
+*** [[http://www.ottonepesante.it/?feed=gigpress][Ottone Pesante]]
 ** Cars :Cars:
-*** [[https://yewtu.be/feed/channel/UCx8aikojDTsbC_iS-204Y0w][Angelo Nero]] :w:
-*** [[https://yewtu.be/feed/channel/UCFNLUhl6K-zVILHawerpDDA][Passione Motori]] :w:
-*** [[https://yewtu.be/feed/channel/UCfluW4btXJm3uzJZmLRykGg][Garage 52]] :w:
-*** [[https://yewtu.be/feed/channel/UCnROPoofp1Ds98QNi077aLg][MC Import]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCx8aikojDTsbC_iS-204Y0w][Angelo Nero]] :w:
+# *** [[https://youtube.com/feeds/videos.xml?channel_id=UCFNLUhl6K-zVILHawerpDDA][Passione Motori]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCWx5AD-AiSrCQqXOBgKUwqg][Concret3]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCfluW4btXJm3uzJZmLRykGg][Garage 52]] :w:
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCnROPoofp1Ds98QNi077aLg][MC Import]] :w:
 ** Chill :chill:
-*** [[https://yewtu.be/feed/channel/UClkUhTjFbQbtGfS14h9Vw5g][Martijn Doolaard]]
-*** [[https://yewtu.be/feed/channel/UCqhjRUQGCnX4Y22kR_KD-Yg][Criticoni]]
-*** [[https://twitchrss.appspot.com/vodonly/yotobi][ytb]]
-*** [[https://twitchrss.appspot.com/vodonly/sabaku_no_sutoriimaa][sbk]]
-*** [[https://twitchrss.appspot.com/vodonly/parliamodivg][pdv]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UClkUhTjFbQbtGfS14h9Vw5g][Martijn Doolaard]]
+*** [[https://youtube.com/feeds/videos.xml?channel_id=UCqhjRUQGCnX4Y22kR_KD-Yg][Criticoni]]
+** Hardware :hw:
+*** [[https://pine64.org/blog/index.xml][Pine64 News Blog]]
 ** Software :sw:
+*** [[https://nixos.org/blog/newsletters-rss.xml][NixOS Newsletters]] :w:
+*** [[https://nixos.org/blog/announcements-rss.xml][NixOS Announcements]] :w:
+*** [[https://nixos.org/blog/stories-rss.xml][NixOS Stories]]
 *** [[https://twitchrss.appspot.com/vodonly/somecodingguy][somecodingguy]] :w:
-*** [[https://yewtu.be/feed/channel/UCMnULQ6F6kLDAHxofDWIbrw][Pirate Software]]
 *** [[https://github.com/arkenfox/user.js/releases.atom][arkenfox]] :h:release:
 *** [[https://keepassxc.org/blog/feed.xml][KeePassXC]] :h:
 *** [[https://kodi.tv/rss.xml][Kodi]]

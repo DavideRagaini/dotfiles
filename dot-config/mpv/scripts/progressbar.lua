@@ -283,7 +283,7 @@ inactive to be set to true and the bar height to be set to 1. This should result
 in the desired behavior while avoiding annoying debug logging in mpv (libass
 does not like zero-height objects).
 ]]
-settings['bar-height-active'] = 3
+settings['bar-height-active'] = 6
 helpText['bar-height-active'] = [[Sets the height of the bar display when the mouse is in the active zone or
 request-display is active. There is no logic attached to this, so 0 or negative
 values may have unexpected results.
@@ -323,7 +323,7 @@ zone and there is no request-display active. Useful in combination with bar-
 cache-position to control whether or not the cache bar is occluded by (or
 occludes) the progress bar.
 ]]
-settings['bar-cache-height-active'] = 3
+settings['bar-cache-height-active'] = 6
 helpText['bar-cache-height-active'] = [[Sets the height of the cache bar display when the mouse is in the active zone or
 request-display is active. Useful in combination with bar-cache- position to
 control whether or not the cache bar is occluded by (or occludes) the progress
@@ -483,7 +483,7 @@ helpText['chapter-marker-width'] = [[Controls the width of each chapter marker w
 settings['chapter-marker-width-active'] = 5
 helpText['chapter-marker-width-active'] = [[Controls the width of each chapter marker when the progress bar is active.
 ]]
-settings['chapter-marker-active-height-fraction'] = 1
+settings['chapter-marker-active-height-fraction'] = 6
 helpText['chapter-marker-active-height-fraction'] = [[Modifies the height of the chapter markers when the progress bar is active. Acts
 as a multiplier on the height of the active progress bar. A value greater than 1
 will cause the markers to be taller than the expanded progress bar, whereas a

@@ -29,12 +29,12 @@ local TWITCH_GRAPHQL_URL = 'https://gql.twitch.tv/gql'
 local o = {
     twitch_client_id = 'ue6666qo983tsx6so1t0vnawi233wa',
     -- twitch_client_id='kimne78kx3ncx6brgo4mv6wki5h1ko',
-    show_name = false,
+    show_name = true,
     color = true,
     duration_multiplier = 10,
     max_duration = 10,
-    max_message_length = 40,
-    fetch_aot = 1,
+    max_message_length = 60,
+    fetch_aot = 3,
 }
 
 require('mp.options').read_options(o)
