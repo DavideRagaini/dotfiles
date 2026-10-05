@@ -1,10 +1,7 @@
 theme = "dracula"
 client_id = "65b708073fc0480ea92a077233ca87bd"
 client_port = 9080
-playback_format = """
-{track} • {artists}
-{album}
-{metadata}"""
+playback_format = "{track} • {artists} • {album} • {metadata}"
 tracks_playback_limit = 50
 app_refresh_duration_in_ms = 32
 playback_refresh_duration_in_ms = 0
@@ -12,12 +9,14 @@ page_size_in_rows = 20
 play_icon = "▶"
 pause_icon = "▌▌"
 liked_icon = "♥"
-border_type = "Plain"
+border_type = "Double"
 progress_bar_type = "Rectangle"
-playback_window_position = "Top"
-cover_img_length = 10
-cover_img_width = 10
-cover_img_scale = 2.0
+progress_bar_position = "Bottom"
+playback_window_position = "Bottom"
+cover_img_length = 16
+cover_img_width = 16
+cover_img_scale = 1.0
+pause_on_startup = false
 playback_window_width = 6
 enable_media_control = true
 enable_streaming = "Always"
@@ -27,14 +26,7 @@ default_device = "spotify-player"
 notify_streaming_only = false
 
 [copy_command]
-command = "cclip"
-# args = []
-# [copy_command]
-# command = "xclip"
-# args = [
-#     "-sel",
-#     "c",
-# ]
+command = "wl-copy"
 
 [notify_format]
 summary = "{track} • {artists}"
@@ -43,7 +35,19 @@ body = "{album}"
 [device]
 name = "spotify-player"
 device_type = "computer"
-volume = 75
+volume = 80
 bitrate = 320
 audio_cache = true
 normalization = true
+autoplay = true
+
+[[actions]]
+action = "GoToArtist"
+key_sequence = "g A"
+[[actions]]
+action = "GoToAlbum"
+key_sequence = "g B"
+target = "PlayingTrack"
+[[actions]]
+action="ToggleLiked"
+key_sequence="C-l"

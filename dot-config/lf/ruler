@@ -1,0 +1,47 @@
+{{$color := 44 -}}
+{{if eq .Mode "VISUAL" -}}
+  {{$color = 45 -}}
+{{end -}}
+{{printf "\033[30;%dm %s" $color .Mode}}
+
+{{with .Message -}}
+    {{. | printf " \033[0m %s" -}}
+{{else with .Stat -}}
+    {{.Name | printf " \033[37;40m %s " -}}
+    {{with .Target}} -> {{.}}{{end -}}
+{{end -}}
+
+{{.SPACER -}}
+
+{{with .Stat -}}
+    {{printf "\033[34m%s" (substr .Permissions 0 1) -}}
+    {{printf "\033[33m%s" (substr .Permissions 1 1) -}}
+    {{printf "\033[31m%s" (substr .Permissions 2 1) -}}
+    {{printf "\033[32m%s" (substr .Permissions 3 1) -}}
+    {{printf "\033[33m%s" (substr .Permissions 4 1) -}}
+    {{printf "\033[31m%s" (substr .Permissions 5 1) -}}
+    {{printf "\033[32m%s" (substr .Permissions 6 1) -}}
+    {{printf "\033[33m%s" (substr .Permissions 7 1) -}}
+    {{printf "\033[31m%s" (substr .Permissions 8 1) -}}
+    {{printf "\033[32m%s" (substr .Permissions 9 1) -}}
+    {{printf "\033[0m"}}
+    {{.Size | humanize | printf "\033[34;40m %5s" -}}
+    {{.ModTime | printf " \033[37;40m %s" -}}
+    {{.Extension | printf "\033[37;40m %s " -}}
+{{end -}}
+
+{{with .Keys}} {{.}} {{end -}}
+{{with .Progress}} {{join . " " | printf " 󰪹 %s"}}{{end -}}
+{{with .Copy}} {{len . | printf "%s %d 󰆏  \033[0m" $.Options.copyfmt}}{{end -}}
+{{with .Cut}} {{len . | printf "%s %d 󰆐  \033[0m" $.Options.cutfmt}}{{end -}}
+{{with .Select}} {{len . | printf "%s %d 󰒉  \033[0m" $.Options.selectfmt}}{{end -}}
+{{with .Visual}} {{len . | printf "%s %d \033[0m" $.Options.visualfmt}}{{end -}}
+{{with .Filter}} {{join . " " | printf "\033[7;34m 󰈲 %s \033[0m"}}{{end -}}
+
+{{.ScrollPercentage | printf "\033[34;100m %s " -}}
+
+{{$color := 44 -}}
+{{if eq .Mode "VISUAL" -}}
+  {{$color = 45 -}}
+{{end -}}
+{{printf "\033[30;%dm %d/%d " $color .Index .Total}}

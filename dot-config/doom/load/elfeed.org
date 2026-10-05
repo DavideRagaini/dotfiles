@@ -9,6 +9,20 @@
 ** Blogs :blogs:
 *** [[https://simonwillison.net/series/using-llms.atom][Simon Willison Using LLMs]]
 *** [[https://www.gingerbill.org/article/index.xml][GingerBill]]
+# *** [[https://www.ansa.it/canale_tecnologia/notizie/tecnologia_rss.xml][Ansa Tecnologia]]
+# *** [[https://www.ansa.it/sito/notizie/economia/economia_rss.xml][Ansa Economia]]
+*** https://feeds.feedburner.com/ThePragmaticEngineer
+*** https://browser.engineering/rss.xml
+*** https://eieio.games/feed.xml
+*** [[https://www.acn.gov.it/portale/feedrss/-/journal/rss/20119/723192][ACN]]
+** Fortinet :work:
+*** https://feeds.fortinet.com/fortinet/press-releases
+*** https://feeds.fortinet.com/fortinet/customers
+*** https://feeds.fortinet.com/fortinet/blog/threat-research
+*** https://feeds.fortinet.com/fortinet/blog/business-and-technology
+*** https://feeds.fortinet.com/fortinet/blog/industry-trends
+*** https://pub.kb.fortinet.com/rss/firmware.xml
+
 # *** https://xeiaso.net/blog.rss :cs:
 # *** https://opensource.com/taxonomy/term/6803/feed :lnx:
 # *** https://www.topbug.net/blog/category/unix-variants/gnu-lnx/feed/ :lnx:
@@ -86,6 +100,7 @@
 *** [[https://youtube.com/feeds/videos.xml?channel_id=UCafxR2HWJRmMfSdyZXvZMTw][LOOK MOM NO COMPUTER]] :mus:
 *** [[https://youtube.com/feeds/videos.xml?channel_id=UC2OYnh5nKWUnzj5D1Xt9Kdw][Sayaka]]
 ** Computer Science :cs:
+*** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCaTznQhurW5AaiYPbhEA-KA][Casey Muratori]]
 *** [[https://youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA][Computerphile]]
 *** [[https://youtube.com/feeds/videos.xml?channel_id=UC6biysICWOJ-C3P4Tyeggzg][Low Level]] :w:
 *** [[https://youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw][ThePrimeagen]] :w:
@@ -174,3 +189,4 @@
 # https://github.com/LukeSmithxyz/voidrice/commits.atom
 
 # http://export.arxiv.org/api/query?search_query=cat:cs.CL&start=0&max_results=100&sortBy=submittedDate&sortOrder=descending
+<link rel="alternate" type="application/rss+xml" title="RSS" href="LINK">

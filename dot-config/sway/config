@@ -47,13 +47,6 @@ for_window {
     [workspace=19] layout tabbed
     [workspace=20] layout tabbed
 }
-
-exec_always {
-    autotiling -l 2 -w \
-        1 2 5 \ # Main
-        11 12 13 14 \ #
-        21 22 23 24 # eDP
-}
 # }}}
 # ======================= Window Rules ======================= {{{
 for_window {
@@ -93,6 +86,7 @@ for_window {
     [title="^Opening .*" app_id="org.mozilla.firefox"] floating enable, move workspace current, urgent enable, move position center
     [title="."] title_format "<b>%title</b> (%app_id)"
     [shell="xwayland"] title_format "[XWayland] %title"
+    [title="flameshot"] floating enable
 #     [shell=".*"] title_format "%title :: %shell"
 #     [app_id="mpv"] fullscreen enable
 }
@@ -105,20 +99,21 @@ assign {
     [title="Email"]                    workspace 18
     [title="ORG"]                      workspace 0
 
+
     [class="Ferdium"]                  workspace 19
     [class="sioyek"]                   workspace 16
     [class="term-emacsclient"]         workspace 1
     [class="xfreerdp"]                 workspace 6
 
     [app_id="com.github.wwmm.easyeffects"] workspace 7
-    [app_id="baseterm"]                workspace 10
+    [app_id="baseterm"]                workspace 20
     [app_id="brave-mdhklhaglcijaohkkndgcmnphmnnfkdk-Default"] workspace 20
-    [app_id="brave|librewolf"]         workspace 3
+    [app_id="librewolf"]               workspace 3
     [app_id="chromium"]                workspace 13
     [app_id="code"]                    workspace 17
     [app_id="emacs[client]?"]          workspace 2
     [app_id="ferdium"]                 workspace 19
-    [app_id="firefox|qutebrowser"]     workspace 1
+    [app_id="brave|firefox|qutebrowser"]     workspace 1
     [app_id="libreoffice*"]            workspace 4
     [app_id="mpv"]                     workspace 9
     [app_id="org.pwmt.zathura"]        workspace 16
@@ -197,7 +192,7 @@ input type:touchpad {
 }
 
 seat {
-    seat0 xcursor_theme Breeze_Purple 16
+    seat0 xcursor_theme "catppuccin-macchiato-dark-cursors" 16
     seat0 hide_cursor 5000
     seat0 hide_cursor when-typing enable
 }
@@ -209,17 +204,24 @@ bindswitch {
 }
 # }}}
 # ======================= Autostart ======================= {{{
+exec_always {
+    autotiling \
+        --splitratio "1.61" \
+        --workspace \
+        1 2 5 \ # Main
+        11 12 13 14 \ # Secondary
+        17 19 \ # Vert
+        21 22 23 24 # eDP
+
+    kanshictl reload
+}
+
 exec {
     mem-warn -t 6 -i 90 &
     wl-paste --watch cliphist store &
     foot --server &
     # track_prev_focus
     wlsunset -t 2400 -T 6500 -S 06:30 -s 20:00 -d 1800 &
-
-    emacsclient -e '(doom/quickload-session t)' -c &
-    firefox &
-    footclient -a code -e tmux new-session -A -s code opencode &
-    footclient -a code -e tmux new-session -A -s  zsh &
 
     # swayidle -w \
     #          timeout 290 'swaymsg "output * dpms off"' \
@@ -231,7 +233,12 @@ exec {
     swayidle -w \
         timeout 290 'sway-power-outputs off"' resume 'sway-power-outputs on"' \
         timeout 300 'swaylock -f -c 000000' before-sleep 'swaylock -f' \
-        timeout 1800 'systemctl suspend-then-hibernate' before-sleep 'swaylock -f'
+        timeout 1800 'systemctl suspend-then-hibernate' before-sleep 'swaylock -f' &
+
+    sleep 10
+    footclient -a code -e tmux new-session -A -s code opencode &
+    footclient -a base -e tmux new-session -A -s zsh &
+    emacsclient -e '(doom/quickload-session t)' -c &
 }
 # }}}
 

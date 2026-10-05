@@ -15,6 +15,7 @@ source ~/.config/lf/sixel.conf
 # source ~/.config/lf/ueberzug.conf
 set cleaner ~/.config/lf/clear_img.sh
 # source ~/.config/lf/shortcuts
+set rulerfile ~/.config/lf/ruler
 set incsearch
 set incfilter
 
@@ -466,7 +467,7 @@ cmd compressvideo ${{
 map bv compressvideo "$fx"
 
 cmd on-select &{{
-    lf -remote "send $id set statfmt \"$(exa -ldg --color=always "$f")\""
+    lf -remote "send $id set user_statfmt \"$(eza -ld --color=always "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
 }}
 
 cmd follow_link %{{

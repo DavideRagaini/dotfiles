@@ -1,6 +1,24 @@
-"" ========== Settings ========== {{{
 sanitise tridactyllocal tridactylsync
 
+bind --mode=ex <Escape> echo ESC-ARRIVED
+bind --mode=ex <C-A-[> echo CA-ARRIVED
+"" ========== Testing ========== {{{
+# source ~/.config/tridactyl/testing
+source ~/.config/tridactyl/quickmarks
+
+command rss js let l = document.querySelector('link[type="application/rss+xml"]'); if (l) tri.excmds.yank(l.href); else throw "No RSS link found"
+bind ;r rss
+
+set allowautofocus false
+setmode ignore allowautofocus true
+seturl https://*.cloud.cambiumnetworks.com/* allowautofocus true
+
+set editorcmd emacsclient -c "+%l:%c" "%f"
+
+alias rsssave jsb -p tri.native.run('cat >> ~/.config/doom/load/elfeed.org/',"** " + JS_ARG + "\n")
+set rsscmd rsssave %u
+"" }}}
+"" ========== Settings ========== {{{
 set allowautofocus false
 set smoothscroll false
 set modeindicatorshowkeys true
@@ -67,6 +85,8 @@ bind x tabclose
 set searchengine https://www.startpage.com/do/search?cat=web&language=english&lui=english&t=device&qadf=none&qsr=all&query=%s
 
 set searchurls.@r https://dma.inoltre.it/radiusmanager/admin.php?cont=edit_user&username=%s
+set searchurls.@frr file:///home/davide/.config/extBrw/redirect-html/4443-redirect.html#%s
+set searchurls.@tpr file:///home/davide/.config/extBrw/redirect-html/1750-redirect.html#%s
 
 set searchurls.@g https://www.google.com/search?q=%s
 set searchurls.@d https://duckduckgo.com/?t=hd&va=u&q=%s
@@ -78,6 +98,9 @@ set searchurls.@az https://www.amazon.it/s/?field-keywords=%s
 set searchurls.@np https://search.nixos.org/packages?from=0&size=50&sort=relevance&type=packages&query=%s
 set searchurls.@no https://search.nixos.org/options?from=0&size=50&sort=relevance&type=packages&query=%s
 set searchurls.@nw https://nixos.wiki/index.php?title=Special:Search&search=%s
+
+set searchurls.@hp https://searchix.ovh/?query=%s
+set searchurls.@ho https://search.nixos.org/options?source=home_manager&query=%s
 
 set searchurls.@gs https://scholar.google.com/scholar?q=%s
 

@@ -1,0 +1,8 @@
+
+bind \? tabopen about:about
+bind \, tabopen about:preferences
+bind \. tabopen about:config
+bind \a tabopen about:addons
+bind \D tabopen about:downloads
+bind \H tabopen about:history
+bind \z jsb tri.native.run("ip route | awk '/default/ {print $3}'").then(result => tri.excmds.tabopen(result.content))

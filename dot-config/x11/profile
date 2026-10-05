@@ -3,7 +3,7 @@
 export BROWSER="firefox"
 export BROWSER2="qutebrowser"
 export BROWSER_PRIVATE="firefox --private-window"
-export EDITOR="nvim"
+export EDITOR="emacsclient -nw"
 export FILE="lf"
 export READER="zathura"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -216,7 +216,7 @@ start_sway() {
   export XKB_DEFAULT_LAYOUT=us
   export XKB_DEFAULT_VARIANT=altgr-intl
   # export XKB_DEFAULT_OPTIONS=compose:menu,level3:ralt_switch
-  XDG_CURRENT_DESKTOP=sway dbus-run-session sway -V > "$HOME/.sway-log" 2>&1
+  XDG_CURRENT_DESKTOP=sway dbus-run-session sway -V > "$HOME/.local/logs/sway/$(date '+%F_%T').log" 2>&1
 }
 
 case "$HOSTNAME" in
@@ -235,8 +235,8 @@ case "$HOSTNAME" in
         export MPD_HOST="/run/user/1000/mpd/socket"
         export MPD_HOST="${XDG_RUNTIME_DIR}/mpd/socket"
 
-        export XCURSOR_SIZE=64
-        export XCURSOR_THEME=Catppuccin-Macchiato-Dark-Cursors
+        # export XCURSOR_SIZE=64
+        # export XCURSOR_THEME=Catppuccin-Macchiato-Dark-Cursors
 
         highdpi &&
         check_startup &&

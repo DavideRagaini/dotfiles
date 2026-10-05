@@ -1,2 +1,2 @@
 --target=~/.config
---ignore=.stowrc
+--ignore=dunst|gtk-3.0|mimeapps.list|ncmpcpp|spotify-player|udiskie
